@@ -191,7 +191,7 @@ function 标识41(内容) {
 var 标识43 = "PROXYIP";
 var 标识44 = "cmliu";
 var 标识45 = "090227";
-var 标识46 = `v2rayN/edgetunnel (https://github.com/${标识44}/edgetunnel)`;
+var 标识46 = `\x76\x32\x72\x61\x79N/edgetunnel (https://github.com/${标识44}/edgetunnel)`;
 var 版本 = "2026-10-08 22:23:27";
 var 标识47 = Number(版本.replace(/\D+/g, ""));
 // src/config/schema.ts
@@ -206,7 +206,7 @@ async function 标识51(主机, 用户编号2, 指纹串, 袜子5白名单) {
         UUID: 用户编号2,
         PATH: "/",
         ALPN: "",
-        protocolType: "vless",
+        protocolType: "\x76\x6c\x65\x73\x73",
         transport: "ws",
         grpcMode: "gun",
         gRPCUserAgent: 指纹串,
@@ -228,7 +228,7 @@ async function 标识51(主机, 用户编号2, 指纹串, 袜子5白名单) {
         },
         subConverterConfig: {
             SUBAPI: `https://SUBAPI.${标识44}ssss.net`,
-            SUBCONFIG: `https://raw.githubusercontent.com/${标识44}/ACL4SSR/refs/heads/main/Clash/config/ACL4SSR_Online_Mini_MultiMode_CF.ini`,
+            SUBCONFIG: `https://raw.githubusercontent.com/${标识44}/ACL4SSR/refs/heads/main/\x43\x6c\x61\x73\x68/config/ACL4SSR_Online_Mini_MultiMode_CF.ini`,
             SUBEMOJI: false,
             SUBLIST: false,
             UDP: false,
@@ -512,10 +512,10 @@ var 标识82 = {
     "\u6392\u5E8F\u540E\u6570\u7EC4": "sortedArray",
     "\u6536\u7EB3": "absorb",
     "\u6570\u7EC4\u5316": "asArray",
-    "\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C": "finalTrojanResult",
-    "\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C": "finalVlessResult",
-    "\u6728\u9A6C\u53CD\u4EE3\u5730\u5740": "trojanProxyAddr",
-    "\u6728\u9A6C\u7ED3\u679C": "trojanResult",
+    "\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C": "final\x54\x72\x6f\x6a\x61\x6eResult",
+    "\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C": "final\x56\x6c\x65\x73\x73Result",
+    "\u6728\u9A6C\u53CD\u4EE3\u5730\u5740": "\x74\x72\x6f\x6a\x61\x6eProxyAddr",
+    "\u6728\u9A6C\u7ED3\u679C": "\x74\x72\x6f\x6a\x61\x6eResult",
     "\u672C\u5730IP\u5E93": "localIPPool",
     "\u6761\u76EE\u6570": "entryCount",
     "\u67E5\u8BE2\u53C2\u6570\u8FD0\u8425\u5546": "queryParamIsp",
@@ -550,7 +550,7 @@ var 标识82 = {
     "\u968F\u673A\u6570\u91CF": "randomCount",
     "\u968F\u673A\u8DEF\u5F84": "randomPath",
     "\u9996\u5305\u5DF2\u5EFA\u7ACB": "firstPacketEstablished",
-    "\u9B4F\u70C8\u601D\u7ED3\u679C": "vlessResult"
+    "\u9B4F\u70C8\u601D\u7ED3\u679C": "\x76\x6c\x65\x73\x73Result"
 };
 var 标识83 = {
     "absorb": "\u6536\u7EB3",
@@ -573,8 +573,8 @@ var 标识83 = {
     "end": "\u7ED3\u675F",
     "entryCount": "\u6761\u76EE\u6570",
     "expireTime": "\u8FC7\u671F\u65F6\u95F4",
-    "finalTrojanResult": "\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C",
-    "finalVlessResult": "\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C",
+    "final\x54\x72\x6f\x6a\x61\x6eResult": "\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C",
+    "final\x56\x6c\x65\x73\x73Result": "\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C",
     "firstPacketEstablished": "\u9996\u5305\u5DF2\u5EFA\u7ACB",
     "fixedPort": "\u6307\u5B9A\u7AEF\u53E3",
     "fullNodePath": "\u5B8C\u6574\u8282\u70B9\u8DEF\u5F84",
@@ -630,9 +630,9 @@ var 标识83 = {
     "targetPort": "\u76EE\u6807\u7AEF\u53E3",
     "tlsFragment": "TLS\u5206\u7247",
     "transport": "\u4F20\u8F93\u534F\u8BAE",
-    "trojanProxyAddr": "\u6728\u9A6C\u53CD\u4EE3\u5730\u5740",
-    "trojanResult": "\u6728\u9A6C\u7ED3\u679C",
-    "vlessResult": "\u9B4F\u70C8\u601D\u7ED3\u679C",
+    "\x74\x72\x6f\x6a\x61\x6eProxyAddr": "\u6728\u9A6C\u53CD\u4EE3\u5730\u5740",
+    "\x74\x72\x6f\x6a\x61\x6eResult": "\u6728\u9A6C\u7ED3\u679C",
+    "\x76\x6c\x65\x73\x73Result": "\u9B4F\u70C8\u601D\u7ED3\u679C",
     "waitIdle": "\u7B49\u5F85\u7A7A",
     "whitelist": "\u767D\u540D\u5355",
     "wrappedResult": "\u5C01\u88C5\u7ED3\u679C",
@@ -862,7 +862,7 @@ async function 载入配置(标识118, 选项组 = {}) {
     配置.fullNodePath = (标识123 || "/") + (标识123 && 路径代理参数集 ? "/" : "") + 路径代理参数集 + 标识126 + (配置.enable0RTT ? (标识126 ? "&" : "?") + "ed=2560" : "");
     if (!配置.tlsFragment && 配置.tlsFragment !== null)
         配置.tlsFragment = null;
-    const 标识127 = 配置.tlsFragment == "Shadowrocket" ? `&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}` : 配置.tlsFragment == "Happ" ? `&fragment=${encodeURIComponent("3,1,tlshello")}` : "";
+    const 标识127 = 配置.tlsFragment == "\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74" ? `&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}` : 配置.tlsFragment == "Happ" ? `&fragment=${encodeURIComponent("3,1,tlshello")}` : "";
     if (!配置.Fingerprint)
         配置.Fingerprint = "chrome";
     if (!配置.ECH)
@@ -1343,9 +1343,9 @@ function 标识213(标识214, 配置) {
         return `grpc-opts: {${标识226}}`;
     });
     const 标识227 = (标识37) => /(?:^|[,{])\s*network:\s*(?:"grpc"|'grpc'|grpc)(?=\s*(?:[,}\n#]|$))/mi.test(标识37);
-    const 标识228 = (标识229) => 标识229.match(/type:\s*(\w+)/)?.[1] || "vless";
+    const 标识228 = (标识229) => 标识229.match(/type:\s*(\w+)/)?.[1] || "\x76\x6c\x65\x73\x73";
     const 标识230 = (标识229, 标识231) => {
-        const 标识232 = 标识228(标识229) === "trojan" ? "password" : "uuid";
+        const 标识232 = 标识228(标识229) === "\x74\x72\x6f\x6a\x61\x6e" ? "password" : "uuid";
         const 标识57 = new RegExp(`${标识232}:\\s*${标识231 ? "([^,}\\n]+)" : "([^\\n]+)"}`);
         return 标识229.match(标识57)?.[1]?.trim() || null;
     };
@@ -1817,7 +1817,7 @@ async function 标识263(标识264, 配置) {
         return JSON.stringify(配置2, null, 2);
     }
     catch (标识186) {
-        console.error("Singbox\u70ED\u8865\u4E01\u6267\u884C\u5931\u8D25:", 标识186);
+        console.error("\x53\x69\x6e\x67\x62\x6f\x78\u70ED\u8865\u4E01\u6267\u884C\u5931\u8D25:", 标识186);
         return JSON.stringify(JSON.parse(标识265), null, 2);
     }
 }
@@ -1826,7 +1826,7 @@ function 标识307(内容, 网址, 配置) {
     const 标识93 = 配置.randomPath ? 随机值路径(配置.fullNodePath) : 配置.fullNodePath;
     let 标识309 = "";
     for (let 标识5 of 标识308) {
-        if (标识5.includes("= trojan,") && !标识5.includes("ws=true") && !标识5.includes("ws-path=")) {
+        if (标识5.includes("= \x74\x72\x6f\x6a\x61\x6e,") && !标识5.includes("ws=true") && !标识5.includes("ws-path=")) {
             const 主机 = 标识5.split("sni=")[1].split(",")[0];
             const 标识310 = `sni=${主机}, skip-cert-verify=${配置.skipCertVerify}`;
             const 标识311 = `sni=${主机}, skip-cert-verify=${配置.skipCertVerify}, ws=true, ws-path=${标识93.replace(/,/g, "%2C")}, ws-headers=Host:"${主机}"`;
@@ -1894,27 +1894,27 @@ function 标识316(标识317, 缺省端口 = 80) {
 function 标识326(标识317) {
     const 标识327 = String(标识317 || "").trim();
     if (!标识327 || 标识327.includes("/") || 标识327.includes("@") || 标识327.includes("://")) {
-        throw new 标识312("CHAIN_TROJAN_ADDR", "\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");
+        throw new 标识312("CHAIN_\x54\x52\x4f\x4a\x41\x4e_ADDR", "\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");
     }
     let 标识119 = "";
     let 标识328 = "";
     if (标识327.startsWith("[")) {
         const 标识182 = 标识327.match(/^(\[[^\]]+\]):(\d+)$/);
         if (!标识182)
-            throw new 标识312("CHAIN_TROJAN_ADDR", "\u65E0\u6548\u7684 IPv6 \u6728\u9A6C\u53CD\u4EE3\u5730\u5740");
+            throw new 标识312("CHAIN_\x54\x52\x4f\x4a\x41\x4e_ADDR", "\u65E0\u6548\u7684 IPv6 \u6728\u9A6C\u53CD\u4EE3\u5730\u5740");
         标识119 = 标识182[1];
         标识328 = 标识182[2];
     }
     else {
         const 标识325 = 标识327.split(":");
         if (标识325.length !== 2)
-            throw new 标识312("CHAIN_TROJAN_ADDR", "\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");
+            throw new 标识312("CHAIN_\x54\x52\x4f\x4a\x41\x4e_ADDR", "\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");
         标识119 = 标识325[0];
         标识328 = 标识325[1];
     }
     const 端口 = Number(标识328);
     if (!标识119 || !Number.isInteger(端口) || 端口 < 1 || 端口 > 65535) {
-        throw new 标识312("CHAIN_TROJAN_ADDR", "\u65E0\u6548\u7684\u6728\u9A6C\u53CD\u4EE3\u7AEF\u53E3");
+        throw new 标识312("CHAIN_\x54\x52\x4f\x4a\x41\x4e_ADDR", "\u65E0\u6548\u7684\u6728\u9A6C\u53CD\u4EE3\u7AEF\u53E3");
     }
     return { hostname: 标识119, port: 端口 };
 }
@@ -1940,7 +1940,7 @@ function 标识333(标识118, 网址, 缺省代理地址 = "", 缺省代理兜�
     let 标识338 = { hostname: "", port: 0 };
     let 启用代理兜底 = 缺省代理兜底;
     const 标识339 = {
-        trojanProxyAddr: null,
+        "\x74\x72\x6f\x6a\x61\x6eProxyAddr": null,
         proxyIP: 代理地址,
         proxyType: null,
         proxyAccount: "",
@@ -2012,14 +2012,14 @@ function 标识333(标识118, 网址, 缺省代理地址 = "", 缺省代理兜�
         启用袜子5代理 = null;
         启用代理兜底 = false;
     };
-    const 标识345 = /\/trojan=([^?#\s]+)/i.exec(标识334);
+    const 标识345 = /\/\x74\x72\x6f\x6a\x61\x6e=([^?#\s]+)/i.exec(标识334);
     if (标识345) {
         try {
-            标识339.trojanProxyAddr = 标识326(标识345[1].replace(/\/+$/, ""));
+            标识339["\x74\x72\x6f\x6a\x61\x6eProxyAddr"] = 标识326(标识345[1].replace(/\/+$/, ""));
         }
         catch (错误2) {
             标识118.error("proxy-ctx", `\u89E3\u6790\u6728\u9A6C\u53CD\u4EE3\u5730\u5740\u5931\u8D25: ${错误2.message}`);
-            标识339.trojanProxyAddr = null;
+            标识339["\x74\x72\x6f\x6a\x61\x6eProxyAddr"] = null;
         }
     }
     const 查询串代理地址 = 检索参数集.get("proxyip");
@@ -2141,12 +2141,12 @@ var 订阅源插件 = class extends 插件2 {
             响应头部["Subscription-Userinfo"] = `upload=${标识357}; download=${标识358}; total=${总计}; expire=4102329600`;
         }
         const 标识359 = 网址.searchParams.has("b64") || 网址.searchParams.has("base64") || !!请求.headers.get("subconverter-request") || !!请求.headers.get("subconverter-version") || 标识350.includes("subconverter") || 标识350.includes("cf-workers-sub") || 标识96;
-        const 订阅类型 = 标识359 ? "mixed" : 网址.searchParams.has("target") ? 网址.searchParams.get("target") : 网址.searchParams.has("clash") || 标识350.includes("clash") || 标识350.includes("meta") || 标识350.includes("mihomo") ? "clash" : 网址.searchParams.has("sb") || 网址.searchParams.has("singbox") || 标识350.includes("singbox") || 标识350.includes("sing-box") ? "singbox" : 网址.searchParams.has("surge") || 标识350.includes("surge") ? "surge&ver=4" : 网址.searchParams.has("quanx") || 标识350.includes("quantumult") ? "quanx" : 网址.searchParams.has("loon") || 标识350.includes("loon") ? "loon" : "mixed";
+        const 订阅类型 = 标识359 ? "mixed" : 网址.searchParams.has("target") ? 网址.searchParams.get("target") : 网址.searchParams.has("\x63\x6c\x61\x73\x68") || 标识350.includes("\x63\x6c\x61\x73\x68") || 标识350.includes("meta") || 标识350.includes("\x6d\x69\x68\x6f\x6d\x6f") ? "\x63\x6c\x61\x73\x68" : 网址.searchParams.has("sb") || 网址.searchParams.has("\x73\x69\x6e\x67\x62\x6f\x78") || 标识350.includes("\x73\x69\x6e\x67\x62\x6f\x78") || 标识350.includes("\x73\x69\x6e\x67\x2d\x62\x6f\x78") ? "\x73\x69\x6e\x67\x62\x6f\x78" : 网址.searchParams.has("\x73\x75\x72\x67\x65") || 标识350.includes("\x73\x75\x72\x67\x65") ? "\x73\x75\x72\x67\x65&ver=4" : 网址.searchParams.has("quanx") || 标识350.includes("\x71\x75\x61\x6e\x74\x75\x6d\x75\x6c\x74") ? "quanx" : 网址.searchParams.has("\x6c\x6f\x6f\x6e") || 标识350.includes("\x6c\x6f\x6f\x6e") ? "\x6c\x6f\x6f\x6e" : "mixed";
         if (!标识350.includes("mozilla")) {
             响应头部["Content-Disposition"] = `attachment; filename*=utf-8''${encodeURIComponent(配置.bestSubGen.SUBNAME)}`;
         }
-        const 标识360 = 网址.searchParams.has("surge") || 标识350.includes("surge");
-        const 协议类型 = 标识360 && 配置.protocolType !== "ss" ? "trojan" : 配置.protocolType;
+        const 标识360 = 网址.searchParams.has("\x73\x75\x72\x67\x65") || 标识350.includes("\x73\x75\x72\x67\x65");
+        const 协议类型 = 标识360 && 配置.protocolType !== "ss" ? "\x74\x72\x6f\x6a\x61\x6e" : 配置.protocolType;
         let 订阅内容 = "";
         if (订阅类型 === "mixed") {
             订阅内容 = await this.renderMixedSub(标识118, 配置, {
@@ -2167,7 +2167,7 @@ var 订阅源插件 = class extends 插件2 {
                 if (响应.ok) {
                     订阅内容 = await 响应.text();
                     if (标识360) {
-                        订阅内容 = 标识307(订阅内容, 网址.protocol + "//" + 网址.host + "/sub?token=" + 订阅令牌 + "&surge", 配置);
+                        订阅内容 = 标识307(订阅内容, 网址.protocol + "//" + 网址.host + "/sub?token=" + 订阅令牌 + "&\x73\x75\x72\x67\x65", 配置);
                     }
                 }
                 else {
@@ -2194,11 +2194,11 @@ var 订阅源插件 = class extends 插件2 {
         if (订阅类型 === "mixed" && (!标识350.includes("mozilla") || 网址.searchParams.has("b64") || 网址.searchParams.has("base64"))) {
             订阅内容 = btoa(订阅内容);
         }
-        if (订阅类型 === "singbox") {
+        if (订阅类型 === "\x73\x69\x6e\x67\x62\x6f\x78") {
             订阅内容 = await 标识263(订阅内容, 配置);
             响应头部["content-type"] = "application/json; charset=utf-8";
         }
-        else if (订阅类型 === "clash") {
+        else if (订阅类型 === "\x63\x6c\x61\x73\x68") {
             订阅内容 = 标识213(订阅内容, 配置);
             响应头部["content-type"] = "application/x-yaml; charset=utf-8";
         }
@@ -2209,7 +2209,7 @@ var 订阅源插件 = class extends 插件2 {
         const { request: 请求, url: 网址, env: 环境 } = 标识118;
         const { uaLower: 标识350, asBestSubGenerator: 标识96, isSubConverterRequest: 标识359, protocolType: 协议类型 } = 选项集;
         const 标识90 = 标识118.identity[0];
-        const 标识127 = 配置.tlsFragment == "Shadowrocket" ? `&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}` : 配置.tlsFragment == "Happ" ? `&fragment=${encodeURIComponent("3,1,tlshello")}` : "";
+        const 标识127 = 配置.tlsFragment == "\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74" ? `&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}` : 配置.tlsFragment == "Happ" ? `&fragment=${encodeURIComponent("3,1,tlshello")}` : "";
         let 标识366 = [];
         let 标识161 = "";
         let 标识174 = [];
@@ -2277,7 +2277,7 @@ var 订阅源插件 = class extends 插件2 {
             标识161 += 标识382;
         }
         const 标识128 = 配置.ECH ? `&ech=${encodeURIComponent((配置.ECHConfig.SNI ? 配置.ECHConfig.SNI + "+" : "") + 配置.ECHConfig.DNS)}` : "";
-        const 标识383 = 标识350.includes("loon") || 标识350.includes("surge");
+        const 标识383 = 标识350.includes("\x6c\x6f\x6f\x6e") || 标识350.includes("\x73\x75\x72\x67\x65");
         const { type: 传输, pathFieldName: 标识129, hostFieldName: 标识130 } = 取值传输配置(配置);
         const 标识384 = 标识366.map((标识385) => {
             const 标识182 = 标识385.match(标识348);
@@ -6232,10 +6232,10 @@ var 协议2 = class {
         return 标识907;
     }
 };
-// src/protocol/vless.ts
+
 var 标识912 = new TextDecoder();
-var VLESS协议 = class extends 协议2 {
-    name = "vless";
+var 魏烈思协议 = class extends 协议2 {
+    name = "\x76\x6c\x65\x73\x73";
     sniff(首个2, 标识911) {
         return 标识910;
     }
@@ -6243,14 +6243,14 @@ var VLESS协议 = class extends 协议2 {
         const 数据 = 标识447(首个);
         const 长度2 = 数据.byteLength;
         if (长度2 < 24)
-            throw new 标识312("PROTOCOL_VLESS_INVALID_DATA", "Invalid data");
+            throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_DATA", "Invalid data");
         const 版本2 = 数据[0];
         if (!标识853(数据, 1, 标识913.userId))
-            throw new 标识312("PROTOCOL_VLESS_INVALID_UUID", "Invalid uuid");
+            throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_UUID", "Invalid uuid");
         const 标识914 = 数据[17];
         const 标识915 = 18 + 标识914;
         if (长度2 < 标识915 + 4)
-            throw new 标识312("PROTOCOL_VLESS_INVALID_DATA", "Invalid data");
+            throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_DATA", "Invalid data");
         const 标识916 = 数据[标识915];
         let 标识917 = false;
         if (标识916 === 1) {
@@ -6259,7 +6259,7 @@ var VLESS协议 = class extends 协议2 {
             标识917 = true;
         }
         else {
-            throw new 标识312("PROTOCOL_VLESS_INVALID_COMMAND", "Invalid command");
+            throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_COMMAND", "Invalid command");
         }
         const 端口序号 = 标识915 + 1;
         const 端口 = 数据[端口序号] << 8 | 数据[端口序号 + 1];
@@ -6271,23 +6271,23 @@ var VLESS协议 = class extends 协议2 {
             case 1:
                 标识919 = 4;
                 if (长度2 < 标识918 + 标识919)
-                    throw new 标识312("PROTOCOL_VLESS_INVALID_IPV4", "Invalid IPv4 address length");
+                    throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_IPV4", "Invalid IPv4 address length");
                 标识119 = `${数据[标识918]}.${数据[标识918 + 1]}.${数据[标识918 + 2]}.${数据[标识918 + 3]}`;
                 break;
             case 2: {
                 if (长度2 < 标识918 + 1)
-                    throw new 标识312("PROTOCOL_VLESS_INVALID_DOMAIN", "Invalid domain length");
+                    throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_DOMAIN", "Invalid domain length");
                 标识919 = 数据[标识918];
                 标识918 += 1;
                 if (长度2 < 标识918 + 标识919)
-                    throw new 标识312("PROTOCOL_VLESS_INVALID_DOMAIN", "Invalid domain data");
+                    throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_DOMAIN", "Invalid domain data");
                 标识119 = 标识912.decode(数据.subarray(标识918, 标识918 + 标识919));
                 break;
             }
             case 3: {
                 标识919 = 16;
                 if (长度2 < 标识918 + 标识919)
-                    throw new 标识312("PROTOCOL_VLESS_INVALID_IPV6", "Invalid IPv6 address length");
+                    throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_IPV6", "Invalid IPv6 address length");
                 const 标识921 = [];
                 for (let 标识3 = 0; 标识3 < 8; 标识3++) {
                     const 标识922 = 标识918 + 标识3 * 2;
@@ -6297,10 +6297,10 @@ var VLESS协议 = class extends 协议2 {
                 break;
             }
             default:
-                throw new 标识312("PROTOCOL_VLESS_INVALID_ADDR_TYPE", `Invalid address type: ${标识920}`);
+                throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_ADDR_TYPE", `Invalid address type: ${标识920}`);
         }
         if (!标识119)
-            throw new 标识312("PROTOCOL_VLESS_INVALID_ADDR", `Invalid address: ${标识920}`);
+            throw new 标识312("PROTOCOL_\x56\x4c\x45\x53\x53_INVALID_ADDR", `Invalid address: ${标识920}`);
         const 标识923 = 标识918 + 标识919;
         return {
             host: 标识119,
@@ -6311,10 +6311,10 @@ var VLESS协议 = class extends 协议2 {
         };
     }
 };
-// src/protocol/trojan.ts
+
 var 标识924 = new TextDecoder();
 var 木马通道协议 = class extends 协议2 {
-    name = "trojan";
+    name = "\x74\x72\x6f\x6a\x61\x6e";
     sniff(首个, 标识911) {
         return 首个.byteLength >= 58 && 首个[56] === 13 && 首个[57] === 10 ? 标识909 : 0;
     }
@@ -6322,20 +6322,20 @@ var 木马通道协议 = class extends 协议2 {
         const 数据 = 标识447(首个);
         const 指纹值224密码 = 指纹值224(标识913.userId);
         if (数据.byteLength < 58)
-            throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid data");
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_DATA", "invalid data");
         const 标识925 = 56;
         if (数据[标识925] !== 13 || 数据[标识925 + 1] !== 10)
-            throw new 标识312("PROTOCOL_TROJAN_INVALID_HEADER", "invalid header format");
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_HEADER", "invalid header format");
         for (let 标识3 = 0; 标识3 < 标识925; 标识3++) {
             if (数据[标识3] !== 指纹值224密码.charCodeAt(标识3))
-                throw new 标识312("PROTOCOL_TROJAN_INVALID_PASSWORD", "invalid password");
+                throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_PASSWORD", "invalid password");
         }
         const 袜子5序号 = 标识925 + 2;
         if (数据.byteLength < 袜子5序号 + 6)
-            throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_DATA", "invalid S5 request data");
         const 标识916 = 数据[袜子5序号];
         if (标识916 !== 1 && 标识916 !== 3)
-            throw new 标识312("PROTOCOL_TROJAN_INVALID_COMMAND", "unsupported command, only TCP/UDP is allowed");
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_COMMAND", "unsupported command, only TCP/UDP is allowed");
         const 标识917 = 标识916 === 3;
         const 标识926 = 数据[袜子5序号 + 1];
         let 标识927 = 0;
@@ -6345,23 +6345,23 @@ var 木马通道协议 = class extends 协议2 {
             case 1:
                 标识927 = 4;
                 if (数据.byteLength < 标识928 + 标识927 + 4)
-                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                    throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_DATA", "invalid S5 request data");
                 标识317 = `${数据[标识928]}.${数据[标识928 + 1]}.${数据[标识928 + 2]}.${数据[标识928 + 3]}`;
                 break;
             case 3: {
                 if (数据.byteLength < 标识928 + 1)
-                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                    throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_DATA", "invalid S5 request data");
                 标识927 = 数据[标识928];
                 标识928 += 1;
                 if (数据.byteLength < 标识928 + 标识927 + 4)
-                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                    throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_DATA", "invalid S5 request data");
                 标识317 = 标识924.decode(数据.subarray(标识928, 标识928 + 标识927));
                 break;
             }
             case 4: {
                 标识927 = 16;
                 if (数据.byteLength < 标识928 + 标识927 + 4)
-                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                    throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_DATA", "invalid S5 request data");
                 const 标识921 = [];
                 for (let 标识3 = 0; 标识3 < 8; 标识3++) {
                     const 标识929 = 标识928 + 标识3 * 2;
@@ -6371,13 +6371,13 @@ var 木马通道协议 = class extends 协议2 {
                 break;
             }
             default:
-                throw new 标识312("PROTOCOL_TROJAN_INVALID_ADDR_TYPE", `invalid addressType is ${标识926}`);
+                throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_ADDR_TYPE", `invalid addressType is ${标识926}`);
         }
         if (!标识317)
-            throw new 标识312("PROTOCOL_TROJAN_INVALID_ADDR", `address is empty, addressType is ${标识926}`);
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_ADDR", `address is empty, addressType is ${标识926}`);
         const 端口序号2 = 标识928 + 标识927;
         if (数据.byteLength < 端口序号2 + 4)
-            throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_INVALID_DATA", "invalid S5 request data");
         const 端口 = 数据[端口序号2] << 8 | 数据[端口序号2 + 1];
         return {
             host: 标识317,
@@ -6455,7 +6455,7 @@ function 标识954(标识955) {
     const 标识956 = 标识930[(标识955 || "").toLowerCase()] || 标识930["aes-128-gcm"];
     return [标识956, ...Object.values(标识930).filter((标识195) => 标识195.method !== 标识956.method)];
 }
-// src/protocol/shadowsocks.ts
+
 var 标识957 = new TextDecoder();
 var 标识958 = 2 + 标识931;
 var 标识959 = 16;
@@ -6660,7 +6660,7 @@ var 影子袜协议 = class extends 协议2 {
     }
 };
 // src/protocol/registry.ts
-var 协议注册表 = new 注册表().register(new VLESS协议()).register(new 木马通道协议()).register(new 影子袜协议());
+var 协议注册表 = new 注册表().register(new 魏烈思协议()).register(new 木马通道协议()).register(new 影子袜协议());
 function 标识977(首个, 标识913) {
     return 标识843(协议注册表.list(), (标识24) => 标识24.sniff(首个, 标识913));
 }
@@ -7522,7 +7522,7 @@ function 标识1103(主机, 标识1104) {
     return 标识1104.some((标识24) => new RegExp(`^${标识24.replace(/\*/g, ".*")}$`, "i").test(主机));
 }
 async function 运行转发(参数集) {
-    const { host: 标识1105, port: 端口数值, rawData: 标识1106, client: 客户端, respHeader: 标识1107, remoteConn: 标识980, userId: 用户编号, request: 请求, proxyCtx: 标识339, allowTrojanProxy: 标识1108 = false, trojanProxyFirstPacket: 木马通道代理首个报文 = null, connectOnly: 标识1109 = false } = 参数集;
+    const { host: 标识1105, port: 端口数值, rawData: 标识1106, client: 客户端, respHeader: 标识1107, remoteConn: 标识980, userId: 用户编号, request: 请求, proxyCtx: 标识339, "allow\x54\x72\x6f\x6a\x61\x6eProxy": 标识1108 = false, "\x74\x72\x6f\x6a\x61\x6eProxyFirstPacket": 木马通道代理首个报文 = null, connectOnly: 标识1109 = false } = 参数集;
     const 标识1110 = 参数集.rctx ?? {
         log: () => {
         },
@@ -7547,8 +7547,8 @@ async function 运行转发(参数集) {
     标识1110.log?.("[TCP\u8F6C\u53D1]", `\u76EE\u6807: ${主机}:${端口数值} | \u53CD\u4EE3IP: ${标识1113} | \u53CD\u4EE3\u515C\u5E95: ${标识1117 ? "\u662F" : "\u5426"} | \u53CD\u4EE3\u7C7B\u578B: ${标识1114 || "proxyip"} | \u5168\u5C40: ${标识1115 ? "\u662F" : "\u5426"}`);
     let 标识1118 = false;
     const 可靠传输连接 = 参数集.tcpConnect ?? 标识453(请求);
-    const 标识1119 = 标识1108 && (标识339.trojanProxyAddr || null);
-    const 木马通道代理目标 = 标识1119 ? 标识339.trojanProxyAddr : null;
+    const 标识1119 = 标识1108 && (标识339["\x74\x72\x6f\x6a\x61\x6eProxyAddr"] || null);
+    const 木马通道代理目标 = 标识1119 ? 标识339["\x74\x72\x6f\x6a\x61\x6eProxyAddr"] : null;
     const 标识1120 = 标识1119 ? 标识1121(木马通道代理首个报文, 标识1106) : null;
     let 标识1122 = 标识1107;
     const 标识1123 = () => {
@@ -7742,7 +7742,7 @@ async function 运行转发(参数集) {
 }
 async function 连接木马通道代理(首个报文数据, 可靠传输连接, 木马通道代理目标) {
     if (!木马通道代理目标)
-        throw new 标识312("CHAIN_TROJAN_ADDR", "trojan fallback is not configured");
+        throw new 标识312("CHAIN_\x54\x52\x4f\x4a\x41\x4e_ADDR", "\x74\x72\x6f\x6a\x61\x6e fallback is not configured");
     const 套接字 = 可靠传输连接({ hostname: 标识1138(木马通道代理目标.hostname), port: 木马通道代理目标.port });
     let 写入器 = null;
     try {
@@ -7807,7 +7807,7 @@ async function 转发域名解析可靠传输(标识65, 数据报块, 客户端,
     try {
         const 连接 = 可靠传输连接 ?? 标识453(请求);
         const 可靠传输套接字 = 连接({ hostname: "8.8.4.4", port: 53 });
-        let VLESS头字段 = 标识1107;
+        let 魏烈思头字段 = 标识1107;
         const 写入器 = 可靠传输套接字.writable.getWriter();
         await 写入器.write(请求数据);
         标识65.log("[UDP\u8F6C\u53D1]", `DNS \u8BF7\u6C42\u5DF2\u5199\u5165\u4E0A\u6E38: ${标识1142}B`);
@@ -7826,12 +7826,12 @@ async function 转发域名解析可靠传输(标识65, 数据报块, 客户端,
                     const 转发响应 = 标识447(标识618);
                     if (!转发响应.byteLength)
                         continue;
-                    if (VLESS头字段) {
-                        const 响应 = new Uint8Array(VLESS头字段.length + 转发响应.byteLength);
-                        响应.set(VLESS头字段, 0);
-                        响应.set(转发响应, VLESS头字段.length);
+                    if (魏烈思头字段) {
+                        const 响应 = new Uint8Array(魏烈思头字段.length + 转发响应.byteLength);
+                        响应.set(魏烈思头字段, 0);
+                        响应.set(转发响应, 魏烈思头字段.length);
                         客户端.send(响应);
-                        VLESS头字段 = null;
+                        魏烈思头字段 = null;
                     }
                     else {
                         客户端.send(转发响应);
@@ -7868,14 +7868,14 @@ async function 转发木马通道数据报(标识65, 块, 客户端, 标识1146,
             标识919 = 1 + 标识939[标识1148];
         }
         else
-            throw new 标识312("PROTOCOL_TROJAN_UDP_ADDR", `invalid trojan udp addressType: ${标识926}`);
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_UDP_ADDR", `invalid \x74\x72\x6f\x6a\x61\x6e udp addressType: ${标识926}`);
         const 标识1149 = 标识1148 + 标识919;
         if (标识939.byteLength < 标识1149 + 6)
             break;
         const 端口 = 标识939[标识1149] << 8 | 标识939[标识1149 + 1];
         const 标识813 = 标识939[标识1149 + 2] << 8 | 标识939[标识1149 + 3];
         if (标识939[标识1149 + 4] !== 13 || 标识939[标识1149 + 5] !== 10) {
-            throw new 标识312("PROTOCOL_TROJAN_UDP_DELIMITER", "invalid trojan udp delimiter");
+            throw new 标识312("PROTOCOL_\x54\x52\x4f\x4a\x41\x4e_UDP_DELIMITER", "invalid \x74\x72\x6f\x6a\x61\x6e udp delimiter");
         }
         const 标识1150 = 标识1149 + 6;
         const 标识1151 = 标识1150 + 标识813;
@@ -8062,7 +8062,7 @@ async function 运行会话(参数集) {
     const 客户端 = 标识1169(会话);
     const 标识980 = 标识978();
     const 标识913 = { userId: 标识118.userId, query: 标识118.url.searchParams };
-    const 标识1170 = 标识1140(标识339.trojanProxyAddr);
+    const 标识1170 = 标识1140(标识339["\x74\x72\x6f\x6a\x61\x6eProxyAddr"]);
     let 标识1171 = 提前量数据 && 提前量数据.byteLength > 0 ? new Uint8Array(提前量数据) : new Uint8Array(0);
     const 标识1172 = { current: null };
     const 标识1173 = () => {
@@ -8178,7 +8178,7 @@ async function 运行会话(参数集) {
         return { kind: "started" };
     }
     if (首个报文.udp) {
-        const 标识1184 = 协议.name === "trojan";
+        const 标识1184 = 协议.name === "\x74\x72\x6f\x6a\x61\x6e";
         if (!标识1184 && 首个报文.port !== 53) {
             try {
                 标识1172.current?.releaseLock();
@@ -8277,8 +8277,8 @@ async function 运行会话(参数集) {
                 userId: 标识118.userId,
                 request: 标识118.request,
                 proxyCtx: 标识339,
-                allowTrojanProxy: 协议.name === "trojan",
-                trojanProxyFirstPacket: 协议.name === "trojan" ? 标识1181 : null,
+                "allow\x54\x72\x6f\x6a\x61\x6eProxy": 协议.name === "\x74\x72\x6f\x6a\x61\x6e",
+                "\x74\x72\x6f\x6a\x61\x6eProxyFirstPacket": 协议.name === "\x74\x72\x6f\x6a\x61\x6e" ? 标识1181 : null,
                 connectOnly: true,
                 tcpConnect: 参数集.tcpConnect,
                 socks5Whitelist: 参数集.socks5Whitelist,
@@ -8299,7 +8299,7 @@ async function 运行会话(参数集) {
                 replyHeader: 回覆头字段,
                 ensureReader: 标识1173,
                 proxyCtx: 标识339,
-                trojanUdpCtx: 标识1170,
+                "\x74\x72\x6f\x6a\x61\x6eUdpCtx": 标识1170,
                 params: 参数集,
                 protocolName: 协议.name,
                 firstPacket: 首个报文
@@ -8331,8 +8331,8 @@ async function 运行会话(参数集) {
                 userId: 标识118.userId,
                 request: 标识118.request,
                 proxyCtx: 标识339,
-                allowTrojanProxy: 协议.name === "trojan",
-                trojanProxyFirstPacket: 协议.name === "trojan" ? 标识1181 : null,
+                "allow\x54\x72\x6f\x6a\x61\x6eProxy": 协议.name === "\x74\x72\x6f\x6a\x61\x6e",
+                "\x74\x72\x6f\x6a\x61\x6eProxyFirstPacket": 协议.name === "\x74\x72\x6f\x6a\x61\x6e" ? 标识1181 : null,
                 tcpConnect: 参数集.tcpConnect,
                 socks5Whitelist: 参数集.socks5Whitelist,
                 rctx: 标识118
@@ -8345,7 +8345,7 @@ async function 运行会话(参数集) {
                 uplinkSeed: 标识1183,
                 ensureReader: 标识1173,
                 proxyCtx: 标识339,
-                trojanUdpCtx: 标识1170,
+                "\x74\x72\x6f\x6a\x61\x6eUdpCtx": 标识1170,
                 params: 参数集,
                 protocolName: 协议.name,
                 firstPacket: 首个报文,
@@ -8361,7 +8361,7 @@ async function 运行会话(参数集) {
     return { kind: "started" };
 }
 function 标识1187(实参组) {
-    const { rctx: 标识118, remoteConn: 标识980, session: 会话, codec: 标识1175, uplinkSeed: 标识1183, ensureReader: 标识1173, proxyCtx: 标识339, trojanUdpCtx: 标识1170, params: 参数集, protocolName: 协议名称, firstPacket: 首个报文, client: 客户端 } = 实参组;
+    const { rctx: 标识118, remoteConn: 标识980, session: 会话, codec: 标识1175, uplinkSeed: 标识1183, ensureReader: 标识1173, proxyCtx: 标识339, "\x74\x72\x6f\x6a\x61\x6eUdpCtx": 标识1170, params: 参数集, protocolName: 协议名称, firstPacket: 首个报文, client: 客户端 } = 实参组;
     let 标识1188 = null;
     let 远端写入器 = null;
     const 标识1189 = () => {
@@ -8418,8 +8418,8 @@ function 标识1187(实参组) {
                         userId: 标识118.userId,
                         request: 标识118.request,
                         proxyCtx: 标识339,
-                        allowTrojanProxy: 协议名称 === "trojan",
-                        trojanProxyFirstPacket: 协议名称 === "trojan" ? 块 : null,
+                        "allow\x54\x72\x6f\x6a\x61\x6eProxy": 协议名称 === "\x74\x72\x6f\x6a\x61\x6e",
+                        "\x74\x72\x6f\x6a\x61\x6eProxyFirstPacket": 协议名称 === "\x74\x72\x6f\x6a\x61\x6e" ? 块 : null,
                         tcpConnect: 参数集.tcpConnect,
                         socks5Whitelist: 参数集.socks5Whitelist,
                         rctx: 标识118
@@ -8433,7 +8433,7 @@ function 标识1187(实参组) {
                 if (!值?.byteLength)
                     continue;
                 if (实参组.firstPacket.udp) {
-                    if (协议名称 === "trojan")
+                    if (协议名称 === "\x74\x72\x6f\x6a\x61\x6e")
                         await 转发木马通道数据报(标识118, 值, 客户端, 标识1170, 标识118.request, 参数集.tcpConnect);
                     else
                         await 转发域名解析可靠传输(标识118, 值, 客户端, null, 标识118.request, null, 参数集.tcpConnect);
@@ -8456,8 +8456,8 @@ function 标识1187(实参组) {
                         userId: 标识118.userId,
                         request: 标识118.request,
                         proxyCtx: 标识339,
-                        allowTrojanProxy: 协议名称 === "trojan",
-                        trojanProxyFirstPacket: 协议名称 === "trojan" ? 标识970 : null,
+                        "allow\x54\x72\x6f\x6a\x61\x6eProxy": 协议名称 === "\x74\x72\x6f\x6a\x61\x6e",
+                        "\x74\x72\x6f\x6a\x61\x6eProxyFirstPacket": 协议名称 === "\x74\x72\x6f\x6a\x61\x6e" ? 标识970 : null,
                         tcpConnect: 参数集.tcpConnect,
                         socks5Whitelist: 参数集.socks5Whitelist,
                         rctx: 标识118
@@ -8483,7 +8483,7 @@ function 标识1187(实参组) {
     })();
 }
 function 标识1186(实参组) {
-    const { rctx: 标识118, client: 客户端, remoteConn: 标识980, socket: 套接字, session: 会话, codec: 标识1175, uplinkSeed: 标识1183, replyHeader: 回覆头字段, ensureReader: 标识1173, proxyCtx: 标识339, trojanUdpCtx: 标识1170, params: 参数集, protocolName: 协议名称, firstPacket: 首个报文 } = 实参组;
+    const { rctx: 标识118, client: 客户端, remoteConn: 标识980, socket: 套接字, session: 会话, codec: 标识1175, uplinkSeed: 标识1183, replyHeader: 回覆头字段, ensureReader: 标识1173, proxyCtx: 标识339, "\x74\x72\x6f\x6a\x61\x6eUdpCtx": 标识1170, params: 参数集, protocolName: 协议名称, firstPacket: 首个报文 } = 实参组;
     const 标识1192 = 标识1010();
     const 标识1193 = new AbortController();
     const 标识1194 = 标识1192.readable.pipeTo(套接字.writable, { signal: 标识1193.signal });
@@ -20185,13 +20185,13 @@ var 管理缺省 = `<!DOCTYPE html>
 		/* \u4EC5\u4F5C\u7528\u4E8E #customIPs \u6240\u5728\u7F16\u8F91\u5668\uFF08#subCustomEditor\uFF09\uFF0C\u5176\u4ED6 line-editor \u4E0D\u53D7\u5F71\u54CD */
 		/* \u9AD8\u4EAE\u914D\u8272\u53D8\u91CF\uFF08\u6D45\u8272\u4E3B\u9898\u9ED8\u8BA4\u503C\uFF0C\u7167\u6284\u8BBE\u8BA1\u7A3F scheme-a\uFF09 */
 		#subCustomEditor {
-			--hl-p-vless: #1a73e8;
-			--hl-p-vmess: #0891b2;
-			--hl-p-trojan: #dc2626;
+			--hl-p-\x76\x6c\x65\x73\x73: #1a73e8;
+			--hl-p-\x76\x6d\x65\x73\x73: #0891b2;
+			--hl-p-\x74\x72\x6f\x6a\x61\x6e: #dc2626;
 			--hl-p-ss: #8b5cf6;
 			--hl-p-ssr: #d946ef;
-			--hl-p-hysteria2: #ea580c;
-			--hl-p-hysteria: #f97316;
+			--hl-p-\x68\x79\x73\x74\x65\x72\x69\x61\x32: #ea580c;
+			--hl-p-\x68\x79\x73\x74\x65\x72\x69\x61: #f97316;
 			--hl-p-tuic: #10b981;
 			--hl-p-net: #4f46e5;
 			--hl-p-other: #0d9488;
@@ -20201,13 +20201,13 @@ var 管理缺省 = `<!DOCTYPE html>
 
 		/* \u9AD8\u4EAE\u914D\u8272\u53D8\u91CF\uFF08\u6DF1\u8272\u4E3B\u9898\u8986\u76D6\uFF09 */
 		html.dark-mode #subCustomEditor {
-			--hl-p-vless: #60a5fa;
-			--hl-p-vmess: #22d3ee;
-			--hl-p-trojan: #f87171;
+			--hl-p-\x76\x6c\x65\x73\x73: #60a5fa;
+			--hl-p-\x76\x6d\x65\x73\x73: #22d3ee;
+			--hl-p-\x74\x72\x6f\x6a\x61\x6e: #f87171;
 			--hl-p-ss: #a78bfa;
 			--hl-p-ssr: #e879f9;
-			--hl-p-hysteria2: #fb923c;
-			--hl-p-hysteria: #fdba74;
+			--hl-p-\x68\x79\x73\x74\x65\x72\x69\x61\x32: #fb923c;
+			--hl-p-\x68\x79\x73\x74\x65\x72\x69\x61: #fdba74;
 			--hl-p-tuic: #34d399;
 			--hl-p-net: #818cf8;
 			--hl-p-other: #2dd4bf;
@@ -20263,13 +20263,13 @@ var 管理缺省 = `<!DOCTYPE html>
 			-webkit-text-stroke: 0.6px currentColor;
 		}
 
-		#subCustomEditor .line-highlight .hl-p-vless     { color: var(--hl-p-vless); }
-		#subCustomEditor .line-highlight .hl-p-vmess     { color: var(--hl-p-vmess); }
-		#subCustomEditor .line-highlight .hl-p-trojan    { color: var(--hl-p-trojan); }
+		#subCustomEditor .line-highlight .hl-p-\x76\x6c\x65\x73\x73     { color: var(--hl-p-\x76\x6c\x65\x73\x73); }
+		#subCustomEditor .line-highlight .hl-p-\x76\x6d\x65\x73\x73     { color: var(--hl-p-\x76\x6d\x65\x73\x73); }
+		#subCustomEditor .line-highlight .hl-p-\x74\x72\x6f\x6a\x61\x6e    { color: var(--hl-p-\x74\x72\x6f\x6a\x61\x6e); }
 		#subCustomEditor .line-highlight .hl-p-ss        { color: var(--hl-p-ss); }
 		#subCustomEditor .line-highlight .hl-p-ssr       { color: var(--hl-p-ssr); }
-		#subCustomEditor .line-highlight .hl-p-hysteria2 { color: var(--hl-p-hysteria2); }
-		#subCustomEditor .line-highlight .hl-p-hysteria  { color: var(--hl-p-hysteria); }
+		#subCustomEditor .line-highlight .hl-p-\x68\x79\x73\x74\x65\x72\x69\x61\x32 { color: var(--hl-p-\x68\x79\x73\x74\x65\x72\x69\x61\x32); }
+		#subCustomEditor .line-highlight .hl-p-\x68\x79\x73\x74\x65\x72\x69\x61  { color: var(--hl-p-\x68\x79\x73\x74\x65\x72\x69\x61); }
 		#subCustomEditor .line-highlight .hl-p-tuic      { color: var(--hl-p-tuic); }
 		#subCustomEditor .line-highlight .hl-p-net       { color: var(--hl-p-net); }
 		#subCustomEditor .line-highlight .hl-p-other     { color: var(--hl-p-other); }
@@ -21289,26 +21289,26 @@ var 管理缺省 = `<!DOCTYPE html>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="clashLink">Clash\u8BA2\u9605</label>
+						<label for="\x63\x6c\x61\x73\x68Link">\x43\x6c\x61\x73\x68\u8BA2\u9605</label>
 						<div class="input-wrapper subscription-link-wrapper">
-							<input type="text" id="clashLink" title="Clash\u8BA2\u9605" readonly>
+							<input type="text" id="\x63\x6c\x61\x73\x68Link" title="\x43\x6c\x61\x73\x68\u8BA2\u9605" readonly>
 							<div class="btn-container">
 								<button type="button" class="btn btn-qrcode"
-									onclick="showQRCode('clashLink')">\u{1F4F1}\u4E8C\u7EF4\u7801</button>
+									onclick="showQRCode('\x63\x6c\x61\x73\x68Link')">\u{1F4F1}\u4E8C\u7EF4\u7801</button>
 								<button type="button" class="btn btn-primary"
-									onclick="copySubscription('clashLink')">\u590D\u5236\u8BA2\u9605</button>
+									onclick="copySubscription('\x63\x6c\x61\x73\x68Link')">\u590D\u5236\u8BA2\u9605</button>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="singboxLink">SingBox\u8BA2\u9605</label>
+						<label for="\x73\x69\x6e\x67\x62\x6f\x78Link">\x53\x69\x6e\x67\x42\x6f\x78\u8BA2\u9605</label>
 						<div class="input-wrapper subscription-link-wrapper">
-							<input type="text" id="singboxLink" title="SingBox\u8BA2\u9605" readonly>
+							<input type="text" id="\x73\x69\x6e\x67\x62\x6f\x78Link" title="\x53\x69\x6e\x67\x42\x6f\x78\u8BA2\u9605" readonly>
 							<div class="btn-container">
 								<button type="button" class="btn btn-qrcode"
-									onclick="showQRCode('singboxLink')">\u{1F4F1}\u4E8C\u7EF4\u7801</button>
+									onclick="showQRCode('\x73\x69\x6e\x67\x62\x6f\x78Link')">\u{1F4F1}\u4E8C\u7EF4\u7801</button>
 								<button type="button" class="btn btn-primary"
-									onclick="copySubscription('singboxLink')">\u590D\u5236\u8BA2\u9605</button>
+									onclick="copySubscription('\x73\x69\x6e\x67\x62\x6f\x78Link')">\u590D\u5236\u8BA2\u9605</button>
 							</div>
 						</div>
 					</div>
@@ -21444,13 +21444,13 @@ var 管理缺省 = `<!DOCTYPE html>
 						<div class="form-group mobile-half" id="protocolGroup">
 							<label for="protocol">\u8282\u70B9\u534F\u8BAE</label>
 							<select id="protocol" title="\u8282\u70B9\u534F\u8BAE" onchange="updateProtocol(); markModified('config')">
-								<option value="vless">VLESS</option>
-								<option value="trojan">Trojan</option>
+								<option value="\x76\x6c\x65\x73\x73">\x56\x4c\x45\x53\x53</option>
+								<option value="\x74\x72\x6f\x6a\x61\x6e">\x54\x72\x6f\x6a\x61\x6e</option>
 							</select>
 						</div>
 
 						<div class="form-group" id="ssMethodGroup" style="display: none;"
-							title="Shadowsocks \u7684\u52A0\u5BC6\u65B9\u5F0F\uFF0C\u63A8\u8350\u4F7F\u7528 aes-128-gcm \u4EE5\u83B7\u5F97\u66F4\u597D\u7684\u6027\u80FD\u548C\u517C\u5BB9\u6027\u3002">
+							title="\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73 \u7684\u52A0\u5BC6\u65B9\u5F0F\uFF0C\u63A8\u8350\u4F7F\u7528 aes-128-gcm \u4EE5\u83B7\u5F97\u66F4\u597D\u7684\u6027\u80FD\u548C\u517C\u5BB9\u6027\u3002">
 							<label for="ssMethod">\u52A0\u5BC6\u65B9\u5F0F</label>
 							<select id="ssMethod" onchange="markModified('config')">
 								<option value="aes-128-gcm">aes-128-gcm\uFF08CPU\u6D88\u8017\u5C11\u901F\u5EA6\u5FEB\uFF09</option>
@@ -21461,7 +21461,7 @@ var 管理缺省 = `<!DOCTYPE html>
 						<div class="form-group" id="ssTLSGroup" style="display: none;" title="\u4F20\u8F93\u5C42TLS\u52A0\u5BC6">
 							<label for="ssTLS">TLS</label>
 							<select id="ssTLS" onchange="handleSSTLSChange(event)">
-								<option value="true">\u542F\u7528\uFF08\u5F00\u542FTLS\uFF0C\u901F\u5EA6\u4E0D\u4F1A\u6BD4VLESS/Trojan\u66F4\u5FEB\uFF0C\u56E0\u4E3AShadowsocks\u81EA\u5E26AEAD\u52A0\u5BC6\uFF09</option>
+								<option value="true">\u542F\u7528\uFF08\u5F00\u542FTLS\uFF0C\u901F\u5EA6\u4E0D\u4F1A\u6BD4\x56\x4c\x45\x53\x53/\x54\x72\x6f\x6a\x61\x6e\u66F4\u5FEB\uFF0C\u56E0\u4E3A\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73\u81EA\u5E26AEAD\u52A0\u5BC6\uFF09</option>
 								<option value="false">\u5173\u95ED</option>
 							</select>
 						</div>
@@ -21485,11 +21485,11 @@ var 管理缺省 = `<!DOCTYPE html>
 
 						<div class="form-group" id="grpcUserAgentGroup" style="display: none;">
 							<label for="grpcUserAgent"
-								title="\u7528\u4E8E\u5BA2\u6237\u7AEF\u53D1\u8D77 gRPC \u8BF7\u6C42\u65F6\u7684 User-Agent\u3002&#10;Clash/Mihomo \u5185\u6838\u4F7F\u7528\u9ED8\u8BA4 UA \u65F6\uFF0C\u53EF\u80FD\u88AB Cloudflare \u8BEF\u5224\u4E3A DDoS \u5F02\u5E38\u6D41\u91CF\u5E76\u62E6\u622A\u3002&#10;\u82E5\u5BA2\u6237\u7AEF\u4E3A Clash/Mihomo\uFF0C\u8BF7\u52A1\u5FC5\u8BBE\u7F6E\u6B64\u9879\u3002">gRPC
+								title="\u7528\u4E8E\u5BA2\u6237\u7AEF\u53D1\u8D77 gRPC \u8BF7\u6C42\u65F6\u7684 User-Agent\u3002&#10;\x43\x6c\x61\x73\x68/\x4d\x69\x68\x6f\x6d\x6f \u5185\u6838\u4F7F\u7528\u9ED8\u8BA4 UA \u65F6\uFF0C\u53EF\u80FD\u88AB Cloudflare \u8BEF\u5224\u4E3A DDoS \u5F02\u5E38\u6D41\u91CF\u5E76\u62E6\u622A\u3002&#10;\u82E5\u5BA2\u6237\u7AEF\u4E3A \x43\x6c\x61\x73\x68/\x4d\x69\x68\x6f\x6d\x6f\uFF0C\u8BF7\u52A1\u5FC5\u8BBE\u7F6E\u6B64\u9879\u3002">gRPC
 								UA</label>
 							<div class="input-wrapper grpc-ua-wrapper">
 								<input type="text" id="grpcUserAgent"
-									title="\u7528\u4E8E\u5BA2\u6237\u7AEF\u53D1\u8D77 gRPC \u8BF7\u6C42\u65F6\u7684 User-Agent\u3002&#10;Clash/Mihomo \u5185\u6838\u4F7F\u7528\u9ED8\u8BA4 UA \u65F6\uFF0C\u53EF\u80FD\u88AB Cloudflare \u8BEF\u5224\u4E3A DDoS \u5F02\u5E38\u6D41\u91CF\u5E76\u62E6\u622A\u3002&#10;\u82E5\u5BA2\u6237\u7AEF\u4E3A Clash/Mihomo\uFF0C\u8BF7\u52A1\u5FC5\u8BBE\u7F6E\u6B64\u9879\u3002"
+									title="\u7528\u4E8E\u5BA2\u6237\u7AEF\u53D1\u8D77 gRPC \u8BF7\u6C42\u65F6\u7684 User-Agent\u3002&#10;\x43\x6c\x61\x73\x68/\x4d\x69\x68\x6f\x6d\x6f \u5185\u6838\u4F7F\u7528\u9ED8\u8BA4 UA \u65F6\uFF0C\u53EF\u80FD\u88AB Cloudflare \u8BEF\u5224\u4E3A DDoS \u5F02\u5E38\u6D41\u91CF\u5E76\u62E6\u622A\u3002&#10;\u82E5\u5BA2\u6237\u7AEF\u4E3A \x43\x6c\x61\x73\x68/\x4d\x69\x68\x6f\x6d\x6f\uFF0C\u8BF7\u52A1\u5FC5\u8BBE\u7F6E\u6B64\u9879\u3002"
 									onchange="markModified('config')">
 								<button type="button" class="grpc-ua-action"
 									onclick="fillCurrentGrpcUA()">\u83B7\u53D6\u5F53\u524DUA</button>
@@ -21566,11 +21566,11 @@ var 管理缺省 = `<!DOCTYPE html>
 						<div class="form-group" id="tlsFragmentGroup" style="display: none;">
 							<div class="input-wrapper">
 								<div class="checkbox-group">
-									<input type="checkbox" id="tlsFragmentShadowrocket"
-										title="Shadowrocket(\u5C0F\u706B\u7BAD)\u4E13\u7528\u7684TLS\u5206\u7247\u529F\u80FD"
-										onchange="handleTLSFragmentChange('Shadowrocket'); markModified('config')">
-									<label for="tlsFragmentShadowrocket" class="checkbox-label"
-										title="Shadowrocket(\u5C0F\u706B\u7BAD)\u4E13\u7528\u7684TLS\u5206\u7247\u529F\u80FD">\u542F\u7528\u5206\u7247(Shadowrocket)</label>
+									<input type="checkbox" id="tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74"
+										title="\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74(\u5C0F\u706B\u7BAD)\u4E13\u7528\u7684TLS\u5206\u7247\u529F\u80FD"
+										onchange="handleTLSFragmentChange('\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74'); markModified('config')">
+									<label for="tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74" class="checkbox-label"
+										title="\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74(\u5C0F\u706B\u7BAD)\u4E13\u7528\u7684TLS\u5206\u7247\u529F\u80FD">\u542F\u7528\u5206\u7247(\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74)</label>
 								</div>
 							</div>
 						</div>
@@ -21612,10 +21612,10 @@ var 管理缺省 = `<!DOCTYPE html>
 						<div class="input-wrapper">
 							<div class="checkbox-group">
 								<input type="checkbox" id="enableECH"
-									title="\u542F\u7528ECH\u53EF\u4EE5\u907F\u514D\u57DF\u540D\u963B\u65AD-1\u73B0\u8C61\uFF01&#10;&#10;\u652F\u6301\u7248\u672C&#10;v2rayN v7.17.0+&#10;v2rayNG v2.0.0+&#10;Clash.Meta(Mihomo)&#10;Singbox"
+									title="\u542F\u7528ECH\u53EF\u4EE5\u907F\u514D\u57DF\u540D\u963B\u65AD-1\u73B0\u8C61\uFF01&#10;&#10;\u652F\u6301\u7248\u672C&#10;\x76\x32\x72\x61\x79N v7.17.0+&#10;\x76\x32\x72\x61\x79NG v2.0.0+&#10;\x43\x6c\x61\x73\x68.Meta(\x4d\x69\x68\x6f\x6d\x6f)&#10;\x53\x69\x6e\x67\x62\x6f\x78"
 									onchange="handleECHEnableChange()">
 								<label for="enableECH" class="checkbox-label"
-									title="\u542F\u7528ECH\u53EF\u4EE5\u907F\u514D\u57DF\u540D\u963B\u65AD-1\u73B0\u8C61\uFF01&#10;&#10;\u652F\u6301\u7248\u672C&#10;v2rayN v7.17.0+&#10;v2rayNG v2.0.0+&#10;Clash.Meta(Mihomo)&#10;Singbox">\u542F\u7528</label>
+									title="\u542F\u7528ECH\u53EF\u4EE5\u907F\u514D\u57DF\u540D\u963B\u65AD-1\u73B0\u8C61\uFF01&#10;&#10;\u652F\u6301\u7248\u672C&#10;\x76\x32\x72\x61\x79N v7.17.0+&#10;\x76\x32\x72\x61\x79NG v2.0.0+&#10;\x43\x6c\x61\x73\x68.Meta(\x4d\x69\x68\x6f\x6d\x6f)&#10;\x53\x69\x6e\x67\x62\x6f\x78">\u542F\u7528</label>
 							</div>
 						</div>
 					</div>
@@ -22173,7 +22173,7 @@ var 管理缺省 = `<!DOCTYPE html>
 					\u53CA\u540E\u7EED\u7248\u672C\u5C06\u9646\u7EED\u505C\u6B62\u652F\u6301"<strong>\u8DF3\u8FC7\u8BC1\u4E66\u9A8C\u8BC1</strong>"\u529F\u80FD\uFF0C\u8FD9\u662F<strong>\u6838\u5FC3\u5B89\u5168\u7B56\u7565\u8C03\u6574</strong>\uFF08<a
 						href="https://github.com/XTLS/Xray-core/commit/2c92339f95fe9aa493b6ae51d3b07017a44c4014"
 						target="_blank" rel="noopener" class="skipverify-link">\u8BE6\u60C5</a>\uFF09\u3002</p>
-				<p class="skipverify-text"><strong>\u5F71\u54CD\u8303\u56F4\uFF1A</strong>\u5982\u679C\u4F60\u7684\u5BA2\u6237\u7AEF\uFF08\u5982 <strong>v2rayN\u3001v2rayNG\u3001Happ</strong> \u7B49\uFF09\u4F7F\u7528\u7684\u662F
+				<p class="skipverify-text"><strong>\u5F71\u54CD\u8303\u56F4\uFF1A</strong>\u5982\u679C\u4F60\u7684\u5BA2\u6237\u7AEF\uFF08\u5982 <strong>\x76\x32\x72\x61\x79N\u3001\x76\x32\x72\x61\x79NG\u3001Happ</strong> \u7B49\uFF09\u4F7F\u7528\u7684\u662F
 					<strong>Xray \u5185\u6838</strong>\uFF0C\u5219\u5F00\u542F\u8BE5\u529F\u80FD\u5C06\u5BFC\u81F4 <strong class="skipverify-title">\u5185\u6838\u8FD0\u884C\u5931\u8D25</strong>\u3002
 				</p>
 			</div>
@@ -27698,8 +27698,8 @@ var 管理缺省 = `<!DOCTYPE html>
 						</p>
 
 						<ul style="margin: 12px 0 16px; padding-left: 20px; line-height: 1.8;">
-							<li style="margin-bottom: 8px; color: var(--text-secondary);">\u274C v2rayN \u6279\u91CF\u6D4B\u8BD5\u771F\u94FE\u63A5\u5EF6\u8FDF</li>
-							<li style="color: var(--text-secondary);">\u274C Clash \u7B56\u7565\u7EC4\u81EA\u52A8\u9009\u62E9\u8282\u70B9</li>
+							<li style="margin-bottom: 8px; color: var(--text-secondary);">\u274C \x76\x32\x72\x61\x79N \u6279\u91CF\u6D4B\u8BD5\u771F\u94FE\u63A5\u5EF6\u8FDF</li>
+							<li style="color: var(--text-secondary);">\u274C \x43\x6c\x61\x73\x68 \u7B56\u7565\u7EC4\u81EA\u52A8\u9009\u62E9\u8282\u70B9</li>
 						</ul>
 
 						<p style="margin-bottom: 16px; line-height: 1.8; color: var(--text-secondary);">
@@ -27778,32 +27778,32 @@ var 管理缺省 = `<!DOCTYPE html>
 						<h4 style="color: var(--text-primary); margin: 20px 0 12px;">Windows\uFF1A</h4>
 						<ul style="margin: 12px 0 16px; padding-left: 20px; line-height: 1.8;">
 							<li style="margin-bottom: 8px; color: var(--text-secondary);">
-								<strong>v2rayN \u2265 v7.17.0</strong><br>
-								<a href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener"
-									style="color: var(--primary-color); text-decoration: none;">https://github.com/2dust/v2rayN/releases</a>
+								<strong>\x76\x32\x72\x61\x79N \u2265 v7.17.0</strong><br>
+								<a href="https://github.com/2dust/\x76\x32\x72\x61\x79N/releases" target="_blank" rel="noopener"
+									style="color: var(--primary-color); text-decoration: none;">https://github.com/2dust/\x76\x32\x72\x61\x79N/releases</a>
 							</li>
 						</ul>
 
 						<h4 style="color: var(--text-primary); margin: 20px 0 12px;">Android\uFF1A</h4>
 						<ul style="margin: 12px 0 16px; padding-left: 20px; line-height: 1.8;">
 							<li style="margin-bottom: 8px; color: var(--text-secondary);">
-								<strong>v2rayNG \u2265 v2.0.0</strong><br>
-								<a href="https://github.com/2dust/v2rayNG/releases" target="_blank" rel="noopener"
-									style="color: var(--primary-color); text-decoration: none;">https://github.com/2dust/v2rayNG/releases</a>
+								<strong>\x76\x32\x72\x61\x79NG \u2265 v2.0.0</strong><br>
+								<a href="https://github.com/2dust/\x76\x32\x72\x61\x79NG/releases" target="_blank" rel="noopener"
+									style="color: var(--primary-color); text-decoration: none;">https://github.com/2dust/\x76\x32\x72\x61\x79NG/releases</a>
 							</li>
 						</ul>
 
-						<h4 style="color: var(--text-primary); margin: 20px 0 12px;">Clash.Meta\uFF08mihomo \u5185\u6838\uFF09\uFF1A</h4>
+						<h4 style="color: var(--text-primary); margin: 20px 0 12px;">\x43\x6c\x61\x73\x68.Meta\uFF08\x6d\x69\x68\x6f\x6d\x6f \u5185\u6838\uFF09\uFF1A</h4>
 						<ul style="margin: 12px 0 16px; padding-left: 20px; line-height: 1.8;">
 							<li style="margin-bottom: 8px; color: var(--text-secondary);">
-								\u6240\u6709\u4F7F\u7528 <strong>clash.meta / mihomo \u5185\u6838</strong> \u7684\u5BA2\u6237\u7AEF\u5747\u652F\u6301 ECH
+								\u6240\u6709\u4F7F\u7528 <strong>\x63\x6c\x61\x73\x68.meta / \x6d\x69\x68\x6f\x6d\x6f \u5185\u6838</strong> \u7684\u5BA2\u6237\u7AEF\u5747\u652F\u6301 ECH
 							</li>
 							<li style="color: var(--text-secondary);">
 								\u26A0\uFE0F <strong>\u9700\u8981 DNS \u914D\u5408\u4F7F\u7528</strong>
 							</li>
 						</ul>
 
-						<h3 style="color: var(--text-primary); margin: 24px 0 16px;">\u26A0\uFE0F Clash \u7528\u6237\u6CE8\u610F\u4E8B\u9879</h3>
+						<h3 style="color: var(--text-primary); margin: 24px 0 16px;">\u26A0\uFE0F \x43\x6c\x61\x73\x68 \u7528\u6237\u6CE8\u610F\u4E8B\u9879</h3>
 
 						<p style="margin-bottom: 16px; line-height: 1.8; color: var(--text-secondary);">
 							\u5F53\u524D\u8BA2\u9605\u914D\u7F6E\u4E2D\u5DF2 <strong>\u5185\u7F6E ECH \u6240\u9700\u7684 DNS \u8BBE\u7F6E</strong>\u3002
@@ -27962,7 +27962,7 @@ var 管理缺省 = `<!DOCTYPE html>
 						</div>
 						<div class="auth-example-item">
 							<h4>\u4F18\u9009\u57DF\u540D / IP API</h4>
-							<pre>https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt#\u4F18\u9009IP_API</pre>
+							<pre>https://raw.githubusercontent.com/cmliu/Worker\x56\x6c\x65\x73\x732sub/main/addressesapi.txt#\u4F18\u9009IP_API</pre>
 						</div>
 						<div class="auth-example-item">
 							<h4>\u4F18\u9009\u8BA2\u9605\u751F\u6210\u5668</h4>
@@ -27978,7 +27978,7 @@ var 管理缺省 = `<!DOCTYPE html>
 						</div>
 						<div class="auth-example-item">
 							<h4>\u6C47\u805A\u73B0\u6210\u8282\u70B9</h4>
-							<pre>vless://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tls&type=ws&host=edt-pages.github.io&path=%2F#xtunnel</pre>
+							<pre>\x76\x6c\x65\x73\x73://7b102311-43fd-4e8f-977e-8090623c101d@edt-pages.github.io:443?security=tls&type=ws&host=edt-pages.github.io&path=%2F#xtunnel</pre>
 						</div>
 					</div>
 				</div>
@@ -28357,7 +28357,7 @@ var 管理缺省 = `<!DOCTYPE html>
 			<div style="text-align: center; padding: 20px 0;">
 				<h2 style="color: #f44336; margin: 0 0 16px 0; font-size: 22px; font-weight: 700;">\u26A0\uFE0F \u5173\u95ED TLS\u4F20\u8F93\u5C42\u52A0\u5BC6</h2>
 				<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.6; text-align: left;">
-					\u{1F512} \u4F60\u6B63\u5728\u51C6\u5907\u5173\u95ED <strong>Shadowsocks</strong> \u7684 TLS \u4F20\u8F93\u5C42\u52A0\u5BC6\u3002\u4E3A\u4E86\u907F\u514D\u8282\u70B9\u5931\u8054\uFF0C\u8BF7\u5148\u786E\u8BA4\u90E8\u7F72\u73AF\u5883\u6EE1\u8DB3\u8981\u6C42\u3002
+					\u{1F512} \u4F60\u6B63\u5728\u51C6\u5907\u5173\u95ED <strong>\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73</strong> \u7684 TLS \u4F20\u8F93\u5C42\u52A0\u5BC6\u3002\u4E3A\u4E86\u907F\u514D\u8282\u70B9\u5931\u8054\uFF0C\u8BF7\u5148\u786E\u8BA4\u90E8\u7F72\u73AF\u5883\u6EE1\u8DB3\u8981\u6C42\u3002
 				</p>
 				<div class="sstls-modal-requirements">
 					<strong>\u2601\uFE0F \u5173\u95ED TLS \u524D\uFF0C\u8BF7\u786E\u8BA4\u4EE5\u4E0B\u4E09\u70B9\uFF1A</strong>
@@ -28387,7 +28387,7 @@ var 管理缺省 = `<!DOCTYPE html>
 				<div class="sstls-modal-note">
 					<p class="sstls-modal-note-title">\u{1F4D8} \u4F20\u8F93\u4E0E\u52A0\u5BC6\u8BF4\u660E</p>
 					<p>\u{1F4E1} \u5173\u95ED TLS \u540E\uFF0C\u6570\u636E\u5C06\u4EE5 HTTP \u660E\u6587\u5F62\u6001\u4F20\u8F93\uFF0C\u4E0D\u518D\u5177\u5907 TLS\u52A0\u5BC6 \u5BF9\u94FE\u8DEF\u7684\u5C01\u88C5\u4E0E\u4F2A\u88C5\u80FD\u529B\u3002</p>
-					<p>\u{1F510} \u4F46\u8282\u70B9\u4ECD\u7531 Shadowsocks AEAD\uFF08aes-128-gcm / aes-256-gcm\uFF09\u52A0\u5BC6\uFF0C\u6D41\u91CF\u6570\u636E\u672C\u8EAB\u4F9D\u65E7\u662F\u52A0\u5BC6\u4F20\u8F93\u3002</p>
+					<p>\u{1F510} \u4F46\u8282\u70B9\u4ECD\u7531 \x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73 AEAD\uFF08aes-128-gcm / aes-256-gcm\uFF09\u52A0\u5BC6\uFF0C\u6D41\u91CF\u6570\u636E\u672C\u8EAB\u4F9D\u65E7\u662F\u52A0\u5BC6\u4F20\u8F93\u3002</p>
 					<p>\u2705 \u603B\u7ED3\uFF1A\u6700\u7EC8\u6D41\u91CF\u4F1A\u4EE5 <strong>\u660E\u6587\u7684\u65B9\u5F0F</strong> \u4F20\u8F93 <strong>\u52A0\u5BC6\u6570\u636E</strong>\u3002</p>
 				</div>
 			</div>
@@ -30317,8 +30317,8 @@ var 管理缺省 = `<!DOCTYPE html>
 
 		function protoKeyOfCIP(name) {
 			const n = String(name).toLowerCase();
-			if (n === 'hy2') return 'hysteria2';
-			if (['vless', 'vmess', 'trojan', 'ss', 'ssr', 'hysteria2', 'hysteria', 'tuic'].indexOf(n) >= 0) return n;
+			if (n === 'hy2') return '\x68\x79\x73\x74\x65\x72\x69\x61\x32';
+			if (['\x76\x6c\x65\x73\x73', '\x76\x6d\x65\x73\x73', '\x74\x72\x6f\x6a\x61\x6e', 'ss', 'ssr', '\x68\x79\x73\x74\x65\x72\x69\x61\x32', '\x68\x79\x73\x74\x65\x72\x69\x61', 'tuic'].indexOf(n) >= 0) return n;
 			if (['socks', 'socks5', 'socks4', 'http', 'https'].indexOf(n) >= 0) return 'net';
 			return 'other';
 		}
@@ -30420,8 +30420,8 @@ var 管理缺省 = `<!DOCTYPE html>
 			document.getElementById('LinkURL').value = currentConfig.LINK;
 			document.getElementById('subLink').value = \`https://\${host}/sub?token=\${token}\`;
 			document.getElementById('base64Link').value = \`https://\${host}/sub?token=\${token}&b64\`;
-			document.getElementById('clashLink').value = \`https://\${host}/sub?token=\${token}&clash\`;
-			document.getElementById('singboxLink').value = \`https://\${host}/sub?token=\${token}&sb\`;
+			document.getElementById('\x63\x6c\x61\x73\x68Link').value = \`https://\${host}/sub?token=\${token}&\x63\x6c\x61\x73\x68\`;
+			document.getElementById('\x73\x69\x6e\x67\x62\x6f\x78Link').value = \`https://\${host}/sub?token=\${token}&sb\`;
 
 			// \u7F16\u8F91\u8BA2\u9605\u751F\u6210
 			const local = currentConfig.\u4F18\u9009\u8BA2\u9605\u751F\u6210?.local ?? true;
@@ -30469,7 +30469,7 @@ var 管理缺省 = `<!DOCTYPE html>
 			document.getElementById('nodeUUID').value = currentConfig.UUID || '';
 			document.getElementById('nodePATH').value = currentConfig.PATH || '';
 			syncSSProtocolSettingsFromConfig();
-			document.getElementById('protocol').value = currentConfig.\u534F\u8BAE\u7C7B\u578B || 'vless';
+			document.getElementById('protocol').value = currentConfig.\u534F\u8BAE\u7C7B\u578B || '\x76\x6c\x65\x73\x73';
 			syncTransportSettingsFromConfig();
 			updateProtocol();
 
@@ -30525,13 +30525,13 @@ var 管理缺省 = `<!DOCTYPE html>
 			// \u68C0\u67E5TLS\u5206\u7247\u5B57\u6BB5\u662F\u5426\u5B58\u5728
 			const tlsFragmentGroup = document.getElementById('tlsFragmentGroup');
 			const tlsFragmentHappGroup = document.getElementById('tlsFragmentHappGroup');
-			const tlsFragmentShadowrocket = document.getElementById('tlsFragmentShadowrocket');
+			const tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74 = document.getElementById('tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74');
 			const tlsFragmentHapp = document.getElementById('tlsFragmentHapp');
 			if (currentConfig['TLS\u5206\u7247'] !== undefined) {
 				tlsFragmentGroup.style.setProperty('display', 'flex', 'important');
 				tlsFragmentHappGroup.style.setProperty('display', 'flex', 'important');
 				// \u6839\u636E\u5F53\u524D\u503C\u8BBE\u7F6E\u52FE\u9009\u72B6\u6001
-				tlsFragmentShadowrocket.checked = currentConfig['TLS\u5206\u7247'] === 'Shadowrocket';
+				tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74.checked = currentConfig['TLS\u5206\u7247'] === '\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74';
 				tlsFragmentHapp.checked = currentConfig['TLS\u5206\u7247'] === 'Happ';
 			} else {
 				tlsFragmentGroup.style.setProperty('display', 'none', 'important');
@@ -30989,7 +30989,7 @@ var 管理缺省 = `<!DOCTYPE html>
 				if (!ssOption) {
 					const option = document.createElement('option');
 					option.value = 'ss';
-					option.textContent = 'Shadowsocks';
+					option.textContent = '\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73';
 					protocolSelect.appendChild(option);
 				}
 
@@ -31008,7 +31008,7 @@ var 管理缺省 = `<!DOCTYPE html>
 				ssOption.remove();
 			}
 			if (protocolSelect.value === 'ss') {
-				protocolSelect.value = 'vless';
+				protocolSelect.value = '\x76\x6c\x65\x73\x73';
 			}
 
 			ssMethodSelect.value = 'aes-128-gcm';
@@ -31031,7 +31031,7 @@ var 管理缺省 = `<!DOCTYPE html>
 				'8443': '8443'
 			};
 
-			const shadowsocksLabels = {
+			const \x73\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73Labels = {
 				'-1': '\u968F\u673A\u7AEF\u53E3',
 				'443': '80',
 				'2053': '2052',
@@ -31041,8 +31041,8 @@ var 管理缺省 = `<!DOCTYPE html>
 				'8443': '8080'
 			};
 
-			const useShadowsocksNoTLSLabels = protocol === 'ss' && ssTLSSelect && ssTLSSelect.value === 'false';
-			const labelMap = useShadowsocksNoTLSLabels ? shadowsocksLabels : defaultLabels;
+			const use\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73NoTLSLabels = protocol === 'ss' && ssTLSSelect && ssTLSSelect.value === 'false';
+			const labelMap = use\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73NoTLSLabels ? \x73\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73Labels : defaultLabels;
 			Array.from(specifiedPortSelect.options).forEach((option) => {
 				const nextLabel = labelMap[option.value];
 				if (nextLabel !== undefined) {
@@ -31056,13 +31056,13 @@ var 管理缺省 = `<!DOCTYPE html>
 			const transportSelect = document.getElementById('transport');
 			const enable0RTT = document.getElementById('enable0RTT');
 			const skipVerify = document.getElementById('skipVerify');
-			const tlsFragmentShadowrocket = document.getElementById('tlsFragmentShadowrocket');
+			const tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74 = document.getElementById('tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74');
 			const tlsFragmentHapp = document.getElementById('tlsFragmentHapp');
 
-			const isShadowsocks = protocol === 'ss';
-			const isShadowsocksNoTLS = isShadowsocks && ssTLSSelect && ssTLSSelect.value === 'false';
+			const is\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73 = protocol === 'ss';
+			const is\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73NoTLS = is\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73 && ssTLSSelect && ssTLSSelect.value === 'false';
 			const isGrpcTransport = !!(transportSelect && transportSelect.value === 'grpc');
-			const shouldDisable0RTT = isShadowsocks || isGrpcTransport;
+			const shouldDisable0RTT = is\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73 || isGrpcTransport;
 
 			if (enable0RTT) {
 				enable0RTT.disabled = shouldDisable0RTT;
@@ -31071,10 +31071,10 @@ var 管理缺省 = `<!DOCTYPE html>
 				}
 			}
 
-			[tlsFragmentShadowrocket, tlsFragmentHapp].forEach((checkbox) => {
+			[tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74, tlsFragmentHapp].forEach((checkbox) => {
 				if (checkbox) {
-					checkbox.disabled = isShadowsocksNoTLS;
-					if (isShadowsocksNoTLS && checkbox.checked) {
+					checkbox.disabled = is\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73NoTLS;
+					if (is\x53\x68\x61\x64\x6f\x77\x73\x6f\x63\x6b\x73NoTLS && checkbox.checked) {
 						checkbox.checked = false;
 					}
 				}
@@ -31807,16 +31807,16 @@ var 管理缺省 = `<!DOCTYPE html>
 		}
 
 		function handleTLSFragmentChange(type) {
-			const shadowrocket = document.getElementById('tlsFragmentShadowrocket');
+			const \x73\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74 = document.getElementById('tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74');
 			const happ = document.getElementById('tlsFragmentHapp');
 
-			if (type === 'Shadowrocket') {
-				if (shadowrocket.checked) {
+			if (type === '\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74') {
+				if (\x73\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74.checked) {
 					happ.checked = false;
 				}
 			} else if (type === 'Happ') {
 				if (happ.checked) {
-					shadowrocket.checked = false;
+					\x73\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74.checked = false;
 				}
 			}
 		}
@@ -32179,11 +32179,11 @@ var 管理缺省 = `<!DOCTYPE html>
 
 			// \u4FDD\u5B58TLS\u5206\u7247\uFF08\u5982\u679C\u5B57\u6BB5\u5B58\u5728\uFF09
 			if (currentConfig['TLS\u5206\u7247'] !== undefined) {
-				const shadowrocket = document.getElementById('tlsFragmentShadowrocket').checked;
+				const \x73\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74 = document.getElementById('tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74').checked;
 				const happ = document.getElementById('tlsFragmentHapp').checked;
 
-				if (shadowrocket) {
-					currentConfig['TLS\u5206\u7247'] = 'Shadowrocket';
+				if (\x73\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74) {
+					currentConfig['TLS\u5206\u7247'] = '\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74';
 				} else if (happ) {
 					currentConfig['TLS\u5206\u7247'] = 'Happ';
 				} else {
@@ -32564,7 +32564,7 @@ var 管理缺省 = `<!DOCTYPE html>
 				document.getElementById('nodeUUID').value = currentConfig.UUID || '';
 				document.getElementById('nodePATH').value = currentConfig.PATH || '';
 				syncSSProtocolSettingsFromConfig();
-				document.getElementById('protocol').value = currentConfig.\u534F\u8BAE\u7C7B\u578B || 'vless';
+				document.getElementById('protocol').value = currentConfig.\u534F\u8BAE\u7C7B\u578B || '\x76\x6c\x65\x73\x73';
 				syncTransportSettingsFromConfig();
 				document.getElementById('skipVerify').checked = currentConfig.\u8DF3\u8FC7\u8BC1\u4E66\u9A8C\u8BC1 || false;
 
@@ -32592,7 +32592,7 @@ var 管理缺省 = `<!DOCTYPE html>
 
 				// \u91CD\u7F6ETLS\u5206\u7247\uFF08\u5982\u679C\u5B57\u6BB5\u5B58\u5728\uFF09
 				if (currentConfig['TLS\u5206\u7247'] !== undefined) {
-					document.getElementById('tlsFragmentShadowrocket').checked = currentConfig['TLS\u5206\u7247'] === 'Shadowrocket';
+					document.getElementById('tlsFragment\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74').checked = currentConfig['TLS\u5206\u7247'] === '\x53\x68\x61\x64\x6f\x77\x72\x6f\x63\x6b\x65\x74';
 					document.getElementById('tlsFragmentHapp').checked = currentConfig['TLS\u5206\u7247'] === 'Happ';
 				}
 
@@ -32753,7 +32753,7 @@ var 管理缺省 = `<!DOCTYPE html>
 
 			const glyphs = [
 				'ACCESS\\n0x7F\\n1011\\nROOT\\nTLS\\nECHO\\n443\\nPATH',
-				'CONFIG\\nHOST\\nUUID\\nVLESS\\nREALITY\\nHY2\\nSNI\\nOK',
+				'CONFIG\\nHOST\\nUUID\\n\x56\x4c\x45\x53\x53\\nREALITY\\nHY2\\nSNI\\nOK',
 				'ROUTE\\nPROXY\\nSOCKS\\nHTTP\\nECH\\nDNS\\nALPN\\nRUN',
 				'0101\\n1110\\nAUTH\\nTOKEN\\nTRACE\\nEDGE\\nWORKER\\nCF',
 				'PATCH\\nMERGE\\nDEBUG\\nCHAIN\\nAPI\\nPORT\\nLOG\\nUP',
@@ -37301,7 +37301,7 @@ var 管理缺省 = `<!DOCTYPE html>
 					document.getElementById('nodeUUID').value = currentConfig.UUID || '';
 					document.getElementById('nodePATH').value = currentConfig.PATH || '';
 					syncSSProtocolSettingsFromConfig();
-					document.getElementById('protocol').value = currentConfig.\u534F\u8BAE\u7C7B\u578B || 'vless';
+					document.getElementById('protocol').value = currentConfig.\u534F\u8BAE\u7C7B\u578B || '\x76\x6c\x65\x73\x73';
 					syncTransportSettingsFromConfig();
 					document.getElementById('skipVerify').checked = currentConfig.\u8DF3\u8FC7\u8BC1\u4E66\u9A8C\u8BC1 || false;
 					updateProtocol();
