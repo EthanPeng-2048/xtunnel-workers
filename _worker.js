@@ -1,28 +1,1314 @@
-var Qr=[7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21],wn=new Uint32Array(64);for(let o=0;o<64;o++)wn[o]=Math.floor(Math.abs(Math.sin(o+1))*4294967296);function Zr(o,e){return(o<<e|o>>>32-e)>>>0}function Io(o){let e=o.length,t=(e+8>>6)+1<<6,n=new Uint8Array(t);n.set(o),n[e]=128;let a=new DataView(n.buffer),r=e*8;a.setUint32(t-8,r%4294967296,!0),a.setUint32(t-4,Math.floor(r/4294967296),!0);let s=1732584193,l=4023233417,c=2562383102,i=271733878,d=new Uint32Array(16);for(let m=0;m<t;m+=64){for(let w=0;w<16;w++)d[w]=a.getUint32(m+w*4,!0);let p=s,u=l,x=c,v=i;for(let w=0;w<64;w++){let b=w&3,k,C,I;b===0?(k=u,C=x,I=v):b===1?(k=p,C=u,I=x):b===2?(k=v,C=p,I=u):(k=x,C=v,I=p);let S;w<16?S=k&C|~k&I:w<32?S=k&I|C&~I:w<48?S=k^C^I:S=C^(k|~I);let h;w<16?h=w:w<32?h=(5*w+1)%16:w<48?h=(3*w+5)%16:h=7*w%16;let E=S+d[h]+wn[w]>>>0,y=Zr((b===0?p:b===1?v:b===2?x:u)+E>>>0,Qr[w])+k>>>0;b===0?p=y:b===1?v=y:b===2?x=y:u=y}s=s+p>>>0,l=l+u>>>0,c=c+x>>>0,i=i+v>>>0}let g=new Uint8Array(16),f=new DataView(g.buffer);return f.setUint32(0,s,!0),f.setUint32(4,l,!0),f.setUint32(8,c,!0),f.setUint32(12,i,!0),g}function ea(o){let e="";for(let t=0;t<o.length;t++)e+=o[t].toString(16).padStart(2,"0");return e}function vn(o){return ea(Io(new TextEncoder().encode(o)))}function ie(o){let e=vn(o);return vn(e.slice(7,27))}function Qe(o){return[o.slice(1,7),"_"+o.slice(25,31)]}function ue(o){let e=o.replace(/[\t"'\r\n]+/g,",").replace(/,+/g,",");return e.charAt(0)===","&&(e=e.slice(1)),e.charAt(e.length-1)===","&&(e=e.slice(0,e.length-1)),e.split(",")}var se="PROXYIP",ee="cmliu",kn="090227",To=`v2rayN/edgetunnel (https://github.com/${ee}/edgetunnel)`,ta="2026-10-08 22:23:27",Ve=Number(ta.replace(/\D+/g,""));var oa="https://dns.alidns.com/dns-query",na="cloudflare-ech.com",V="{{IP:PORT}}";async function Sn(o,e,t,n){return{TIME:new Date().toISOString(),HOST:o,HOSTS:[o],UUID:e,PATH:"/",ALPN:"",protocolType:"vless",transport:"ws",grpcMode:"gun",gRPCUserAgent:t,skipCertVerify:!1,enable0RTT:!1,tlsFragment:null,randomPath:!1,ECH:!1,ECHConfig:{DNS:oa,SNI:na},SS:{encryptionMethod:"aes-128-gcm",TLS:!0},Fingerprint:"chrome",bestSubGen:{local:!0,localIPPool:{randomIP:!0,randomCount:16,fixedPort:-1},SUB:null,SUBNAME:"xtunnel",SUBUpdateTime:3,TOKEN:await ie(o+e)},subConverterConfig:{SUBAPI:`https://SUBAPI.${ee}ssss.net`,SUBCONFIG:`https://raw.githubusercontent.com/${ee}/ACL4SSR/refs/heads/main/Clash/config/ACL4SSR_Online_Mini_MultiMode_CF.ini`,SUBEMOJI:!1,SUBLIST:!1,UDP:!1,XUDP:!1,TLS13:!1,APPEND_TYPE:!1,SORT:!1,EXPAND:!0},proxy:{[se]:"auto",SOCKS5:{enabled:null,global:!1,account:"",whitelist:n},pathTemplates:{[se]:"proxyip="+V,SOCKS5:{global:"socks5://"+V,standard:"socks5="+V},HTTP:{global:"http://"+V,standard:"http="+V},HTTPS:{global:"https://"+V,standard:"https="+V},TURN:{global:"turn://"+V,standard:"turn="+V},SSTP:{global:"sstp://"+V,standard:"sstp="+V}}},TG:{enabled:!1,BotToken:null,ChatID:null},CF:{Email:null,GlobalAPIKey:null,AccountID:null,APIToken:null,UsageAPI:null,Usage:{success:!1,pages:0,workers:0,total:0,max:1e5}},fullNodePath:"/",LINK:""}}var Rt=["*tapecontent.net","*cloudatacdn.com","*loadshare.org","*cdn-centaurus.com","scholar.google.com"];function lt(o){let e=o.cf,t={4134:"ct",4809:"ct",4811:"ct",4812:"ct",4815:"ct",4837:"cu",4814:"cu",9929:"cu",17623:"cu",17816:"cu",9808:"cmcc",24400:"cmcc",56040:"cmcc",56041:"cmcc",56044:"cmcc"},n=[{code:"ct",pattern:/chinanet|chinatelecom|china telecom|cn2|shtel/},{code:"cmcc",pattern:/cmi|cmnet|chinamobile|china mobile|cmcc|mobile communications/},{code:"cu",pattern:/china169|china unicom|chinaunicom|cucc|cncgroup|cuii|netcom/}];if(String(e?.country||"").toLowerCase()!=="cn")return"cf";let a=String(e?.asOrganization||"").toLowerCase();return n.find(({pattern:s})=>s.test(a))?.code||t[String(e?.asn||"")]||"cf"}var Mt=null;function ra(o){let e=String(o.GO2SOCKS5??"");if(Mt&&Mt.envFingerprint===e)return Mt.list;let t=[...Rt];return o.GO2SOCKS5&&(t=[...new Set(t.concat(ue(String(o.GO2SOCKS5))))]),Mt={envFingerprint:e,list:t},t}var Ut=/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/,Eo="\u52FF\u52A8\u6B64\u9ED8\u8BA4\u5BC6\u94A5\uFF0C\u6709\u9700\u6C42\u8BF7\u81EA\u884C\u901A\u8FC7\u6DFB\u52A0\u53D8\u91CFKEY\u8FDB\u884C\u4FEE\u6539",aa=["ADMIN","admin","PASSWORD","password","pswd","TOKEN","KEY","UUID","uuid"];function Cn(o){for(let e of o)if(e)return String(e)}var Bt=class{requestId;request;env;ctx;url;ua;clientIp;debug;adminPassword;encryptionSecret;userId;hosts;host;identity;dial;cf;defaultProxyIP;defaultProxyFallback;socks5Whitelist;constructor(e,t,n){this.requestId=crypto.randomUUID().slice(0,8),this.request=e,this.env=t,this.ctx=n,this.url=new URL(e.url),this.ua=e.headers.get("User-Agent")||"null",this.debug=["1","true"].includes(String(t.DEBUG??"")),this.clientIp=e.headers.get("CF-Connecting-IP")||e.headers.get("X-Real-IP")||e.headers.get("X-Forwarded-For")||"\u672A\u77E5IP",this.adminPassword=Cn(aa.map(i=>t[i]));let a=t.KEY;this.encryptionSecret=a?String(a):Eo;let r=ie(`${this.adminPassword}${this.encryptionSecret}`),s=Cn([t.UUID,t.uuid]);this.userId=s&&Ut.test(s)?s.toLowerCase():[r.slice(0,8),r.slice(8,12),"4"+r.slice(13,16),"8"+r.slice(17,20),r.slice(20)].join("-");let l=t.HOST;this.hosts=l?ue(String(l)).map(i=>i.toLowerCase().replace(/^https?:\/\//,"").split("/")[0].split(":")[0]):[this.url.hostname],this.host=this.hosts[0]??this.url.hostname,this.identity=Qe(this.userId),this.dial={tcpConcurrentDial:Math.max(1,Number(t.TCP_CONCURRENT_DIAL)||2),proxyConcurrentDial:Math.max(1,Number(t.PROXY_CONCURRENT_DIAL)||1),preloadRaceDial:["1","true"].includes(String(t.PRELOAD_RACE_DIAL??""))},!t.TCP_CONCURRENT_DIAL&&this.dial.tcpConcurrentDial!==1&&lt(e)==="cmcc"&&(this.dial.tcpConcurrentDial=1),this.cf=e.cf;let c=String(this.cf?.colo||"").toUpperCase();if(this.defaultProxyIP=`${c}.${se}.${ee}SsSs.nEt`.toLowerCase(),t.PROXYIP){let i=ue(String(t.PROXYIP));this.defaultProxyIP=i[Math.floor(Math.random()*i.length)]??this.defaultProxyIP,this.defaultProxyFallback=!1}else this.defaultProxyFallback=!0;this.socks5Whitelist=ra(t)}log(e,...t){this.debug&&console.log(`[${this.requestId}][${e}]`,...t)}error(e,...t){console.error(`[${this.requestId}][${e}]`,...t)}};var Dt=[];function ct(o){Dt.push(o)}function Nt(){return Dt}function Pn(){return Dt.filter(o=>!o.fallback)}function In(){return Dt.filter(o=>o.fallback)}var xe=class{fallback};var Ao=new TextEncoder,ia=new TextDecoder;function Lo(o,e){let t=Ao.encode(o),n=Ao.encode(e),a=new Uint8Array(t.length);for(let s=0;s<t.length;s++)a[s]=t[s]^n[s%n.length];let r="";for(let s=0;s<a.length;s++)r+=String.fromCharCode(a[s]);return btoa(r)}function Tn(o,e){let t=atob(o),n=new Uint8Array(t.length);for(let s=0;s<t.length;s++)n[s]=t.charCodeAt(s);let a=Ao.encode(e),r=new Uint8Array(n.length);for(let s=0;s<n.length;s++)r[s]=n[s]^a[s%a.length];return ia.decode(r)}var Ht={TLS\u5206\u7247:"tlsFragment",gRPC\u6A21\u5F0F:"grpcMode",\u4E3A\u7A7A:"isEmpty",\u4EE3\u7406\u5168\u5C40:"proxyGlobal",\u4EE3\u7406\u53C2\u6570:"proxyParams",\u4EE3\u7406\u7C7B\u578B:"proxyType",\u4EE3\u7406\u8D26\u53F7:"proxyAccount",\u4F18\u9009\u8BA2\u9605\u751F\u6210:"bestSubGen",\u4F20\u8F93\u534F\u8BAE:"transport",\u505C\u6B62\u5E76\u5237\u65B0:"stopAndFlush",\u5165\u7AD9\u5019\u9009\u52A0\u5BC6\u914D\u7F6E:"inboundCandidateCrypto",\u5165\u7AD9\u89E3\u5BC6\u5668:"inboundDecryptor",\u5168\u5C40:"global",\u5173\u95ED\u8FDE\u63A5:"closeConnection",\u5199\u5165:"write",\u5199\u5165\u5E76\u7B49\u5F85:"writeAndWait",\u521D\u59CB\u5316CF_JSON:"defaultCfJson",\u521D\u59CB\u5316TG_JSON:"defaultTgJson",\u52A0\u5BC6\u5E76\u53D1\u9001:"encryptAndSend",\u52A0\u5BC6\u65B9\u5F0F:"encryptionMethod",\u52A0\u5BC6\u914D\u7F6E:"cryptoConfig",\u52A0\u8F7D\u65F6\u95F4:"loadTime",\u534F\u8BAE:"protocol",\u534F\u8BAE\u7C7B\u578B:"protocolType",\u539F\u59CB\u6570\u636E:"rawData",\u53CD\u4EE3:"proxy",\u53CD\u4EE3IP:"proxyIP",\u53CD\u4EE3Socket:"proxySocket",\u53CD\u4EE3\u515C\u5E95:"proxyFallback",\u53CD\u4EE3\u5730\u5740:"proxyAddr",\u53CD\u4EE3\u67E5\u8BE2\u53C2\u6570:"proxySearchParams",\u53D1\u9001:"send",\u5408\u5305:"coalesce",\u540D\u79F0:"queueName",\u542F\u7528:"enabled",\u542F\u75280RTT:"enable0RTT",\u54CD\u5E94\u5E27\u5217\u8868:"responseFrames",\u56DE\u5305Socket:"replySocket",\u57DF\u540D\u5B57\u6BB5\u540D:"hostFieldName",\u5B57\u8282\u6570:"byteCount",\u5B8C\u6574\u8282\u70B9\u8DEF\u5F84:"fullNodePath",\u5C01\u88C5\u7ED3\u679C:"wrappedResult",\u6307\u5B9A\u7AEF\u53E3:"fixedPort",\u6392\u5E8F\u540E\u6570\u7EC4:"sortedArray",\u6536\u7EB3:"absorb",\u6570\u7EC4\u5316:"asArray",\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C:"finalTrojanResult",\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C:"finalVlessResult",\u6728\u9A6C\u53CD\u4EE3\u5730\u5740:"trojanProxyAddr",\u6728\u9A6C\u7ED3\u679C:"trojanResult",\u672C\u5730IP\u5E93:"localIPPool",\u6761\u76EE\u6570:"entryCount",\u67E5\u8BE2\u53C2\u6570\u8FD0\u8425\u5546:"queryParamIsp",\u67E5\u8BE2\u6570\u7EC4:"queryArray",\u6807\u51C6:"standard",\u6E05\u7A7A:"clear",\u72B6\u6001:"status",\u767D\u540D\u5355:"whitelist",\u76EE\u6807\u4E3B\u673A:"targetHost",\u76EE\u6807\u7AEF\u53E3:"targetPort",\u76F4\u63A5\u53D1\u9001:"sendDirectly",\u76F8\u5173\u8BB0\u5F55:"relatedRecords",\u7B49\u5F85\u7A7A:"waitIdle",\u7ED3\u675F:"end",\u7ED3\u679C:"result",\u7F13\u5B58:"cache",\u83B7\u53D6SOCKS5\u8D26\u53F7:"getSocks5Account",\u83B7\u53D6\u5199\u5165\u5668:"getWriter",\u83B7\u53D6\u8FDE\u63A5\u4EFB\u52A1:"getConnectTask",\u8BA2\u9605\u8F6C\u6362\u914D\u7F6E:"subConverterConfig",\u8BF7\u6C42URL\u6587\u672C:"requestUrlText",\u8D26\u53F7:"account",\u8DEF\u5F84\u5B57\u6BB5\u540D:"pathFieldName",\u8DEF\u5F84\u6A21\u677F:"pathTemplates",\u8DF3\u8FC7\u8BC1\u4E66\u9A8C\u8BC1:"skipCertVerify",\u8F93\u5165:"input",\u8FC7\u671F\u65F6\u95F4:"expireTime",\u91CA\u653E\u5199\u5165\u5668:"releaseWriter",\u91CD\u8BD5\u8FDE\u63A5:"retryConnect",\u94FE\u5F0F\u4EE3\u7406\u5730\u5740:"chainProxyAddr",\u968F\u673AIP:"randomIP",\u968F\u673A\u6570\u91CF:"randomCount",\u968F\u673A\u8DEF\u5F84:"randomPath",\u9996\u5305\u5DF2\u5EFA\u7ACB:"firstPacketEstablished",\u9B4F\u70C8\u601D\u7ED3\u679C:"vlessResult"},sa={absorb:"\u6536\u7EB3",account:"\u8D26\u53F7",asArray:"\u6570\u7EC4\u5316",bestSubGen:"\u4F18\u9009\u8BA2\u9605\u751F\u6210",byteCount:"\u5B57\u8282\u6570",cache:"\u7F13\u5B58",chainProxyAddr:"\u94FE\u5F0F\u4EE3\u7406\u5730\u5740",clear:"\u6E05\u7A7A",closeConnection:"\u5173\u95ED\u8FDE\u63A5",coalesce:"\u5408\u5305",cryptoConfig:"\u52A0\u5BC6\u914D\u7F6E",defaultCfJson:"\u521D\u59CB\u5316CF_JSON",defaultTgJson:"\u521D\u59CB\u5316TG_JSON",enable0RTT:"\u542F\u75280RTT",enabled:"\u542F\u7528",encryptAndSend:"\u52A0\u5BC6\u5E76\u53D1\u9001",encryptionMethod:"\u52A0\u5BC6\u65B9\u5F0F",end:"\u7ED3\u675F",entryCount:"\u6761\u76EE\u6570",expireTime:"\u8FC7\u671F\u65F6\u95F4",finalTrojanResult:"\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C",finalVlessResult:"\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C",firstPacketEstablished:"\u9996\u5305\u5DF2\u5EFA\u7ACB",fixedPort:"\u6307\u5B9A\u7AEF\u53E3",fullNodePath:"\u5B8C\u6574\u8282\u70B9\u8DEF\u5F84",getConnectTask:"\u83B7\u53D6\u8FDE\u63A5\u4EFB\u52A1",getSocks5Account:"\u83B7\u53D6SOCKS5\u8D26\u53F7",getWriter:"\u83B7\u53D6\u5199\u5165\u5668",global:"\u5168\u5C40",grpcMode:"gRPC\u6A21\u5F0F",hostFieldName:"\u57DF\u540D\u5B57\u6BB5\u540D",inboundCandidateCrypto:"\u5165\u7AD9\u5019\u9009\u52A0\u5BC6\u914D\u7F6E",inboundDecryptor:"\u5165\u7AD9\u89E3\u5BC6\u5668",input:"\u8F93\u5165",isEmpty:"\u4E3A\u7A7A",loadTime:"\u52A0\u8F7D\u65F6\u95F4",localIPPool:"\u672C\u5730IP\u5E93",pathFieldName:"\u8DEF\u5F84\u5B57\u6BB5\u540D",pathTemplates:"\u8DEF\u5F84\u6A21\u677F",protocol:"\u534F\u8BAE",protocolType:"\u534F\u8BAE\u7C7B\u578B",proxy:"\u53CD\u4EE3",proxyAccount:"\u4EE3\u7406\u8D26\u53F7",proxyAddr:"\u53CD\u4EE3\u5730\u5740",proxyFallback:"\u53CD\u4EE3\u515C\u5E95",proxyGlobal:"\u4EE3\u7406\u5168\u5C40",proxyIP:"\u53CD\u4EE3IP",proxyParams:"\u4EE3\u7406\u53C2\u6570",proxySearchParams:"\u53CD\u4EE3\u67E5\u8BE2\u53C2\u6570",proxySocket:"\u53CD\u4EE3Socket",proxyType:"\u4EE3\u7406\u7C7B\u578B",queryArray:"\u67E5\u8BE2\u6570\u7EC4",queryParamIsp:"\u67E5\u8BE2\u53C2\u6570\u8FD0\u8425\u5546",queueName:"\u540D\u79F0",randomCount:"\u968F\u673A\u6570\u91CF",randomIP:"\u968F\u673AIP",randomPath:"\u968F\u673A\u8DEF\u5F84",rawData:"\u539F\u59CB\u6570\u636E",relatedRecords:"\u76F8\u5173\u8BB0\u5F55",releaseWriter:"\u91CA\u653E\u5199\u5165\u5668",replySocket:"\u56DE\u5305Socket",requestUrlText:"\u8BF7\u6C42URL\u6587\u672C",responseFrames:"\u54CD\u5E94\u5E27\u5217\u8868",result:"\u7ED3\u679C",retryConnect:"\u91CD\u8BD5\u8FDE\u63A5",send:"\u53D1\u9001",sendDirectly:"\u76F4\u63A5\u53D1\u9001",skipCertVerify:"\u8DF3\u8FC7\u8BC1\u4E66\u9A8C\u8BC1",sortedArray:"\u6392\u5E8F\u540E\u6570\u7EC4",standard:"\u6807\u51C6",status:"\u72B6\u6001",stopAndFlush:"\u505C\u6B62\u5E76\u5237\u65B0",subConverterConfig:"\u8BA2\u9605\u8F6C\u6362\u914D\u7F6E",targetHost:"\u76EE\u6807\u4E3B\u673A",targetPort:"\u76EE\u6807\u7AEF\u53E3",tlsFragment:"TLS\u5206\u7247",transport:"\u4F20\u8F93\u534F\u8BAE",trojanProxyAddr:"\u6728\u9A6C\u53CD\u4EE3\u5730\u5740",trojanResult:"\u6728\u9A6C\u7ED3\u679C",vlessResult:"\u9B4F\u70C8\u601D\u7ED3\u679C",waitIdle:"\u7B49\u5F85\u7A7A",whitelist:"\u767D\u540D\u5355",wrappedResult:"\u5C01\u88C5\u7ED3\u679C",write:"\u5199\u5165",writeAndWait:"\u5199\u5165\u5E76\u7B49\u5F85"};function Le(o,e){if(!o||typeof o!="object")return o;if(Array.isArray(o)){for(let n=0;n<o.length;n++)o[n]=Le(o[n],e);return o}let t=o;for(let n of Object.keys(t)){let a=e[n];a!==void 0&&a!==n?(t[a]=Le(t[n],e),delete t[n]):t[n]=Le(t[n],e)}return o}function Ro(o){return Le(JSON.parse(JSON.stringify(o)),sa)}var En=["about","account","acg","act","activity","ad","ads","ajax","album","albums","anime","api","app","apps","archive","archives","article","articles","ask","auth","avatar","bbs","bd","blog","blogs","book","books","bt","buy","cart","category","categories","cb","channel","channels","chat","china","city","class","classify","clip","clips","club","cn","code","collect","collection","comic","comics","community","company","config","contact","content","course","courses","cp","data","detail","details","dh","directory","discount","discuss","dl","dload","doc","docs","document","documents","doujin","download","downloads","drama","edu","en","ep","episode","episodes","event","events","f","faq","favorite","favourites","favs","feedback","file","files","film","films","forum","forums","friend","friends","game","games","gif","go","go.html","go.php","group","groups","help","home","hot","htm","html","image","images","img","index","info","intro","item","items","ja","jp","jump","jump.html","jump.php","jumping","knowledge","lang","lesson","lessons","lib","library","link","links","list","live","lives","m","mag","magnet","mall","manhua","map","member","members","message","messages","mobile","movie","movies","music","my","new","news","note","novel","novels","online","order","out","out.html","out.php","outbound","p","page","pages","pay","payment","pdf","photo","photos","pic","pics","picture","pictures","play","player","playlist","post","posts","product","products","program","programs","project","qa","question","rank","ranking","read","readme","redirect","redirect.html","redirect.php","reg","register","res","resource","retrieve","sale","search","season","seasons","section","seller","series","service","services","setting","settings","share","shop","show","shows","site","soft","sort","source","special","star","stars","static","stock","store","stream","streaming","streams","student","study","tag","tags","task","teacher","team","tech","temp","test","thread","tool","tools","topic","topics","torrent","trade","travel","tv","txt","type","u","upload","uploads","url","urls","user","users","v","version","videos","view","vip","vod","watch","web","wenku","wiki","work","www","zh","zh-cn","zh-tw","zip"];function Ot(o={}){let e=o.transport==="grpc",[t,n]=Qe(o.UUID||""),a={xPaddingObfsMode:!0,xPaddingMethod:"tokenish",xPaddingPlacement:"queryInHeader",xPaddingHeader:t,xPaddingKey:n};return{type:e?o.grpcMode==="multi"?"grpc&mode=multi":"grpc&mode=gun":o.transport==="xhttp"?`xhttp&mode=stream-one&extra=${encodeURIComponent(JSON.stringify(a))}`:"ws",pathFieldName:e?"serviceName":"path",hostFieldName:e?"authority":"host"}}function dt(o="/"){let e=Math.floor(Math.random()*3+1),t=[...En].sort(()=>.5-Math.random()).slice(0,e).join("/");return o==="/"?`/${t}`:`/${t+o.replace("/?","?")}`}function _t(o={},e="/",t=!1){let n=t?"/":o.randomPath?dt(e):e;return o.transport!=="grpc"?n:n.split("?")[0]||"/"}function pt(o,e=3,t=2){if(!o||o.length<=e+t)return o;let n=o.slice(0,e),a=o.slice(-t),r=o.length-e-t;return`${n}${"*".repeat(r)}${a}`}var An="https://api.cloudflare.com/client/v4";async function $t(o,e,t,n){let a=s=>s?.reduce((l,c)=>l+(c?.sum?.requests||0),0)||0,r={"Content-Type":"application/json"};try{if(!t&&(!o||!e))return{success:!1,pages:0,workers:0,total:0,max:1e5};if(!t){let u=await fetch(`${An}/accounts`,{method:"GET",headers:{...r,"X-AUTH-EMAIL":o,"X-AUTH-KEY":e}});if(!u.ok)throw new Error(`\u8D26\u6237\u83B7\u53D6\u5931\u8D25: ${u.status}`);let x=await u.json();if(!x?.result?.length)throw new Error("\u672A\u627E\u5230\u8D26\u6237");let v=x.result.findIndex(w=>w.name?.toLowerCase().startsWith(o.toLowerCase()));t=x.result[v>=0?v:0]?.id??null}let s=new Date;s.setUTCHours(0,0,0,0);let l=n?{...r,Authorization:`Bearer ${n}`}:{...r,"X-AUTH-EMAIL":o,"X-AUTH-KEY":e},c=await fetch(`${An}/graphql`,{method:"POST",headers:l,body:JSON.stringify({query:`query getBillingMetrics($AccountID: String!, $filter: AccountWorkersInvocationsAdaptiveFilter_InputObject) {
+// src/services/md5.ts
+var 标识1 = [
+    7,
+    12,
+    17,
+    22,
+    7,
+    12,
+    17,
+    22,
+    7,
+    12,
+    17,
+    22,
+    7,
+    12,
+    17,
+    22,
+    5,
+    9,
+    14,
+    20,
+    5,
+    9,
+    14,
+    20,
+    5,
+    9,
+    14,
+    20,
+    5,
+    9,
+    14,
+    20,
+    4,
+    11,
+    16,
+    23,
+    4,
+    11,
+    16,
+    23,
+    4,
+    11,
+    16,
+    23,
+    4,
+    11,
+    16,
+    23,
+    6,
+    10,
+    15,
+    21,
+    6,
+    10,
+    15,
+    21,
+    6,
+    10,
+    15,
+    21,
+    6,
+    10,
+    15,
+    21
+];
+var 标识2 = new Uint32Array(64);
+for (let 标识3 = 0; 标识3 < 64; 标识3++)
+    标识2[标识3] = Math.floor(Math.abs(Math.sin(标识3 + 1)) * 4294967296);
+function 标识4(标识5, 标识6) {
+    return (标识5 << 标识6 | 标识5 >>> 32 - 标识6) >>> 0;
+}
+function 标识7(消息) {
+    const 标识8 = 消息.length;
+    const 标识9 = (标识8 + 8 >> 6) + 1 << 6;
+    const 标识10 = new Uint8Array(标识9);
+    标识10.set(消息);
+    标识10[标识8] = 128;
+    const 标识11 = new DataView(标识10.buffer);
+    const 标识12 = 标识8 * 8;
+    标识11.setUint32(标识9 - 8, 标识12 % 4294967296, true);
+    标识11.setUint32(标识9 - 4, Math.floor(标识12 / 4294967296), true);
+    let 标识13 = 1732584193;
+    let 标识14 = 4023233417;
+    let 标识15 = 2562383102;
+    let 标识16 = 271733878;
+    const 标识17 = new Uint32Array(16);
+    for (let 标识18 = 0; 标识18 < 标识9; 标识18 += 64) {
+        for (let 标识19 = 0; 标识19 < 16; 标识19++)
+            标识17[标识19] = 标识11.getUint32(标识18 + 标识19 * 4, true);
+        let 标识20 = 标识13;
+        let 标识21 = 标识14;
+        let 标识22 = 标识15;
+        let 标识23 = 标识16;
+        for (let 标识3 = 0; 标识3 < 64; 标识3++) {
+            const 标识24 = 标识3 & 3;
+            let 标识5;
+            let 标识25;
+            let 标识26;
+            if (标识24 === 0) {
+                标识5 = 标识21;
+                标识25 = 标识22;
+                标识26 = 标识23;
+            }
+            else if (标识24 === 1) {
+                标识5 = 标识20;
+                标识25 = 标识21;
+                标识26 = 标识22;
+            }
+            else if (标识24 === 2) {
+                标识5 = 标识23;
+                标识25 = 标识20;
+                标识26 = 标识21;
+            }
+            else {
+                标识5 = 标识22;
+                标识25 = 标识23;
+                标识26 = 标识20;
+            }
+            let 标识27;
+            if (标识3 < 16)
+                标识27 = 标识5 & 标识25 | ~标识5 & 标识26;
+            else if (标识3 < 32)
+                标识27 = 标识5 & 标识26 | 标识25 & ~标识26;
+            else if (标识3 < 48)
+                标识27 = 标识5 ^ 标识25 ^ 标识26;
+            else
+                标识27 = 标识25 ^ (标识5 | ~标识26);
+            let 标识28;
+            if (标识3 < 16)
+                标识28 = 标识3;
+            else if (标识3 < 32)
+                标识28 = (5 * 标识3 + 1) % 16;
+            else if (标识3 < 48)
+                标识28 = (3 * 标识3 + 5) % 16;
+            else
+                标识28 = 7 * 标识3 % 16;
+            const 标识29 = 标识27 + 标识17[标识28] + 标识2[标识3] >>> 0;
+            const 目标 = 标识24 === 0 ? 标识20 : 标识24 === 1 ? 标识23 : 标识24 === 2 ? 标识22 : 标识21;
+            const 标识30 = 标识4(目标 + 标识29 >>> 0, 标识1[标识3]) + 标识5 >>> 0;
+            if (标识24 === 0)
+                标识20 = 标识30;
+            else if (标识24 === 1)
+                标识23 = 标识30;
+            else if (标识24 === 2)
+                标识22 = 标识30;
+            else
+                标识21 = 标识30;
+        }
+        标识13 = 标识13 + 标识20 >>> 0;
+        标识14 = 标识14 + 标识21 >>> 0;
+        标识15 = 标识15 + 标识22 >>> 0;
+        标识16 = 标识16 + 标识23 >>> 0;
+    }
+    const 标识31 = new Uint8Array(16);
+    const 标识32 = new DataView(标识31.buffer);
+    标识32.setUint32(0, 标识13, true);
+    标识32.setUint32(4, 标识14, true);
+    标识32.setUint32(8, 标识15, true);
+    标识32.setUint32(12, 标识16, true);
+    return 标识31;
+}
+function 标识33(标识34) {
+    let 标识35 = "";
+    for (let 标识3 = 0; 标识3 < 标识34.length; 标识3++)
+        标识35 += 标识34[标识3].toString(16).padStart(2, "0");
+    return 标识35;
+}
+function 标识36(标识37) {
+    return 标识33(标识7(new TextEncoder().encode(标识37)));
+}
+function 标识38(标识37) {
+    const 标识39 = 标识36(标识37);
+    return 标识36(标识39.slice(7, 27));
+}
+// src/services/identity.ts
+function 标识40(用户编号) {
+    return [用户编号.slice(1, 7), "_" + 用户编号.slice(25, 31)];
+}
+// src/utils/array.ts
+function 标识41(内容) {
+    let 标识42 = 内容.replace(/[\t"'\r\n]+/g, ",").replace(/,+/g, ",");
+    if (标识42.charAt(0) === ",")
+        标识42 = 标识42.slice(1);
+    if (标识42.charAt(标识42.length - 1) === ",")
+        标识42 = 标识42.slice(0, 标识42.length - 1);
+    return 标识42.split(",");
+}
+// src/services/brand.ts
+var 标识43 = "PROXYIP";
+var 标识44 = "cmliu";
+var 标识45 = "090227";
+var 标识46 = `v2rayN/edgetunnel (https://github.com/${标识44}/edgetunnel)`;
+var 版本 = "2026-10-08 22:23:27";
+var 标识47 = Number(版本.replace(/\D+/g, ""));
+// src/config/schema.ts
+var 标识48 = "https://dns.alidns.com/dns-query";
+var 标识49 = "cloudflare-ech.com";
+var 标识50 = "{{IP:PORT}}";
+async function 标识51(主机, 用户编号2, 指纹串, 袜子5白名单) {
+    return {
+        TIME: ( /* @__PURE__ */new Date()).toISOString(),
+        HOST: 主机,
+        HOSTS: [主机],
+        UUID: 用户编号2,
+        PATH: "/",
+        ALPN: "",
+        protocolType: "vless",
+        transport: "ws",
+        grpcMode: "gun",
+        gRPCUserAgent: 指纹串,
+        skipCertVerify: false,
+        enable0RTT: false,
+        tlsFragment: null,
+        randomPath: false,
+        ECH: false,
+        ECHConfig: { DNS: 标识48, SNI: 标识49 },
+        SS: { encryptionMethod: "aes-128-gcm", TLS: true },
+        Fingerprint: "chrome",
+        bestSubGen: {
+            local: true,
+            localIPPool: { randomIP: true, randomCount: 16, fixedPort: -1 },
+            SUB: null,
+            SUBNAME: "xtunnel",
+            SUBUpdateTime: 3,
+            TOKEN: await 标识38(主机 + 用户编号2)
+        },
+        subConverterConfig: {
+            SUBAPI: `https://SUBAPI.${标识44}ssss.net`,
+            SUBCONFIG: `https://raw.githubusercontent.com/${标识44}/ACL4SSR/refs/heads/main/Clash/config/ACL4SSR_Online_Mini_MultiMode_CF.ini`,
+            SUBEMOJI: false,
+            SUBLIST: false,
+            UDP: false,
+            XUDP: false,
+            TLS13: false,
+            APPEND_TYPE: false,
+            SORT: false,
+            EXPAND: true
+        },
+        proxy: {
+            [标识43]: "auto",
+            SOCKS5: { enabled: null, global: false, account: "", whitelist: 袜子5白名单 },
+            pathTemplates: {
+                [标识43]: "proxyip=" + 标识50,
+                SOCKS5: { global: "socks5://" + 标识50, standard: "socks5=" + 标识50 },
+                HTTP: { global: "http://" + 标识50, standard: "http=" + 标识50 },
+                HTTPS: { global: "https://" + 标识50, standard: "https=" + 标识50 },
+                TURN: { global: "turn://" + 标识50, standard: "turn=" + 标识50 },
+                SSTP: { global: "sstp://" + 标识50, standard: "sstp=" + 标识50 }
+            }
+        },
+        TG: { enabled: false, BotToken: null, ChatID: null },
+        CF: {
+            Email: null,
+            GlobalAPIKey: null,
+            AccountID: null,
+            APIToken: null,
+            UsageAPI: null,
+            Usage: { success: false, pages: 0, workers: 0, total: 0, max: 1e5 }
+        },
+        fullNodePath: "/",
+        LINK: ""
+    };
+}
+var 缺省袜子5白名单 = [
+    "*tapecontent.net",
+    "*cloudatacdn.com",
+    "*loadshare.org",
+    "*cdn-centaurus.com",
+    "scholar.google.com"
+];
+// src/context.ts
+function 标识52(请求) {
+    const 边缘平台短 = 请求.cf;
+    const 标识53 = {
+        "4134": "ct",
+        "4809": "ct",
+        "4811": "ct",
+        "4812": "ct",
+        "4815": "ct",
+        "4837": "cu",
+        "4814": "cu",
+        "9929": "cu",
+        "17623": "cu",
+        "17816": "cu",
+        "9808": "cmcc",
+        "24400": "cmcc",
+        "56040": "cmcc",
+        "56041": "cmcc",
+        "56044": "cmcc"
+    };
+    const 标识54 = [
+        { code: "ct", pattern: /chinanet|chinatelecom|china telecom|cn2|shtel/ },
+        { code: "cmcc", pattern: /cmi|cmnet|chinamobile|china mobile|cmcc|mobile communications/ },
+        { code: "cu", pattern: /china169|china unicom|chinaunicom|cucc|cncgroup|cuii|netcom/ }
+    ];
+    if (String(边缘平台短?.country || "").toLowerCase() !== "cn")
+        return "cf";
+    const 标识55 = String(边缘平台短?.asOrganization || "").toLowerCase();
+    const 标识56 = 标识54.find(({ pattern: 标识57 }) => 标识57.test(标识55))?.code;
+    return 标识56 || 标识53[String(边缘平台短?.asn || "")] || "cf";
+}
+var 已缓存袜子5白名单 = null;
+function 敲定袜子5白名单(环境) {
+    const 标识58 = String(环境.GO2SOCKS5 ?? "");
+    if (已缓存袜子5白名单 && 已缓存袜子5白名单.envFingerprint === 标识58) {
+        return 已缓存袜子5白名单.list;
+    }
+    let 列表 = [...缺省袜子5白名单];
+    if (环境.GO2SOCKS5)
+        列表 = [...new Set(列表.concat(标识41(String(环境.GO2SOCKS5))))];
+    已缓存袜子5白名单 = { envFingerprint: 标识58, list: 列表 };
+    return 列表;
+}
+var 标识59 = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+var 标识60 = "\u52FF\u52A8\u6B64\u9ED8\u8BA4\u5BC6\u94A5\uFF0C\u6709\u9700\u6C42\u8BF7\u81EA\u884C\u901A\u8FC7\u6DFB\u52A0\u53D8\u91CFKEY\u8FDB\u884C\u4FEE\u6539";
+var 标识61 = ["ADMIN", "admin", "PASSWORD", "password", "pswd", "TOKEN", "KEY", "UUID", "uuid"];
+function 标识62(标识63) {
+    for (const 标识64 of 标识63) {
+        if (标识64)
+            return String(标识64);
+    }
+    return void 0;
+}
+var 请求上下文 = class {
+    requestId;
+    request;
+    env;
+    ctx;
+    url;
+    ua;
+    clientIp;
+    /** DEBUG 开关（env.DEBUG = 1/true），原模块级 debugLogging 的每请求化 */
+    debug;
+    /** 管理密码（原 adminPassword env 链）；undefined = 未配置 → 走 noADMIN 兜底 */
+    adminPassword;
+    /** 加密密钥（原 encryptionSecret：env.KEY || 默认常量） */
+    encryptionSecret;
+    /** 用户 ID（env.UUID 合法则小写，否则 MD5MD5 派生 UUID）—— 兼容红线 #2 */
+    userId;
+    /** HOST 列表（env.HOST 拆分或 url.hostname）与首项 */
+    hosts;
+    host;
+    /** 本机标识 [请求头名, 查询参数名]（xHTTP 首包识别用） */
+    identity;
+    /** 每请求调优参数（原模块级 tcpConcurrentDial / proxyConcurrentDial / preloadRaceDial） */
+    dial;
+    /** CF 边缘元数据（colo / asn / asOrganization / country）—— 原 request.cf */
+    cf;
+    /** 默认反代 IP（原 defaultProxyIP：env.PROXYIP 或 colo.品牌域名） */
+    defaultProxyIP;
+    /** 默认反代兜底开关（env.PROXYIP 存在时为 false，原 defaultProxyFallback） */
+    defaultProxyFallback;
+    /** SOCKS5 白名单（原模块级 socks5Whitelist + env.GO2SOCKS5 合并；启动期缓存） */
+    socks5Whitelist;
+    constructor(请求, 环境, 标识65) {
+        this.requestId = crypto.randomUUID().slice(0, 8);
+        this.request = 请求;
+        this.env = 环境;
+        this.ctx = 标识65;
+        this.url = new URL(请求.url);
+        this.ua = 请求.headers.get("User-Agent") || "null";
+        this.debug = ["1", "true"].includes(String(环境.DEBUG ?? ""));
+        this.clientIp = 请求.headers.get("CF-Connecting-IP") || 请求.headers.get("X-Real-IP") || 请求.headers.get("X-Forwarded-For") || "\u672A\u77E5IP";
+        this.adminPassword = 标识62(标识61.map((标识66) => 环境[标识66]));
+        const 标识67 = 环境.KEY;
+        this.encryptionSecret = 标识67 ? String(标识67) : 标识60;
+        const 标识68 = 标识38(`${this.adminPassword}${this.encryptionSecret}`);
+        const 环境用户码 = 标识62([环境.UUID, 环境.uuid]);
+        this.userId = 环境用户码 && 标识59.test(环境用户码) ? 环境用户码.toLowerCase() : [
+            标识68.slice(0, 8),
+            标识68.slice(8, 12),
+            "4" + 标识68.slice(13, 16),
+            "8" + 标识68.slice(17, 20),
+            标识68.slice(20)
+        ].join("-");
+        const 标识69 = 环境.HOST;
+        this.hosts = 标识69 ? 标识41(String(标识69)).map((标识70) => 标识70.toLowerCase().replace(/^https?:\/\//, "").split("/")[0].split(":")[0]) : [this.url.hostname];
+        this.host = this.hosts[0] ?? this.url.hostname;
+        this.identity = 标识40(this.userId);
+        this.dial = {
+            tcpConcurrentDial: Math.max(1, Number(环境.TCP_CONCURRENT_DIAL) || 2),
+            proxyConcurrentDial: Math.max(1, Number(环境.PROXY_CONCURRENT_DIAL) || 1),
+            preloadRaceDial: ["1", "true"].includes(String(环境.PRELOAD_RACE_DIAL ?? ""))
+        };
+        if (!环境.TCP_CONCURRENT_DIAL && this.dial.tcpConcurrentDial !== 1 && 标识52(请求) === "cmcc") {
+            this.dial.tcpConcurrentDial = 1;
+        }
+        this.cf = 请求.cf;
+        const 机房码 = String(this.cf?.colo || "").toUpperCase();
+        this.defaultProxyIP = `${机房码}.${标识43}.${标识44}SsSs.nEt`.toLowerCase();
+        if (环境.PROXYIP) {
+            const 标识71 = 标识41(String(环境.PROXYIP));
+            this.defaultProxyIP = 标识71[Math.floor(Math.random() * 标识71.length)] ?? this.defaultProxyIP;
+            this.defaultProxyFallback = false;
+        }
+        else {
+            this.defaultProxyFallback = true;
+        }
+        this.socks5Whitelist = 敲定袜子5白名单(环境);
+    }
+    /**
+     * 统一日志格式：[requestId][模块] 消息（DESIGN.md §4.7）。
+     * 仅 debug 打开时输出（原 log() 语义）；错误路径用 console.error 直出。
+     */
+    log(标识72, ...实参组) {
+        if (this.debug)
+            console.log(`[${this.requestId}][${标识72}]`, ...实参组);
+    }
+    /** 错误日志：始终输出（错误不可被 debug 开关吞掉） */
+    error(标识72, ...实参组) {
+        console.error(`[${this.requestId}][${标识72}]`, ...实参组);
+    }
+};
+// src/plugins/registry.ts
+var 插件组 = [];
+function 标识73(插件) {
+    插件组.push(插件);
+}
+function 取值插件组() {
+    return 插件组;
+}
+function 取值路由插件组() {
+    return 插件组.filter((标识24) => !标识24.fallback);
+}
+function 取值兜底插件组() {
+    return 插件组.filter((标识24) => 标识24.fallback);
+}
+// src/plugins/base.ts
+var 插件2 = class {
+    /**
+     * 兜底插件（FakePage）：不参与主路由链，Router 在核心路由与普通插件
+     * 全部未命中后单独调用（对应原 else-if 链落出后的 L526+ 伪装页）。
+     */
+    fallback;
+};
+// src/services/base64-secret.ts
+var 标识74 = new TextEncoder();
+var 标识75 = new TextDecoder();
+function 标识76(标识77, 密钥) {
+    const 数据 = 标识74.encode(标识77);
+    const 键 = 标识74.encode(密钥);
+    const 标识78 = new Uint8Array(数据.length);
+    for (let 标识3 = 0; 标识3 < 数据.length; 标识3++) {
+        标识78[标识3] = 数据[标识3] ^ 键[标识3 % 键.length];
+    }
+    let 标识79 = "";
+    for (let 标识3 = 0; 标识3 < 标识78.length; 标识3++) {
+        标识79 += String.fromCharCode(标识78[标识3]);
+    }
+    return btoa(标识79);
+}
+function 标识80(标识81, 密钥) {
+    const 标识79 = atob(标识81);
+    const 标识78 = new Uint8Array(标识79.length);
+    for (let 标识3 = 0; 标识3 < 标识79.length; 标识3++) {
+        标识78[标识3] = 标识79.charCodeAt(标识3);
+    }
+    const 键 = 标识74.encode(密钥);
+    const 数据 = new Uint8Array(标识78.length);
+    for (let 标识3 = 0; 标识3 < 标识78.length; 标识3++) {
+        数据[标识3] = 标识78[标识3] ^ 键[标识3 % 键.length];
+    }
+    return 标识75.decode(数据);
+}
+// src/config/key-migration.ts
+var 标识82 = {
+    "TLS\u5206\u7247": "tlsFragment",
+    "gRPC\u6A21\u5F0F": "grpcMode",
+    "\u4E3A\u7A7A": "isEmpty",
+    "\u4EE3\u7406\u5168\u5C40": "proxyGlobal",
+    "\u4EE3\u7406\u53C2\u6570": "proxyParams",
+    "\u4EE3\u7406\u7C7B\u578B": "proxyType",
+    "\u4EE3\u7406\u8D26\u53F7": "proxyAccount",
+    "\u4F18\u9009\u8BA2\u9605\u751F\u6210": "bestSubGen",
+    "\u4F20\u8F93\u534F\u8BAE": "transport",
+    "\u505C\u6B62\u5E76\u5237\u65B0": "stopAndFlush",
+    "\u5165\u7AD9\u5019\u9009\u52A0\u5BC6\u914D\u7F6E": "inboundCandidateCrypto",
+    "\u5165\u7AD9\u89E3\u5BC6\u5668": "inboundDecryptor",
+    "\u5168\u5C40": "global",
+    "\u5173\u95ED\u8FDE\u63A5": "closeConnection",
+    "\u5199\u5165": "write",
+    "\u5199\u5165\u5E76\u7B49\u5F85": "writeAndWait",
+    "\u521D\u59CB\u5316CF_JSON": "defaultCfJson",
+    "\u521D\u59CB\u5316TG_JSON": "defaultTgJson",
+    "\u52A0\u5BC6\u5E76\u53D1\u9001": "encryptAndSend",
+    "\u52A0\u5BC6\u65B9\u5F0F": "encryptionMethod",
+    "\u52A0\u5BC6\u914D\u7F6E": "cryptoConfig",
+    "\u52A0\u8F7D\u65F6\u95F4": "loadTime",
+    "\u534F\u8BAE": "protocol",
+    "\u534F\u8BAE\u7C7B\u578B": "protocolType",
+    "\u539F\u59CB\u6570\u636E": "rawData",
+    "\u53CD\u4EE3": "proxy",
+    "\u53CD\u4EE3IP": "proxyIP",
+    "\u53CD\u4EE3Socket": "proxySocket",
+    "\u53CD\u4EE3\u515C\u5E95": "proxyFallback",
+    "\u53CD\u4EE3\u5730\u5740": "proxyAddr",
+    "\u53CD\u4EE3\u67E5\u8BE2\u53C2\u6570": "proxySearchParams",
+    "\u53D1\u9001": "send",
+    "\u5408\u5305": "coalesce",
+    "\u540D\u79F0": "queueName",
+    "\u542F\u7528": "enabled",
+    "\u542F\u75280RTT": "enable0RTT",
+    "\u54CD\u5E94\u5E27\u5217\u8868": "responseFrames",
+    "\u56DE\u5305Socket": "replySocket",
+    "\u57DF\u540D\u5B57\u6BB5\u540D": "hostFieldName",
+    "\u5B57\u8282\u6570": "byteCount",
+    "\u5B8C\u6574\u8282\u70B9\u8DEF\u5F84": "fullNodePath",
+    "\u5C01\u88C5\u7ED3\u679C": "wrappedResult",
+    "\u6307\u5B9A\u7AEF\u53E3": "fixedPort",
+    "\u6392\u5E8F\u540E\u6570\u7EC4": "sortedArray",
+    "\u6536\u7EB3": "absorb",
+    "\u6570\u7EC4\u5316": "asArray",
+    "\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C": "finalTrojanResult",
+    "\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C": "finalVlessResult",
+    "\u6728\u9A6C\u53CD\u4EE3\u5730\u5740": "trojanProxyAddr",
+    "\u6728\u9A6C\u7ED3\u679C": "trojanResult",
+    "\u672C\u5730IP\u5E93": "localIPPool",
+    "\u6761\u76EE\u6570": "entryCount",
+    "\u67E5\u8BE2\u53C2\u6570\u8FD0\u8425\u5546": "queryParamIsp",
+    "\u67E5\u8BE2\u6570\u7EC4": "queryArray",
+    "\u6807\u51C6": "standard",
+    "\u6E05\u7A7A": "clear",
+    "\u72B6\u6001": "status",
+    "\u767D\u540D\u5355": "whitelist",
+    "\u76EE\u6807\u4E3B\u673A": "targetHost",
+    "\u76EE\u6807\u7AEF\u53E3": "targetPort",
+    "\u76F4\u63A5\u53D1\u9001": "sendDirectly",
+    "\u76F8\u5173\u8BB0\u5F55": "relatedRecords",
+    "\u7B49\u5F85\u7A7A": "waitIdle",
+    "\u7ED3\u675F": "end",
+    "\u7ED3\u679C": "result",
+    "\u7F13\u5B58": "cache",
+    "\u83B7\u53D6SOCKS5\u8D26\u53F7": "getSocks5Account",
+    "\u83B7\u53D6\u5199\u5165\u5668": "getWriter",
+    "\u83B7\u53D6\u8FDE\u63A5\u4EFB\u52A1": "getConnectTask",
+    "\u8BA2\u9605\u8F6C\u6362\u914D\u7F6E": "subConverterConfig",
+    "\u8BF7\u6C42URL\u6587\u672C": "requestUrlText",
+    "\u8D26\u53F7": "account",
+    "\u8DEF\u5F84\u5B57\u6BB5\u540D": "pathFieldName",
+    "\u8DEF\u5F84\u6A21\u677F": "pathTemplates",
+    "\u8DF3\u8FC7\u8BC1\u4E66\u9A8C\u8BC1": "skipCertVerify",
+    "\u8F93\u5165": "input",
+    "\u8FC7\u671F\u65F6\u95F4": "expireTime",
+    "\u91CA\u653E\u5199\u5165\u5668": "releaseWriter",
+    "\u91CD\u8BD5\u8FDE\u63A5": "retryConnect",
+    "\u94FE\u5F0F\u4EE3\u7406\u5730\u5740": "chainProxyAddr",
+    "\u968F\u673AIP": "randomIP",
+    "\u968F\u673A\u6570\u91CF": "randomCount",
+    "\u968F\u673A\u8DEF\u5F84": "randomPath",
+    "\u9996\u5305\u5DF2\u5EFA\u7ACB": "firstPacketEstablished",
+    "\u9B4F\u70C8\u601D\u7ED3\u679C": "vlessResult"
+};
+var 标识83 = {
+    "absorb": "\u6536\u7EB3",
+    "account": "\u8D26\u53F7",
+    "asArray": "\u6570\u7EC4\u5316",
+    "bestSubGen": "\u4F18\u9009\u8BA2\u9605\u751F\u6210",
+    "byteCount": "\u5B57\u8282\u6570",
+    "cache": "\u7F13\u5B58",
+    "chainProxyAddr": "\u94FE\u5F0F\u4EE3\u7406\u5730\u5740",
+    "clear": "\u6E05\u7A7A",
+    "closeConnection": "\u5173\u95ED\u8FDE\u63A5",
+    "coalesce": "\u5408\u5305",
+    "cryptoConfig": "\u52A0\u5BC6\u914D\u7F6E",
+    "defaultCfJson": "\u521D\u59CB\u5316CF_JSON",
+    "defaultTgJson": "\u521D\u59CB\u5316TG_JSON",
+    "enable0RTT": "\u542F\u75280RTT",
+    "enabled": "\u542F\u7528",
+    "encryptAndSend": "\u52A0\u5BC6\u5E76\u53D1\u9001",
+    "encryptionMethod": "\u52A0\u5BC6\u65B9\u5F0F",
+    "end": "\u7ED3\u675F",
+    "entryCount": "\u6761\u76EE\u6570",
+    "expireTime": "\u8FC7\u671F\u65F6\u95F4",
+    "finalTrojanResult": "\u6700\u7EC8\u6728\u9A6C\u7ED3\u679C",
+    "finalVlessResult": "\u6700\u7EC8\u9B4F\u70C8\u601D\u7ED3\u679C",
+    "firstPacketEstablished": "\u9996\u5305\u5DF2\u5EFA\u7ACB",
+    "fixedPort": "\u6307\u5B9A\u7AEF\u53E3",
+    "fullNodePath": "\u5B8C\u6574\u8282\u70B9\u8DEF\u5F84",
+    "getConnectTask": "\u83B7\u53D6\u8FDE\u63A5\u4EFB\u52A1",
+    "getSocks5Account": "\u83B7\u53D6SOCKS5\u8D26\u53F7",
+    "getWriter": "\u83B7\u53D6\u5199\u5165\u5668",
+    "global": "\u5168\u5C40",
+    "grpcMode": "gRPC\u6A21\u5F0F",
+    "hostFieldName": "\u57DF\u540D\u5B57\u6BB5\u540D",
+    "inboundCandidateCrypto": "\u5165\u7AD9\u5019\u9009\u52A0\u5BC6\u914D\u7F6E",
+    "inboundDecryptor": "\u5165\u7AD9\u89E3\u5BC6\u5668",
+    "input": "\u8F93\u5165",
+    "isEmpty": "\u4E3A\u7A7A",
+    "loadTime": "\u52A0\u8F7D\u65F6\u95F4",
+    "localIPPool": "\u672C\u5730IP\u5E93",
+    "pathFieldName": "\u8DEF\u5F84\u5B57\u6BB5\u540D",
+    "pathTemplates": "\u8DEF\u5F84\u6A21\u677F",
+    "protocol": "\u534F\u8BAE",
+    "protocolType": "\u534F\u8BAE\u7C7B\u578B",
+    "proxy": "\u53CD\u4EE3",
+    "proxyAccount": "\u4EE3\u7406\u8D26\u53F7",
+    "proxyAddr": "\u53CD\u4EE3\u5730\u5740",
+    "proxyFallback": "\u53CD\u4EE3\u515C\u5E95",
+    "proxyGlobal": "\u4EE3\u7406\u5168\u5C40",
+    "proxyIP": "\u53CD\u4EE3IP",
+    "proxyParams": "\u4EE3\u7406\u53C2\u6570",
+    "proxySearchParams": "\u53CD\u4EE3\u67E5\u8BE2\u53C2\u6570",
+    "proxySocket": "\u53CD\u4EE3Socket",
+    "proxyType": "\u4EE3\u7406\u7C7B\u578B",
+    "queryArray": "\u67E5\u8BE2\u6570\u7EC4",
+    "queryParamIsp": "\u67E5\u8BE2\u53C2\u6570\u8FD0\u8425\u5546",
+    "queueName": "\u540D\u79F0",
+    "randomCount": "\u968F\u673A\u6570\u91CF",
+    "randomIP": "\u968F\u673AIP",
+    "randomPath": "\u968F\u673A\u8DEF\u5F84",
+    "rawData": "\u539F\u59CB\u6570\u636E",
+    "relatedRecords": "\u76F8\u5173\u8BB0\u5F55",
+    "releaseWriter": "\u91CA\u653E\u5199\u5165\u5668",
+    "replySocket": "\u56DE\u5305Socket",
+    "requestUrlText": "\u8BF7\u6C42URL\u6587\u672C",
+    "responseFrames": "\u54CD\u5E94\u5E27\u5217\u8868",
+    "result": "\u7ED3\u679C",
+    "retryConnect": "\u91CD\u8BD5\u8FDE\u63A5",
+    "send": "\u53D1\u9001",
+    "sendDirectly": "\u76F4\u63A5\u53D1\u9001",
+    "skipCertVerify": "\u8DF3\u8FC7\u8BC1\u4E66\u9A8C\u8BC1",
+    "sortedArray": "\u6392\u5E8F\u540E\u6570\u7EC4",
+    "standard": "\u6807\u51C6",
+    "status": "\u72B6\u6001",
+    "stopAndFlush": "\u505C\u6B62\u5E76\u5237\u65B0",
+    "subConverterConfig": "\u8BA2\u9605\u8F6C\u6362\u914D\u7F6E",
+    "targetHost": "\u76EE\u6807\u4E3B\u673A",
+    "targetPort": "\u76EE\u6807\u7AEF\u53E3",
+    "tlsFragment": "TLS\u5206\u7247",
+    "transport": "\u4F20\u8F93\u534F\u8BAE",
+    "trojanProxyAddr": "\u6728\u9A6C\u53CD\u4EE3\u5730\u5740",
+    "trojanResult": "\u6728\u9A6C\u7ED3\u679C",
+    "vlessResult": "\u9B4F\u70C8\u601D\u7ED3\u679C",
+    "waitIdle": "\u7B49\u5F85\u7A7A",
+    "whitelist": "\u767D\u540D\u5355",
+    "wrappedResult": "\u5C01\u88C5\u7ED3\u679C",
+    "write": "\u5199\u5165",
+    "writeAndWait": "\u5199\u5165\u5E76\u7B49\u5F85"
+};
+function 标识84(值, 映射表) {
+    if (!值 || typeof 值 !== "object")
+        return 值;
+    if (Array.isArray(值)) {
+        for (let 标识3 = 0; 标识3 < 值.length; 标识3++) {
+            值[标识3] = 标识84(值[标识3], 映射表);
+        }
+        return 值;
+    }
+    const 对象物 = 值;
+    for (const 键 of Object.keys(对象物)) {
+        const 标识85 = 映射表[键];
+        if (标识85 !== void 0 && 标识85 !== 键) {
+            对象物[标识85] = 标识84(对象物[键], 映射表);
+            delete 对象物[键];
+        }
+        else {
+            对象物[键] = 标识84(对象物[键], 映射表);
+        }
+    }
+    return 值;
+}
+function 标识86(配置) {
+    return 标识84(JSON.parse(JSON.stringify(配置)), 标识83);
+}
+// src/config/path-segments.ts
+var 标识87 = ["about", "account", "acg", "act", "activity", "ad", "ads", "ajax", "album", "albums", "anime", "api", "app", "apps", "archive", "archives", "article", "articles", "ask", "auth", "avatar", "bbs", "bd", "blog", "blogs", "book", "books", "bt", "buy", "cart", "category", "categories", "cb", "channel", "channels", "chat", "china", "city", "class", "classify", "clip", "clips", "club", "cn", "code", "collect", "collection", "comic", "comics", "community", "company", "config", "contact", "content", "course", "courses", "cp", "data", "detail", "details", "dh", "directory", "discount", "discuss", "dl", "dload", "doc", "docs", "document", "documents", "doujin", "download", "downloads", "drama", "edu", "en", "ep", "episode", "episodes", "event", "events", "f", "faq", "favorite", "favourites", "favs", "feedback", "file", "files", "film", "films", "forum", "forums", "friend", "friends", "game", "games", "gif", "go", "go.html", "go.php", "group", "groups", "help", "home", "hot", "htm", "html", "image", "images", "img", "index", "info", "intro", "item", "items", "ja", "jp", "jump", "jump.html", "jump.php", "jumping", "knowledge", "lang", "lesson", "lessons", "lib", "library", "link", "links", "list", "live", "lives", "m", "mag", "magnet", "mall", "manhua", "map", "member", "members", "message", "messages", "mobile", "movie", "movies", "music", "my", "new", "news", "note", "novel", "novels", "online", "order", "out", "out.html", "out.php", "outbound", "p", "page", "pages", "pay", "payment", "pdf", "photo", "photos", "pic", "pics", "picture", "pictures", "play", "player", "playlist", "post", "posts", "product", "products", "program", "programs", "project", "qa", "question", "rank", "ranking", "read", "readme", "redirect", "redirect.html", "redirect.php", "reg", "register", "res", "resource", "retrieve", "sale", "search", "season", "seasons", "section", "seller", "series", "service", "services", "setting", "settings", "share", "shop", "show", "shows", "site", "soft", "sort", "source", "special", "star", "stars", "static", "stock", "store", "stream", "streaming", "streams", "student", "study", "tag", "tags", "task", "teacher", "team", "tech", "temp", "test", "thread", "tool", "tools", "topic", "topics", "torrent", "trade", "travel", "tv", "txt", "type", "u", "upload", "uploads", "url", "urls", "user", "users", "v", "version", "videos", "view", "vip", "vod", "watch", "web", "wenku", "wiki", "work", "www", "zh", "zh-cn", "zh-tw", "zip"];
+// src/config/transport.ts
+function 取值传输配置(标识88 = {}) {
+    const 标识89 = 标识88.transport === "grpc";
+    const [标识90, 标识91] = 标识40(标识88.UUID || "");
+    const 标识92 = {
+        xPaddingObfsMode: true,
+        xPaddingMethod: "tokenish",
+        xPaddingPlacement: "queryInHeader",
+        xPaddingHeader: 标识90,
+        xPaddingKey: 标识91
+    };
+    return {
+        type: 标识89 ? 标识88.grpcMode === "multi" ? "grpc&mode=multi" : "grpc&mode=gun" : 标识88.transport === "xhttp" ? `xhttp&mode=stream-one&extra=${encodeURIComponent(JSON.stringify(标识92))}` : "ws",
+        pathFieldName: 标识89 ? "serviceName" : "path",
+        hostFieldName: 标识89 ? "authority" : "host"
+    };
+}
+function 随机值路径(标识93 = "/") {
+    const 随机值数值 = Math.floor(Math.random() * 3 + 1);
+    const 标识94 = [...标识87].sort(() => 0.5 - Math.random()).slice(0, 随机值数值).join("/");
+    if (标识93 === "/")
+        return `/${标识94}`;
+    return `/${标识94 + 标识93.replace("/?", "?")}`;
+}
+function 取值传输路径值(标识88 = {}, 标识95 = "/", 标识96 = false) {
+    const 路径值 = 标识96 ? "/" : 标识88.randomPath ? 随机值路径(标识95) : 标识95;
+    if (标识88.transport !== "grpc")
+        return 路径值;
+    return 路径值.split("?")[0] || "/";
+}
+// src/utils/mask.ts
+function 标识97(标识37, 标识98 = 3, 标识99 = 2) {
+    if (!标识37)
+        return 标识37;
+    if (标识37.length <= 标识98 + 标识99)
+        return 标识37;
+    const 标识100 = 标识37.slice(0, 标识98);
+    const 标识101 = 标识37.slice(-标识99);
+    const 标识102 = 标识37.length - 标识98 - 标识99;
+    return `${标识100}${"*".repeat(标识102)}${标识101}`;
+}
+// src/services/cf-usage.ts
+var 标识103 = "https://api.cloudflare.com/client/v4";
+async function 标识104(标识105, 标识106, 标识107, 标识108) {
+    const 标识29 = (标识109) => 标识109?.reduce((标识110, 标识3) => 标识110 + (标识3?.sum?.requests || 0), 0) || 0;
+    const 标识88 = { "Content-Type": "application/json" };
+    try {
+        if (!标识107 && (!标识105 || !标识106))
+            return { success: false, pages: 0, workers: 0, total: 0, max: 1e5 };
+        if (!标识107) {
+            const 标识111 = await fetch(`${标识103}/accounts`, {
+                method: "GET",
+                headers: { ...标识88, "X-AUTH-EMAIL": 标识105, "X-AUTH-KEY": 标识106 }
+            });
+            if (!标识111.ok)
+                throw new Error(`\u8D26\u6237\u83B7\u53D6\u5931\u8D25: ${标识111.status}`);
+            const 标识112 = await 标识111.json();
+            if (!标识112?.result?.length)
+                throw new Error("\u672A\u627E\u5230\u8D26\u6237");
+            const 序号 = 标识112.result.findIndex((标识109) => 标识109.name?.toLowerCase().startsWith(标识105.toLowerCase()));
+            标识107 = 标识112.result[序号 >= 0 ? 序号 : 0]?.id ?? null;
+        }
+        const 当前 = new Date();
+        当前.setUTCHours(0, 0, 0, 0);
+        const 标识113 = 标识108 ? { ...标识88, Authorization: `Bearer ${标识108}` } : { ...标识88, "X-AUTH-EMAIL": 标识105, "X-AUTH-KEY": 标识106 };
+        const 标识114 = await fetch(`${标识103}/graphql`, {
+            method: "POST",
+            headers: 标识113,
+            body: JSON.stringify({
+                query: `query getBillingMetrics($AccountID: String!, $filter: AccountWorkersInvocationsAdaptiveFilter_InputObject) {
 					viewer { accounts(filter: {accountTag: $AccountID}) {
 						pagesFunctionsInvocationsAdaptiveGroups(limit: 1000, filter: $filter) { sum { requests } }
 						workersInvocationsAdaptive(limit: 10000, filter: $filter) { sum { requests } }
 					} }
-				}`,variables:{AccountID:t,filter:{datetime_geq:s.toISOString(),datetime_leq:new Date().toISOString()}}})});if(!c.ok)throw new Error(`\u67E5\u8BE2\u5931\u8D25: ${c.status}`);let i=await c.json();if(i.errors?.length)throw new Error(i.errors[0].message);let d=i?.data?.viewer?.accounts?.[0];if(!d)throw new Error("\u672A\u627E\u5230\u8D26\u6237\u6570\u636E");let g=a(d.pagesFunctionsInvocationsAdaptiveGroups),f=a(d.workersInvocationsAdaptive),m=g+f,p=1e5;return console.log(`\u7EDF\u8BA1\u7ED3\u679C - Pages: ${g}, Workers: ${f}, \u603B\u8BA1: ${m}, \u4E0A\u9650: 100000`),{success:!0,pages:g,workers:f,total:m,max:p}}catch(s){return console.error("\u83B7\u53D6\u4F7F\u7528\u91CF\u9519\u8BEF:",s.message),{success:!1,pages:0,workers:0,total:0,max:1e5}}}async function Ce(o,e={}){let t=o.env,n=o.host,a=o.userId,r=o.ua,s=performance.now(),l=e.socks5Whitelist??Rt,c=await Sn(n,a,r,l),i;try{let P=await t.KV?.get("config.json");!P||e.reset===!0?(await t.KV?.put("config.json",JSON.stringify(c,null,2)),i=c):i=Le(JSON.parse(P),Ht)}catch(P){console.error(`\u8BFB\u53D6config_JSON\u51FA\u9519: ${P.message}`),i=c}i.subConverterConfig.SUBLIST||(i.subConverterConfig.SUBLIST=!1),i.subConverterConfig.UDP||(i.subConverterConfig.UDP=!1),i.subConverterConfig.XUDP||(i.subConverterConfig.XUDP=!1),i.subConverterConfig.TLS13||(i.subConverterConfig.TLS13=!1),i.subConverterConfig.APPEND_TYPE||(i.subConverterConfig.APPEND_TYPE=!1),i.subConverterConfig.SORT||(i.subConverterConfig.SORT=!1),typeof i.subConverterConfig.EXPAND!="boolean"&&(i.subConverterConfig.EXPAND=!0),i.gRPCUserAgent||(i.gRPCUserAgent=r),i.HOST=n,i.HOSTS||(i.HOSTS=[n]),t.HOST&&(i.HOSTS=ue(String(t.HOST)).map(P=>P.toLowerCase().replace(/^https?:\/\//,"").split("/")[0].split(":")[0])),i.UUID=a,i.randomPath||(i.randomPath=!1),i.enable0RTT||(i.enable0RTT=!1),t.PATH?i.PATH=String(t.PATH).startsWith("/")?String(t.PATH):"/"+String(t.PATH):i.PATH||(i.PATH="/"),i.ALPN||(i.ALPN=""),i.grpcMode||(i.grpcMode="gun"),i.SS||(i.SS={encryptionMethod:"aes-128-gcm",TLS:!1}),i.proxy.pathTemplates?.[se]||(i.proxy.pathTemplates={[se]:"proxyip="+V,SOCKS5:{global:"socks5://"+V,standard:"socks5="+V},HTTP:{global:"http://"+V,standard:"http="+V},HTTPS:{global:"https://"+V,standard:"https="+V},TURN:{global:"turn://"+V,standard:"turn="+V},SSTP:{global:"sstp://"+V,standard:"sstp="+V}}),i.proxy.pathTemplates.HTTPS||(i.proxy.pathTemplates.HTTPS={global:"https://"+V,standard:"https="+V}),i.proxy.pathTemplates.TURN||(i.proxy.pathTemplates.TURN={global:"turn://"+V,standard:"turn="+V}),i.proxy.pathTemplates.SSTP||(i.proxy.pathTemplates.SSTP={global:"sstp://"+V,standard:"sstp="+V});let d=i.proxy.pathTemplates[i.proxy.SOCKS5.enabled?.toUpperCase()??""],g="";d&&typeof d!="string"&&i.proxy.SOCKS5.account?g=(i.proxy.SOCKS5.global?d.global:d.standard).replace(V,i.proxy.SOCKS5.account):i.proxy[se]!=="auto"&&(g=i.proxy.pathTemplates[se].replace(V,i.proxy[se]));let f="";if(g.includes("?")){let[P="",y=""]=g.split("?");g=P,f=y}i.PATH=i.PATH.replace(g,"").replace("//","/");let m=i.PATH==="/"?"":i.PATH.replace(/\/+(?=\?|$)/,"").replace(/\/+$/,""),[p,...u]=m.split("?"),x=u.length?"?"+u.join("?"):"",v=f?x?x+"&"+f:"?"+f:x;i.fullNodePath=(p||"/")+(p&&g?"/":"")+g+v+(i.enable0RTT?(v?"&":"?")+"ed=2560":""),!i.tlsFragment&&i.tlsFragment!==null&&(i.tlsFragment=null);let w=i.tlsFragment=="Shadowrocket"?`&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}`:i.tlsFragment=="Happ"?`&fragment=${encodeURIComponent("3,1,tlshello")}`:"";i.Fingerprint||(i.Fingerprint="chrome"),i.ECH||(i.ECH=!1),i.ECHConfig||(i.ECHConfig={DNS:"https://dns.alidns.com/dns-query",SNI:"cloudflare-ech.com"});let b=i.ECH?`&ech=${encodeURIComponent((i.ECHConfig.SNI?i.ECHConfig.SNI+"+":"")+i.ECHConfig.DNS)}`:"",{type:k,pathFieldName:C,hostFieldName:I}=Ot(i),S=_t(i,i.fullNodePath);i.LINK=i.protocolType==="ss"?`${i.protocolType}://${btoa(i.SS.encryptionMethod+":"+a)}@${n}:${i.SS.TLS?"443":"80"}?plugin=v2${encodeURIComponent(`ray-plugin;mode=websocket;host=${n};path=${(i.fullNodePath.includes("?")?i.fullNodePath.replace("?","?enc="+i.SS.encryptionMethod+"&"):i.fullNodePath+"?enc="+i.SS.encryptionMethod)+(i.SS.TLS?";tls":"")};mux=0`)+b}#${encodeURIComponent(i.bestSubGen.SUBNAME)}`:`${i.protocolType}://${a}@${n}:443?security=tls&type=${k+b}&${I}=${n}&fp=${i.Fingerprint}&sni=${n}&${C}=${encodeURIComponent(S)+w}&encryption=none#${encodeURIComponent(i.bestSubGen.SUBNAME)}`,i.bestSubGen.TOKEN=ie(n+a);let h={BotToken:null,ChatID:null};i.TG={enabled:i.TG?.enabled?i.TG.enabled:!1,...h};try{let P=await t.KV?.get("tg.json");if(!P)await t.KV?.put("tg.json",JSON.stringify(h,null,2));else{let y=JSON.parse(P);i.TG.ChatID=y.ChatID?y.ChatID:null,i.TG.BotToken=y.BotToken?pt(y.BotToken):null}}catch(P){console.error(`\u8BFB\u53D6tg.json\u51FA\u9519: ${P.message}`)}let E={Email:null,GlobalAPIKey:null,AccountID:null,APIToken:null,UsageAPI:null};i.CF={...E,Usage:{success:!1,pages:0,workers:0,total:0,max:1e5}};try{let P=await t.KV?.get("cf.json");if(!P)await t.KV?.put("cf.json",JSON.stringify(E,null,2));else{let y=JSON.parse(P);if(y.UsageAPI)try{let T=await fetch(y.UsageAPI);i.CF.Usage=await T.json()}catch(T){console.error(`\u8BF7\u6C42 CF_JSON.UsageAPI \u5931\u8D25: ${T.message}`)}else i.CF.Email=y.Email?y.Email:null,i.CF.GlobalAPIKey=y.GlobalAPIKey?pt(y.GlobalAPIKey):null,i.CF.AccountID=y.AccountID?pt(y.AccountID):null,i.CF.APIToken=y.APIToken?pt(y.APIToken):null,i.CF.UsageAPI=null,i.CF.Usage=await $t(y.Email,y.GlobalAPIKey,y.AccountID,y.APIToken)}}catch(P){console.error(`\u8BFB\u53D6cf.json\u51FA\u9519: ${P.message}`)}i.loadTime=(performance.now()-s).toFixed(2)+"ms";for(let P of e.plugins??Nt())P.onConfigLoad&&(i=await P.onConfigLoad(i,o));return i}async function ge(o,e,t,n="Get_SUB",a,r=!0){try{let s=new Date,l=e.cf,c={TYPE:n,IP:t,ASN:`AS${l?.asn||"0"} ${l?.asOrganization||"Unknown"}`,CC:`${l?.country||"N/A"} ${l?.city||"N/A"}`,URL:e.url,UA:e.headers.get("User-Agent")||"Unknown",TIME:s.getTime()};if(a.TG.enabled)try{let f=await o.KV.get("tg.json"),m=JSON.parse(f||"null");if(m?.BotToken&&m?.ChatID){let p=new Date(c.TIME).toLocaleString("zh-CN",{timeZone:"Asia/Shanghai"}),u=new URL(c.URL),x=`<b>#${a.bestSubGen.SUBNAME} \u65E5\u5FD7\u901A\u77E5</b>
+				}`,
+                variables: { AccountID: 标识107, filter: { datetime_geq: 当前.toISOString(), datetime_leq: ( /* @__PURE__ */new Date()).toISOString() } }
+            })
+        });
+        if (!标识114.ok)
+            throw new Error(`\u67E5\u8BE2\u5931\u8D25: ${标识114.status}`);
+        const 标识115 = await 标识114.json();
+        if (标识115.errors?.length)
+            throw new Error(标识115.errors[0].message);
+        const 标识116 = 标识115?.data?.viewer?.accounts?.[0];
+        if (!标识116)
+            throw new Error("\u672A\u627E\u5230\u8D26\u6237\u6570\u636E");
+        const 页面组 = 标识29(标识116.pagesFunctionsInvocationsAdaptiveGroups);
+        const 标识117 = 标识29(标识116.workersInvocationsAdaptive);
+        const 总计 = 页面组 + 标识117;
+        const 上限值 = 1e5;
+        console.log(`\u7EDF\u8BA1\u7ED3\u679C - Pages: ${页面组}, Workers: ${标识117}, \u603B\u8BA1: ${总计}, \u4E0A\u9650: 100000`);
+        return { success: true, pages: 页面组, workers: 标识117, total: 总计, max: 上限值 };
+    }
+    catch (错误) {
+        console.error("\u83B7\u53D6\u4F7F\u7528\u91CF\u9519\u8BEF:", 错误.message);
+        return { success: false, pages: 0, workers: 0, total: 0, max: 1e5 };
+    }
+}
+// src/config/loader.ts
+async function 载入配置(标识118, 选项组 = {}) {
+    const 环境 = 标识118.env;
+    const 标识119 = 标识118.host;
+    const 用户编号2 = 标识118.userId;
+    const 指纹串 = 标识118.ua;
+    const 初始化启动时间 = performance.now();
+    const 袜子5白名单 = 选项组.socks5Whitelist ?? 缺省袜子5白名单;
+    const 缺省配置 = await 标识51(标识119, 用户编号2, 指纹串, 袜子5白名单);
+    let 配置;
+    try {
+        const 配置数据文本 = await 环境.KV?.get("config.json");
+        if (!配置数据文本 || 选项组.reset === true) {
+            await 环境.KV?.put("config.json", JSON.stringify(缺省配置, null, 2));
+            配置 = 缺省配置;
+        }
+        else {
+            配置 = 标识84(JSON.parse(配置数据文本), 标识82);
+        }
+    }
+    catch (错误) {
+        console.error(`\u8BFB\u53D6config_JSON\u51FA\u9519: ${错误.message}`);
+        配置 = 缺省配置;
+    }
+    if (!配置.subConverterConfig.SUBLIST)
+        配置.subConverterConfig.SUBLIST = false;
+    if (!配置.subConverterConfig.UDP)
+        配置.subConverterConfig.UDP = false;
+    if (!配置.subConverterConfig.XUDP)
+        配置.subConverterConfig.XUDP = false;
+    if (!配置.subConverterConfig.TLS13)
+        配置.subConverterConfig.TLS13 = false;
+    if (!配置.subConverterConfig.APPEND_TYPE)
+        配置.subConverterConfig.APPEND_TYPE = false;
+    if (!配置.subConverterConfig.SORT)
+        配置.subConverterConfig.SORT = false;
+    if (typeof 配置.subConverterConfig.EXPAND !== "boolean")
+        配置.subConverterConfig.EXPAND = true;
+    if (!配置.gRPCUserAgent)
+        配置.gRPCUserAgent = 指纹串;
+    配置.HOST = 标识119;
+    if (!配置.HOSTS)
+        配置.HOSTS = [标识119];
+    if (环境.HOST)
+        配置.HOSTS = 标识41(String(环境.HOST)).map((标识70) => 标识70.toLowerCase().replace(/^https?:\/\//, "").split("/")[0].split(":")[0]);
+    配置.UUID = 用户编号2;
+    if (!配置.randomPath)
+        配置.randomPath = false;
+    if (!配置.enable0RTT)
+        配置.enable0RTT = false;
+    if (环境.PATH)
+        配置.PATH = String(环境.PATH).startsWith("/") ? String(环境.PATH) : "/" + String(环境.PATH);
+    else if (!配置.PATH)
+        配置.PATH = "/";
+    if (!配置.ALPN)
+        配置.ALPN = "";
+    if (!配置.grpcMode)
+        配置.grpcMode = "gun";
+    if (!配置.SS)
+        配置.SS = { encryptionMethod: "aes-128-gcm", TLS: false };
+    if (!配置.proxy.pathTemplates?.[标识43]) {
+        配置.proxy.pathTemplates = {
+            [标识43]: "proxyip=" + 标识50,
+            SOCKS5: { global: "socks5://" + 标识50, standard: "socks5=" + 标识50 },
+            HTTP: { global: "http://" + 标识50, standard: "http=" + 标识50 },
+            HTTPS: { global: "https://" + 标识50, standard: "https=" + 标识50 },
+            TURN: { global: "turn://" + 标识50, standard: "turn=" + 标识50 },
+            SSTP: { global: "sstp://" + 标识50, standard: "sstp=" + 标识50 }
+        };
+    }
+    if (!配置.proxy.pathTemplates.HTTPS)
+        配置.proxy.pathTemplates.HTTPS = { global: "https://" + 标识50, standard: "https=" + 标识50 };
+    if (!配置.proxy.pathTemplates.TURN)
+        配置.proxy.pathTemplates.TURN = { global: "turn://" + 标识50, standard: "turn=" + 标识50 };
+    if (!配置.proxy.pathTemplates.SSTP)
+        配置.proxy.pathTemplates.SSTP = { global: "sstp://" + 标识50, standard: "sstp=" + 标识50 };
+    const 代理配置 = 配置.proxy.pathTemplates[配置.proxy.SOCKS5.enabled?.toUpperCase() ?? ""];
+    let 路径代理参数集 = "";
+    if (代理配置 && typeof 代理配置 !== "string" && 配置.proxy.SOCKS5.account) {
+        路径代理参数集 = (配置.proxy.SOCKS5.global ? 代理配置.global : 代理配置.standard).replace(标识50, 配置.proxy.SOCKS5.account);
+    }
+    else if (配置.proxy[标识43] !== "auto") {
+        路径代理参数集 = 配置.proxy.pathTemplates[标识43].replace(标识50, 配置.proxy[标识43]);
+    }
+    let 代理检索参数集 = "";
+    if (路径代理参数集.includes("?")) {
+        const [标识120 = "", 标识121 = ""] = 路径代理参数集.split("?");
+        路径代理参数集 = 标识120;
+        代理检索参数集 = 标识121;
+    }
+    配置.PATH = 配置.PATH.replace(路径代理参数集, "").replace("//", "/");
+    const 标识122 = 配置.PATH === "/" ? "" : 配置.PATH.replace(/\/+(?=\?|$)/, "").replace(/\/+$/, "");
+    const [标识123, ...标识124] = 标识122.split("?");
+    const 标识125 = 标识124.length ? "?" + 标识124.join("?") : "";
+    const 标识126 = 代理检索参数集 ? 标识125 ? 标识125 + "&" + 代理检索参数集 : "?" + 代理检索参数集 : 标识125;
+    配置.fullNodePath = (标识123 || "/") + (标识123 && 路径代理参数集 ? "/" : "") + 路径代理参数集 + 标识126 + (配置.enable0RTT ? (标识126 ? "&" : "?") + "ed=2560" : "");
+    if (!配置.tlsFragment && 配置.tlsFragment !== null)
+        配置.tlsFragment = null;
+    const 标识127 = 配置.tlsFragment == "Shadowrocket" ? `&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}` : 配置.tlsFragment == "Happ" ? `&fragment=${encodeURIComponent("3,1,tlshello")}` : "";
+    if (!配置.Fingerprint)
+        配置.Fingerprint = "chrome";
+    if (!配置.ECH)
+        配置.ECH = false;
+    if (!配置.ECHConfig)
+        配置.ECHConfig = { DNS: "https://dns.alidns.com/dns-query", SNI: "cloudflare-ech.com" };
+    const 标识128 = 配置.ECH ? `&ech=${encodeURIComponent((配置.ECHConfig.SNI ? 配置.ECHConfig.SNI + "+" : "") + 配置.ECHConfig.DNS)}` : "";
+    const { type: 传输, pathFieldName: 标识129, hostFieldName: 标识130 } = 取值传输配置(配置);
+    const 传输路径值 = 取值传输路径值(配置, 配置.fullNodePath);
+    配置.LINK = 配置.protocolType === "ss" ? `${配置.protocolType}://${btoa(配置.SS.encryptionMethod + ":" + 用户编号2)}@${标识119}:${配置.SS.TLS ? "443" : "80"}?plugin=v2${encodeURIComponent(`ray-plugin;mode=websocket;host=${标识119};path=${(配置.fullNodePath.includes("?") ? 配置.fullNodePath.replace("?", "?enc=" + 配置.SS.encryptionMethod + "&") : 配置.fullNodePath + "?enc=" + 配置.SS.encryptionMethod) + (配置.SS.TLS ? ";tls" : "")};mux=0`) + 标识128}#${encodeURIComponent(配置.bestSubGen.SUBNAME)}` : `${配置.protocolType}://${用户编号2}@${标识119}:443?security=tls&type=${传输 + 标识128}&${标识130}=${标识119}&fp=${配置.Fingerprint}&sni=${标识119}&${标识129}=${encodeURIComponent(传输路径值) + 标识127}&encryption=none#${encodeURIComponent(配置.bestSubGen.SUBNAME)}`;
+    配置.bestSubGen.TOKEN = 标识38(标识119 + 用户编号2);
+    const 缺省电报数据文本 = { BotToken: null, ChatID: null };
+    配置.TG = { enabled: 配置.TG?.enabled ? 配置.TG.enabled : false, ...缺省电报数据文本 };
+    try {
+        const 标识131 = await 环境.KV?.get("tg.json");
+        if (!标识131) {
+            await 环境.KV?.put("tg.json", JSON.stringify(缺省电报数据文本, null, 2));
+        }
+        else {
+            const 电报数据文本 = JSON.parse(标识131);
+            配置.TG.ChatID = 电报数据文本.ChatID ? 电报数据文本.ChatID : null;
+            配置.TG.BotToken = 电报数据文本.BotToken ? 标识97(电报数据文本.BotToken) : null;
+        }
+    }
+    catch (错误) {
+        console.error(`\u8BFB\u53D6tg.json\u51FA\u9519: ${错误.message}`);
+    }
+    const 缺省边缘平台短数据文本 = { Email: null, GlobalAPIKey: null, AccountID: null, APIToken: null, UsageAPI: null };
+    配置.CF = { ...缺省边缘平台短数据文本, Usage: { success: false, pages: 0, workers: 0, total: 0, max: 1e5 } };
+    try {
+        const 标识132 = await 环境.KV?.get("cf.json");
+        if (!标识132) {
+            await 环境.KV?.put("cf.json", JSON.stringify(缺省边缘平台短数据文本, null, 2));
+        }
+        else {
+            const 边缘平台短数据文本 = JSON.parse(标识132);
+            if (边缘平台短数据文本.UsageAPI) {
+                try {
+                    const 响应 = await fetch(边缘平台短数据文本.UsageAPI);
+                    配置.CF.Usage = await 响应.json();
+                }
+                catch (错误2) {
+                    console.error(`\u8BF7\u6C42 CF_JSON.UsageAPI \u5931\u8D25: ${错误2.message}`);
+                }
+            }
+            else {
+                配置.CF.Email = 边缘平台短数据文本.Email ? 边缘平台短数据文本.Email : null;
+                配置.CF.GlobalAPIKey = 边缘平台短数据文本.GlobalAPIKey ? 标识97(边缘平台短数据文本.GlobalAPIKey) : null;
+                配置.CF.AccountID = 边缘平台短数据文本.AccountID ? 标识97(边缘平台短数据文本.AccountID) : null;
+                配置.CF.APIToken = 边缘平台短数据文本.APIToken ? 标识97(边缘平台短数据文本.APIToken) : null;
+                配置.CF.UsageAPI = null;
+                配置.CF.Usage = await 标识104(边缘平台短数据文本.Email, 边缘平台短数据文本.GlobalAPIKey, 边缘平台短数据文本.AccountID, 边缘平台短数据文本.APIToken);
+            }
+        }
+    }
+    catch (错误) {
+        console.error(`\u8BFB\u53D6cf.json\u51FA\u9519: ${错误.message}`);
+    }
+    配置.loadTime = (performance.now() - 初始化启动时间).toFixed(2) + "ms";
+    for (const 插件 of 选项组.plugins ?? 取值插件组()) {
+        if (插件.onConfigLoad)
+            配置 = await 插件.onConfigLoad(配置, 标识118);
+    }
+    return 配置;
+}
+// src/services/request-log.ts
+async function 写入请求日志(环境, 请求, 客户端地址, 请求类型 = "Get_SUB", 配置, 标识133 = true) {
+    try {
+        const 当前 = new Date();
+        const 边缘平台短 = 请求.cf;
+        const 日志入口 = {
+            TYPE: 请求类型,
+            IP: 客户端地址,
+            ASN: `AS${边缘平台短?.asn || "0"} ${边缘平台短?.asOrganization || "Unknown"}`,
+            CC: `${边缘平台短?.country || "N/A"} ${边缘平台短?.city || "N/A"}`,
+            URL: 请求.url,
+            UA: 请求.headers.get("User-Agent") || "Unknown",
+            TIME: 当前.getTime()
+        };
+        if (配置.TG.enabled) {
+            try {
+                const 标识131 = await 环境.KV.get("tg.json");
+                const 电报数据文本 = JSON.parse(标识131 || "null");
+                if (电报数据文本?.BotToken && 电报数据文本?.ChatID) {
+                    const 请求时间 = new Date(日志入口.TIME).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" });
+                    const 请求网址 = new URL(日志入口.URL);
+                    const 消息2 = `<b>#${配置.bestSubGen.SUBNAME} \u65E5\u5FD7\u901A\u77E5</b>
 
-\u{1F4CC} <b>\u7C7B\u578B\uFF1A</b>#${c.TYPE}
-\u{1F310} <b>IP\uFF1A</b><code>${c.IP}</code>
-\u{1F4CD} <b>\u4F4D\u7F6E\uFF1A</b>${c.CC}
-\u{1F3E2} <b>ASN\uFF1A</b>${c.ASN}
-\u{1F517} <b>\u57DF\u540D\uFF1A</b><code>${u.host}</code>
-\u{1F50D} <b>\u8DEF\u5F84\uFF1A</b><code>${u.pathname+u.search}</code>
-\u{1F916} <b>UA\uFF1A</b><code>${c.UA}</code>
-\u{1F4C5} <b>\u65F6\u95F4\uFF1A</b>${p}
-${a.CF.Usage.success?`\u{1F4CA} <b>\u8BF7\u6C42\u7528\u91CF\uFF1A</b>${a.CF.Usage.total}/${a.CF.Usage.max} <b>${(a.CF.Usage.total/a.CF.Usage.max*100).toFixed(2)}%</b>
-`:""}`;await fetch(`https://api.telegram.org/bot${m.BotToken}/sendMessage?chat_id=${m.ChatID}&parse_mode=HTML&text=${encodeURIComponent(x)}`,{method:"GET",headers:{Accept:"text/html,application/xhtml+xml,application/xml;","Accept-Encoding":"gzip, deflate, br","User-Agent":c.UA||"Unknown"}})}}catch(f){console.error(`\u8BFB\u53D6tg.json\u51FA\u9519: ${f.message}`)}if(r=["1","true"].includes(String(o.OFF_LOG))?!1:r,!r)return;let i=[],d=await o.KV.get("log.json"),g=4;if(d)try{if(i=JSON.parse(d),!Array.isArray(i))i=[c];else if(n!=="Get_SUB"){let f=s.getTime()-18e5;if(i.some(m=>typeof m=="object"&&m!==null&&m.TYPE!=="Get_SUB"&&m.IP===t&&m.URL===e.url&&m.UA===(e.headers.get("User-Agent")||"Unknown")&&(m.TIME??0)>=f))return;for(i.push(c);JSON.stringify(i,null,2).length>g*1024*1024&&i.length>0;)i.shift()}else for(i.push(c);JSON.stringify(i,null,2).length>g*1024*1024&&i.length>0;)i.shift()}catch{i=[c]}else i=[c];await o.KV.put("log.json",JSON.stringify(i,null,2))}catch(s){console.error(`\u65E5\u5FD7\u8BB0\u5F55\u5931\u8D25: ${s.message}`)}}function Mo(o){if(typeof o!="string"||!o.includes("*"))return o;let e="abcdefghijklmnopqrstuvwxyz0123456789";return o.replace(/\*/g,()=>{let t="";for(let n=0;n<Math.floor(Math.random()*14)+3;n++)t+=e[Math.floor(Math.random()*e.length)];return t})}async function ut(o,e=16,t=-1){let n=new URL(o.url),a=String(n.searchParams.get("cnIspCode")||"").toLowerCase(),r=["ct","cu","cmcc","cf"].includes(a)?a:lt(o),s={cmcc:"CF\u79FB\u52A8\u4F18\u9009",cu:"CF\u8054\u901A\u4F18\u9009",ct:"CF\u7535\u4FE1\u4F18\u9009",cf:"CF\u5B98\u65B9\u4F18\u9009"},l=r==="cf"?`https://raw.githubusercontent.com/${ee}/${ee}/main/CF-CIDR.txt`:`https://raw.githubusercontent.com/${ee}/${ee}/main/CF-CIDR/${r}.txt`,c=s[r]||"CF\u5B98\u65B9\u4F18\u9009",i=[443,2053,2083,2087,2096,8443],d=[];try{let m=await fetch(l);d=m.ok?ue(await m.text()):["104.16.0.0/13"]}catch{d=["104.16.0.0/13"]}let g=m=>{let[p,u]=m.split("/"),x=parseInt(u),v=32-x,w=p.split(".").reduce((I,S,h)=>I|parseInt(S)<<24-h*8,0),b=Math.floor(Math.random()*Math.pow(2,v)),k=4294967295<<v>>>0,C=((w&k)>>>0)+b>>>0;return[C>>>24&255,C>>>16&255,C>>>8&255,C&255].join(".")},f=Array.from({length:e},(m,p)=>{let u=g(d[Math.floor(Math.random()*d.length)]),x=t===-1?i[Math.floor(Math.random()*i.length)]:t;return`${u}:${x}#${c}${p+1}`});return[f,f.join(`
-`)]}async function Bo(o,e="000000"){let t=[],n="",a=o.replace(/^sub:\/\//i,"https://").split("#")[0].split("?")[0];/^https?:\/\//i.test(a)||(a=`https://${a}`);try{a=new URL(a).origin}catch(s){return t.push(`127.0.0.1:1234#${o}\u4F18\u9009\u8BA2\u9605\u751F\u6210\u5668\u683C\u5F0F\u5316\u5F02\u5E38:${s.message}`),[t,n]}let r=`${a}/sub?host=example.com&uuid=00000000-0000-4000-8000-000000000000`;try{let s=await fetch(r,{headers:{"User-Agent":To+" Uid/0x"+e+" Version/"+Ve}});if(!s.ok)return t.push(`127.0.0.1:1234#${o}\u4F18\u9009\u8BA2\u9605\u751F\u6210\u5668\u5F02\u5E38:${s.statusText}`),[t,n];let l=atob(await s.text()),c=l.includes(`\r
-`)?l.split(`\r
-`):l.split(`
-`);for(let i of c)if(i.trim())if(i.includes("00000000-0000-4000-8000-000000000000")&&i.includes("example.com")){let d=i.match(/:\/\/[^@]+@([^?]+)/);if(d){let g=d[1],f="",m=i.match(/#(.+)$/);m&&(f="#"+decodeURIComponent(m[1])),t.push(g+f)}}else n+=i+`
-`}catch(s){t.push(`127.0.0.1:1234#${o}\u4F18\u9009\u8BA2\u9605\u751F\u6210\u5668\u5F02\u5E38:${s.message}`)}return[t,n]}async function zt(o,e="443",t="000000",n=3e3){if(!o?.length)return[[],[],[],[]];let a=new Set,r=new Set,s="",l=[];await Promise.allSettled(o.map(async i=>{let d=i.indexOf("#"),g=d>-1?i.substring(0,d):i,f=d>-1?decodeURIComponent(i.substring(d+1)):null,m=i.toLowerCase().includes("proxyip=true");if(g.toLowerCase().startsWith("sub://")){try{let[p,u]=await Bo(g,t);if(f)for(let x of p){let v=x.includes("#")?`${x} [${f}]`:`${x}#[${f}]`;a.add(v),m&&r.add(x.split("#")[0])}else for(let x of p)a.add(x),m&&r.add(x.split("#")[0]);if(u&&typeof u=="string"&&f){let x=u.replace(/([a-z][a-z0-9+\-.]*:\/\/[^\r\n]*?)(\r?\n|$)/gi,(v,w,b)=>`${w.includes("#")?`${w}${encodeURIComponent(` [${f}]`)}`:`${w}${encodeURIComponent(`#[${f}]`)}`}${b}`);s+=x}else u&&typeof u=="string"&&(s+=u)}catch{}return}try{let p=new AbortController,u=setTimeout(()=>p.abort(),n),x=await fetch(g,{signal:p.signal,headers:{"User-Agent":To+" Uid/0x"+t+" Version/"+Ve}});clearTimeout(u);let v="";try{let h=await x.arrayBuffer(),P=(x.headers.get("content-type")||"").toLowerCase().match(/charset=([^\s;]+)/i)?.[1]?.toLowerCase()||"",y=["utf-8","gb2312"];(P.includes("gb")||P.includes("gbk")||P.includes("gb2312"))&&(y=["gb2312","utf-8"]);let T=!1;for(let R of y)try{let A=new TextDecoder(R).decode(h);if(A&&A.length>0&&!A.includes("\uFFFD")){v=A,T=!0;break}else if(A&&A.length>0)continue}catch{continue}if(T||(v=await x.text()),!v||v.trim().length===0)return}catch(h){console.error("Failed to decode response:",h);return}let w=v,b=typeof v=="string"?v.replace(/\s/g,""):"";if(b.length>0&&b.length%4===0&&/^[A-Za-z0-9+/]+={0,2}$/.test(b))try{let h=new Uint8Array(atob(b).split("").map(E=>E.charCodeAt(0)));w=new TextDecoder("utf-8").decode(h)}catch{}if(w.split("#")[0].includes("://")){if(f){let h=w.replace(/([a-z][a-z0-9+\-.]*:\/\/[^\r\n]*?)(\r?\n|$)/gi,(E,P,y)=>`${P.includes("#")?`${P}${encodeURIComponent(` [${f}]`)}`:`${P}${encodeURIComponent(`#[${f}]`)}`}${y}`);s+=h+`
-`}else s+=w+`
-`;return}let k=v.trim().split(`
-`).map(h=>h.trim()).filter(h=>h),C=k.length>1&&k[0].includes(","),I=/^[^\[\]]*:[^\[\]]*:[^\[\]]/,S=new URL(g);if(!C)k.forEach(h=>{let E=h.indexOf("#"),[P,y]=E>-1?[h.substring(0,E),h.substring(E)]:[h,""],T=!1;if(P.startsWith("["))T=/\]:(\d+)$/.test(P);else{let L=P.lastIndexOf(":");T=L>-1&&/^\d+$/.test(P.substring(L+1))}let R=S.searchParams.get("port")||e,A=T?h:`${P}:${R}${y}`;if(f){let L=A.includes("#")?`${A} [${f}]`:`${A}#[${f}]`;a.add(L)}else a.add(A);m&&r.add(A.split("#")[0])});else{let h=k[0].split(",").map(P=>P.trim()),E=k.slice(1);if(h.includes("IP\u5730\u5740")&&h.includes("\u7AEF\u53E3")&&h.includes("\u6570\u636E\u4E2D\u5FC3")){let P=h.indexOf("IP\u5730\u5740"),y=h.indexOf("\u7AEF\u53E3"),T=h.indexOf("\u56FD\u5BB6")>-1?h.indexOf("\u56FD\u5BB6"):h.indexOf("\u57CE\u5E02")>-1?h.indexOf("\u57CE\u5E02"):h.indexOf("\u6570\u636E\u4E2D\u5FC3"),R=h.indexOf("TLS");E.forEach(A=>{let L=A.split(",").map(U=>U.trim());if(R!==-1&&L[R]?.toLowerCase()!=="true")return;let M=I.test(L[P])?`[${L[P]}]`:L[P],N=`${M}:${L[y]}#${L[T]}`;if(f){let U=`${N} [${f}]`;a.add(U)}else a.add(N);m&&r.add(`${M}:${L[y]}`)})}else if(h.some(P=>P.includes("IP"))&&h.some(P=>P.includes("\u5EF6\u8FDF"))&&h.some(P=>P.includes("\u4E0B\u8F7D\u901F\u5EA6"))){let P=h.findIndex(A=>A.includes("IP")),y=h.findIndex(A=>A.includes("\u5EF6\u8FDF")),T=h.findIndex(A=>A.includes("\u4E0B\u8F7D\u901F\u5EA6")),R=S.searchParams.get("port")||e;E.forEach(A=>{let L=A.split(",").map(U=>U.trim()),M=I.test(L[P])?`[${L[P]}]`:L[P],N=`${M}:${R}#CF\u4F18\u9009 ${L[y]}ms ${L[T]}MB/s`;if(f){let U=`${N} [${f}]`;a.add(U)}else a.add(N);m&&r.add(`${M}:${R}`)})}}}catch{}}));let c=s.trim()?[...new Set(s.split(/\r?\n/).filter(i=>i.trim()!==""))]:[];return[Array.from(a),c,l,Array.from(r)]}function Ln(o,e){let t=e?.UUID||null,n=!!e?.ECH,a=Array.isArray(e?.HOSTS)?[...e.HOSTS]:[],r=e?.ECHConfig?.SNI||null,s=e?.ECHConfig?.DNS,l=!!(t&&n),c=typeof e?.gRPCUserAgent=="string"&&e.gRPCUserAgent.trim()?e.gRPCUserAgent.trim():null,i=e?.transport==="grpc"&&!!c,d=c?JSON.stringify(c):null,g=o.replace(/mode:\s*Rule\b/g,"mode: rule"),f=`dns:
+\u{1F4CC} <b>\u7C7B\u578B\uFF1A</b>#${日志入口.TYPE}
+\u{1F310} <b>IP\uFF1A</b><code>${日志入口.IP}</code>
+\u{1F4CD} <b>\u4F4D\u7F6E\uFF1A</b>${日志入口.CC}
+\u{1F3E2} <b>ASN\uFF1A</b>${日志入口.ASN}
+\u{1F517} <b>\u57DF\u540D\uFF1A</b><code>${请求网址.host}</code>
+\u{1F50D} <b>\u8DEF\u5F84\uFF1A</b><code>${请求网址.pathname + 请求网址.search}</code>
+\u{1F916} <b>UA\uFF1A</b><code>${日志入口.UA}</code>
+\u{1F4C5} <b>\u65F6\u95F4\uFF1A</b>${请求时间}
+${配置.CF.Usage.success ? `\u{1F4CA} <b>\u8BF7\u6C42\u7528\u91CF\uFF1A</b>${配置.CF.Usage.total}/${配置.CF.Usage.max} <b>${(配置.CF.Usage.total / 配置.CF.Usage.max * 100).toFixed(2)}%</b>
+` : ""}`;
+                    await fetch(`https://api.telegram.org/bot${电报数据文本.BotToken}/sendMessage?chat_id=${电报数据文本.ChatID}&parse_mode=HTML&text=${encodeURIComponent(消息2)}`, {
+                        method: "GET",
+                        headers: {
+                            Accept: "text/html,application/xhtml+xml,application/xml;",
+                            "Accept-Encoding": "gzip, deflate, br",
+                            "User-Agent": 日志入口.UA || "Unknown"
+                        }
+                    });
+                }
+            }
+            catch (错误) {
+                console.error(`\u8BFB\u53D6tg.json\u51FA\u9519: ${错误.message}`);
+            }
+        }
+        标识133 = ["1", "true"].includes(String(环境.OFF_LOG)) ? false : 标识133;
+        if (!标识133)
+            return;
+        let 标识134 = [];
+        const 标识135 = await 环境.KV.get("log.json");
+        const 标识136 = 4;
+        if (标识135) {
+            try {
+                标识134 = JSON.parse(标识135);
+                if (!Array.isArray(标识134)) {
+                    标识134 = [日志入口];
+                }
+                else if (请求类型 !== "Get_SUB") {
+                    const 标识137 = 当前.getTime() - 30 * 60 * 1e3;
+                    if (标识134.some((日志) => typeof 日志 === "object" && 日志 !== null && 日志.TYPE !== "Get_SUB" && 日志.IP === 客户端地址 && 日志.URL === 请求.url && 日志.UA === (请求.headers.get("User-Agent") || "Unknown") && (日志.TIME ?? 0) >= 标识137))
+                        return;
+                    标识134.push(日志入口);
+                    while (JSON.stringify(标识134, null, 2).length > 标识136 * 1024 * 1024 && 标识134.length > 0)
+                        标识134.shift();
+                }
+                else {
+                    标识134.push(日志入口);
+                    while (JSON.stringify(标识134, null, 2).length > 标识136 * 1024 * 1024 && 标识134.length > 0)
+                        标识134.shift();
+                }
+            }
+            catch {
+                标识134 = [日志入口];
+            }
+        }
+        else {
+            标识134 = [日志入口];
+        }
+        await 环境.KV.put("log.json", JSON.stringify(标识134, null, 2));
+    }
+    catch (错误) {
+        console.error(`\u65E5\u5FD7\u8BB0\u5F55\u5931\u8D25: ${错误.message}`);
+    }
+}
+// src/services/bestip.ts
+function 标识138(内容) {
+    if (typeof 内容 !== "string" || !内容.includes("*"))
+        return 内容;
+    const 标识139 = "abcdefghijklmnopqrstuvwxyz0123456789";
+    return 内容.replace(/\*/g, () => {
+        let 标识35 = "";
+        for (let 标识3 = 0; 标识3 < Math.floor(Math.random() * 14) + 3; 标识3++)
+            标识35 += 标识139[Math.floor(Math.random() * 标识139.length)];
+        return 标识35;
+    });
+}
+async function 标识140(请求, 计数 = 16, 标识141 = -1) {
+    const 网址 = new URL(请求.url);
+    const 标识142 = String(网址.searchParams.get("cnIspCode") || "").toLowerCase();
+    const 标识143 = ["ct", "cu", "cmcc", "cf"].includes(标识142) ? 标识142 : 标识52(请求);
+    const 标识144 = {
+        cmcc: "CF\u79FB\u52A8\u4F18\u9009",
+        cu: "CF\u8054\u901A\u4F18\u9009",
+        ct: "CF\u7535\u4FE1\u4F18\u9009",
+        cf: "CF\u5B98\u65B9\u4F18\u9009"
+    };
+    const 标识145 = 标识143 === "cf" ? `https://raw.githubusercontent.com/${标识44}/${标识44}/main/CF-CIDR.txt` : `https://raw.githubusercontent.com/${标识44}/${标识44}/main/CF-CIDR/${标识143}.txt`;
+    const 标识146 = 标识144[标识143] || "CF\u5B98\u65B9\u4F18\u9009";
+    const 标识147 = [443, 2053, 2083, 2087, 2096, 8443];
+    let 标识148 = [];
+    try {
+        const 标识114 = await fetch(标识145);
+        标识148 = 标识114.ok ? 标识41(await 标识114.text()) : ["104.16.0.0/13"];
+    }
+    catch {
+        标识148 = ["104.16.0.0/13"];
+    }
+    const 标识149 = (标识150) => {
+        const [标识151, 标识152] = 标识150.split("/"), 标识100 = parseInt(标识152), 标识153 = 32 - 标识100;
+        const 地址整型 = 标识151.split(".").reduce((标识109, 标识24, 标识3) => 标识109 | parseInt(标识24) << 24 - 标识3 * 8, 0);
+        const 标识154 = Math.floor(Math.random() * Math.pow(2, 标识153));
+        const 标识155 = 4294967295 << 标识153 >>> 0, 随机值地址 = ((地址整型 & 标识155) >>> 0) + 标识154 >>> 0;
+        return [随机值地址 >>> 24 & 255, 随机值地址 >>> 16 & 255, 随机值地址 >>> 8 & 255, 随机值地址 & 255].join(".");
+    };
+    const 标识156 = Array.from({ length: 计数 }, (标识157, 序号2) => {
+        const 地址 = 标识149(标识148[Math.floor(Math.random() * 标识148.length)]);
+        const 目标端口 = 标识141 === -1 ? 标识147[Math.floor(Math.random() * 标识147.length)] : 标识141;
+        return `${地址}:${目标端口}#${标识146}${序号2 + 1}`;
+    });
+    return [标识156, 标识156.join("\n")];
+}
+async function 标识158(标识159, 标识160 = "000000") {
+    let 优选地址 = [], 标识161 = "", 格式化主机 = 标识159.replace(/^sub:\/\//i, "https://").split("#")[0].split("?")[0];
+    if (!/^https?:\/\//i.test(格式化主机))
+        格式化主机 = `https://${格式化主机}`;
+    try {
+        const 网址 = new URL(格式化主机);
+        格式化主机 = 网址.origin;
+    }
+    catch (错误) {
+        优选地址.push(`127.0.0.1:1234#${标识159}\u4F18\u9009\u8BA2\u9605\u751F\u6210\u5668\u683C\u5F0F\u5316\u5F02\u5E38:${错误.message}`);
+        return [优选地址, 标识161];
+    }
+    const 标识162 = `${格式化主机}/sub?host=example.com&uuid=00000000-0000-4000-8000-000000000000`;
+    try {
+        const 响应 = await fetch(标识162, {
+            headers: { "User-Agent": 标识46 + " Uid/0x" + 标识160 + " Version/" + 标识47 }
+        });
+        if (!响应.ok) {
+            优选地址.push(`127.0.0.1:1234#${标识159}\u4F18\u9009\u8BA2\u9605\u751F\u6210\u5668\u5F02\u5E38:${响应.statusText}`);
+            return [优选地址, 标识161];
+        }
+        const 标识163 = atob(await 响应.text());
+        const 标识164 = 标识163.includes("\r\n") ? 标识163.split("\r\n") : 标识163.split("\n");
+        for (const 标识165 of 标识164) {
+            if (!标识165.trim())
+                continue;
+            if (标识165.includes("00000000-0000-4000-8000-000000000000") && 标识165.includes("example.com")) {
+                const 标识166 = 标识165.match(/:\/\/[^@]+@([^?]+)/);
+                if (标识166) {
+                    let 标识167 = 标识166[1], 标识168 = "";
+                    const 标识169 = 标识165.match(/#(.+)$/);
+                    if (标识169)
+                        标识168 = "#" + decodeURIComponent(标识169[1]);
+                    优选地址.push(标识167 + 标识168);
+                }
+            }
+            else {
+                标识161 += 标识165 + "\n";
+            }
+        }
+    }
+    catch (错误) {
+        优选地址.push(`127.0.0.1:1234#${标识159}\u4F18\u9009\u8BA2\u9605\u751F\u6210\u5668\u5F02\u5E38:${错误.message}`);
+    }
+    return [优选地址, 标识161];
+}
+async function 标识170(标识171, 缺省端口 = "443", 标识160 = "000000", 标识172 = 3e3) {
+    if (!标识171?.length)
+        return [[], [], [], []];
+    const 标识173 = new Set(), 标识174 = new Set();
+    let 标识175 = "", 标识176 = [];
+    await Promise.allSettled(标识171.map(async (网址) => {
+        const 散列序号 = 网址.indexOf("#");
+        const 标识177 = 散列序号 > -1 ? 网址.substring(0, 散列序号) : 网址;
+        const 标识178 = 散列序号 > -1 ? decodeURIComponent(网址.substring(散列序号 + 1)) : null;
+        const 标识179 = 网址.toLowerCase().includes("proxyip=true");
+        if (标识177.toLowerCase().startsWith("sub://")) {
+            try {
+                const [优选地址, 标识161] = await 标识158(标识177, 标识160);
+                if (标识178) {
+                    for (const 地址 of 优选地址) {
+                        const 标识180 = 地址.includes("#") ? `${地址} [${标识178}]` : `${地址}#[${标识178}]`;
+                        标识173.add(标识180);
+                        if (标识179)
+                            标识174.add(地址.split("#")[0]);
+                    }
+                }
+                else {
+                    for (const 地址 of 优选地址) {
+                        标识173.add(地址);
+                        if (标识179)
+                            标识174.add(地址.split("#")[0]);
+                    }
+                }
+                if (标识161 && typeof 标识161 === "string" && 标识178) {
+                    const 标识181 = 标识161.replace(/([a-z][a-z0-9+\-.]*:\/\/[^\r\n]*?)(\r?\n|$)/gi, (标识182, 标识183, 标识184) => {
+                        const 标识185 = 标识183.includes("#") ? `${标识183}${encodeURIComponent(` [${标识178}]`)}` : `${标识183}${encodeURIComponent(`#[${标识178}]`)}`;
+                        return `${标识185}${标识184}`;
+                    });
+                    标识175 += 标识181;
+                }
+                else if (标识161 && typeof 标识161 === "string") {
+                    标识175 += 标识161;
+                }
+            }
+            catch (标识186) {
+            }
+            return;
+        }
+        try {
+            const 标识187 = new AbortController();
+            const 标识188 = setTimeout(() => 标识187.abort(), 标识172);
+            const 响应 = await fetch(标识177, { signal: 标识187.signal, headers: { "User-Agent": 标识46 + " Uid/0x" + 标识160 + " Version/" + 标识47 } });
+            clearTimeout(标识188);
+            let 标识37 = "";
+            try {
+                const 缓冲区 = await 响应.arrayBuffer();
+                const 内容类型 = (响应.headers.get("content-type") || "").toLowerCase();
+                const 标识139 = 内容类型.match(/charset=([^\s;]+)/i)?.[1]?.toLowerCase() || "";
+                let 标识189 = ["utf-8", "gb2312"];
+                if (标识139.includes("gb") || 标识139.includes("gbk") || 标识139.includes("gb2312")) {
+                    标识189 = ["gb2312", "utf-8"];
+                }
+                let 标识190 = false;
+                for (const 标识191 of 标识189) {
+                    try {
+                        const 标识192 = new TextDecoder(标识191).decode(缓冲区);
+                        if (标识192 && 标识192.length > 0 && !标识192.includes("\uFFFD")) {
+                            标识37 = 标识192;
+                            标识190 = true;
+                            break;
+                        }
+                        else if (标识192 && 标识192.length > 0) {
+                            continue;
+                        }
+                    }
+                    catch (标识186) {
+                        continue;
+                    }
+                }
+                if (!标识190) {
+                    标识37 = await 响应.text();
+                }
+                if (!标识37 || 标识37.trim().length === 0) {
+                    return;
+                }
+            }
+            catch (标识186) {
+                console.error("Failed to decode response:", 标识186);
+                return;
+            }
+            let 标识193 = 标识37;
+            const 标识194 = typeof 标识37 === "string" ? 标识37.replace(/\s/g, "") : "";
+            if (标识194.length > 0 && 标识194.length % 4 === 0 && /^[A-Za-z0-9+/]+={0,2}$/.test(标识194)) {
+                try {
+                    const 标识34 = new Uint8Array(atob(标识194).split("").map((标识195) => 标识195.charCodeAt(0)));
+                    标识193 = new TextDecoder("utf-8").decode(标识34);
+                }
+                catch {
+                }
+            }
+            if (标识193.split("#")[0].includes("://")) {
+                if (标识178) {
+                    const 标识181 = 标识193.replace(/([a-z][a-z0-9+\-.]*:\/\/[^\r\n]*?)(\r?\n|$)/gi, (标识182, 标识183, 标识184) => {
+                        const 标识185 = 标识183.includes("#") ? `${标识183}${encodeURIComponent(` [${标识178}]`)}` : `${标识183}${encodeURIComponent(`#[${标识178}]`)}`;
+                        return `${标识185}${标识184}`;
+                    });
+                    标识175 += 标识181 + "\n";
+                }
+                else {
+                    标识175 += 标识193 + "\n";
+                }
+                return;
+            }
+            const 标识196 = 标识37.trim().split("\n").map((标识197) => 标识197.trim()).filter((标识197) => 标识197);
+            const 标识198 = 标识196.length > 1 && 标识196[0].includes(",");
+            const 标识199 = /^[^\[\]]*:[^\[\]]*:[^\[\]]/;
+            const 标识200 = new URL(标识177);
+            if (!标识198) {
+                标识196.forEach((标识201) => {
+                    const 标识202 = 标识201.indexOf("#");
+                    const [标识203, 标识168] = 标识202 > -1 ? [标识201.substring(0, 标识202), 标识201.substring(标识202)] : [标识201, ""];
+                    let 存在端口 = false;
+                    if (标识203.startsWith("[")) {
+                        存在端口 = /\]:(\d+)$/.test(标识203);
+                    }
+                    else {
+                        const 标识204 = 标识203.lastIndexOf(":");
+                        存在端口 = 标识204 > -1 && /^\d+$/.test(标识203.substring(标识204 + 1));
+                    }
+                    const 端口 = 标识200.searchParams.get("port") || 缺省端口;
+                    const 标识205 = 存在端口 ? 标识201 : `${标识203}:${端口}${标识168}`;
+                    if (标识178) {
+                        const 标识180 = 标识205.includes("#") ? `${标识205} [${标识178}]` : `${标识205}#[${标识178}]`;
+                        标识173.add(标识180);
+                    }
+                    else {
+                        标识173.add(标识205);
+                    }
+                    if (标识179)
+                        标识174.add(标识205.split("#")[0]);
+                });
+            }
+            else {
+                const 头部 = 标识196[0].split(",").map((标识70) => 标识70.trim());
+                const 标识206 = 标识196.slice(1);
+                if (头部.includes("IP\u5730\u5740") && 头部.includes("\u7AEF\u53E3") && 头部.includes("\u6570\u636E\u4E2D\u5FC3")) {
+                    const 地址序号 = 头部.indexOf("IP\u5730\u5740"), 端口序号 = 头部.indexOf("\u7AEF\u53E3");
+                    const 标识207 = 头部.indexOf("\u56FD\u5BB6") > -1 ? 头部.indexOf("\u56FD\u5BB6") : 头部.indexOf("\u57CE\u5E02") > -1 ? 头部.indexOf("\u57CE\u5E02") : 头部.indexOf("\u6570\u636E\u4E2D\u5FC3");
+                    const 安全传输层序号 = 头部.indexOf("TLS");
+                    标识206.forEach((标识201) => {
+                        const 标识208 = 标识201.split(",").map((标识195) => 标识195.trim());
+                        if (安全传输层序号 !== -1 && 标识208[安全传输层序号]?.toLowerCase() !== "true")
+                            return;
+                        const 标识209 = 标识199.test(标识208[地址序号]) ? `[${标识208[地址序号]}]` : 标识208[地址序号];
+                        const 标识205 = `${标识209}:${标识208[端口序号]}#${标识208[标识207]}`;
+                        if (标识178) {
+                            const 标识180 = `${标识205} [${标识178}]`;
+                            标识173.add(标识180);
+                        }
+                        else {
+                            标识173.add(标识205);
+                        }
+                        if (标识179)
+                            标识174.add(`${标识209}:${标识208[端口序号]}`);
+                    });
+                }
+                else if (头部.some((标识70) => 标识70.includes("IP")) && 头部.some((标识70) => 标识70.includes("\u5EF6\u8FDF")) && 头部.some((标识70) => 标识70.includes("\u4E0B\u8F7D\u901F\u5EA6"))) {
+                    const 地址序号 = 头部.findIndex((标识70) => 标识70.includes("IP"));
+                    const 标识210 = 头部.findIndex((标识70) => 标识70.includes("\u5EF6\u8FDF"));
+                    const 标识211 = 头部.findIndex((标识70) => 标识70.includes("\u4E0B\u8F7D\u901F\u5EA6"));
+                    const 端口 = 标识200.searchParams.get("port") || 缺省端口;
+                    标识206.forEach((标识201) => {
+                        const 标识208 = 标识201.split(",").map((标识195) => 标识195.trim());
+                        const 标识209 = 标识199.test(标识208[地址序号]) ? `[${标识208[地址序号]}]` : 标识208[地址序号];
+                        const 标识205 = `${标识209}:${端口}#CF\u4F18\u9009 ${标识208[标识210]}ms ${标识208[标识211]}MB/s`;
+                        if (标识178) {
+                            const 标识180 = `${标识205} [${标识178}]`;
+                            标识173.add(标识180);
+                        }
+                        else {
+                            标识173.add(标识205);
+                        }
+                        if (标识179)
+                            标识174.add(`${标识209}:${端口}`);
+                    });
+                }
+            }
+        }
+        catch (标识186) {
+        }
+    }));
+    const 标识212 = 标识175.trim() ? [...new Set(标识175.split(/\r?\n/).filter((标识201) => 标识201.trim() !== ""))] : [];
+    return [Array.from(标识173), 标识212, 标识176, Array.from(标识174)];
+}
+// src/services/sub-patch.ts
+function 标识213(标识214, 配置) {
+    const 用户码 = 配置?.UUID || null;
+    const 标识215 = Boolean(配置?.ECH);
+    const 主机清单 = Array.isArray(配置?.HOSTS) ? [...配置.HOSTS] : [];
+    const 标识216 = 配置?.ECHConfig?.SNI || null;
+    const 标识217 = 配置?.ECHConfig?.DNS;
+    const 标识218 = Boolean(用户码 && 标识215);
+    const 标识219 = typeof 配置?.gRPCUserAgent === "string" && 配置.gRPCUserAgent.trim() ? 配置.gRPCUserAgent.trim() : null;
+    const 标识220 = 配置?.transport === "grpc" && Boolean(标识219);
+    const 标识221 = 标识219 ? JSON.stringify(标识219) : null;
+    let 标识222 = 标识214.replace(/mode:\s*Rule\b/g, "mode: rule");
+    const 标识223 = `dns:
   enable: true
   default-nameserver:
     - 223.5.5.5
@@ -46,54 +1332,3800 @@ ${a.CF.Usage.success?`\u{1F4CA} <b>\u8BF7\u6C42\u7528\u91CF\uFF1A</b>${a.CF.Usag
       - '+.google.com'
       - '+.facebook.com'
       - '+.youtube.com'
-`,m=h=>h.replace(/grpc-opts:\s*\{([\s\S]*?)\}/i,(E,P)=>{if(/grpc-user-agent\s*:/i.test(P))return E;let y=P.trim();return y.endsWith(",")&&(y=y.slice(0,-1).trim()),`grpc-opts: {${y?`${y}, grpc-user-agent: ${d}`:`grpc-user-agent: ${d}`}}`}),p=h=>/(?:^|[,{])\s*network:\s*(?:"grpc"|'grpc'|grpc)(?=\s*(?:[,}\n#]|$))/mi.test(h),u=h=>h.match(/type:\s*(\w+)/)?.[1]||"vless",x=(h,E)=>{let P=u(h)==="trojan"?"password":"uuid",y=new RegExp(`${P}:\\s*${E?"([^,}\\n]+)":"([^\\n]+)"}`);return h.match(y)?.[1]?.trim()||null},v=(h,E)=>{if(/^\s{2}nameserver-policy:\s*(?:\n|$)/m.test(h))return h.replace(/^(\s{2}nameserver-policy:\s*\n)/m,`$1${E}
-`);let P=h.split(`
-`),y=-1,T=!1;for(let A=0;A<P.length;A++){let L=P[A];if(/^dns:\s*$/.test(L)){T=!0;continue}if(T&&/^[a-zA-Z]/.test(L)){y=A;break}}let R=`  nameserver-policy:
-${E}`;return y!==-1?P.splice(y,0,R):P.push(R),P.join(`
-`)},w=h=>!p(h)||/grpc-user-agent\s*:/i.test(h)?h:/grpc-opts:\s*\{/i.test(h)?m(h):h.replace(/\}(\s*)$/,`, grpc-opts: {grpc-user-agent: ${d}}}$1`),b=(h,E)=>{let P=" ".repeat(E),y=-1;for(let M=0;M<h.length;M++){let N=h[M];if(!(!N.trim()||N.search(/\S/)!==E)&&(/^\s*grpc-opts:\s*(?:#.*)?$/.test(N)||/^\s*grpc-opts:\s*\{.*\}\s*(?:#.*)?$/.test(N))){y=M;break}}if(y===-1){let M=-1;for(let N=h.length-1;N>=0;N--)if(h[N].trim()){M=N;break}return M>=0&&h.splice(M+1,0,`${P}grpc-opts:`,`${P}  grpc-user-agent: ${d}`),h}let T=h[y];if(/^\s*grpc-opts:\s*\{.*\}\s*(?:#.*)?$/.test(T))return/grpc-user-agent\s*:/i.test(T)||(h[y]=m(T)),h;let R=h.length,A=E+2,L=!1;for(let M=y+1;M<h.length;M++){let N=h[M],U=N.trim();if(!U)continue;let z=N.search(/\S/);if(z<=E){R=M;break}if(z>E&&A===E+2&&(A=z),/^grpc-user-agent\s*:/.test(U)){L=!0;break}}return L||h.splice(R,0,`${" ".repeat(A)}grpc-user-agent: ${d}`),h},k=(h,E)=>{let P=-1;for(let R=h.length-1;R>=0;R--)if(h[R].trim()){P=R;break}if(P<0)return h;let y=" ".repeat(E),T=[`${y}ech-opts:`,`${y}  enable: true`];return r&&T.push(`${y}  query-server-name: ${r}`),h.splice(P+1,0,...T),h};if(/^dns:\s*(?:\n|$)/m.test(g)||(g=f+g),r&&!a.includes(r)&&a.push(r),n&&a.length>0){let h=a.map(E=>`    "${E}": ${s||""}`).join(`
-`);g=v(g,h)}if(!l&&!i)return g;let C=g.split(`
-`),I=[],S=0;for(;S<C.length;){let h=C[S],E=h.trim();if(E.startsWith("- {")){let P=h,y=(h.match(/\{/g)||[]).length-(h.match(/\}/g)||[]).length;for(;y>0&&S+1<C.length;)S++,P+=`
-`+C[S],y+=(C[S].match(/\{/g)||[]).length-(C[S].match(/\}/g)||[]).length;i&&(P=w(P)),l&&x(P,!0)===t.trim()&&(P=P.replace(/\}(\s*)$/,`, ech-opts: {enable: true${r?`, query-server-name: ${r}`:""}}}$1`)),I.push(P),S++}else if(E.startsWith("- name:")){let P=[h],y=h.search(/\S/),T=y+2;for(S++;S<C.length;){let A=C[S],L=A.trim();if(!L){P.push(A),S++;break}let M=A.search(/\S/);if(M<=y&&L.startsWith("- ")||M<y&&L)break;P.push(A),S++}let R=P.join(`
-`);i&&p(R)&&(P=b(P,T),R=P.join(`
-`)),l&&x(R,!1)===t.trim()&&(P=k(P,T)),I.push(...P)}else I.push(h),S++}return I.join(`
-`)}async function Rn(o,e){let t=e?.UUID||null,n=e?.Fingerprint||"chrome",a=!!e?.ECH,r=e?.ECHConfig?.SNI||"cloudflare-ech.com",s=o.replace("1.1.1.1","8.8.8.8").replace("1.0.0.1","8.8.4.4");try{let l=JSON.parse(s),c=u=>u==null?[]:Array.isArray(u)?u:[u],i=()=>l.route=l.route&&typeof l.route=="object"?l.route:{},d=u=>u&&typeof u=="object"&&!Array.isArray(u)&&typeof u.server=="string"?u.server:null,g=(u,x)=>{if(!x||typeof x!="string")return null;let v=i(),w=`${u}-${x}`,b=Array.isArray(v.rule_set)?v.rule_set:c(v.rule_set);if(!b.some(k=>k?.tag===w)){let k=u==="geoip"?v.geoip:v.geosite;b.push({tag:w,type:"remote",format:"binary",url:`https://raw.githubusercontent.com/SagerNet/sing-${u}/rule-set/${w}.srs`,...k?.download_detour?{download_detour:k.download_detour}:{}}),l.experimental=l.experimental&&typeof l.experimental=="object"?l.experimental:{},l.experimental.cache_file=l.experimental.cache_file&&typeof l.experimental.cache_file=="object"?l.experimental.cache_file:{},l.experimental.cache_file.enabled??=!0}return v.rule_set=b,w},f=u=>{if(!u||typeof u!="object"||Array.isArray(u))return u;if(u.type==="logical"&&Array.isArray(u.rules))return u.rules=u.rules.map(f),u;let x=[];for(let v of c(u.geoip))typeof v=="string"&&(v.toLowerCase()==="private"?u.ip_is_private=!0:x.push(g("geoip",v)));for(let v of c(u.source_geoip))typeof v=="string"&&(x.push(g("geoip",v)),u.rule_set_ip_cidr_match_source=!0);for(let v of c(u.geosite))typeof v=="string"&&x.push(g("geosite",v));return x.length&&(u.rule_set=[...new Set([...c(u.rule_set),...x].filter(Boolean))]),delete u.geoip,delete u.source_geoip,delete u.geosite,u},m=(u,x)=>{if(u=f(u),!u||typeof u!="object"||Array.isArray(u))return u;if(u.type==="logical"&&Array.isArray(u.rules))return u.rules=u.rules.map(w=>m(w,x)),u;let v=d(u);if(v&&x.has(v)){for(let w of["server","strategy","disable_cache","rewrite_ttl","client_subnet","timeout"])delete u[w];u.action="predefined",u.rcode=x.get(v)}else v&&!u.action&&(u.action="route");return u};if(Array.isArray(l.inbounds)){for(let u of l.inbounds)if(!(!u||typeof u!="object"||u.type!=="tun")){for(let x of[{targetKey:"address",sourceKeys:["inet4_address","inet6_address"]},{targetKey:"route_address",sourceKeys:["inet4_route_address","inet6_route_address"]},{targetKey:"route_exclude_address",sourceKeys:["inet4_route_exclude_address","inet6_route_exclude_address"]}]){let v=c(u[x.targetKey]);for(let w of x.sourceKeys)v.push(...c(u[w]));v.length&&(u[x.targetKey]=[...new Set(v)]);for(let w of x.sourceKeys)delete u[w]}if(u.tag){let x=[];if(u.domain_strategy&&x.push({inbound:u.tag,action:"resolve",strategy:u.domain_strategy}),u.sniff){let v={inbound:u.tag,action:"sniff"};u.sniff_timeout&&(v.timeout=u.sniff_timeout),x.push(v)}if(x.length){let v=i();v.rules=[...x,...c(v.rules)]}}delete u.sniff,delete u.sniff_timeout,delete u.domain_strategy}}if(l?.route&&typeof l.route=="object"&&Array.isArray(l.route.rules)){let u=x=>(x=f(x),x?.type==="logical"&&Array.isArray(x.rules)?x.rules=x.rules.map(u):x&&typeof x=="object"&&!Array.isArray(x)&&x.outbound&&!x.action&&(x.action="route"),x);l.route.rules=l.route.rules.map(u)}let p=l?.dns;if(p&&typeof p=="object"){let u=p.fakeip&&typeof p.fakeip=="object"?p.fakeip:null,x=new Map,v={"tcp:":"tcp","udp:":"udp","tls:":"tls","quic:":"quic","https:":"https","h3:":"h3"},w={success:"NOERROR",format_error:"FORMERR",server_failure:"SERVFAIL",name_error:"NXDOMAIN",not_implemented:"NOTIMP",refused:"REFUSED"},b=!1;if(Array.isArray(p.servers)){let k=[];for(let C of p.servers){if(!C||typeof C!="object"||Array.isArray(C)){k.push(C);continue}let I={...C},S=null,h="",E=typeof I.address=="string"?I.address.trim():"";if(E){let P=E.toLowerCase();if(P==="fakeip")S={type:"fakeip"};else if(P==="local")S={type:"local"};else if(P.startsWith("rcode://"))S={type:"rcode"},h=E.slice(8).toLowerCase();else if(P.startsWith("dhcp://")){let y=E.slice(7);S=y&&y.toLowerCase()!=="auto"?{type:"dhcp",interface:y}:{type:"dhcp"}}else{try{let y=new URL(E),T=v[y.protocol.toLowerCase()];if(T){let R=y.hostname?.startsWith("[")&&y.hostname.endsWith("]")?y.hostname.slice(1,-1):y.hostname;S={type:T,server:R||y.host||E,...y.port?{server_port:Number(y.port)}:{},...(T==="https"||T==="h3")&&y.pathname&&y.pathname!=="/dns-query"?{path:y.pathname}:{}}}}catch{}S||(S={type:"udp",server:E})}}if(S?.type==="rcode"){let P=w[h]||"NOERROR";typeof I.tag=="string"&&I.tag&&(x.set(I.tag,P),x.set(I.tag.startsWith("dns_")?I.tag.slice(4):`dns_${I.tag}`,P));continue}if(S&&(delete I.address,Object.assign(I,S)),I.address_resolver!==void 0&&I.domain_resolver===void 0&&(I.domain_resolver=I.address_resolver),I.address_strategy!==void 0&&I.domain_strategy===void 0&&(I.domain_strategy=I.address_strategy),delete I.address_resolver,delete I.address_strategy,I.detour==="DIRECT"&&delete I.detour,I.type==="fakeip"&&(b=!0,u))for(let P of["inet4_range","inet6_range"])u[P]!==void 0&&I[P]===void 0&&(I[P]=u[P]);k.push(I)}p.servers=k}if(u&&!b&&u.enabled!==!1){let k={type:"fakeip",tag:"fakeip"};for(let C of Array.isArray(p.rules)?p.rules:[]){let I=d(C);if(I&&I.toLowerCase().includes("fakeip")){k.tag=I;break}}for(let C of["inet4_range","inet6_range"])u[C]!==void 0&&(k[C]=u[C]);Array.isArray(p.servers)?p.servers.push(k):p.servers=[k]}if(Array.isArray(p.rules)){let k=[];for(let C of p.rules){let I=d(C),S=c(C?.outbound),h=new Set(["outbound","server","action","strategy","disable_cache","rewrite_ttl","client_subnet","timeout"]);if(C&&typeof C=="object"&&!Array.isArray(C)&&C.type!=="logical"&&I&&S.includes("any")&&Object.keys(C).every(P=>h.has(P))){let P=i();if(P.default_domain_resolver===void 0){let y={server:I};for(let T of["strategy","disable_cache","rewrite_ttl","client_subnet","timeout"])C[T]!==void 0&&(y[T]=C[T]);P.default_domain_resolver=Object.keys(y).length===1?y.server:y}continue}k.push(m(C,x))}p.rules=k}delete p.fakeip,delete p.independent_cache}if(l?.route&&typeof l.route=="object"&&(delete l.route.geoip,delete l.route.geosite),l?.ntp?.detour==="DIRECT"&&delete l.ntp.detour,Array.isArray(l.outbounds)){let u=new Set(l.outbounds.map(v=>v?.tag).filter(Boolean)),x=v=>v==="REJECT"||v&&typeof v=="object"&&(Array.isArray(v)?v.some(x):Object.values(v).some(x));!u.has("REJECT")&&x({outbounds:l.outbounds,route:l.route})&&l.outbounds.push({type:"block",tag:"REJECT"})}return t&&l.outbounds?.forEach(u=>{(u.uuid&&u.uuid===t||u.password&&u.password===t)&&(u.tls||(u.tls={enabled:!0}),n&&(u.tls.utls={enabled:!0,fingerprint:n}),a&&(u.tls.ech={enabled:!0,query_server_name:r}))}),JSON.stringify(l,null,2)}catch(l){return console.error("Singbox\u70ED\u8865\u4E01\u6267\u884C\u5931\u8D25:",l),JSON.stringify(JSON.parse(s),null,2)}}function Mn(o,e,t){let n=o.includes(`\r
-`)?o.split(`\r
-`):o.split(`
-`),a=t.randomPath?dt(t.fullNodePath):t.fullNodePath,r="";for(let s of n)if(s.includes("= trojan,")&&!s.includes("ws=true")&&!s.includes("ws-path=")){let l=s.split("sni=")[1].split(",")[0],c=`sni=${l}, skip-cert-verify=${t.skipCertVerify}`,i=`sni=${l}, skip-cert-verify=${t.skipCertVerify}, ws=true, ws-path=${a.replace(/,/g,"%2C")}, ws-headers=Host:"${l}"`;r+=s.replace(new RegExp(c,"g"),i).replace("[","").replace("]","")+`
-`}else r+=s+`
-`;return r=`#!MANAGED-CONFIG ${e} interval=${t.bestSubGen.SUBUpdateTime*60*60} strict=false`+r.substring(r.indexOf(`
-`)),r}var B=class extends Error{code;constructor(e,t,n){super(t,{cause:n}),this.name="TunnelError",this.code=e}};var Bn={socks5:1080,http:80,https:443,turn:3478,sstp:443};function mt(o){return Bn[String(o||"").toLowerCase()]||80}var la=/^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=)?$/i,ca=/^\[.*\]$/;function ft(o,e=80){let t=String(o||"").trim().replace(/^(socks5|http|https|turn|sstp):\/\//i,"").split("#")[0].trim(),n=t.lastIndexOf("@");if(n!==-1){let g=t.slice(0,n).replaceAll("%3D","=");!g.includes(":")&&la.test(g)&&(g=atob(g)),t=`${g}@${t.slice(n+1)}`}let a=t.lastIndexOf("@"),r=(a===-1?t:t.slice(a+1)).split("/")[0],s=a===-1?"":t.slice(0,a),[l,c]=s?s.split(":"):[];if(s&&!c)throw new B("CHAIN_SOCKS5_ACCOUNT",'\u65E0\u6548\u7684 SOCKS \u5730\u5740\u683C\u5F0F\uFF1A\u8BA4\u8BC1\u90E8\u5206\u5FC5\u987B\u662F "username:password" \u7684\u5F62\u5F0F');let i=r,d=e;if(r.includes("]:")){let[g,f=""]=r.split("]:");i=g+"]",d=Number(f.replace(/[^\d]/g,""))}else if(!r.startsWith("[")){let g=r.split(":");g.length===2&&(i=g[0],d=Number(g[1].replace(/[^\d]/g,"")))}if(Number.isNaN(d))throw new B("CHAIN_SOCKS5_ACCOUNT","\u65E0\u6548\u7684 SOCKS \u5730\u5740\u683C\u5F0F\uFF1A\u7AEF\u53E3\u53F7\u5FC5\u987B\u662F\u6570\u5B57");if(i.includes(":")&&!ca.test(i))throw new B("CHAIN_SOCKS5_ACCOUNT","\u65E0\u6548\u7684 SOCKS \u5730\u5740\u683C\u5F0F\uFF1AIPv6 \u5730\u5740\u5FC5\u987B\u7528\u65B9\u62EC\u53F7\u62EC\u8D77\u6765\uFF0C\u5982 [2001:db8::1]");return{username:l,password:c,hostname:i,port:d}}function da(o){let e=String(o||"").trim();if(!e||e.includes("/")||e.includes("@")||e.includes("://"))throw new B("CHAIN_TROJAN_ADDR","\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");let t="",n="";if(e.startsWith("[")){let r=e.match(/^(\[[^\]]+\]):(\d+)$/);if(!r)throw new B("CHAIN_TROJAN_ADDR","\u65E0\u6548\u7684 IPv6 \u6728\u9A6C\u53CD\u4EE3\u5730\u5740");t=r[1],n=r[2]}else{let r=e.split(":");if(r.length!==2)throw new B("CHAIN_TROJAN_ADDR","\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");t=r[0],n=r[1]}let a=Number(n);if(!t||!Number.isInteger(a)||a<1||a>65535)throw new B("CHAIN_TROJAN_ADDR","\u65E0\u6548\u7684\u6728\u9A6C\u53CD\u4EE3\u7AEF\u53E3");return{hostname:t,port:a}}function pa(o){if(!o.includes("://")){let n=o.indexOf("/");return n>0?o.slice(0,n):o}let e=o.split("://");if(e.length!==2)return o;let t=e[1].indexOf("/");return t>0?`${e[0]}://${e[1].slice(0,t)}`:o}function Un(o,e,t="",n=!0){let{searchParams:a}=e,r=decodeURIComponent(e.pathname),s=r.toLowerCase(),l=t,c=null,i=!1,d="",g={hostname:"",port:0},f=n,m={trojanProxyAddr:null,proxyIP:l,proxyType:null,proxyAccount:"",proxyGlobal:!1,proxyParams:{hostname:"",port:0},proxyFallback:f},p=()=>{m.proxyIP=l,m.proxyType=c,m.proxyAccount=d,m.proxyGlobal=i,m.proxyParams={...g},m.proxyFallback=f},u=/\/video\/(.+)$/i.exec(r);if(u)try{let k=Tn(u[1].replace(/\/+$/,""),o.userId),{type:C,...I}=JSON.parse(k);if(!C||!Bn[String(C).toLowerCase()])throw new Error("\u94FE\u5F0F\u4EE3\u7406\u7C7B\u578B\u65E0\u6548");if(!I.hostname||!I.port)throw new Error("\u94FE\u5F0F\u4EE3\u7406\u5730\u5740\u7F3A\u5C11 hostname \u6216 port");if(d="",l="\u94FE\u5F0F\u4EE3\u7406",f=!1,i=!0,c=String(C).toLowerCase(),g={username:I.username,password:I.password,hostname:I.hostname,port:Number(I.port)},Number.isNaN(g.port))throw new Error("\u94FE\u5F0F\u4EE3\u7406\u7AEF\u53E3\u65E0\u6548");return p(),m}catch(k){o.error("proxy-ctx",`\u89E3\u6790\u94FE\u5F0F\u4EE3\u7406\u53C2\u6570\u5931\u8D25: ${k.message}`)}d=a.get("socks5")||a.get("http")||a.get("https")||a.get("turn")||a.get("sstp")||"",i=a.has("globalproxy"),a.get("socks5")?c="socks5":a.get("http")?c="http":a.get("https")?c="https":a.get("turn")?c="turn":a.get("sstp")&&(c="sstp");let x=(k,C=!0)=>{let I=/^(socks5|http|https|turn|sstp):\/\/(.+)$/i.exec(k||"");return I?(c=I[1].toLowerCase(),d=I[2].split("/")[0],C&&(i=!0),!0):!1},v=k=>{l=k,c=null,f=!1},w=/\/trojan=([^?#\s]+)/i.exec(r);if(w)try{m.trojanProxyAddr=da(w[1].replace(/\/+$/,""))}catch(k){o.error("proxy-ctx",`\u89E3\u6790\u6728\u9A6C\u53CD\u4EE3\u5730\u5740\u5931\u8D25: ${k.message}`),m.trojanProxyAddr=null}let b=a.get("proxyip");if(b!==null){if(!x(b))return v(b),p(),m}else{let k=/\/(socks5?|http|https|turn|sstp):\/?\/?([^/?#\s]+)/i.exec(r);if(k){let C=k[1].toLowerCase();c=C==="sock"||C==="socks"?"socks5":C,d=k[2].split("/")[0],i=!0}else if(k=/\/(g?s5|socks5|g?http|g?https|g?turn|g?sstp)=([^/?#\s]+)/i.exec(r)){let C=k[1].toLowerCase();d=k[2].split("/")[0],c=C.includes("sstp")?"sstp":C.includes("turn")?"turn":C.includes("https")?"https":C.includes("http")?"http":"socks5",C.startsWith("g")&&(i=!0)}else if(k=/\/(proxyip[.=]|pyip=|ip=)([^?#\s]+)/.exec(s)){let C=pa(k[2]);if(!x(C))return v(C),p(),m}}if(!d)return c=null,p(),m;try{g=ft(d,mt(c)),a.get("socks5")?c="socks5":a.get("http")?c="http":a.get("https")?c="https":a.get("turn")?c="turn":a.get("sstp")?c="sstp":c=c||"socks5"}catch(k){o.error("proxy-ctx",`\u89E3\u6790SOCKS5\u5730\u5740\u5931\u8D25: ${k.message}`),c=null}return p(),m}var Ft="00000000-0000-4000-8000-000000000000",ua="MDAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAw",ma=/^(\[[\da-fA-F:]+\]|[\d.]+|[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)*)(?::(\d+))?(?:#(.+))?$/,Vt=class extends xe{name="subscription";async onRoute(e){let t=e.url.pathname.slice(1),n=t.toLowerCase();if(t===e.encryptionSecret&&e.encryptionSecret!==Eo){let a=new URLSearchParams(e.url.search);return a.set("token",ie(e.host+e.userId)),new Response("\u91CD\u5B9A\u5411\u4E2D...",{status:302,headers:{Location:`/sub?${a.toString()}`}})}return n==="sub"?this.handleSub(e):null}async handleSub(e){let{request:t,url:n,env:a}=e,s=e.ua.toLowerCase(),l=e.host,c=e.userId,i=e.identity[0],d=ie(l+c),g=["1","true"].includes(String(a.BEST_SUB??""))&&n.searchParams.get("host")==="example.com"&&n.searchParams.get("uuid")===Ft&&s.includes(`tunnel (https://github.com/${ee}/edge`),f=n.searchParams.get("token"),m=f===d,p=Math.floor(Date.now()/864e5),u=Lo(d,c),[x,v]=[ie(u+p),ie(u+(p-1))];if(!(m||(f===x||f===v)||g))return null;let b=await Ce(e);g?e.ctx.waitUntil(ge(a,t,e.clientIp,"Get_Best_SUB",b,!1)):e.ctx.waitUntil(ge(a,t,e.clientIp,"Get_SUB",b));let k={"content-type":"text/plain; charset=utf-8","Profile-Update-Interval":String(b.bestSubGen.SUBUpdateTime),"Profile-web-page-url":n.protocol+"//"+n.host+"/admin","Cache-Control":"no-store"};if(b.CF.Usage.success){let P=b.CF.Usage.pages,y=b.CF.Usage.workers,T=Number.isFinite(b.CF.Usage.max)?b.CF.Usage.max/1e3*1024:1024*100;k["Subscription-Userinfo"]=`upload=${P}; download=${y}; total=${T}; expire=4102329600`}let C=n.searchParams.has("b64")||n.searchParams.has("base64")||!!t.headers.get("subconverter-request")||!!t.headers.get("subconverter-version")||s.includes("subconverter")||s.includes("cf-workers-sub")||g,I=C?"mixed":n.searchParams.has("target")?n.searchParams.get("target"):n.searchParams.has("clash")||s.includes("clash")||s.includes("meta")||s.includes("mihomo")?"clash":n.searchParams.has("sb")||n.searchParams.has("singbox")||s.includes("singbox")||s.includes("sing-box")?"singbox":n.searchParams.has("surge")||s.includes("surge")?"surge&ver=4":n.searchParams.has("quanx")||s.includes("quantumult")?"quanx":n.searchParams.has("loon")||s.includes("loon")?"loon":"mixed";s.includes("mozilla")||(k["Content-Disposition"]=`attachment; filename*=utf-8''${encodeURIComponent(b.bestSubGen.SUBNAME)}`);let S=n.searchParams.has("surge")||s.includes("surge"),h=S&&b.protocolType!=="ss"?"trojan":b.protocolType,E="";if(I==="mixed")E=await this.renderMixedSub(e,b,{uaLower:s,asBestSubGenerator:g,isSubConverterRequest:C,protocolType:h});else{let P=`${b.subConverterConfig.SUBAPI}/sub?target=${I}&url=${encodeURIComponent(n.protocol+"//"+n.host+"/sub?target=mixed&token="+x+"&cnIspCode="+lt(t)+(n.searchParams.has("sub")&&n.searchParams.get("sub")!==""?`&sub=${n.searchParams.get("sub")}`:""))}&config=${encodeURIComponent(b.subConverterConfig.SUBCONFIG)}&emoji=${b.subConverterConfig.SUBEMOJI}&list=${b.subConverterConfig.SUBLIST}&scv=${b.skipCertVerify}&xudp=${b.subConverterConfig.XUDP}&udp=${b.subConverterConfig.UDP}&tls13=${b.subConverterConfig.TLS13}&append_type=${b.subConverterConfig.APPEND_TYPE}&sort=${b.subConverterConfig.SORT}&expand=${b.subConverterConfig.EXPAND}`;try{let y=await fetch(P,{headers:{"User-Agent":"Subconverter for "+I+" edgetunnel (https://github.com/"+ee+"/edgetunnel) Uid/0x"+i+" Version/"+Ve}});if(y.ok)E=await y.text(),S&&(E=Mn(E,n.protocol+"//"+n.host+"/sub?token="+d+"&surge",b));else return new Response("\u8BA2\u9605\u8F6C\u6362\u540E\u7AEF\u5F02\u5E38\uFF1A"+y.statusText,{status:y.status})}catch(y){return new Response("\u8BA2\u9605\u8F6C\u6362\u540E\u7AEF\u5F02\u5E38\uFF1A"+y.message,{status:403})}}if(!s.includes("subconverter")&&m){let P=[...b.HOSTS].sort(()=>Math.random()-.5),y=0,T;E=E.replace(new RegExp(Ft,"g"),b.UUID).replace(new RegExp(ua,"g"),btoa(b.UUID)).replace(/example\.com/g,()=>{if(y%2===0){let R=P[Math.floor(y/2)%P.length];T=Mo(R)}return y++,T})}return I==="mixed"&&(!s.includes("mozilla")||n.searchParams.has("b64")||n.searchParams.has("base64"))&&(E=btoa(E)),I==="singbox"?(E=await Rn(E,b),k["content-type"]="application/json; charset=utf-8"):I==="clash"&&(E=Ln(E,b),k["content-type"]="application/x-yaml; charset=utf-8"),new Response(E,{status:200,headers:k})}async renderMixedSub(e,t,n){let{request:a,url:r,env:s}=e,{uaLower:l,asBestSubGenerator:c,isSubConverterRequest:i,protocolType:d}=n,g=e.identity[0],f=t.tlsFragment=="Shadowrocket"?`&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}`:t.tlsFragment=="Happ"?`&fragment=${encodeURIComponent("3,1,tlshello")}`:"",m=[],p="",u=[];if(!r.searchParams.has("sub")&&t.bestSubGen.local){let{randomCount:I,fixedPort:S,randomIP:h}=t.bestSubGen.localIPPool,E;if(h)E=(await ut(a,I,S))[0];else{let M=await s.KV.get("ADD.txt");E=M?ue(M):(await ut(a,I,S))[0]}let P=[],y=[],T=[];for(let M of E)if(M.toLowerCase().startsWith("sub://"))P.push(M);else{let N=M.indexOf("#"),U=N>-1?M.slice(0,N):M,z=N>-1?M.slice(N):"",K=M.match(/sub\s*=\s*([^\s&#]+)/i);if(K&&K[1].trim().includes(".")){let q=M.toLowerCase().includes("proxyip=true"),J=M.includes("#")?"#"+M.split("#")[1]:"";q?P.push("sub://"+K[1].trim()+"?proxyip=true"+J):P.push("sub://"+K[1].trim()+J)}else if(U.toLowerCase().startsWith("https://"))P.push(M);else if(U.toLowerCase().includes("://"))if(M.includes("#")){let q=M.split("#");T.push(q[0]+"#"+encodeURIComponent(decodeURIComponent(q[1])))}else T.push(M);else U.includes("*")?y.push(Mo(U)+z):y.push(M)}let R=await zt(P,"443",g),A=[...new Set(T.concat(R[1]))];p=A.length>0?A.join(`
-`)+`
-`:"";let L=R[0];u=R[3]||[],m=[...new Set(y.concat(L))]}else{let I=r.searchParams.get("sub")||t.bestSubGen.SUB,[S,h]=await Bo(I,g);m=m.concat(S),p+=h}let x=t.ECH?`&ech=${encodeURIComponent((t.ECHConfig.SNI?t.ECHConfig.SNI+"+":"")+t.ECHConfig.DNS)}`:"",v=l.includes("loon")||l.includes("surge"),{type:w,pathFieldName:b,hostFieldName:k}=Ot(t),C=m.map(I=>{let S=I.match(ma),h,E="443",P;if(S)h=S[1],E=S[2]?S[2]:"443",P=S[3]||h;else return console.warn(`[\u8BA2\u9605\u5185\u5BB9] \u4E0D\u89C4\u8303\u7684IP\u683C\u5F0F\u5DF2\u5FFD\u7565: ${I}`),null;let y=t.fullNodePath,T=P.match(/\$(socks5|http|https|turn|sstp):\/\/([^#\s]+)/i);if(T)try{let A=T[1].toLowerCase(),L=T[2],M={type:A,...ft(L,mt(A))};y=`/video/${Lo(JSON.stringify(M),e.userId)}${t.enable0RTT?"?ed=2560":""}`,P=P.replace(T[0],"").trim()||h}catch(A){console.warn(`[\u8BA2\u9605\u5185\u5BB9] \u94FE\u5F0F\u4EE3\u7406\u89E3\u6790\u5931\u8D25\uFF0C\u5DF2\u5FFD\u7565\u8BE5\u6307\u4EE4: ${T[0]} (${A?.message?A.message:A})`)}else if(u.length>0){let A=u.find(L=>L.includes(h));A&&(y=`${t.PATH}/proxyip=${A}`.replace(/\/\//g,"/")+(t.enable0RTT?"?ed=2560":""))}if(v&&(y=y.replace(/,/g,"%2C")),d==="ss"&&!c)return t.SS.TLS||(E=String([80,2052,2082,2086,2095,8080][[443,2053,2083,2087,2096,8443].indexOf(Number(E))]??E)),y=(y.includes("?")?y.replace("?","?enc="+t.SS.encryptionMethod+"&"):y+"?enc="+t.SS.encryptionMethod).replace(/([=,])/g,"\\$1"),i||(y=y+";mux=0"),`${d}://${btoa(t.SS.encryptionMethod+":"+Ft)}@${h}:${E}?plugin=v2${encodeURIComponent("ray-plugin;mode=websocket;host=example.com;path="+(t.randomPath?dt(y):y)+(t.SS.TLS?";tls":""))}${x}${f}#${encodeURIComponent(P)}`;let R=_t(t,y,c);return`${d}://${Ft}@${h}:${E}?security=tls&type=${w+x}&${k}=example.com&fp=${t.Fingerprint}&sni=example.com&${b}=${encodeURIComponent(R)+f}&encryption=none&alpn=${encodeURIComponent(t.ALPN)}#${encodeURIComponent(P)}`}).filter(I=>I!==null).join(`
-`);return p+C}};function Dn(o,e){let t=new TextEncoder,n=t.encode(o),a=t.encode(e),r=Math.max(n.length,a.length),s=n.length^a.length;for(let l=0;l<r;l++)s|=(n[l]??0)^(a[l]??0);return s===0}function Uo(o,e,t){return Promise.resolve(ie(o+e+t))}function fa(o){return(o.headers.get("Cookie")||"").split(";").map(n=>n.trim()).find(n=>n.startsWith("auth="))?.slice(5)??null}async function Re(o,e,t){let n=fa(o);if(!n)return!1;let a=await Uo(o.headers.get("User-Agent")||"null",e,t);return Dn(n,a)}function Nn(o,e){if(o===null)return!1;let t=typeof e=="string"?e.replace(/[\r\n]/g,""):String(e);return Dn(o,t)}var ga="application/json;charset=utf-8";function Q(o,e=200,t=!0,n=ga){return new Response(t?JSON.stringify(o,null,2):JSON.stringify(o),{status:e,headers:{"Content-Type":n}})}function jt(o,e=302){return new Response("\u91CD\u5B9A\u5411\u4E2D...",{status:e,headers:{Location:o}})}var Gt=class extends xe{name="best-ip";async onRoute(e){let t=e.url.pathname.slice(1),n=t.toLowerCase();return t==="admin/getADDAPI"?this.handleVerifyApi(e):n==="locations"?this.handleLocations(e):null}async handleVerifyApi(e){let{request:t,url:n}=e;if(!await Re(t,e.encryptionSecret,e.adminPassword))return jt("/login");let a=n.searchParams.get("url");if(a)try{new URL(a);let r=await zt([a],n.searchParams.get("port")||"443",e.identity[0]),s=r[0].length>0?r[0]:r[1];return s=s.map(l=>l.replace(/#(.+)$/,(c,i)=>"#"+decodeURIComponent(i))),Q({success:!0,data:s},200,!0)}catch(r){let s=r;return Q({msg:"\u9A8C\u8BC1\u4F18\u9009API\u5931\u8D25\uFF0C\u5931\u8D25\u539F\u56E0\uFF1A"+s.message,error:s.message},500,!0)}return Q({success:!1,data:[]},403,!0)}async handleLocations(e){return await Re(e.request,e.encryptionSecret,e.adminPassword)?fetch(new Request("https://speed.cloudflare.com/locations",{headers:{Referer:"https://speed.cloudflare.com/"}})):null}};var ha={A:1,NS:2,CNAME:5,MX:15,TXT:16,AAAA:28,SRV:33,HTTPS:65},Hn=256,Me=new Map;function ba(o){let e=o.endsWith(".")?o.slice(0,-1).split("."):o.split("."),t=[];for(let s of e){let l=new TextEncoder().encode(s);t.push(new Uint8Array([l.length]),l)}t.push(new Uint8Array([0]));let n=0;for(let s of t)n+=s.length;let a=new Uint8Array(n),r=0;for(let s of t)a.set(s,r),r+=s.length;return a}function Do(o,e){let t=[],n=e,a=!1,r=-1,s=128;for(;n<o.length&&s-- >0;){let l=o[n];if(l===0){a||(r=n+1);break}if((l&192)===192){a||(r=n+2),n=(l&63)<<8|o[n+1],a=!0;continue}t.push(new TextDecoder().decode(o.subarray(n+1,n+1+l))),n+=l+1}return r===-1&&(r=n+1),[t.join("."),r]}async function he(o,e,t="https://cloudflare-dns.com/dns-query"){let n=String(o||"").trim().toLowerCase().replace(/\.$/,""),a=String(e||"").trim().toUpperCase(),r=`${n}:${a}`,s=ha[a]||1,l=Date.now(),c=Me.get(r);if(c&&l<c.expireTime)return c.data.map(d=>({name:n,type:s,TTL:0,data:d}));let i=performance.now();try{let d=ba(n),g=new Uint8Array(12+d.length+4),f=new DataView(g.buffer);f.setUint16(0,crypto.getRandomValues(new Uint16Array(1))[0]),f.setUint16(2,256),f.setUint16(4,1),g.set(d,12),f.setUint16(12+d.length,s),f.setUint16(12+d.length+2,1);let m=await fetch(t,{method:"POST",headers:{"Content-Type":"application/dns-message",Accept:"application/dns-message"},body:g});if(!m.ok)return console.warn(`[DoH\u67E5\u8BE2] \u8BF7\u6C42\u5931\u8D25 ${o} ${e} via ${t} \u54CD\u5E94\u4EE3\u7801:${m.status}`),[];let p=new Uint8Array(await m.arrayBuffer()),u=new DataView(p.buffer),x=u.getUint16(4),v=u.getUint16(6),w=12;for(let h=0;h<x;h++){let[,E]=Do(p,w);w=E+4}let b=[];for(let h=0;h<v&&w<p.length;h++){let[E,P]=Do(p,w);w=P;let y=u.getUint16(w);w+=2,w+=2;let T=u.getUint32(w);w+=4;let R=u.getUint16(w);w+=2;let A=p.subarray(w,w+R);w+=R;let L;if(y===1&&R===4)L=`${A[0]}.${A[1]}.${A[2]}.${A[3]}`;else if(y===28&&R===16){let M=[];for(let N=0;N<16;N+=2)M.push(((A[N]<<8|A[N+1])>>>0).toString(16));L=M.join(":")}else if(y===16){let M=0,N=[];for(;M<R;){let U=A[M++];N.push(new TextDecoder().decode(A.subarray(M,M+U))),M+=U}L=N.join("")}else if(y===5){let[M]=Do(p,w-R);L=M}else L=Array.from(A).map(M=>M.toString(16).padStart(2,"0")).join("");b.push({name:E,type:y,TTL:T,data:L})}let k=b.filter(h=>h.type===s),C=k.length>0?Math.min(...k.map(h=>h.TTL)):0,I=Math.max(C,300),S=k.map(h=>h.data);if(S.length>0||b.length===0){if(Me.size>=Hn){let h=Date.now();for(let[E,P]of[...Me])h>=P.expireTime&&Me.delete(E);if(Me.size>=Hn){let E=Me.keys().next().value;E!==void 0&&Me.delete(E)}}Me.set(r,{data:S,expireTime:Date.now()+I*1e3})}return b}catch(d){return console.error(`[DoH\u67E5\u8BE2] \u67E5\u8BE2\u5931\u8D25 ${o} ${e} via ${t}:`,d),[]}}function Pe(o=""){let e=String(o||"").trim();return e.startsWith("[")&&e.endsWith("]")?e.slice(1,-1):e}function Ie(o){let e=String(o||"").split(".");return e.length===4&&e.every(t=>/^\d{1,3}$/.test(t)&&Number(t)>=0&&Number(t)<=255)}function je(o=""){let e=Pe(o);if(/^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/.test(e))return!0;if(!e.includes(":"))return!1;try{return new URL(`http://[${e}]/`),!0}catch{return!1}}function D(o){return o instanceof Uint8Array?o:o instanceof ArrayBuffer?new Uint8Array(o):ArrayBuffer.isView(o)?new Uint8Array(o.buffer,o.byteOffset,o.byteLength):typeof o=="number"?new Uint8Array(o):Array.isArray(o)?Uint8Array.from(o.map(e=>Number(e)||0)):new Uint8Array(0)}function F(...o){if(o.length===0)return new Uint8Array(0);let e=o.map(D),t=0;for(let r of e)t+=r.byteLength;let n=new Uint8Array(t),a=0;for(let r of e)n.set(r,a),a+=r.byteLength;return n}function Y(o){if(!o)return 0;let e=o;if(typeof e.byteLength=="number")return e.byteLength;let t=o;return typeof t.length=="number"?t.length:0}function Ge(o){let t=o?.fetcher;if(!t||typeof t.connect!="function")throw new B("FORWARD_NO_CONNECTOR","request.fetcher.connect unavailable");return((n,a)=>a===void 0?t.connect(n):t.connect(n,a))}var ya=1e3;async function xa(o,e=ya){let t=o.opened;!t||typeof t.then!="function"||await Promise.race([t,new Promise((n,a)=>setTimeout(()=>a(new Error("\u8FDE\u63A5\u8D85\u65F6")),e))])}async function On(o,e,t){let n=o({hostname:e,port:t});try{return await xa(n),n}catch(a){try{n?.close?.()}catch{}throw a}}async function No(o,e){if(!e||e.byteLength<=0)return;let t=o.writable.getWriter();try{await t.write(D(e))}finally{try{t.releaseLock()}catch{}}}async function _n(o,e){if(e.length===1){let a=e[0];return{socket:await On(o,a.hostname,a.port),candidate:a}}let t=e.map(a=>On(o,a.hostname,a.port).then(r=>({socket:r,candidate:a}))),n=null;try{return n=await Promise.any(t),n}finally{if(n)for(let a of t)a.then(({socket:r})=>{if(r!==n.socket)try{r?.close?.()}catch{}}).catch(()=>{})}}async function va(o,e,t){if(!o.dial.preloadRaceDial||je(e))return null;o.log("[TCP\u76F4\u8FDE]",`\u9884\u52A0\u8F7D\u7ADE\u901F\u62E8\u53F7\u5F00\u542F\uFF0C\u5F00\u59CB\u5E76\u53D1\u67E5\u8BE2 ${e} \u7684 A/AAAA \u8BB0\u5F55`);let[n,a]=await Promise.all([he(e,"A"),he(e,"AAAA")]),r=[...new Set(n.flatMap(d=>d.type===1&&typeof d.data=="string"&&Ie(d.data)?[d.data]:[]))],s=[...new Set(a.flatMap(d=>d.type===28&&typeof d.data=="string"&&je(d.data)?[d.data]:[]))],l=Math.max(1,o.dial.tcpConcurrentDial|0),c=r.length>=l?r.slice(0,l):r.concat(s.slice(0,l-r.length)),i=r.length>0?c.length>r.length?"A+AAAA":"A":"AAAA";return c.length===0?(o.log("[TCP\u76F4\u8FDE]",`${e} \u7684 A/AAAA \u672A\u83B7\u5F97\u53EF\u7528\u89E3\u6790\u7ED3\u679C\uFF0C\u9884\u52A0\u8F7D\u7ADE\u901F\u4E0D\u53EF\u7528\uFF0C\u56DE\u9000\u5230\u539F\u59CB hostname \u76F4\u8FDE\u3002`),null):(o.log("[TCP\u76F4\u8FDE]",`${e} A\u8BB0\u5F55:${r.length} AAAA\u8BB0\u5F55:${s.length}\uFF0C\u4F7F\u7528${i}\u8BB0\u5F55\uFF0C\u7ADE\u901F\u62E8\u53F7 ${c.length}/${l}: ${c.join(", ")}`),c.map((d,g)=>({hostname:d,port:t,attempt:g,resolvedFrom:e})))}async function Ho(o,e,t,n,a=null,r=!1){let s=r?await va(o,t,n):null,l=s||Array.from({length:Math.max(1,o.dial.tcpConcurrentDial)},(i,d)=>({hostname:t,port:n,attempt:d}));o.log("[TCP\u76F4\u8FDE]",s?`\u5E76\u53D1\u5C1D\u8BD5 ${l.length} \u8DEF: ${l.map(i=>`${i.hostname}:${i.port}`).join(", ")}`:`\u5E76\u53D1\u5C1D\u8BD5 ${l.length} \u8DEF: ${t}:${n}`);let c=null;try{let i=await _n(e,l);if(c=i.socket,o.log("[TCP\u76F4\u8FDE]",`\u62E8\u53F7\u6210\u529F ${i.candidate.hostname}:${i.candidate.port}`),s){let d=i.candidate;o.log("[TCP\u76F4\u8FDE]",`\u9884\u52A0\u8F7D\u7ADE\u901F\u7ED3\u679C: ${d.hostname}:${d.port} \u80DC\u51FA\uFF0C\u6E90\u57DF\u540D: ${d.resolvedFrom||t}`)}return await No(c,a),o.log("[TCP\u76F4\u8FDE]",`\u9996\u5305\u5DF2\u5199 ${a?.byteLength??0}B`),c}catch(i){try{c?.close?.()}catch{}throw s&&o.log("[TCP\u76F4\u8FDE]",`\u9884\u52A0\u8F7D\u7ADE\u901F\u5931\u8D25: ${i.message||i}`),i}}async function $n(o,e,t,n,a,r,s,l=0){let c=l;if(r&&r.length>0){let i=Math.max(1,Math.floor(Number(o.dial.proxyConcurrentDial)||1));for(let d=0;d<r.length;d+=i){let g=[];for(let p=0;p<i&&d+p<r.length;p++){let u=(c+d+p)%r.length,[x,v]=r[u];g.push({hostname:x,port:v,index:u})}let f=null,m=null;try{o.log("[\u53CD\u4EE3\u8FDE\u63A5]",`\u5E76\u53D1\u5C1D\u8BD5 ${g.length} \u8DEF: ${g.map(u=>`${u.hostname}:${u.port}`).join(", ")}`);let p=await _n(e,g);return f=p.socket,m=p.candidate,await No(f,a),o.log("[\u53CD\u4EE3\u8FDE\u63A5]",`\u6210\u529F\u8FDE\u63A5\u5230: ${m.hostname}:${m.port} (\u7D22\u5F15: ${m.index})`),{socket:f,nextIndex:m.index??0}}catch(p){try{f?.close?.()}catch{}o.log("[\u53CD\u4EE3\u8FDE\u63A5]",`\u672C\u6279\u8FDE\u63A5\u5931\u8D25: ${p.message||p}`)}}}if(s)return{socket:await Ho(o,e,t,n,a,!1),nextIndex:c};throw new B("FORWARD_PROXY_EXHAUSTED","[\u53CD\u4EE3\u8FDE\u63A5] \u6240\u6709\u53CD\u4EE3\u8FDE\u63A5\u5931\u8D25\uFF0C\u4E14\u672A\u542F\u7528\u53CD\u4EE3\u515C\u5E95\uFF0C\u8FDE\u63A5\u7EC8\u6B62\u3002")}var le=class{},gt=class{items=new Map;register(e){if(this.items.has(e.name))throw new B("REGISTRY_DUPLICATE",`\u94FE\u5F0F\u4EE3\u7406\u91CD\u540D\u6CE8\u518C: ${e.name}`);return this.items.set(e.name,e),this}get(e){return this.items.get(e)}has(e){return this.items.has(e)}list(){return[...this.items.values()]}};async function X(o,e,t){let n;try{return await Promise.race([o,new Promise((a,r)=>{n=setTimeout(()=>r(new B("CHAIN_TIMEOUT",t)),e)})])}finally{clearTimeout(n)}}var Kt=class extends le{name="socks5";async dial(e){let{proxy:t,target:n,initialData:a,tcpConnect:r}=e,{username:s,password:l,hostname:c,port:i}=t,d=r({hostname:c,port:i}),g=d.writable.getWriter(),f=d.readable.getReader();try{let m=s&&l?new Uint8Array([5,2,0,2]):new Uint8Array([5,1,0]);await g.write(m);let p=await f.read();if(p.done||!p.value||p.value.byteLength<2)throw new B("CHAIN_SOCKS5_HANDSHAKE","S5 method selection failed");let u=D(p.value)[1];if(u===2){if(!s||!l)throw new B("CHAIN_SOCKS5_AUTH","S5 requires authentication");let w=new TextEncoder().encode(s),b=new TextEncoder().encode(l),k=new Uint8Array([1,w.length,...w,b.length,...b]);if(await g.write(k),p=await f.read(),p.done||!p.value||D(p.value)[1]!==0)throw new B("CHAIN_SOCKS5_AUTH","S5 authentication failed")}else if(u!==0)throw new B("CHAIN_SOCKS5_HANDSHAKE",`S5 unsupported auth method: ${u}`);let x=new TextEncoder().encode(n.host),v=new Uint8Array([5,1,0,3,x.length,...x,n.port>>8,n.port&255]);if(await g.write(v),p=await f.read(),p.done||!p.value||D(p.value)[1]!==0)throw new B("CHAIN_SOCKS5_CONNECT","S5 connection failed");return Y(a)>0&&await g.write(D(a)),g.releaseLock(),f.releaseLock(),{socket:d}}catch(m){try{g.releaseLock()}catch{}try{f.releaseLock()}catch{}try{d.close?.()}catch{}throw m}}};var Wt=class extends le{name="http";async dial(e){return Oo(e,!1)}};async function Oo(o,e){let{proxy:t,target:n,initialData:a,tcpConnect:r}=o,{username:s,password:l,hostname:c,port:i}=t,d=e?r({hostname:c,port:i},{secureTransport:"on",allowHalfOpen:!1}):r({hostname:c,port:i}),g=d.writable.getWriter(),f=d.readable.getReader(),m=new TextEncoder,p=new TextDecoder;try{e&&d.opened&&await d.opened;let u=s&&l?`Proxy-Authorization: Basic ${btoa(`${s}:${l}`)}\r
-`:"",x=`CONNECT ${n.host}:${n.port} HTTP/1.1\r
-Host: ${n.host}:${n.port}\r
-${u}User-Agent: Mozilla/5.0\r
+`;
+    const 标识224 = (标识37) => 标识37.replace(/grpc-opts:\s*\{([\s\S]*?)\}/i, (全部, 标识225) => {
+        if (/grpc-user-agent\s*:/i.test(标识225))
+            return 全部;
+        let 内容 = 标识225.trim();
+        if (内容.endsWith(","))
+            内容 = 内容.slice(0, -1).trim();
+        const 标识226 = 内容 ? `${内容}, grpc-user-agent: ${标识221}` : `grpc-user-agent: ${标识221}`;
+        return `grpc-opts: {${标识226}}`;
+    });
+    const 标识227 = (标识37) => /(?:^|[,{])\s*network:\s*(?:"grpc"|'grpc'|grpc)(?=\s*(?:[,}\n#]|$))/mi.test(标识37);
+    const 标识228 = (标识229) => 标识229.match(/type:\s*(\w+)/)?.[1] || "vless";
+    const 标识230 = (标识229, 标识231) => {
+        const 标识232 = 标识228(标识229) === "trojan" ? "password" : "uuid";
+        const 标识57 = new RegExp(`${标识232}:\\s*${标识231 ? "([^,}\\n]+)" : "([^\\n]+)"}`);
+        return 标识229.match(标识57)?.[1]?.trim() || null;
+    };
+    const 标识233 = (标识234, 标识235) => {
+        if (/^\s{2}nameserver-policy:\s*(?:\n|$)/m.test(标识234)) {
+            return 标识234.replace(/^(\s{2}nameserver-policy:\s*\n)/m, `$1${标识235}
+`);
+        }
+        const 标识236 = 标识234.split("\n");
+        let 标识237 = -1;
+        let 标识238 = false;
+        for (let 标识239 = 0; 标识239 < 标识236.length; 标识239++) {
+            const 标识201 = 标识236[标识239];
+            if (/^dns:\s*$/.test(标识201)) {
+                标识238 = true;
+                continue;
+            }
+            if (标识238 && /^[a-zA-Z]/.test(标识201)) {
+                标识237 = 标识239;
+                break;
+            }
+        }
+        const 标识240 = `  nameserver-policy:
+${标识235}`;
+        if (标识237 !== -1)
+            标识236.splice(标识237, 0, 标识240);
+        else
+            标识236.push(标识240);
+        return 标识236.join("\n");
+    };
+    const 标识241 = (标识229) => {
+        if (!标识227(标识229) || /grpc-user-agent\s*:/i.test(标识229))
+            return 标识229;
+        if (/grpc-opts:\s*\{/i.test(标识229))
+            return 标识224(标识229);
+        return 标识229.replace(/\}(\s*)$/, `, grpc-opts: {grpc-user-agent: ${标识221}}}$1`);
+    };
+    const 标识242 = (标识243, 标识244) => {
+        const 标识245 = " ".repeat(标识244);
+        let 双工远程调用选项集序号 = -1;
+        for (let 序号 = 0; 序号 < 标识243.length; 序号++) {
+            const 标识201 = 标识243[序号];
+            if (!标识201.trim())
+                continue;
+            const 标识246 = 标识201.search(/\S/);
+            if (标识246 !== 标识244)
+                continue;
+            if (/^\s*grpc-opts:\s*(?:#.*)?$/.test(标识201) || /^\s*grpc-opts:\s*\{.*\}\s*(?:#.*)?$/.test(标识201)) {
+                双工远程调用选项集序号 = 序号;
+                break;
+            }
+        }
+        if (双工远程调用选项集序号 === -1) {
+            let 标识247 = -1;
+            for (let 标识19 = 标识243.length - 1; 标识19 >= 0; 标识19--) {
+                if (标识243[标识19].trim()) {
+                    标识247 = 标识19;
+                    break;
+                }
+            }
+            if (标识247 >= 0)
+                标识243.splice(标识247 + 1, 0, `${标识245}grpc-opts:`, `${标识245}  grpc-user-agent: ${标识221}`);
+            return 标识243;
+        }
+        const 标识248 = 标识243[双工远程调用选项集序号];
+        if (/^\s*grpc-opts:\s*\{.*\}\s*(?:#.*)?$/.test(标识248)) {
+            if (!/grpc-user-agent\s*:/i.test(标识248))
+                标识243[双工远程调用选项集序号] = 标识224(标识248);
+            return 标识243;
+        }
+        let 标识249 = 标识243.length;
+        let 标识250 = 标识244 + 2;
+        let 标识251 = false;
+        for (let 序号 = 双工远程调用选项集序号 + 1; 序号 < 标识243.length; 序号++) {
+            const 标识201 = 标识243[序号];
+            const 标识252 = 标识201.trim();
+            if (!标识252)
+                continue;
+            const 标识246 = 标识201.search(/\S/);
+            if (标识246 <= 标识244) {
+                标识249 = 序号;
+                break;
+            }
+            if (标识246 > 标识244 && 标识250 === 标识244 + 2)
+                标识250 = 标识246;
+            if (/^grpc-user-agent\s*:/.test(标识252)) {
+                标识251 = true;
+                break;
+            }
+        }
+        if (!标识251)
+            标识243.splice(标识249, 0, `${" ".repeat(标识250)}grpc-user-agent: ${标识221}`);
+        return 标识243;
+    };
+    const 标识253 = (标识243, 标识244) => {
+        let 标识247 = -1;
+        for (let 标识19 = 标识243.length - 1; 标识19 >= 0; 标识19--) {
+            if (标识243[标识19].trim()) {
+                标识247 = 标识19;
+                break;
+            }
+        }
+        if (标识247 < 0)
+            return 标识243;
+        const 标识246 = " ".repeat(标识244);
+        const 标识254 = [`${标识246}ech-opts:`, `${标识246}  enable: true`];
+        if (标识216)
+            标识254.push(`${标识246}  query-server-name: ${标识216}`);
+        标识243.splice(标识247 + 1, 0, ...标识254);
+        return 标识243;
+    };
+    if (!/^dns:\s*(?:\n|$)/m.test(标识222))
+        标识222 = 标识223 + 标识222;
+    if (标识216 && !主机清单.includes(标识216))
+        主机清单.push(标识216);
+    if (标识215 && 主机清单.length > 0) {
+        const 标识235 = 主机清单.map((主机) => `    "${主机}": ${标识217 ? 标识217 : ""}`).join("\n");
+        标识222 = 标识233(标识222, 标识235);
+    }
+    if (!标识218 && !标识220)
+        return 标识222;
+    const 标识196 = 标识222.split("\n");
+    const 标识255 = [];
+    let 标识3 = 0;
+    while (标识3 < 标识196.length) {
+        const 标识201 = 标识196[标识3];
+        const 标识256 = 标识201.trim();
+        if (标识256.startsWith("- {")) {
+            let 标识257 = 标识201;
+            let 标识258 = (标识201.match(/\{/g) || []).length - (标识201.match(/\}/g) || []).length;
+            while (标识258 > 0 && 标识3 + 1 < 标识196.length) {
+                标识3++;
+                标识257 += "\n" + 标识196[标识3];
+                标识258 += (标识196[标识3].match(/\{/g) || []).length - (标识196[标识3].match(/\}/g) || []).length;
+            }
+            if (标识220)
+                标识257 = 标识241(标识257);
+            if (标识218 && 标识230(标识257, true) === 用户码.trim()) {
+                标识257 = 标识257.replace(/\}(\s*)$/, `, ech-opts: {enable: true${标识216 ? `, query-server-name: ${标识216}` : ""}}}$1`);
+            }
+            标识255.push(标识257);
+            标识3++;
+        }
+        else if (标识256.startsWith("- name:")) {
+            let 标识243 = [标识201];
+            let 标识259 = 标识201.search(/\S/);
+            let 标识244 = 标识259 + 2;
+            标识3++;
+            while (标识3 < 标识196.length) {
+                const 标识260 = 标识196[标识3];
+                const 标识261 = 标识260.trim();
+                if (!标识261) {
+                    标识243.push(标识260);
+                    标识3++;
+                    break;
+                }
+                const 标识262 = 标识260.search(/\S/);
+                if (标识262 <= 标识259 && 标识261.startsWith("- ")) {
+                    break;
+                }
+                if (标识262 < 标识259 && 标识261) {
+                    break;
+                }
+                标识243.push(标识260);
+                标识3++;
+            }
+            let 标识229 = 标识243.join("\n");
+            if (标识220 && 标识227(标识229)) {
+                标识243 = 标识242(标识243, 标识244);
+                标识229 = 标识243.join("\n");
+            }
+            if (标识218 && 标识230(标识229, false) === 用户码.trim())
+                标识243 = 标识253(标识243, 标识244);
+            标识255.push(...标识243);
+        }
+        else {
+            标识255.push(标识201);
+            标识3++;
+        }
+    }
+    return 标识255.join("\n");
+}
+async function 标识263(标识264, 配置) {
+    const 用户码 = 配置?.UUID || null;
+    const 标识58 = 配置?.Fingerprint || "chrome";
+    const 标识215 = Boolean(配置?.ECH);
+    const 标识216 = 配置?.ECHConfig?.SNI || "cloudflare-ech.com";
+    const 标识265 = 标识264.replace("1.1.1.1", "8.8.8.8").replace("1.0.0.1", "8.8.4.4");
+    try {
+        const 配置2 = JSON.parse(标识265);
+        const 标识266 = (值) => 值 === void 0 || 值 === null ? [] : Array.isArray(值) ? 值 : [值];
+        const 标识267 = () => 配置2.route = 配置2.route && typeof 配置2.route === "object" ? 配置2.route : {};
+        const 标识268 = (标识269) => 标识269 && typeof 标识269 === "object" && !Array.isArray(标识269) && typeof 标识269.server === "string" ? 标识269.server : null;
+        const 标识270 = (类型, 编码) => {
+            if (!编码 || typeof 编码 !== "string")
+                return null;
+            const 路由 = 标识267(), 标识271 = `${类型}-${编码}`, 标识272 = Array.isArray(路由.rule_set) ? 路由.rule_set : 标识266(路由.rule_set);
+            if (!标识272.some((标识273) => 标识273?.tag === 标识271)) {
+                const 旧版选项组 = 类型 === "geoip" ? 路由.geoip : 路由.geosite;
+                标识272.push({ tag: 标识271, type: "remote", format: "binary", url: `https://raw.githubusercontent.com/SagerNet/sing-${类型}/rule-set/${标识271}.srs`, ...旧版选项组?.download_detour ? { download_detour: 旧版选项组.download_detour } : {} });
+                配置2.experimental = 配置2.experimental && typeof 配置2.experimental === "object" ? 配置2.experimental : {};
+                配置2.experimental.cache_file = 配置2.experimental.cache_file && typeof 配置2.experimental.cache_file === "object" ? 配置2.experimental.cache_file : {};
+                配置2.experimental.cache_file.enabled ??= true;
+            }
+            路由.rule_set = 标识272;
+            return 标识271;
+        };
+        const 标识274 = (标识269) => {
+            if (!标识269 || typeof 标识269 !== "object" || Array.isArray(标识269))
+                return 标识269;
+            if (标识269.type === "logical" && Array.isArray(标识269.rules)) {
+                标识269.rules = 标识269.rules.map(标识274);
+                return 标识269;
+            }
+            const 标识275 = [];
+            for (const 标识276 of 标识266(标识269.geoip)) {
+                if (typeof 标识276 !== "string")
+                    continue;
+                if (标识276.toLowerCase() === "private")
+                    标识269.ip_is_private = true;
+                else
+                    标识275.push(标识270("geoip", 标识276));
+            }
+            for (const 标识277 of 标识266(标识269.source_geoip)) {
+                if (typeof 标识277 !== "string")
+                    continue;
+                标识275.push(标识270("geoip", 标识277));
+                标识269.rule_set_ip_cidr_match_source = true;
+            }
+            for (const 标识278 of 标识266(标识269.geosite))
+                if (typeof 标识278 === "string")
+                    标识275.push(标识270("geosite", 标识278));
+            if (标识275.length)
+                标识269.rule_set = [...new Set([...标识266(标识269.rule_set), ...标识275].filter(Boolean))];
+            delete 标识269.geoip;
+            delete 标识269.source_geoip;
+            delete 标识269.geosite;
+            return 标识269;
+        };
+        const 标识279 = (标识269, 标识280) => {
+            标识269 = 标识274(标识269);
+            if (!标识269 || typeof 标识269 !== "object" || Array.isArray(标识269))
+                return 标识269;
+            if (标识269.type === "logical" && Array.isArray(标识269.rules)) {
+                标识269.rules = 标识269.rules.map((标识281) => 标识279(标识281, 标识280));
+                return 标识269;
+            }
+            const 标识282 = 标识268(标识269);
+            if (标识282 && 标识280.has(标识282)) {
+                for (const 键 of ["server", "strategy", "disable_cache", "rewrite_ttl", "client_subnet", "timeout"])
+                    delete 标识269[键];
+                标识269.action = "predefined";
+                标识269.rcode = 标识280.get(标识282);
+            }
+            else if (标识282 && !标识269.action)
+                标识269.action = "route";
+            return 标识269;
+        };
+        if (Array.isArray(配置2.inbounds)) {
+            for (const 标识283 of 配置2.inbounds) {
+                if (!标识283 || typeof 标识283 !== "object" || 标识283.type !== "tun")
+                    continue;
+                for (const 迁移件 of [
+                    { targetKey: "address", sourceKeys: ["inet4_address", "inet6_address"] },
+                    { targetKey: "route_address", sourceKeys: ["inet4_route_address", "inet6_route_address"] },
+                    { targetKey: "route_exclude_address", sourceKeys: ["inet4_route_exclude_address", "inet6_route_exclude_address"] }
+                ]) {
+                    const 标识63 = 标识266(标识283[迁移件.targetKey]);
+                    for (const 标识284 of 迁移件.sourceKeys)
+                        标识63.push(...标识266(标识283[标识284]));
+                    if (标识63.length)
+                        标识283[迁移件.targetKey] = [...new Set(标识63)];
+                    for (const 标识284 of 迁移件.sourceKeys)
+                        delete 标识283[标识284];
+                }
+                if (标识283.tag) {
+                    const 标识285 = [];
+                    if (标识283.domain_strategy)
+                        标识285.push({ inbound: 标识283.tag, action: "resolve", strategy: 标识283.domain_strategy });
+                    if (标识283.sniff) {
+                        const 标识286 = { inbound: 标识283.tag, action: "sniff" };
+                        if (标识283.sniff_timeout)
+                            标识286.timeout = 标识283.sniff_timeout;
+                        标识285.push(标识286);
+                    }
+                    if (标识285.length) {
+                        const 路由 = 标识267();
+                        路由.rules = [...标识285, ...标识266(路由.rules)];
+                    }
+                }
+                delete 标识283.sniff;
+                delete 标识283.sniff_timeout;
+                delete 标识283.domain_strategy;
+            }
+        }
+        if (配置2?.route && typeof 配置2.route === "object" && Array.isArray(配置2.route.rules)) {
+            const 标识287 = (标识269) => {
+                标识269 = 标识274(标识269);
+                if (标识269?.type === "logical" && Array.isArray(标识269.rules))
+                    标识269.rules = 标识269.rules.map(标识287);
+                else if (标识269 && typeof 标识269 === "object" && !Array.isArray(标识269) && 标识269.outbound && !标识269.action)
+                    标识269.action = "route";
+                return 标识269;
+            };
+            配置2.route.rules = 配置2.route.rules.map(标识287);
+        }
+        const 域名解析 = 配置2?.dns;
+        if (域名解析 && typeof 域名解析 === "object") {
+            const 旧版伪装地址 = 域名解析.fakeip && typeof 域名解析.fakeip === "object" ? 域名解析.fakeip : null;
+            const 标识280 = new Map();
+            const 标识288 = { "tcp:": "tcp", "udp:": "udp", "tls:": "tls", "quic:": "quic", "https:": "https", "h3:": "h3" };
+            const 标识289 = { success: "NOERROR", format_error: "FORMERR", server_failure: "SERVFAIL", name_error: "NXDOMAIN", not_implemented: "NOTIMP", refused: "REFUSED" };
+            let 存在伪装地址服务端 = false;
+            if (Array.isArray(域名解析.servers)) {
+                const 标识290 = [];
+                for (const 标识291 of 域名解析.servers) {
+                    if (!标识291 || typeof 标识291 !== "object" || Array.isArray(标识291)) {
+                        标识290.push(标识291);
+                        continue;
+                    }
+                    const 服务端 = { ...标识291 };
+                    let 标识292 = null, 标识293 = "", 标识294 = typeof 服务端.address === "string" ? 服务端.address.trim() : "";
+                    if (标识294) {
+                        const 标识295 = 标识294.toLowerCase();
+                        if (标识295 === "fakeip")
+                            标识292 = { type: "fakeip" };
+                        else if (标识295 === "local")
+                            标识292 = { type: "local" };
+                        else if (标识295.startsWith("rcode://")) {
+                            标识292 = { type: "rcode" };
+                            标识293 = 标识294.slice("rcode://".length).toLowerCase();
+                        }
+                        else if (标识295.startsWith("dhcp://")) {
+                            const 标识296 = 标识294.slice("dhcp://".length);
+                            标识292 = 标识296 && 标识296.toLowerCase() !== "auto" ? { type: "dhcp", interface: 标识296 } : { type: "dhcp" };
+                        }
+                        else {
+                            try {
+                                const 标识297 = new URL(标识294);
+                                const 类型 = 标识288[标识297.protocol.toLowerCase()];
+                                if (类型) {
+                                    const 标识298 = 标识297.hostname?.startsWith("[") && 标识297.hostname.endsWith("]") ? 标识297.hostname.slice(1, -1) : 标识297.hostname;
+                                    标识292 = {
+                                        type: 类型,
+                                        server: 标识298 || 标识297.host || 标识294,
+                                        ...标识297.port ? { server_port: Number(标识297.port) } : {},
+                                        ...(类型 === "https" || 类型 === "h3") && 标识297.pathname && 标识297.pathname !== "/dns-query" ? { path: 标识297.pathname } : {}
+                                    };
+                                }
+                            }
+                            catch (标识157) {
+                            }
+                            if (!标识292)
+                                标识292 = { type: "udp", server: 标识294 };
+                        }
+                    }
+                    if (标识292?.type === "rcode") {
+                        const 标识299 = 标识289[标识293] || "NOERROR";
+                        if (typeof 服务端.tag === "string" && 服务端.tag) {
+                            标识280.set(服务端.tag, 标识299);
+                            标识280.set(服务端.tag.startsWith("dns_") ? 服务端.tag.slice(4) : `dns_${服务端.tag}`, 标识299);
+                        }
+                        continue;
+                    }
+                    if (标识292) {
+                        delete 服务端.address;
+                        Object.assign(服务端, 标识292);
+                    }
+                    if (服务端.address_resolver !== void 0 && 服务端.domain_resolver === void 0)
+                        服务端.domain_resolver = 服务端.address_resolver;
+                    if (服务端.address_strategy !== void 0 && 服务端.domain_strategy === void 0)
+                        服务端.domain_strategy = 服务端.address_strategy;
+                    delete 服务端.address_resolver;
+                    delete 服务端.address_strategy;
+                    if (服务端.detour === "DIRECT")
+                        delete 服务端.detour;
+                    if (服务端.type === "fakeip") {
+                        存在伪装地址服务端 = true;
+                        if (旧版伪装地址) {
+                            for (const 键 of ["inet4_range", "inet6_range"]) {
+                                if (旧版伪装地址[键] !== void 0 && 服务端[键] === void 0)
+                                    服务端[键] = 旧版伪装地址[键];
+                            }
+                        }
+                    }
+                    标识290.push(服务端);
+                }
+                域名解析.servers = 标识290;
+            }
+            if (旧版伪装地址 && !存在伪装地址服务端 && 旧版伪装地址.enabled !== false) {
+                const 伪装地址服务端 = { type: "fakeip", tag: "fakeip" };
+                for (const 标识269 of Array.isArray(域名解析.rules) ? 域名解析.rules : []) {
+                    const 标识282 = 标识268(标识269);
+                    if (标识282 && 标识282.toLowerCase().includes("fakeip")) {
+                        伪装地址服务端.tag = 标识282;
+                        break;
+                    }
+                }
+                for (const 键 of ["inet4_range", "inet6_range"]) {
+                    if (旧版伪装地址[键] !== void 0)
+                        伪装地址服务端[键] = 旧版伪装地址[键];
+                }
+                if (Array.isArray(域名解析.servers))
+                    域名解析.servers.push(伪装地址服务端);
+                else
+                    域名解析.servers = [伪装地址服务端];
+            }
+            if (Array.isArray(域名解析.rules)) {
+                const 标识300 = [];
+                for (const 标识269 of 域名解析.rules) {
+                    const 标识282 = 标识268(标识269);
+                    const 标识301 = 标识266(标识269?.outbound);
+                    const 标识302 = new Set(["outbound", "server", "action", "strategy", "disable_cache", "rewrite_ttl", "client_subnet", "timeout"]);
+                    const 标识303 = 标识269 && typeof 标识269 === "object" && !Array.isArray(标识269) && 标识269.type !== "logical" && 标识282 && 标识301.includes("any") && Object.keys(标识269).every((键) => 标识302.has(键));
+                    if (标识303) {
+                        const 路由 = 标识267();
+                        if (路由.default_domain_resolver === void 0) {
+                            const 标识304 = { server: 标识282 };
+                            for (const 键 of ["strategy", "disable_cache", "rewrite_ttl", "client_subnet", "timeout"]) {
+                                if (标识269[键] !== void 0)
+                                    标识304[键] = 标识269[键];
+                            }
+                            路由.default_domain_resolver = Object.keys(标识304).length === 1 ? 标识304.server : 标识304;
+                        }
+                        continue;
+                    }
+                    标识300.push(标识279(标识269, 标识280));
+                }
+                域名解析.rules = 标识300;
+            }
+            delete 域名解析.fakeip;
+            delete 域名解析.independent_cache;
+        }
+        if (配置2?.route && typeof 配置2.route === "object") {
+            delete 配置2.route.geoip;
+            delete 配置2.route.geosite;
+        }
+        if (配置2?.ntp?.detour === "DIRECT")
+            delete 配置2.ntp.detour;
+        if (Array.isArray(配置2.outbounds)) {
+            const 标识305 = new Set(配置2.outbounds.map((标识301) => 标识301?.tag).filter(Boolean));
+            const 标识306 = (值) => 值 === "REJECT" || 值 && typeof 值 === "object" && (Array.isArray(值) ? 值.some(标识306) : Object.values(值).some(标识306));
+            if (!标识305.has("REJECT") && 标识306({ outbounds: 配置2.outbounds, route: 配置2.route }))
+                配置2.outbounds.push({ type: "block", tag: "REJECT" });
+        }
+        if (用户码) {
+            配置2.outbounds?.forEach((标识301) => {
+                if (标识301.uuid && 标识301.uuid === 用户码 || 标识301.password && 标识301.password === 用户码) {
+                    if (!标识301.tls) {
+                        标识301.tls = { enabled: true };
+                    }
+                    if (标识58) {
+                        标识301.tls.utls = {
+                            enabled: true,
+                            fingerprint: 标识58
+                        };
+                    }
+                    if (标识215) {
+                        标识301.tls.ech = {
+                            enabled: true,
+                            query_server_name: 标识216
+                            // 等待 1.13.0+ 版本上线
+                            //config: `-----BEGIN ECH CONFIGS-----\n${ech_config}\n-----END ECH CONFIGS-----`
+                        };
+                    }
+                }
+            });
+        }
+        return JSON.stringify(配置2, null, 2);
+    }
+    catch (标识186) {
+        console.error("Singbox\u70ED\u8865\u4E01\u6267\u884C\u5931\u8D25:", 标识186);
+        return JSON.stringify(JSON.parse(标识265), null, 2);
+    }
+}
+function 标识307(内容, 网址, 配置) {
+    const 标识308 = 内容.includes("\r\n") ? 内容.split("\r\n") : 内容.split("\n");
+    const 标识93 = 配置.randomPath ? 随机值路径(配置.fullNodePath) : 配置.fullNodePath;
+    let 标识309 = "";
+    for (let 标识5 of 标识308) {
+        if (标识5.includes("= trojan,") && !标识5.includes("ws=true") && !标识5.includes("ws-path=")) {
+            const 主机 = 标识5.split("sni=")[1].split(",")[0];
+            const 标识310 = `sni=${主机}, skip-cert-verify=${配置.skipCertVerify}`;
+            const 标识311 = `sni=${主机}, skip-cert-verify=${配置.skipCertVerify}, ws=true, ws-path=${标识93.replace(/,/g, "%2C")}, ws-headers=Host:"${主机}"`;
+            标识309 += 标识5.replace(new RegExp(标识310, "g"), 标识311).replace("[", "").replace("]", "") + "\n";
+        }
+        else {
+            标识309 += 标识5 + "\n";
+        }
+    }
+    标识309 = `#!MANAGED-CONFIG ${网址} interval=${配置.bestSubGen.SUBUpdateTime * 60 * 60} strict=false` + 标识309.substring(标识309.indexOf("\n"));
+    return 标识309;
+}
+// src/errors.ts
+var 标识312 = class extends Error {
+    code;
+    constructor(编码, 消息, 标识313) {
+        super(消息, { cause: 标识313 });
+        this.name = "TunnelError";
+        this.code = 编码;
+    }
+};
+// src/forward/proxy-ctx.ts
+var 链式代理缺省端口 = { socks5: 1080, http: 80, https: 443, turn: 3478, sstp: 443 };
+function 取值代理缺省端口(类型) {
+    return 链式代理缺省端口[String(类型 || "").toLowerCase()] || 80;
+}
+var 标识314 = /^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=)?$/i;
+var 标识315 = /^\[.*\]$/;
+function 标识316(标识317, 缺省端口 = 80) {
+    let 标识318 = String(标识317 || "").trim().replace(/^(socks5|http|https|turn|sstp):\/\//i, "").split("#")[0].trim();
+    const 标识319 = 标识318.lastIndexOf("@");
+    if (标识319 !== -1) {
+        let 认证 = 标识318.slice(0, 标识319).replaceAll("%3D", "=");
+        if (!认证.includes(":") && 标识314.test(认证))
+            认证 = atob(认证);
+        标识318 = `${认证}@${标识318.slice(标识319 + 1)}`;
+    }
+    const 标识320 = 标识318.lastIndexOf("@");
+    const 标识203 = (标识320 === -1 ? 标识318 : 标识318.slice(标识320 + 1)).split("/")[0];
+    const 标识321 = 标识320 === -1 ? "" : 标识318.slice(0, 标识320);
+    const [标识322, 密码] = 标识321 ? 标识321.split(":") : [];
+    if (标识321 && !密码)
+        throw new 标识312("CHAIN_SOCKS5_ACCOUNT", '\u65E0\u6548\u7684 SOCKS \u5730\u5740\u683C\u5F0F\uFF1A\u8BA4\u8BC1\u90E8\u5206\u5FC5\u987B\u662F "username:password" \u7684\u5F62\u5F0F');
+    let 标识119 = 标识203;
+    let 端口 = 缺省端口;
+    if (标识203.includes("]:")) {
+        const [标识323, 标识324 = ""] = 标识203.split("]:");
+        标识119 = 标识323 + "]";
+        端口 = Number(标识324.replace(/[^\d]/g, ""));
+    }
+    else if (!标识203.startsWith("[")) {
+        const 标识325 = 标识203.split(":");
+        if (标识325.length === 2) {
+            标识119 = 标识325[0];
+            端口 = Number(标识325[1].replace(/[^\d]/g, ""));
+        }
+    }
+    if (Number.isNaN(端口))
+        throw new 标识312("CHAIN_SOCKS5_ACCOUNT", "\u65E0\u6548\u7684 SOCKS \u5730\u5740\u683C\u5F0F\uFF1A\u7AEF\u53E3\u53F7\u5FC5\u987B\u662F\u6570\u5B57");
+    if (标识119.includes(":") && !标识315.test(标识119)) {
+        throw new 标识312("CHAIN_SOCKS5_ACCOUNT", "\u65E0\u6548\u7684 SOCKS \u5730\u5740\u683C\u5F0F\uFF1AIPv6 \u5730\u5740\u5FC5\u987B\u7528\u65B9\u62EC\u53F7\u62EC\u8D77\u6765\uFF0C\u5982 [2001:db8::1]");
+    }
+    return { username: 标识322, password: 密码, hostname: 标识119, port: 端口 };
+}
+function 标识326(标识317) {
+    const 标识327 = String(标识317 || "").trim();
+    if (!标识327 || 标识327.includes("/") || 标识327.includes("@") || 标识327.includes("://")) {
+        throw new 标识312("CHAIN_TROJAN_ADDR", "\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");
+    }
+    let 标识119 = "";
+    let 标识328 = "";
+    if (标识327.startsWith("[")) {
+        const 标识182 = 标识327.match(/^(\[[^\]]+\]):(\d+)$/);
+        if (!标识182)
+            throw new 标识312("CHAIN_TROJAN_ADDR", "\u65E0\u6548\u7684 IPv6 \u6728\u9A6C\u53CD\u4EE3\u5730\u5740");
+        标识119 = 标识182[1];
+        标识328 = 标识182[2];
+    }
+    else {
+        const 标识325 = 标识327.split(":");
+        if (标识325.length !== 2)
+            throw new 标识312("CHAIN_TROJAN_ADDR", "\u6728\u9A6C\u53CD\u4EE3\u4EC5\u652F\u6301 host:port");
+        标识119 = 标识325[0];
+        标识328 = 标识325[1];
+    }
+    const 端口 = Number(标识328);
+    if (!标识119 || !Number.isInteger(端口) || 端口 < 1 || 端口 > 65535) {
+        throw new 标识312("CHAIN_TROJAN_ADDR", "\u65E0\u6548\u7684\u6728\u9A6C\u53CD\u4EE3\u7AEF\u53E3");
+    }
+    return { hostname: 标识119, port: 端口 };
+}
+function 标识329(值) {
+    if (!值.includes("://")) {
+        const 标识330 = 值.indexOf("/");
+        return 标识330 > 0 ? 值.slice(0, 标识330) : 值;
+    }
+    const 标识331 = 值.split("://");
+    if (标识331.length !== 2)
+        return 值;
+    const 标识332 = 标识331[1].indexOf("/");
+    return 标识332 > 0 ? `${标识331[0]}://${标识331[1].slice(0, 标识332)}` : 值;
+}
+function 标识333(标识118, 网址, 缺省代理地址 = "", 缺省代理兜底 = true) {
+    const { searchParams: 检索参数集 } = 网址;
+    const 标识334 = decodeURIComponent(网址.pathname);
+    const 标识335 = 标识334.toLowerCase();
+    let 代理地址 = 缺省代理地址;
+    let 启用袜子5代理 = null;
+    let 标识336 = false;
+    let 标识337 = "";
+    let 标识338 = { hostname: "", port: 0 };
+    let 启用代理兜底 = 缺省代理兜底;
+    const 标识339 = {
+        trojanProxyAddr: null,
+        proxyIP: 代理地址,
+        proxyType: null,
+        proxyAccount: "",
+        proxyGlobal: false,
+        proxyParams: { hostname: "", port: 0 },
+        proxyFallback: 启用代理兜底
+    };
+    const 标识340 = () => {
+        标识339.proxyIP = 代理地址;
+        标识339.proxyType = 启用袜子5代理;
+        标识339.proxyAccount = 标识337;
+        标识339.proxyGlobal = 标识336;
+        标识339.proxyParams = { ...标识338 };
+        标识339.proxyFallback = 启用代理兜底;
+    };
+    const 标识341 = /\/video\/(.+)$/i.exec(标识334);
+    if (标识341) {
+        try {
+            const 标识342 = 标识80(标识341[1].replace(/\/+$/, ""), 标识118.userId);
+            const { type: 类型, ...标识343 } = JSON.parse(标识342);
+            if (!类型 || !链式代理缺省端口[String(类型).toLowerCase()])
+                throw new Error("\u94FE\u5F0F\u4EE3\u7406\u7C7B\u578B\u65E0\u6548");
+            if (!标识343.hostname || !标识343.port)
+                throw new Error("\u94FE\u5F0F\u4EE3\u7406\u5730\u5740\u7F3A\u5C11 hostname \u6216 port");
+            标识337 = "";
+            代理地址 = "\u94FE\u5F0F\u4EE3\u7406";
+            启用代理兜底 = false;
+            标识336 = true;
+            启用袜子5代理 = String(类型).toLowerCase();
+            标识338 = {
+                username: 标识343.username,
+                password: 标识343.password,
+                hostname: 标识343.hostname,
+                port: Number(标识343.port)
+            };
+            if (Number.isNaN(标识338.port))
+                throw new Error("\u94FE\u5F0F\u4EE3\u7406\u7AEF\u53E3\u65E0\u6548");
+            标识340();
+            return 标识339;
+        }
+        catch (错误2) {
+            标识118.error("proxy-ctx", `\u89E3\u6790\u94FE\u5F0F\u4EE3\u7406\u53C2\u6570\u5931\u8D25: ${错误2.message}`);
+        }
+    }
+    标识337 = 检索参数集.get("socks5") || 检索参数集.get("http") || 检索参数集.get("https") || 检索参数集.get("turn") || 检索参数集.get("sstp") || "";
+    标识336 = 检索参数集.has("globalproxy");
+    if (检索参数集.get("socks5"))
+        启用袜子5代理 = "socks5";
+    else if (检索参数集.get("http"))
+        启用袜子5代理 = "http";
+    else if (检索参数集.get("https"))
+        启用袜子5代理 = "https";
+    else if (检索参数集.get("turn"))
+        启用袜子5代理 = "turn";
+    else if (检索参数集.get("sstp"))
+        启用袜子5代理 = "sstp";
+    const 解析出代理网址 = (值, 标识344 = true) => {
+        const 标识182 = /^(socks5|http|https|turn|sstp):\/\/(.+)$/i.exec(值 || "");
+        if (!标识182)
+            return false;
+        启用袜子5代理 = 标识182[1].toLowerCase();
+        标识337 = 标识182[2].split("/")[0];
+        if (标识344)
+            标识336 = true;
+        return true;
+    };
+    const 置位代理地址 = (值) => {
+        代理地址 = 值;
+        启用袜子5代理 = null;
+        启用代理兜底 = false;
+    };
+    const 标识345 = /\/trojan=([^?#\s]+)/i.exec(标识334);
+    if (标识345) {
+        try {
+            标识339.trojanProxyAddr = 标识326(标识345[1].replace(/\/+$/, ""));
+        }
+        catch (错误2) {
+            标识118.error("proxy-ctx", `\u89E3\u6790\u6728\u9A6C\u53CD\u4EE3\u5730\u5740\u5931\u8D25: ${错误2.message}`);
+            标识339.trojanProxyAddr = null;
+        }
+    }
+    const 查询串代理地址 = 检索参数集.get("proxyip");
+    if (查询串代理地址 !== null) {
+        if (!解析出代理网址(查询串代理地址)) {
+            置位代理地址(查询串代理地址);
+            标识340();
+            return 标识339;
+        }
+    }
+    else {
+        let 标识182 = /\/(socks5?|http|https|turn|sstp):\/?\/?([^/?#\s]+)/i.exec(标识334);
+        if (标识182) {
+            const 类型 = 标识182[1].toLowerCase();
+            启用袜子5代理 = 类型 === "sock" || 类型 === "socks" ? "socks5" : 类型;
+            标识337 = 标识182[2].split("/")[0];
+            标识336 = true;
+        }
+        else if (标识182 = /\/(g?s5|socks5|g?http|g?https|g?turn|g?sstp)=([^/?#\s]+)/i.exec(标识334)) {
+            const 类型 = 标识182[1].toLowerCase();
+            标识337 = 标识182[2].split("/")[0];
+            启用袜子5代理 = 类型.includes("sstp") ? "sstp" : 类型.includes("turn") ? "turn" : 类型.includes("https") ? "https" : 类型.includes("http") ? "http" : "socks5";
+            if (类型.startsWith("g"))
+                标识336 = true;
+        }
+        else if (标识182 = /\/(proxyip[.=]|pyip=|ip=)([^?#\s]+)/.exec(标识335)) {
+            const 路径代理值 = 标识329(标识182[2]);
+            if (!解析出代理网址(路径代理值)) {
+                置位代理地址(路径代理值);
+                标识340();
+                return 标识339;
+            }
+        }
+    }
+    if (!标识337) {
+        启用袜子5代理 = null;
+        标识340();
+        return 标识339;
+    }
+    try {
+        标识338 = 标识316(标识337, 取值代理缺省端口(启用袜子5代理));
+        if (检索参数集.get("socks5"))
+            启用袜子5代理 = "socks5";
+        else if (检索参数集.get("http"))
+            启用袜子5代理 = "http";
+        else if (检索参数集.get("https"))
+            启用袜子5代理 = "https";
+        else if (检索参数集.get("turn"))
+            启用袜子5代理 = "turn";
+        else if (检索参数集.get("sstp"))
+            启用袜子5代理 = "sstp";
+        else
+            启用袜子5代理 = 启用袜子5代理 || "socks5";
+    }
+    catch (错误2) {
+        标识118.error("proxy-ctx", `\u89E3\u6790SOCKS5\u5730\u5740\u5931\u8D25: ${错误2.message}`);
+        启用袜子5代理 = null;
+    }
+    标识340();
+    return 标识339;
+}
+// src/plugins/subscription.ts
+var 标识346 = "00000000-0000-4000-8000-000000000000";
+var 标识347 = "MDAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAw";
+var 标识348 = /^(\[[\da-fA-F:]+\]|[\d.]+|[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)*)(?::(\d+))?(?:#(.+))?$/;
+var 订阅源插件 = class extends 插件2 {
+    name = "subscription";
+    async onRoute(标识118) {
+        const 标识349 = 标识118.url.pathname.slice(1);
+        const 请求路径 = 标识349.toLowerCase();
+        if (标识349 === 标识118.encryptionSecret && 标识118.encryptionSecret !== 标识60) {
+            const 参数集 = new URLSearchParams(标识118.url.search);
+            参数集.set("token", 标识38(标识118.host + 标识118.userId));
+            return new Response("\u91CD\u5B9A\u5411\u4E2D...", { status: 302, headers: { "Location": `/sub?${参数集.toString()}` } });
+        }
+        if (请求路径 === "sub")
+            return this.handleSub(标识118);
+        return null;
+    }
+    /** 原 L325-517 订阅请求全流程；token 全不匹配返回 null（落出分支 → 伪装页兜底） */
+    async handleSub(标识118) {
+        const { request: 请求, url: 网址, env: 环境 } = 标识118;
+        const 指纹串 = 标识118.ua;
+        const 标识350 = 指纹串.toLowerCase();
+        const 主机 = 标识118.host;
+        const 用户编号2 = 标识118.userId;
+        const 标识90 = 标识118.identity[0];
+        const 订阅令牌 = 标识38(主机 + 用户编号2);
+        const 标识96 = ["1", "true"].includes(String(环境.BEST_SUB ?? "")) && 网址.searchParams.get("host") === "example.com" && 网址.searchParams.get("uuid") === 标识346 && 标识350.includes(`tunnel (https://github.com/${标识44}/edge`);
+        const 请求令牌 = 网址.searchParams.get("token");
+        const 标识351 = 请求令牌 === 订阅令牌;
+        const 标识352 = Math.floor(Date.now() / 864e5);
+        const 标识353 = 标识76(订阅令牌, 用户编号2);
+        const [标识354, 标识355] = [
+            标识38(标识353 + 标识352),
+            标识38(标识353 + (标识352 - 1))
+        ];
+        const 标识356 = 请求令牌 === 标识354 || 请求令牌 === 标识355;
+        if (!(标识351 || 标识356 || 标识96)) {
+            return null;
+        }
+        const 配置 = await 载入配置(标识118);
+        if (标识96) {
+            标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Get_Best_SUB", 配置, false));
+        }
+        else {
+            标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Get_SUB", 配置));
+        }
+        const 响应头部 = {
+            "content-type": "text/plain; charset=utf-8",
+            "Profile-Update-Interval": String(配置.bestSubGen.SUBUpdateTime),
+            "Profile-web-page-url": 网址.protocol + "//" + 网址.host + "/admin",
+            "Cache-Control": "no-store"
+        };
+        if (配置.CF.Usage.success) {
+            const 标识357 = 配置.CF.Usage.pages;
+            const 标识358 = 配置.CF.Usage.workers;
+            const 总计 = Number.isFinite(配置.CF.Usage.max) ? 配置.CF.Usage.max / 1e3 * 1024 : 1024 * 100;
+            响应头部["Subscription-Userinfo"] = `upload=${标识357}; download=${标识358}; total=${总计}; expire=4102329600`;
+        }
+        const 标识359 = 网址.searchParams.has("b64") || 网址.searchParams.has("base64") || !!请求.headers.get("subconverter-request") || !!请求.headers.get("subconverter-version") || 标识350.includes("subconverter") || 标识350.includes("cf-workers-sub") || 标识96;
+        const 订阅类型 = 标识359 ? "mixed" : 网址.searchParams.has("target") ? 网址.searchParams.get("target") : 网址.searchParams.has("clash") || 标识350.includes("clash") || 标识350.includes("meta") || 标识350.includes("mihomo") ? "clash" : 网址.searchParams.has("sb") || 网址.searchParams.has("singbox") || 标识350.includes("singbox") || 标识350.includes("sing-box") ? "singbox" : 网址.searchParams.has("surge") || 标识350.includes("surge") ? "surge&ver=4" : 网址.searchParams.has("quanx") || 标识350.includes("quantumult") ? "quanx" : 网址.searchParams.has("loon") || 标识350.includes("loon") ? "loon" : "mixed";
+        if (!标识350.includes("mozilla")) {
+            响应头部["Content-Disposition"] = `attachment; filename*=utf-8''${encodeURIComponent(配置.bestSubGen.SUBNAME)}`;
+        }
+        const 标识360 = 网址.searchParams.has("surge") || 标识350.includes("surge");
+        const 协议类型 = 标识360 && 配置.protocolType !== "ss" ? "trojan" : 配置.protocolType;
+        let 订阅内容 = "";
+        if (订阅类型 === "mixed") {
+            订阅内容 = await this.renderMixedSub(标识118, 配置, {
+                uaLower: 标识350,
+                asBestSubGenerator: 标识96,
+                isSubConverterRequest: 标识359,
+                protocolType: 协议类型
+            });
+        }
+        else {
+            const 标识361 = `${配置.subConverterConfig.SUBAPI}/sub?target=${订阅类型}&url=${encodeURIComponent(网址.protocol + "//" + 网址.host + "/sub?target=mixed&token=" + 标识354 + "&cnIspCode=" + 标识52(请求) + (网址.searchParams.has("sub") && 网址.searchParams.get("sub") !== "" ? `&sub=${网址.searchParams.get("sub")}` : ""))}&config=${encodeURIComponent(配置.subConverterConfig.SUBCONFIG)}&emoji=${配置.subConverterConfig.SUBEMOJI}&list=${配置.subConverterConfig.SUBLIST}&scv=${配置.skipCertVerify}&xudp=${配置.subConverterConfig.XUDP}&udp=${配置.subConverterConfig.UDP}&tls13=${配置.subConverterConfig.TLS13}&append_type=${配置.subConverterConfig.APPEND_TYPE}&sort=${配置.subConverterConfig.SORT}&expand=${配置.subConverterConfig.EXPAND}`;
+            try {
+                const 响应 = await fetch(标识361, {
+                    headers: {
+                        "User-Agent": "Subconverter for " + 订阅类型 + " edgetunnel (https://github.com/" + 标识44 + "/edgetunnel) Uid/0x" + 标识90 + " Version/" + 标识47
+                    }
+                });
+                if (响应.ok) {
+                    订阅内容 = await 响应.text();
+                    if (标识360) {
+                        订阅内容 = 标识307(订阅内容, 网址.protocol + "//" + 网址.host + "/sub?token=" + 订阅令牌 + "&surge", 配置);
+                    }
+                }
+                else {
+                    return new Response("\u8BA2\u9605\u8F6C\u6362\u540E\u7AEF\u5F02\u5E38\uFF1A" + 响应.statusText, { status: 响应.status });
+                }
+            }
+            catch (错误) {
+                return new Response("\u8BA2\u9605\u8F6C\u6362\u540E\u7AEF\u5F02\u5E38\uFF1A" + 错误.message, { status: 403 });
+            }
+        }
+        if (!标识350.includes("subconverter") && 标识351) {
+            const 标识362 = [...配置.HOSTS].sort(() => Math.random() - 0.5);
+            let 标识363 = 0;
+            let 标识364;
+            订阅内容 = 订阅内容.replace(new RegExp(标识346, "g"), 配置.UUID).replace(new RegExp(标识347, "g"), btoa(配置.UUID)).replace(/example\.com/g, () => {
+                if (标识363 % 2 === 0) {
+                    const 标识365 = 标识362[Math.floor(标识363 / 2) % 标识362.length];
+                    标识364 = 标识138(标识365);
+                }
+                标识363++;
+                return 标识364;
+            });
+        }
+        if (订阅类型 === "mixed" && (!标识350.includes("mozilla") || 网址.searchParams.has("b64") || 网址.searchParams.has("base64"))) {
+            订阅内容 = btoa(订阅内容);
+        }
+        if (订阅类型 === "singbox") {
+            订阅内容 = await 标识263(订阅内容, 配置);
+            响应头部["content-type"] = "application/json; charset=utf-8";
+        }
+        else if (订阅类型 === "clash") {
+            订阅内容 = 标识213(订阅内容, 配置);
+            响应头部["content-type"] = "application/x-yaml; charset=utf-8";
+        }
+        return new Response(订阅内容, { status: 200, headers: 响应头部 });
+    }
+    /** L373-477 mixed 订阅正文（本地 IP 库 / 优选订阅生成器两条路径） */
+    async renderMixedSub(标识118, 配置, 选项集) {
+        const { request: 请求, url: 网址, env: 环境 } = 标识118;
+        const { uaLower: 标识350, asBestSubGenerator: 标识96, isSubConverterRequest: 标识359, protocolType: 协议类型 } = 选项集;
+        const 标识90 = 标识118.identity[0];
+        const 标识127 = 配置.tlsFragment == "Shadowrocket" ? `&fragment=${encodeURIComponent("1,40-60,30-50,tlshello")}` : 配置.tlsFragment == "Happ" ? `&fragment=${encodeURIComponent("3,1,tlshello")}` : "";
+        let 标识366 = [];
+        let 标识161 = "";
+        let 标识174 = [];
+        if (!网址.searchParams.has("sub") && 配置.bestSubGen.local) {
+            const { randomCount: 随机值计数, fixedPort: 标识141, randomIP: 随机值地址 } = 配置.bestSubGen.localIPPool;
+            let 标识367;
+            if (随机值地址) {
+                标识367 = (await 标识140(请求, 随机值计数, 标识141))[0];
+            }
+            else {
+                const 标识368 = await 环境.KV.get("ADD.txt");
+                标识367 = 标识368 ? 标识41(标识368) : (await 标识140(请求, 随机值计数, 标识141))[0];
+            }
+            const 标识369 = [];
+            const 优选地址 = [];
+            const 标识370 = [];
+            for (const 标识371 of 标识367) {
+                if (标识371.toLowerCase().startsWith("sub://")) {
+                    标识369.push(标识371);
+                }
+                else {
+                    const 标识372 = 标识371.indexOf("#");
+                    const 标识373 = 标识372 > -1 ? 标识371.slice(0, 标识372) : 标识371;
+                    const 标识374 = 标识372 > -1 ? 标识371.slice(标识372) : "";
+                    const 标识375 = 标识371.match(/sub\s*=\s*([^\s&#]+)/i);
+                    if (标识375 && 标识375[1].trim().includes(".")) {
+                        const 标识179 = 标识371.toLowerCase().includes("proxyip=true");
+                        const 标识376 = 标识371.includes("#") ? "#" + 标识371.split("#")[1] : "";
+                        if (标识179)
+                            标识369.push("sub://" + 标识375[1].trim() + "?proxyip=true" + 标识376);
+                        else
+                            标识369.push("sub://" + 标识375[1].trim() + 标识376);
+                    }
+                    else if (标识373.toLowerCase().startsWith("https://")) {
+                        标识369.push(标识371);
+                    }
+                    else if (标识373.toLowerCase().includes("://")) {
+                        if (标识371.includes("#")) {
+                            const 标识377 = 标识371.split("#");
+                            标识370.push(标识377[0] + "#" + encodeURIComponent(decodeURIComponent(标识377[1])));
+                        }
+                        else {
+                            标识370.push(标识371);
+                        }
+                    }
+                    else {
+                        if (标识373.includes("*"))
+                            优选地址.push(标识138(标识373) + 标识374);
+                        else
+                            优选地址.push(标识371);
+                    }
+                }
+            }
+            const 标识378 = await 标识170(标识369, "443", 标识90);
+            const 标识379 = [...new Set(标识370.concat(标识378[1]))];
+            标识161 = 标识379.length > 0 ? 标识379.join("\n") + "\n" : "";
+            const 标识380 = 标识378[0];
+            标识174 = 标识378[3] || [];
+            标识366 = [...new Set(优选地址.concat(标识380))];
+        }
+        else {
+            const 标识159 = 网址.searchParams.get("sub") || 配置.bestSubGen.SUB;
+            const [标识381, 标识382] = await 标识158(标识159, 标识90);
+            标识366 = 标识366.concat(标识381);
+            标识161 += 标识382;
+        }
+        const 标识128 = 配置.ECH ? `&ech=${encodeURIComponent((配置.ECHConfig.SNI ? 配置.ECHConfig.SNI + "+" : "") + 配置.ECHConfig.DNS)}` : "";
+        const 标识383 = 标识350.includes("loon") || 标识350.includes("surge");
+        const { type: 传输, pathFieldName: 标识129, hostFieldName: 标识130 } = 取值传输配置(配置);
+        const 标识384 = 标识366.map((标识385) => {
+            const 标识182 = 标识385.match(标识348);
+            let 标识386;
+            let 标识387 = "443";
+            let 标识388;
+            if (标识182) {
+                标识386 = 标识182[1];
+                标识387 = 标识182[2] ? 标识182[2] : "443";
+                标识388 = 标识182[3] || 标识386;
+            }
+            else {
+                console.warn(`[\u8BA2\u9605\u5185\u5BB9] \u4E0D\u89C4\u8303\u7684IP\u683C\u5F0F\u5DF2\u5FFD\u7565: ${标识385}`);
+                return null;
+            }
+            let 标识93 = 配置.fullNodePath;
+            const 标识389 = 标识388.match(/\$(socks5|http|https|turn|sstp):\/\/([^#\s]+)/i);
+            if (标识389) {
+                try {
+                    const 代理协议 = 标识389[1].toLowerCase();
+                    const 代理参数集 = 标识389[2];
+                    const 链式代理数据 = {
+                        type: 代理协议,
+                        ...标识316(代理参数集, 取值代理缺省端口(代理协议))
+                    };
+                    标识93 = `/video/${标识76(JSON.stringify(链式代理数据), 标识118.userId)}${配置.enable0RTT ? "?ed=2560" : ""}`;
+                    标识388 = 标识388.replace(标识389[0], "").trim() || 标识386;
+                }
+                catch (错误) {
+                    console.warn(`[\u8BA2\u9605\u5185\u5BB9] \u94FE\u5F0F\u4EE3\u7406\u89E3\u6790\u5931\u8D25\uFF0C\u5DF2\u5FFD\u7565\u8BE5\u6307\u4EE4: ${标识389[0]} (${错误?.message ? 错误.message : 错误})`);
+                }
+            }
+            else if (标识174.length > 0) {
+                const 标识390 = 标识174.find((标识24) => 标识24.includes(标识386));
+                if (标识390) {
+                    标识93 = `${配置.PATH}/proxyip=${标识390}`.replace(/\/\//g, "/") + (配置.enable0RTT ? "?ed=2560" : "");
+                }
+            }
+            if (标识383)
+                标识93 = 标识93.replace(/,/g, "%2C");
+            if (协议类型 === "ss" && !标识96) {
+                if (!配置.SS.TLS) {
+                    const 标识391 = [443, 2053, 2083, 2087, 2096, 8443];
+                    const 标识392 = [80, 2052, 2082, 2086, 2095, 8080];
+                    标识387 = String(标识392[标识391.indexOf(Number(标识387))] ?? 标识387);
+                }
+                标识93 = (标识93.includes("?") ? 标识93.replace("?", "?enc=" + 配置.SS.encryptionMethod + "&") : 标识93 + "?enc=" + 配置.SS.encryptionMethod).replace(/([=,])/g, "\\$1");
+                if (!标识359)
+                    标识93 = 标识93 + ";mux=0";
+                return `${协议类型}://${btoa(配置.SS.encryptionMethod + ":" + 标识346)}@${标识386}:${标识387}?plugin=v2${encodeURIComponent("ray-plugin;mode=websocket;host=example.com;path=" + (配置.randomPath ? 随机值路径(标识93) : 标识93) + (配置.SS.TLS ? ";tls" : ""))}${标识128}${标识127}#${encodeURIComponent(标识388)}`;
+            }
+            const 传输路径值 = 取值传输路径值(配置, 标识93, 标识96);
+            return `${协议类型}://${标识346}@${标识386}:${标识387}?security=tls&type=${传输 + 标识128}&${标识130}=example.com&fp=${配置.Fingerprint}&sni=example.com&${标识129}=${encodeURIComponent(传输路径值) + 标识127}&encryption=none&alpn=${encodeURIComponent(配置.ALPN)}#${encodeURIComponent(标识388)}`;
+        }).filter((标识273) => 标识273 !== null).join("\n");
+        return 标识161 + 标识384;
+    }
+};
+// src/auth.ts
+function 标识393(标识109, 标识394) {
+    const 标识395 = new TextEncoder();
+    const 标识396 = 标识395.encode(标识109);
+    const 标识397 = 标识395.encode(标识394);
+    const 上限值长度 = Math.max(标识396.length, 标识397.length);
+    let 标识398 = 标识396.length ^ 标识397.length;
+    for (let 标识3 = 0; 标识3 < 上限值长度; 标识3++) {
+        标识398 |= (标识396[标识3] ?? 0) ^ (标识397[标识3] ?? 0);
+    }
+    return 标识398 === 0;
+}
+function 标识399(指纹串, 标识400, 管理密码) {
+    return Promise.resolve(标识38(指纹串 + 标识400 + 管理密码));
+}
+function 标识401(请求) {
+    const 标识402 = 请求.headers.get("Cookie") || "";
+    const 认证曲奇 = 标识402.split(";").map((标识403) => 标识403.trim()).find((标识403) => 标识403.startsWith("auth="))?.slice("auth=".length);
+    return 认证曲奇 ?? null;
+}
+async function 核验认证曲奇(请求, 标识400, 管理密码) {
+    const 认证曲奇 = 标识401(请求);
+    if (!认证曲奇)
+        return false;
+    const 标识404 = await 标识399(请求.headers.get("User-Agent") || "null", 标识400, 管理密码);
+    return 标识393(认证曲奇, 标识404);
+}
+function 核验密码(标识405, 管理密码) {
+    if (标识405 === null)
+        return false;
+    const 标识404 = typeof 管理密码 === "string" ? 管理密码.replace(/[\r\n]/g, "") : String(管理密码);
+    return 标识393(标识405, 标识404);
+}
+// src/plugins/respond.ts
+var 标识406 = "application/json;charset=utf-8";
+function 数据文本响应(数据, 状态 = 200, 美化 = true, 内容类型 = 标识406) {
+    return new Response(美化 ? JSON.stringify(数据, null, 2) : JSON.stringify(数据), {
+        status: 状态,
+        headers: { "Content-Type": 内容类型 }
+    });
+}
+function 重定向响应(位置, 状态 = 302) {
+    return new Response("\u91CD\u5B9A\u5411\u4E2D...", { status: 状态, headers: { "Location": 位置 } });
+}
+// src/plugins/best-ip.ts
+var 优选地址插件 = class extends 插件2 {
+    name = "best-ip";
+    async onRoute(标识118) {
+        const 标识349 = 标识118.url.pathname.slice(1);
+        const 请求路径 = 标识349.toLowerCase();
+        if (标识349 === "admin/getADDAPI")
+            return this.handleVerifyApi(标识118);
+        if (请求路径 === "locations")
+            return this.handleLocations(标识118);
+        return null;
+    }
+    /** L143-157：验证优选 API（admin cookie 门禁 → 拉取解析 → JSON 结果） */
+    async handleVerifyApi(标识118) {
+        const { request: 请求, url: 网址 } = 标识118;
+        if (!await 核验认证曲奇(请求, 标识118.encryptionSecret, 标识118.adminPassword)) {
+            return 重定向响应("/login");
+        }
+        const 标识407 = 网址.searchParams.get("url");
+        if (标识407) {
+            try {
+                new URL(标识407);
+                const 标识378 = await 标识170([标识407], 网址.searchParams.get("port") || "443", 标识118.identity[0]);
+                let 标识380 = 标识378[0].length > 0 ? 标识378[0] : 标识378[1];
+                标识380 = 标识380.map((标识273) => 标识273.replace(/#(.+)$/, (标识157, 标识168) => "#" + decodeURIComponent(标识168)));
+                return 数据文本响应({ success: true, data: 标识380 }, 200, true);
+            }
+            catch (错误2) {
+                const 错误 = 错误2;
+                return 数据文本响应({ msg: "\u9A8C\u8BC1\u4F18\u9009API\u5931\u8D25\uFF0C\u5931\u8D25\u539F\u56E0\uFF1A" + 错误.message, error: 错误.message }, 500, true);
+            }
+        }
+        return 数据文本响应({ success: false, data: [] }, 403, true);
+    }
+    /** L518-521：反代 locations 列表（cookie 有效才代理，否则 null 落伪装页） */
+    async handleLocations(标识118) {
+        if (await 核验认证曲奇(标识118.request, 标识118.encryptionSecret, 标识118.adminPassword)) {
+            return fetch(new Request("https://speed.cloudflare.com/locations", {
+                headers: { Referer: "https://speed.cloudflare.com/" }
+            }));
+        }
+        return null;
+    }
+};
+// src/services/doh.ts
+var 加密域名解析记录类型映射表 = {
+    A: 1,
+    NS: 2,
+    CNAME: 5,
+    MX: 15,
+    TXT: 16,
+    AAAA: 28,
+    SRV: 33,
+    HTTPS: 65
+};
+var 标识408 = 256;
+var 加密域名解析缓存 = new Map();
+function 标识409(名称) {
+    const 标识325 = 名称.endsWith(".") ? 名称.slice(0, -1).split(".") : 名称.split(".");
+    const 标识410 = [];
+    for (const 标识411 of 标识325) {
+        const 标识412 = new TextEncoder().encode(标识411);
+        标识410.push(new Uint8Array([标识412.length]), 标识412);
+    }
+    标识410.push(new Uint8Array([0]));
+    let 总计 = 0;
+    for (const 标识394 of 标识410)
+        总计 += 标识394.length;
+    const 标识115 = new Uint8Array(总计);
+    let 标识413 = 0;
+    for (const 标识394 of 标识410) {
+        标识115.set(标识394, 标识413);
+        标识413 += 标识394.length;
+    }
+    return 标识115;
+}
+function 标识414(缓冲, 标识415) {
+    const 标识416 = [];
+    let 标识24 = 标识415;
+    let 标识417 = false;
+    let 标识418 = -1;
+    let 标识419 = 128;
+    while (标识24 < 缓冲.length && 标识419-- > 0) {
+        const 长度 = 缓冲[标识24];
+        if (长度 === 0) {
+            if (!标识417)
+                标识418 = 标识24 + 1;
+            break;
+        }
+        if ((长度 & 192) === 192) {
+            if (!标识417)
+                标识418 = 标识24 + 2;
+            标识24 = (长度 & 63) << 8 | 缓冲[标识24 + 1];
+            标识417 = true;
+            continue;
+        }
+        标识416.push(new TextDecoder().decode(缓冲.subarray(标识24 + 1, 标识24 + 1 + 长度)));
+        标识24 += 长度 + 1;
+    }
+    if (标识418 === -1)
+        标识418 = 标识24 + 1;
+    return [标识416.join("."), 标识418];
+}
+async function 加密域名解析查询串(标识420, 记录类型, 标识421 = "https://cloudflare-dns.com/dns-query") {
+    const 标识422 = String(标识420 || "").trim().toLowerCase().replace(/\.$/, "");
+    const 标识423 = String(记录类型 || "").trim().toUpperCase();
+    const 缓存键 = `${标识422}:${标识423}`;
+    const 标识424 = 加密域名解析记录类型映射表[标识423] || 1;
+    const 标识425 = Date.now();
+    const 标识426 = 加密域名解析缓存.get(缓存键);
+    if (标识426 && 标识425 < 标识426.expireTime) {
+        return 标识426.data.map((数据) => ({ name: 标识422, type: 标识424, TTL: 0, data: 数据 }));
+    }
+    const 启动时间 = performance.now();
+    try {
+        const 标识427 = 标识409(标识422);
+        const 查询串 = new Uint8Array(12 + 标识427.length + 4);
+        const 标识428 = new DataView(查询串.buffer);
+        标识428.setUint16(0, crypto.getRandomValues(new Uint16Array(1))[0]);
+        标识428.setUint16(2, 256);
+        标识428.setUint16(4, 1);
+        查询串.set(标识427, 12);
+        标识428.setUint16(12 + 标识427.length, 标识424);
+        标识428.setUint16(12 + 标识427.length + 2, 1);
+        const 响应 = await fetch(标识421, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/dns-message",
+                Accept: "application/dns-message"
+            },
+            body: 查询串
+        });
+        if (!响应.ok) {
+            console.warn(`[DoH\u67E5\u8BE2] \u8BF7\u6C42\u5931\u8D25 ${标识420} ${记录类型} via ${标识421} \u54CD\u5E94\u4EE3\u7801:${响应.status}`);
+            return [];
+        }
+        const 缓冲 = new Uint8Array(await 响应.arrayBuffer());
+        const 标识429 = new DataView(缓冲.buffer);
+        const 标识430 = 标识429.getUint16(4);
+        const 标识431 = 标识429.getUint16(6);
+        let 标识18 = 12;
+        for (let 标识3 = 0; 标识3 < 标识430; 标识3++) {
+            const [, 标识432] = 标识414(缓冲, 标识18);
+            标识18 = 标识432 + 4;
+        }
+        const 标识433 = [];
+        for (let 标识3 = 0; 标识3 < 标识431 && 标识18 < 缓冲.length; 标识3++) {
+            const [名称, 标识434] = 标识414(缓冲, 标识18);
+            标识18 = 标识434;
+            const 类型 = 标识429.getUint16(标识18);
+            标识18 += 2;
+            标识18 += 2;
+            const 存活期 = 标识429.getUint32(标识18);
+            标识18 += 4;
+            const 标识435 = 标识429.getUint16(标识18);
+            标识18 += 2;
+            const 标识436 = 缓冲.subarray(标识18, 标识18 + 标识435);
+            标识18 += 标识435;
+            let 数据;
+            if (类型 === 1 && 标识435 === 4) {
+                数据 = `${标识436[0]}.${标识436[1]}.${标识436[2]}.${标识436[3]}`;
+            }
+            else if (类型 === 28 && 标识435 === 16) {
+                const 标识437 = [];
+                for (let 标识19 = 0; 标识19 < 16; 标识19 += 2)
+                    标识437.push(((标识436[标识19] << 8 | 标识436[标识19 + 1]) >>> 0).toString(16));
+                数据 = 标识437.join(":");
+            }
+            else if (类型 === 16) {
+                let 标识438 = 0;
+                const 标识325 = [];
+                while (标识438 < 标识435) {
+                    const 标识439 = 标识436[标识438++];
+                    标识325.push(new TextDecoder().decode(标识436.subarray(标识438, 标识438 + 标识439)));
+                    标识438 += 标识439;
+                }
+                数据 = 标识325.join("");
+            }
+            else if (类型 === 5) {
+                const [标识440] = 标识414(缓冲, 标识18 - 标识435);
+                数据 = 标识440;
+            }
+            else {
+                数据 = Array.from(标识436).map((标识394) => 标识394.toString(16).padStart(2, "0")).join("");
+            }
+            标识433.push({ name: 名称, type: 类型, TTL: 存活期, data: 数据 });
+        }
+        const 标识441 = 标识433.filter((标识109) => 标识109.type === 标识424);
+        const 下限值存活期 = 标识441.length > 0 ? Math.min(...标识441.map((标识109) => 标识109.TTL)) : 0;
+        const 缓存存活期 = Math.max(下限值存活期, 5 * 60);
+        const 已缓存数据 = 标识441.map((标识109) => 标识109.data);
+        if (已缓存数据.length > 0 || 标识433.length === 0) {
+            if (加密域名解析缓存.size >= 标识408) {
+                const 标识442 = Date.now();
+                for (const [标识66, 标识64] of [...加密域名解析缓存]) {
+                    if (标识442 >= 标识64.expireTime)
+                        加密域名解析缓存.delete(标识66);
+                }
+                if (加密域名解析缓存.size >= 标识408) {
+                    const 首个 = 加密域名解析缓存.keys().next().value;
+                    if (首个 !== void 0)
+                        加密域名解析缓存.delete(首个);
+                }
+            }
+            加密域名解析缓存.set(缓存键, { data: 已缓存数据, expireTime: Date.now() + 缓存存活期 * 1e3 });
+        }
+        void 启动时间;
+        return 标识433;
+    }
+    catch (错误) {
+        console.error(`[DoH\u67E5\u8BE2] \u67E5\u8BE2\u5931\u8D25 ${标识420} ${记录类型} via ${标识421}:`, 错误);
+        return [];
+    }
+}
+// src/utils/net.ts
+function 标识443(标识119 = "") {
+    const 主机 = String(标识119 || "").trim();
+    return 主机.startsWith("[") && 主机.endsWith("]") ? 主机.slice(1, -1) : 主机;
+}
+function 标识444(值) {
+    const 标识325 = String(值 || "").split(".");
+    return 标识325.length === 4 && 标识325.every((标识403) => /^\d{1,3}$/.test(标识403) && Number(标识403) >= 0 && Number(标识403) <= 255);
+}
+function 标识445(标识119 = "") {
+    const 主机 = 标识443(标识119);
+    const 标识446 = /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
+    if (标识446.test(主机))
+        return true;
+    if (!主机.includes(":"))
+        return false;
+    try {
+        void new URL(`http://[${主机}]/`);
+        return true;
+    }
+    catch {
+        return false;
+    }
+}
+// src/utils/bytes.ts
+function 标识447(数据) {
+    if (数据 instanceof Uint8Array)
+        return 数据;
+    if (数据 instanceof ArrayBuffer)
+        return new Uint8Array(数据);
+    if (ArrayBuffer.isView(数据))
+        return new Uint8Array(数据.buffer, 数据.byteOffset, 数据.byteLength);
+    if (typeof 数据 === "number")
+        return new Uint8Array(数据);
+    if (Array.isArray(数据))
+        return Uint8Array.from(数据.map((标识6) => Number(标识6) || 0));
+    return new Uint8Array(0);
+}
+function 标识448(...块列表) {
+    if (块列表.length === 0)
+        return new Uint8Array(0);
+    const 标识449 = 块列表.map(标识447);
+    let 总计 = 0;
+    for (const 标识195 of 标识449)
+        总计 += 标识195.byteLength;
+    const 标识115 = new Uint8Array(总计);
+    let 标识18 = 0;
+    for (const 标识195 of 标识449) {
+        标识115.set(标识195, 标识18);
+        标识18 += 标识195.byteLength;
+    }
+    return 标识115;
+}
+function 标识450(数据) {
+    if (!数据)
+        return 0;
+    const 标识451 = 数据;
+    if (typeof 标识451.byteLength === "number")
+        return 标识451.byteLength;
+    const 标识452 = 数据;
+    if (typeof 标识452.length === "number")
+        return 标识452.length;
+    return 0;
+}
+// src/forward/dialer.ts
+function 标识453(请求) {
+    const 请求对象物 = 请求;
+    const 标识454 = 请求对象物?.fetcher;
+    if (!标识454 || typeof 标识454.connect !== "function") {
+        throw new 标识312("FORWARD_NO_CONNECTOR", "request.fetcher.connect unavailable");
+    }
+    return ((选项组, 初始化) => 初始化 === void 0 ? 标识454.connect(选项组) : 标识454.connect(选项组, 初始化));
+}
+var 标识455 = 1e3;
+async function 标识456(标识457, 标识172 = 标识455) {
+    const 标识458 = 标识457.opened;
+    if (!标识458 || typeof 标识458.then !== "function") {
+        return;
+    }
+    await Promise.race([
+        标识458,
+        new Promise((标识157, 回绝) => setTimeout(() => 回绝(new Error("\u8FDE\u63A5\u8D85\u65F6")), 标识172))
+    ]);
+}
+async function 标识459(可靠传输连接, 标识317, 端口) {
+    const 标识457 = 可靠传输连接({ hostname: 标识317, port: 端口 });
+    try {
+        await 标识456(标识457);
+        return 标识457;
+    }
+    catch (错误2) {
+        try {
+            标识457?.close?.();
+        }
+        catch {
+        }
+        throw 错误2;
+    }
+}
+async function 写入首个报文(套接字, 数据) {
+    if (!数据 || 数据.byteLength <= 0)
+        return;
+    const 写入器 = 套接字.writable.getWriter();
+    try {
+        await 写入器.write(标识447(数据));
+    }
+    finally {
+        try {
+            写入器.releaseLock();
+        }
+        catch {
+        }
+    }
+}
+async function 标识460(可靠传输连接, 标识461) {
+    if (标识461.length === 1) {
+        const 标识462 = 标识461[0];
+        return { socket: await 标识459(可靠传输连接, 标识462.hostname, 标识462.port), candidate: 标识462 };
+    }
+    const 标识463 = 标识461.map((标识462) => 标识459(可靠传输连接, 标识462.hostname, 标识462.port).then((套接字) => ({ socket: 套接字, candidate: 标识462 })));
+    let 标识464 = null;
+    try {
+        标识464 = await Promise.any(标识463);
+        return 标识464;
+    }
+    finally {
+        if (标识464) {
+            for (const 标识465 of 标识463) {
+                标识465.then(({ socket: 套接字 }) => {
+                    if (套接字 !== 标识464.socket) {
+                        try {
+                            套接字?.close?.();
+                        }
+                        catch {
+                        }
+                    }
+                }).catch(() => {
+                });
+            }
+        }
+    }
+}
+async function 标识466(标识65, 标识317, 端口) {
+    if (!标识65.dial.preloadRaceDial || 标识445(标识317))
+        return null;
+    标识65.log("[TCP\u76F4\u8FDE]", `\u9884\u52A0\u8F7D\u7ADE\u901F\u62E8\u53F7\u5F00\u542F\uFF0C\u5F00\u59CB\u5E76\u53D1\u67E5\u8BE2 ${标识317} \u7684 A/AAAA \u8BB0\u5F55`);
+    const [标识467, 标识468] = await Promise.all([加密域名解析查询串(标识317, "A"), 加密域名解析查询串(标识317, "AAAA")]);
+    const 标识469 = [...new Set(标识467.flatMap((标识111) => 标识111.type === 1 && typeof 标识111.data === "string" && 标识444(标识111.data) ? [标识111.data] : []))];
+    const 标识470 = [...new Set(标识468.flatMap((标识111) => 标识111.type === 28 && typeof 标识111.data === "string" && 标识445(标识111.data) ? [标识111.data] : []))];
+    const 标识471 = Math.max(1, 标识65.dial.tcpConcurrentDial | 0);
+    const 地址列表 = 标识469.length >= 标识471 ? 标识469.slice(0, 标识471) : 标识469.concat(标识470.slice(0, 标识471 - 标识469.length));
+    const 标识472 = 标识469.length > 0 ? 地址列表.length > 标识469.length ? "A+AAAA" : "A" : "AAAA";
+    if (地址列表.length === 0) {
+        标识65.log("[TCP\u76F4\u8FDE]", `${标识317} \u7684 A/AAAA \u672A\u83B7\u5F97\u53EF\u7528\u89E3\u6790\u7ED3\u679C\uFF0C\u9884\u52A0\u8F7D\u7ADE\u901F\u4E0D\u53EF\u7528\uFF0C\u56DE\u9000\u5230\u539F\u59CB hostname \u76F4\u8FDE\u3002`);
+        return null;
+    }
+    标识65.log("[TCP\u76F4\u8FDE]", `${标识317} A\u8BB0\u5F55:${标识469.length} AAAA\u8BB0\u5F55:${标识470.length}\uFF0C\u4F7F\u7528${标识472}\u8BB0\u5F55\uFF0C\u7ADE\u901F\u62E8\u53F7 ${地址列表.length}/${标识471}: ${地址列表.join(", ")}`);
+    return 地址列表.map((标识119, 标识465) => ({ hostname: 标识119, port: 端口, attempt: 标识465, resolvedFrom: 标识317 }));
+}
+async function 标识473(标识65, 可靠传输连接, 标识317, 端口, 数据 = null, 启用预加载 = false) {
+    const 标识474 = 启用预加载 ? await 标识466(标识65, 标识317, 端口) : null;
+    const 标识461 = 标识474 || Array.from({ length: Math.max(1, 标识65.dial.tcpConcurrentDial) }, (标识157, 标识465) => ({ hostname: 标识317, port: 端口, attempt: 标识465 }));
+    标识65.log("[TCP\u76F4\u8FDE]", 标识474 ? `\u5E76\u53D1\u5C1D\u8BD5 ${标识461.length} \u8DEF: ${标识461.map((标识195) => `${标识195.hostname}:${标识195.port}`).join(", ")}` : `\u5E76\u53D1\u5C1D\u8BD5 ${标识461.length} \u8DEF: ${标识317}:${端口}`);
+    let 套接字 = null;
+    try {
+        const 标识475 = await 标识460(可靠传输连接, 标识461);
+        套接字 = 标识475.socket;
+        标识65.log("[TCP\u76F4\u8FDE]", `\u62E8\u53F7\u6210\u529F ${标识475.candidate.hostname}:${标识475.candidate.port}`);
+        if (标识474) {
+            const 标识464 = 标识475.candidate;
+            标识65.log("[TCP\u76F4\u8FDE]", `\u9884\u52A0\u8F7D\u7ADE\u901F\u7ED3\u679C: ${标识464.hostname}:${标识464.port} \u80DC\u51FA\uFF0C\u6E90\u57DF\u540D: ${标识464.resolvedFrom || 标识317}`);
+        }
+        await 写入首个报文(套接字, 数据);
+        标识65.log("[TCP\u76F4\u8FDE]", `\u9996\u5305\u5DF2\u5199 ${数据?.byteLength ?? 0}B`);
+        return 套接字;
+    }
+    catch (错误2) {
+        try {
+            套接字?.close?.();
+        }
+        catch {
+        }
+        if (标识474)
+            标识65.log("[TCP\u76F4\u8FDE]", `\u9884\u52A0\u8F7D\u7ADE\u901F\u5931\u8D25: ${错误2.message || 错误2}`);
+        throw 错误2;
+    }
+}
+async function 连接代理地址(标识65, 可靠传输连接, 标识317, 端口, 数据, 全部代理列表, 标识476, 启动序号 = 0) {
+    let 代理列表序号 = 启动序号;
+    if (全部代理列表 && 全部代理列表.length > 0) {
+        const 标识477 = Math.max(1, Math.floor(Number(标识65.dial.proxyConcurrentDial) || 1));
+        for (let 标识3 = 0; 标识3 < 全部代理列表.length; 标识3 += 标识477) {
+            const 标识461 = [];
+            for (let 标识19 = 0; 标识19 < 标识477 && 标识3 + 标识19 < 全部代理列表.length; 标识19++) {
+                const 序号2 = (代理列表序号 + 标识3 + 标识19) % 全部代理列表.length;
+                const [标识478, 代理端口] = 全部代理列表[序号2];
+                标识461.push({ hostname: 标识478, port: 代理端口, index: 序号2 });
+            }
+            let 套接字 = null;
+            let 标识462 = null;
+            try {
+                标识65.log("[\u53CD\u4EE3\u8FDE\u63A5]", `\u5E76\u53D1\u5C1D\u8BD5 ${标识461.length} \u8DEF: ${标识461.map((标识195) => `${标识195.hostname}:${标识195.port}`).join(", ")}`);
+                const 标识475 = await 标识460(可靠传输连接, 标识461);
+                套接字 = 标识475.socket;
+                标识462 = 标识475.candidate;
+                await 写入首个报文(套接字, 数据);
+                标识65.log("[\u53CD\u4EE3\u8FDE\u63A5]", `\u6210\u529F\u8FDE\u63A5\u5230: ${标识462.hostname}:${标识462.port} (\u7D22\u5F15: ${标识462.index})`);
+                return { socket: 套接字, nextIndex: 标识462.index ?? 0 };
+            }
+            catch (错误2) {
+                try {
+                    套接字?.close?.();
+                }
+                catch {
+                }
+                标识65.log("[\u53CD\u4EE3\u8FDE\u63A5]", `\u672C\u6279\u8FDE\u63A5\u5931\u8D25: ${错误2.message || 错误2}`);
+            }
+        }
+    }
+    if (标识476) {
+        const 套接字 = await 标识473(标识65, 可靠传输连接, 标识317, 端口, 数据, false);
+        return { socket: 套接字, nextIndex: 代理列表序号 };
+    }
+    throw new 标识312("FORWARD_PROXY_EXHAUSTED", "[\u53CD\u4EE3\u8FDE\u63A5] \u6240\u6709\u53CD\u4EE3\u8FDE\u63A5\u5931\u8D25\uFF0C\u4E14\u672A\u542F\u7528\u53CD\u4EE3\u515C\u5E95\uFF0C\u8FDE\u63A5\u7EC8\u6B62\u3002");
+}
+// src/chain/base.ts
+var 标识479 = class {
+};
+var 链式注册表 = class {
+    items = /* @__PURE__ */ new Map();
+    register(标识480) {
+        if (this.items.has(标识480.name)) {
+            throw new 标识312("REGISTRY_DUPLICATE", `\u94FE\u5F0F\u4EE3\u7406\u91CD\u540D\u6CE8\u518C: ${标识480.name}`);
+        }
+        this.items.set(标识480.name, 标识480);
+        return this;
+    }
+    get(类型) {
+        return this.items.get(类型);
+    }
+    has(类型) {
+        return this.items.has(类型);
+    }
+    list() {
+        return [...this.items.values()];
+    }
+};
+async function 标识481(期约, 标识172, 消息) {
+    let 标识482;
+    try {
+        return await Promise.race([
+            期约,
+            new Promise((标识157, 回绝) => {
+                标识482 = setTimeout(() => 回绝(new 标识312("CHAIN_TIMEOUT", 消息)), 标识172);
+            })
+        ]);
+    }
+    finally {
+        clearTimeout(标识482);
+    }
+}
+// src/chain/socks5.ts
+var 标识483 = class extends 标识479 {
+    name = "socks5";
+    async dial(参数集) {
+        const { proxy: 代理, target: 目标, initialData: 标识484, tcpConnect: 可靠传输连接 } = 参数集;
+        const { username: 标识322, password: 密码, hostname: 标识119, port: 端口 } = 代理;
+        const 套接字 = 可靠传输连接({ hostname: 标识119, port: 端口 });
+        const 写入器 = 套接字.writable.getWriter();
+        const 读取器 = 套接字.readable.getReader();
+        try {
+            const 标识485 = 标识322 && 密码 ? new Uint8Array([5, 2, 0, 2]) : new Uint8Array([5, 1, 0]);
+            await 写入器.write(标识485);
+            let 响应 = await 读取器.read();
+            if (响应.done || !响应.value || 响应.value.byteLength < 2) {
+                throw new 标识312("CHAIN_SOCKS5_HANDSHAKE", "S5 method selection failed");
+            }
+            const 标识486 = 标识447(响应.value)[1];
+            if (标识486 === 2) {
+                if (!标识322 || !密码)
+                    throw new 标识312("CHAIN_SOCKS5_AUTH", "S5 requires authentication");
+                const 标识487 = new TextEncoder().encode(标识322);
+                const 标识488 = new TextEncoder().encode(密码);
+                const 认证报文 = new Uint8Array([1, 标识487.length, ...标识487, 标识488.length, ...标识488]);
+                await 写入器.write(认证报文);
+                响应 = await 读取器.read();
+                if (响应.done || !响应.value || 标识447(响应.value)[1] !== 0) {
+                    throw new 标识312("CHAIN_SOCKS5_AUTH", "S5 authentication failed");
+                }
+            }
+            else if (标识486 !== 0) {
+                throw new 标识312("CHAIN_SOCKS5_HANDSHAKE", `S5 unsupported auth method: ${标识486}`);
+            }
+            const 标识489 = new TextEncoder().encode(目标.host);
+            const 连接报文 = new Uint8Array([5, 1, 0, 3, 标识489.length, ...标识489, 目标.port >> 8, 目标.port & 255]);
+            await 写入器.write(连接报文);
+            响应 = await 读取器.read();
+            if (响应.done || !响应.value || 标识447(响应.value)[1] !== 0) {
+                throw new 标识312("CHAIN_SOCKS5_CONNECT", "S5 connection failed");
+            }
+            if (标识450(标识484) > 0)
+                await 写入器.write(标识447(标识484));
+            写入器.releaseLock();
+            读取器.releaseLock();
+            return { socket: 套接字 };
+        }
+        catch (错误) {
+            try {
+                写入器.releaseLock();
+            }
+            catch {
+            }
+            try {
+                读取器.releaseLock();
+            }
+            catch {
+            }
+            try {
+                套接字.close?.();
+            }
+            catch {
+            }
+            throw 错误;
+        }
+    }
+};
+// src/chain/http.ts
+var 标识490 = class extends 标识479 {
+    name = "http";
+    async dial(参数集) {
+        return 标识491(参数集, false);
+    }
+};
+async function 标识491(参数集, 超文本安全代理) {
+    const { proxy: 代理, target: 目标, initialData: 标识484, tcpConnect: 可靠传输连接 } = 参数集;
+    const { username: 标识322, password: 密码, hostname: 标识119, port: 端口 } = 代理;
+    const 套接字 = 超文本安全代理 ? 可靠传输连接({ hostname: 标识119, port: 端口 }, { secureTransport: "on", allowHalfOpen: false }) : 可靠传输连接({ hostname: 标识119, port: 端口 });
+    const 写入器 = 套接字.writable.getWriter();
+    const 读取器 = 套接字.readable.getReader();
+    const 标识395 = new TextEncoder();
+    const 标识191 = new TextDecoder();
+    try {
+        if (超文本安全代理 && 套接字.opened)
+            await 套接字.opened;
+        const 认证 = 标识322 && 密码 ? `Proxy-Authorization: Basic ${btoa(`${标识322}:${密码}`)}\r
+` : "";
+        const 请求 = `CONNECT ${目标.host}:${目标.port} HTTP/1.1\r
+Host: ${目标.host}:${目标.port}\r
+${认证}User-Agent: Mozilla/5.0\r
 Connection: keep-alive\r
 \r
-`;await g.write(m.encode(x)),g.releaseLock();let v=new Uint8Array(0),w=-1,b=0;for(;w===-1&&b<8192;){let{done:I,value:S}=await f.read();if(I||!S)throw new B("CHAIN_HTTP_CONNECT",`${e?"HTTPS":"HTTP"} \u4EE3\u7406\u5728\u8FD4\u56DE CONNECT \u54CD\u5E94\u524D\u5173\u95ED\u8FDE\u63A5`);v=new Uint8Array([...v,...S]),b=v.byteLength;let h=v.findIndex((E,P)=>P<v.byteLength-3&&v[P]===13&&v[P+1]===10&&v[P+2]===13&&v[P+3]===10);h!==-1&&(w=h+4)}if(w===-1)throw new B("CHAIN_HTTP_CONNECT","\u4EE3\u7406 CONNECT \u54CD\u5E94\u5934\u8FC7\u957F\u6216\u65E0\u6548");let k=p.decode(v.subarray(0,w)).split(`\r
-`)[0].match(/HTTP\/\d\.\d\s+(\d+)/),C=k?parseInt(k[1],10):NaN;if(!Number.isFinite(C)||C<200||C>=300)throw new B("CHAIN_HTTP_CONNECT",`Connection failed: HTTP ${C}`);if(f.releaseLock(),Y(a)>0){let I=d.writable.getWriter();await I.write(D(a)),I.releaseLock()}if(b>w){let{readable:I,writable:S}=new TransformStream(void 0,{highWaterMark:16},{highWaterMark:16}),h=S.getWriter();return await h.write(v.subarray(w,b)),h.releaseLock(),d.readable.pipeTo(S).catch(()=>{}),{socket:{readable:I,writable:d.writable,opened:d.opened,closed:d.closed,close:()=>d.close?.()}}}return{socket:d}}catch(u){try{g.releaseLock()}catch{}try{f.releaseLock()}catch{}try{d.close?.()}catch{}throw u}}var zn=new TextEncoder,ve=new Uint8Array(0);function wa(...o){let e=t=>t.flatMap(n=>n instanceof Uint8Array?[...n]:Array.isArray(n)?e(n):typeof n=="number"?[n]:[]);return new Uint8Array(e(o))}var ka=o=>[o>>8&255,o&255];function Ze(...o){let e=o.filter(r=>!!r&&r.length>0),t=0;for(let r of e)t+=r.length;let n=new Uint8Array(t),a=0;for(let r of e)n.set(r instanceof Uint8Array?r:Uint8Array.from(r),a),a+=r.length;return n}function ht(o,e){if(!o||!e||o.length==e.length)return!1;let t=0;for(let n=0;n<o.length;n++)t|=o[n]^e[n];return t===0}var Yt=o=>o==="SHA-512"?64:o==="SHA-384"?48:32;async function Ke(o,e,t){let n=await crypto.subtle.importKey("raw",e,{name:"HMAC",hash:o},!1,["sign"]);return new Uint8Array(await crypto.subtle.sign("HMAC",n,t))}async function Te(o,e){return new Uint8Array(await crypto.subtle.digest(o,e))}async function bt(o,e,t,n,a="SHA-256"){let r=Ze(zn.encode(e),t),s=new Uint8Array(0),l=r;for(;s.length<n;){l=await Ke(a,o,l);let c=await Ke(a,o,Ze(l,r));s=Ze(s,c)}return s.slice(0,n)}async function Xt(o,e,t){return(!e||!e.length)&&(e=new Uint8Array(Yt(o))),Ke(o,e,t)}async function be(o,e,t,n,a){let r=zn.encode("tls13 "+t);return(async(s,l,c,i)=>{let d=Yt(s),g=Math.ceil(i/d),f=new Uint8Array(0),m=new Uint8Array(0);for(let p=1;p<=g;p++)m=await Ke(s,l,Ze(m,c,[p])),f=Ze(f,m);return f.slice(0,i)})(o,e,wa(ka(a),r.length,r,n.length,n),a)}async function _o(o="P-256"){let e=o==="X25519"?{name:"X25519"}:{name:"ECDH",namedCurve:o},t=await crypto.subtle.generateKey(e,!0,["deriveBits"]),n=await crypto.subtle.exportKey("raw",t.publicKey);return{keyPair:t,publicKeyRaw:new Uint8Array(n)}}async function $o(o,e,t="P-256"){let n=t==="X25519"?{name:"X25519"}:{name:"ECDH",namedCurve:t},a=await crypto.subtle.importKey("raw",e,n,!1,[]),r=t==="P-384"?384:t==="P-521"?528:256;return new Uint8Array(await crypto.subtle.deriveBits({name:t==="X25519"?"X25519":"ECDH",public:a},o,r))}async function ce(o,e){return crypto.subtle.importKey("raw",o,{name:"AES-GCM"},!1,e)}async function Jt(o,e,t,n){return new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv:e,additionalData:n,tagLength:128},o,t))}async function Qt(o,e,t,n){return new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv:e,additionalData:n,tagLength:128},o,t))}function qt(o,e){return(o<<e|o>>>32-e)>>>0}function Be(o,e,t,n,a){o[e]=o[e]+o[t]>>>0,o[a]=qt(o[a]^o[e],16),o[n]=o[n]+o[a]>>>0,o[t]=qt(o[t]^o[n],12),o[e]=o[e]+o[t]>>>0,o[a]=qt(o[a]^o[e],8),o[n]=o[n]+o[a]>>>0,o[t]=qt(o[t]^o[n],7)}function zo(o,e,t){let n=new Uint32Array(16);n[0]=1634760805,n[1]=857760878,n[2]=2036477234,n[3]=1797285236;let a=new DataView(o.buffer,o.byteOffset,o.byteLength);for(let l=0;l<8;l++)n[4+l]=a.getUint32(4*l,!0);n[12]=e;let r=new DataView(t.buffer,t.byteOffset,t.byteLength);n[13]=r.getUint32(0,!0),n[14]=r.getUint32(4,!0),n[15]=r.getUint32(8,!0);let s=new Uint32Array(n);for(let l=0;l<10;l++)Be(s,0,4,8,12),Be(s,1,5,9,13),Be(s,2,6,10,14),Be(s,3,7,11,15),Be(s,0,5,10,15),Be(s,1,6,11,12),Be(s,2,7,8,13),Be(s,3,4,9,14);for(let l=0;l<16;l++)s[l]=s[l]+n[l]>>>0;return new Uint8Array(s.buffer.slice(0))}function Fn(o,e,t){let n=new Uint8Array(t.length),a=1;for(let r=0;r<t.length;r+=64){let s=zo(o,a++,e),l=Math.min(64,t.length-r);for(let c=0;c<l;c++)n[r+c]=t[r+c]^s[c]}return n}function Vn(o,e){let t=(function(c){let i=new Uint8Array(c);return i[3]=i[3]&15,i[7]=i[7]&15,i[11]=i[11]&15,i[15]=i[15]&15,i[4]=i[4]&252,i[8]=i[8]&252,i[12]=i[12]&252,i[16]=i[16],i})(o.slice(0,16)),n=o.slice(16,32),a=[0n,0n,0n,0n,0n],r=[0x3ffffffn&BigInt(t[0]|t[1]<<8|t[2]<<16|t[3]<<24),0x3ffffffn&BigInt(t[3]>>2|t[4]<<6|t[5]<<14|t[6]<<22),0x3ffffffn&BigInt(t[6]>>4|t[7]<<4|t[8]<<12|t[9]<<20),0x3ffffffn&BigInt(t[9]>>6|t[10]<<2|t[11]<<10|t[12]<<18),0x3ffffffn&BigInt(t[13]|t[14]<<8|t[15]<<16)];for(let c=0;c<e.length;c+=16){let i=e.slice(c,c+16),d=new Uint8Array(17);d.set(i),d[i.length]=1,a[0]=a[0]+BigInt(d[0]|d[1]<<8|d[2]<<16|(3&d[3])<<24),a[1]=a[1]+BigInt(d[3]>>2|d[4]<<6|d[5]<<14|(15&d[6])<<22),a[2]=a[2]+BigInt(d[6]>>4|d[7]<<4|d[8]<<12|(63&d[9])<<20),a[3]=a[3]+BigInt(d[9]>>6|d[10]<<2|d[11]<<10|d[12]<<18),a[4]=a[4]+BigInt(d[13]|d[14]<<8|d[15]<<16|d[16]<<24);let g=[0n,0n,0n,0n,0n];for(let m=0;m<5;m++)for(let p=0;p<5;p++){let u=m+p;u<5?g[u]=g[u]+a[m]*r[p]:g[u-5]=g[u-5]+a[m]*r[p]*5n}let f=0n;for(let m=0;m<5;m++)g[m]=g[m]+f,a[m]=0x3ffffffn&g[m],f=g[m]>>26n;a[0]=a[0]+5n*f,f=a[0]>>26n,a[0]=a[0]&0x3ffffffn,a[1]=a[1]+f}let s=a[0]|a[1]<<26n|a[2]<<52n|a[3]<<78n|a[4]<<104n;s=s+n.reduce(((c,i,d)=>c+(BigInt(i)<<BigInt(8*d))),0n)&(1n<<128n)-1n;let l=new Uint8Array(16);for(let c=0;c<16;c++)l[c]=Number(s>>BigInt(8*c)&0xffn);return l}function Zt(o,e,t,n){let a=zo(o,0,e).slice(0,32),r=Fn(o,e,t),s=(16-n.length%16)%16,l=(16-r.length%16)%16,c=new Uint8Array(n.length+s+r.length+l+16);c.set(n,0),c.set(r,n.length+s);let i=new DataView(c.buffer,n.length+s+r.length+l);i.setBigUint64(0,BigInt(n.length),!0),i.setBigUint64(8,BigInt(r.length),!0);let d=Vn(a,c);return Ze(r,d)}function eo(o,e,t,n){if(t.length<16)throw new Error("Ciphertext too short");let a=t.slice(-16),r=t.slice(0,-16),s=zo(o,0,e).slice(0,32),l=(16-n.length%16)%16,c=(16-r.length%16)%16,i=new Uint8Array(n.length+l+r.length+c+16);i.set(n,0),i.set(r,n.length+l);let d=new DataView(i.buffer,n.length+l+r.length+c);d.setBigUint64(0,BigInt(n.length),!0),d.setBigUint64(8,BigInt(r.length),!0);let g=Vn(s,i),f=0;for(let m=0;m<16;m++)f|=a[m]^g[m];if(f==0)throw new Error("ChaCha20-Poly1305 authentication failed");return Fn(o,e,r)}var jn=new TextEncoder,Gn=new TextDecoder;function j(...o){let e=t=>t.flatMap(n=>n instanceof Uint8Array?[...n]:Array.isArray(n)?e(n):typeof n=="number"?[n]:[]);return new Uint8Array(e(o))}var G=o=>[o>>8&255,o&255],te=(o,e)=>o[e]<<8|o[e+1],xt=(o,e)=>(o[e]<<16|o[e+1]<<8|o[e+2])>>>0;function yt(...o){let e=o.filter(r=>!!r&&r.length>0),t=0;for(let r of e)t+=r.length;let n=new Uint8Array(t),a=0;for(let r of e)n.set(r instanceof Uint8Array?r:Uint8Array.from(r),a),a+=r.length;return n}var Kn=769,et=771,Sa=772,no=20,We=21,oe=22,de=23,Ca=1,Wn=2,qn=4,Yn=8,vt=11,Xn=12,Vo=13,Jn=14,Qn=15,Zn=16,wt=20,er=24,Pa=0,Ia=10,Ta=11,Ea=13,jo=16,Fo=43,Aa=45,tr=51,Go=0,La=1,Ra=112,kt=o=>o?.[0]===La&&o?.[1]===Ra,or=new Map([[4865,{id:4865,keyLen:16,ivLen:12,hash:"SHA-256",tls13:!0}],[4866,{id:4866,keyLen:32,ivLen:12,hash:"SHA-384",tls13:!0}],[4867,{id:4867,keyLen:32,ivLen:12,hash:"SHA-256",tls13:!0,chacha:!0}],[49199,{id:49199,keyLen:16,ivLen:4,hash:"SHA-256",kex:"ECDHE"}],[49200,{id:49200,keyLen:32,ivLen:4,hash:"SHA-384",kex:"ECDHE"}],[52392,{id:52392,keyLen:32,ivLen:12,hash:"SHA-256",kex:"ECDHE",chacha:!0}],[49195,{id:49195,keyLen:16,ivLen:4,hash:"SHA-256",kex:"ECDHE"}],[49196,{id:49196,keyLen:32,ivLen:4,hash:"SHA-384",kex:"ECDHE"}],[52393,{id:52393,keyLen:32,ivLen:12,hash:"SHA-256",kex:"ECDHE",chacha:!0}]]),Ko=new Map([[29,"X25519"],[23,"P-256"]]),Ma=[2052,2053,2054,1025,1281,1537,1027,1283,1539];function Ue(o,e,t=et){let n=D(e),a=new Uint8Array(5+n.byteLength);return a[0]=o,a[1]=t>>8&255,a[2]=t&255,a[3]=n.byteLength>>8&255,a[4]=n.byteLength&255,a.set(n,5),a}function qe(o,e){return j(o,(t=>[t>>16&255,t>>8&255,255&t])(e.length),e)}var to=class{buffer=new Uint8Array(0);feed(e){let t=D(e);this.buffer=this.buffer.length?yt(this.buffer,t):t}next(){if(this.buffer.length<5)return null;let e=this.buffer[0],t=te(this.buffer,1),n=te(this.buffer,3);if(this.buffer.length<5+n)return null;let a=this.buffer.subarray(5,5+n);return this.buffer=this.buffer.subarray(5+n),{type:e,version:t,length:n,fragment:a}}},oo=class{buffer=new Uint8Array(0);feed(e){let t=D(e);this.buffer=this.buffer.length?yt(this.buffer,t):t}next(){if(this.buffer.length<4)return null;let e=this.buffer[0],t=xt(this.buffer,1);if(this.buffer.length<4+t)return null;let n=this.buffer.subarray(4,4+t),a=this.buffer.subarray(0,4+t);return this.buffer=this.buffer.subarray(4+t),{type:e,length:t,body:n,raw:a}}},Wo=16*1024;function nr(o){let e=0,t=te(o,e);e+=2;let n=o.slice(e,e+32);e+=32;let a=o[e++],r=o.slice(e,e+a);e+=a;let s=te(o,e);e+=2;let l=o[e++],c=t,i=null,d=null;if(e<o.length){let f=te(o,e);e+=2;let m=e+f;for(;e+4<=m;){let p=te(o,e);e+=2;let u=te(o,e);e+=2;let x=o.slice(e,e+u);if(e+=u,p===Fo&&u>=2)c=te(x,0);else if(p===tr&&u>=4){let v=te(x,0),w=te(x,2);i={group:v,key:x.slice(4,4+w)}}else p===jo&&u>=3&&(d=Gn.decode(x.slice(3,3+x[2])))}}let g=new Uint8Array([207,33,173,116,229,154,97,17,190,29,140,2,30,101,184,145,194,162,17,22,122,187,140,94,7,158,9,226,200,168,51,156]);return{version:t,serverRandom:n,sessionId:r,cipherSuite:s,compression:l,selectedVersion:c,keyShare:i,alpn:d,isHRR:ht(n,g),isTls13:c===Sa}}function rr(o){let e=1,t=te(o,e);e+=2;let n=o[e++];return{namedCurve:t,serverPublicKey:o.slice(e,e+n)}}function qo(o,e=0){let t=0;if(e){let r=o[t++];t+=r}if(t+3>o.length)return null;let n=xt(o,t);if(t+=3,!n||t+3>o.length)return null;let a=xt(o,t);return t+=3,a?o.slice(t,t+a):null}function ar(o){let e={alpn:null},t=2,n=2+te(o,0);for(;t+4<=n;){let a=te(o,t);t+=2;let r=te(o,t);if(t+=2,a===jo&&r>=3){let s=o[t+2];s>0&&t+3+s<=t+r&&(e.alpn=Gn.decode(o.slice(t+3,t+3+s)))}t+=r}return e}function ir(o,e,t,{tls13:n=!0,tls12:a=!0,alpn:r=null,chacha:s=!0}={}){let l=[];n&&l.push(4865,4866,...s?[4867]:[]),a&&l.push(49199,49200,49195,49196,...s?[52392,52393]:[]);let c=j(...l.flatMap(G)),i=[j(255,1,0,1,0)];if(e){let m=jn.encode(e),p=j(0,G(m.length),m);i.push(j(G(Pa),G(p.length+2),G(p.length),p))}i.push(j(G(Ta),0,2,1,0)),i.push(j(G(Ia),0,6,0,4,0,29,0,23));let d=j(...Ma.flatMap(G));i.push(j(G(Ea),G(d.length+2),G(d.length),d));let g=Array.isArray(r)?r.filter(Boolean):r?[r]:[];if(g.length){let m=yt(...g.map((p=>{let u=jn.encode(p);return j(u.length,u)})));i.push(j(G(jo),G(m.length+2),G(m.length),m))}if(n&&t){let m;i.push(a?j(G(Fo),0,5,4,3,4,3,3):j(G(Fo),0,3,2,3,4)),i.push(j(G(Aa),0,2,1,1));let p=t instanceof Uint8Array?null:t;if(p&&p.x25519&&p.p256)m=yt(j(0,29,G(p.x25519.length),p.x25519),j(0,23,G(p.p256.length),p.p256));else if(p&&p.x25519)m=j(0,29,G(p.x25519.length),p.x25519);else if(p&&p.p256)m=j(0,23,G(p.p256.length),p.p256);else{if(!(t instanceof Uint8Array))throw new Error("Invalid keyShares");m=j(0,23,G(t.length),t)}i.push(j(G(tr),G(m.length+2),G(m.length),m))}let f=yt(...i);return qe(Ca,j(G(et),o,0,G(c.length),c,1,0,G(f.length),f))}var Ul=new TextEncoder;function me(...o){let e=o.filter(r=>!!r&&r.length>0),t=0;for(let r of e)t+=r.length;let n=new Uint8Array(t),a=0;for(let r of e)n.set(r instanceof Uint8Array?r:Uint8Array.from(r),a),a+=r.length;return n}var we=o=>[o>>8&255,o&255],Yo=o=>{let e=new Uint8Array(8);return new DataView(e.buffer).setBigUint64(0,o,!1),e},tt=(o,e)=>{let t=o.slice(),n=Yo(e);for(let a=0;a<8;a++)t[t.length-8+a]^=n[a];return t},ro=(o,e,t,n)=>Promise.all([be(o,e,"key",ve,t),be(o,e,"iv",ve,n)]),ot=class{socket;serverName;supportTls13;supportTls12;alpnProtocols;allowChacha;timeout;clientRandom;serverRandom;handshakeChunks;handshakeComplete=!1;negotiatedAlpn=null;cipherSuite=null;cipherConfig=null;isTls13=!1;masterSecret;handshakeSecret;clientWriteKey;serverWriteKey;clientWriteIv;serverWriteIv;clientHandshakeKey;serverHandshakeKey;clientHandshakeIv;serverHandshakeIv;clientAppKey;serverAppKey;clientAppIv;serverAppIv;clientWriteCryptoKey;serverWriteCryptoKey;clientHandshakeCryptoKey;serverHandshakeCryptoKey;clientAppCryptoKey;serverAppCryptoKey;clientSeqNum=0n;serverSeqNum=0n;recordParser;handshakeParser;keyPairs;ecdhKeyPair;sawCert=!1;constructor(e,t={}){if(this.socket=e,this.serverName=t.serverName||"",this.supportTls13=t.tls13!==!1,this.supportTls12=t.tls12!==!1,!this.supportTls13&&!this.supportTls12)throw new Error("At least one TLS version must be enabled");this.alpnProtocols=Array.isArray(t.alpn)?t.alpn:t.alpn?[t.alpn]:null,this.allowChacha=t.allowChacha!==!1,this.timeout=t.timeout??3e4,this.clientRandom=crypto.getRandomValues(new Uint8Array(32)),this.serverRandom=null,this.handshakeChunks=[],this.handshakeComplete=!1,this.negotiatedAlpn=null,this.cipherSuite=null,this.cipherConfig=null,this.isTls13=!1,this.masterSecret=null,this.handshakeSecret=null,this.clientWriteKey=null,this.serverWriteKey=null,this.clientWriteIv=null,this.serverWriteIv=null,this.clientHandshakeKey=null,this.serverHandshakeKey=null,this.clientHandshakeIv=null,this.serverHandshakeIv=null,this.clientAppKey=null,this.serverAppKey=null,this.clientAppIv=null,this.serverAppIv=null,this.clientWriteCryptoKey=null,this.serverWriteCryptoKey=null,this.clientHandshakeCryptoKey=null,this.serverHandshakeCryptoKey=null,this.clientAppCryptoKey=null,this.serverAppCryptoKey=null,this.clientSeqNum=0n,this.serverSeqNum=0n,this.recordParser=new to,this.handshakeParser=new oo,this.keyPairs=new Map,this.ecdhKeyPair=null,this.sawCert=!1}recordHandshake(e){this.handshakeChunks.push(e)}transcript(){return this.handshakeChunks.length===1?this.handshakeChunks[0]:me(...this.handshakeChunks)}getCipherConfig(e){return e===null?null:or.get(e)??null}async readChunk(e){return this.timeout?Promise.race([e.read(),new Promise((t,n)=>{setTimeout(()=>n(new Error("TLS read timeout")),this.timeout)})]):e.read()}async readRecordsUntil(e,t,n){for(;;){let a;for(;a=this.recordParser.next();)if(await t(a))return;let{value:r,done:s}=await this.readChunk(e);if(s)throw new Error(n);this.recordParser.feed(r)}}async readHandshakeUntil(e,t,n){for(let a;a=this.handshakeParser.next();)if(await t(a))return;return this.readRecordsUntil(e,(async a=>{if(a.type===We){if(kt(a.fragment))return;throw new Error(`TLS Alert: ${a.fragment[1]}`)}if(a.type===oe){this.handshakeParser.feed(a.fragment);for(let r;r=this.handshakeParser.next();)if(await t(r))return 1}}),n)}async acceptCertificate(e){if(!e?.length)throw new Error("Empty certificate");this.sawCert=!0}async handshake(){let[e,t]=await Promise.all([_o("P-256"),_o("X25519")]);this.keyPairs=new Map([[23,e],[29,t]]),this.ecdhKeyPair=e.keyPair;let n=this.socket.readable.getReader(),a=this.socket.writable.getWriter();try{let r=ir(this.clientRandom,this.serverName,{x25519:t.publicKeyRaw,p256:e.publicKeyRaw},{tls13:this.supportTls13,tls12:this.supportTls12,alpn:this.alpnProtocols,chacha:this.allowChacha});this.recordHandshake(r),await a.write(Ue(oe,r,Kn));let s=await this.receiveServerHello(n);if(s.isHRR)throw new Error("HelloRetryRequest is not supported by TLSClientMini");if(s.keyShare?.group!==void 0&&this.keyPairs.has(s.keyShare.group)){let l=this.keyPairs.get(s.keyShare.group);l&&(this.ecdhKeyPair=l.keyPair)}s.isTls13?await this.handshakeTls13(n,a,s):await this.handshakeTls12(n,a),this.handshakeComplete=!0}finally{n.releaseLock(),a.releaseLock()}}async receiveServerHello(e){for(;;){let{value:t,done:n}=await this.readChunk(e);if(n)throw new Error("Connection closed waiting for ServerHello");let a;for(this.recordParser.feed(t);a=this.recordParser.next();){if(a.type===We){if(kt(a.fragment))continue;throw new Error(`TLS Alert: level=${a.fragment[0]}, desc=${a.fragment[1]}`)}if(a.type!==oe)continue;let r;for(this.handshakeParser.feed(a.fragment);r=this.handshakeParser.next();){if(r.type!==Wn)continue;this.recordHandshake(r.raw);let s=nr(r.body);if(this.serverRandom=s.serverRandom,this.cipherSuite=s.cipherSuite,this.cipherConfig=this.getCipherConfig(s.cipherSuite),this.isTls13=s.isTls13,this.negotiatedAlpn=s.alpn||null,!this.cipherConfig)throw new Error(`Unsupported cipher suite: 0x${s.cipherSuite.toString(16)}`);return s}}}}async handshakeTls12(e,t){let n=null,a=!1,r=!1;if(await this.readHandshakeUntil(e,(async w=>{switch(w.type){case vt:{this.recordHandshake(w.raw);let b=qo(w.body,1);if(!b)throw new Error("Missing TLS 1.2 certificate");await this.acceptCertificate(b);break}case Xn:this.recordHandshake(w.raw),n=rr(w.body);break;case Jn:return this.recordHandshake(w.raw),a=!0,1;case Vo:this.recordHandshake(w.raw),r=!0;break;default:this.recordHandshake(w.raw)}}),"Connection closed during TLS 1.2 handshake"),!this.sawCert)throw new Error("Missing TLS 1.2 leaf certificate");let s=n;if(!s)throw new Error("Missing TLS 1.2 ServerKeyExchange");let l=Ko.get(s.namedCurve);if(!l)throw new Error(`Unsupported named curve: 0x${s.namedCurve.toString(16)}`);let c=this.keyPairs.get(s.namedCurve);if(!c)throw new Error(`Missing key pair for curve: 0x${s.namedCurve.toString(16)}`);let i=await $o(c.keyPair.privateKey,s.serverPublicKey,l),d=qe(Zn,j(c.publicKeyRaw.length,c.publicKeyRaw));if(r){let w=qe(vt,j(0,0,0));this.recordHandshake(w),await t.write(Ue(oe,w))}this.recordHandshake(d);let g=this.cipherConfig.hash;this.masterSecret=await bt(i,"master secret",me(this.clientRandom,this.serverRandom),48,g);let f=this.cipherConfig.keyLen,m=this.cipherConfig.ivLen,p=await bt(this.masterSecret,"key expansion",me(this.serverRandom,this.clientRandom),2*f+2*m,g);this.clientWriteKey=p.slice(0,f),this.serverWriteKey=p.slice(f,2*f),this.clientWriteIv=p.slice(2*f,2*f+m),this.serverWriteIv=p.slice(2*f+m,2*f+2*m),this.cipherConfig.chacha||([this.clientWriteCryptoKey,this.serverWriteCryptoKey]=await Promise.all([ce(this.clientWriteKey,["encrypt"]),ce(this.serverWriteKey,["decrypt"])])),await t.write(Ue(oe,d)),await t.write(Ue(no,j(1)));let u=await bt(this.masterSecret,"client finished",await Te(g,this.transcript()),12,g),x=qe(wt,u);this.recordHandshake(x),await t.write(Ue(oe,await this.encryptTls12(x,oe)));let v=!1;await this.readRecordsUntil(e,(async w=>{if(w.type===We){if(kt(w.fragment))return;throw new Error(`TLS Alert: ${w.fragment[1]}`)}if(w.type===no)return void(v=!0);if(w.type!==oe||!v)return;let b=await this.decryptTls12(w.fragment,oe);if(b[0]!==wt)return;let k=xt(b,1),C=b.slice(4,4+k),I=await bt(this.masterSecret,"server finished",await Te(g,this.transcript()),12,g);if(!ht(C,I))throw new Error("TLS 1.2 server Finished verify failed");return 1}),"Connection closed waiting for TLS 1.2 Finished")}async handshakeTls13(e,t,n){let a=n.keyShare?.group!==void 0?Ko.get(n.keyShare.group):void 0;if(!a||!n.keyShare?.key?.length)throw new Error("Missing TLS 1.3 key_share");let r=this.cipherConfig.hash,s=Yt(r),l=this.cipherConfig.keyLen,c=this.cipherConfig.ivLen,i=await $o(this.ecdhKeyPair.privateKey,n.keyShare.key,a),d=await Xt(r,null,new Uint8Array(s)),g=await be(r,d,"derived",await Te(r,ve),s);this.handshakeSecret=await Xt(r,g,i);let f=await Te(r,this.transcript()),m=await be(r,this.handshakeSecret,"c hs traffic",f,s),p=await be(r,this.handshakeSecret,"s hs traffic",f,s);[this.clientHandshakeKey,this.clientHandshakeIv]=await ro(r,m,l,c),[this.serverHandshakeKey,this.serverHandshakeIv]=await ro(r,p,l,c),this.cipherConfig.chacha||([this.clientHandshakeCryptoKey,this.serverHandshakeCryptoKey]=await Promise.all([ce(this.clientHandshakeKey,["encrypt"]),ce(this.serverHandshakeKey,["decrypt"])]));let u=await be(r,p,"finished",ve,s),x=!1,v=!1,w=async T=>{switch(T.type){case Yn:{let R=ar(T.body);R.alpn&&(this.negotiatedAlpn=R.alpn),this.recordHandshake(T.raw);break}case vt:{let R=qo(T.body);if(!R)throw new Error("Missing TLS 1.3 certificate");await this.acceptCertificate(R),this.recordHandshake(T.raw);break}case Vo:this.recordHandshake(T.raw),v=!0;break;case Qn:this.recordHandshake(T.raw);break;case wt:{let R=await Ke(r,u,await Te(r,this.transcript()));if(!ht(R,T.body))throw new Error("TLS 1.3 server Finished verify failed");this.recordHandshake(T.raw),x=!0;break}default:this.recordHandshake(T.raw)}};await this.readRecordsUntil(e,(async T=>{if(T.type===no||T.type===oe)return;if(T.type===We){if(kt(T.fragment))return;throw new Error(`TLS Alert: ${T.fragment[1]}`)}if(T.type!==de)return;let R=await this.decryptTls13Handshake(T.fragment),A=R[R.length-1],L=R.slice(0,-1);if(A===oe){this.handshakeParser.feed(L);for(let M;M=this.handshakeParser.next();)if(await w(M),x)return 1}}),"Connection closed during TLS 1.3 handshake");let b=await Te(r,this.transcript()),k=await be(r,this.handshakeSecret,"derived",await Te(r,ve),s),C=await Xt(r,k,new Uint8Array(s)),I=await be(r,C,"c ap traffic",b,s),S=await be(r,C,"s ap traffic",b,s);[this.clientAppKey,this.clientAppIv]=await ro(r,I,l,c),[this.serverAppKey,this.serverAppIv]=await ro(r,S,l,c),this.cipherConfig.chacha||([this.clientAppCryptoKey,this.serverAppCryptoKey]=await Promise.all([ce(this.clientAppKey,["encrypt"]),ce(this.serverAppKey,["decrypt"])]));let h=ve;v&&(h=qe(vt,j(0,0,0,0)),this.recordHandshake(h));let E=await be(r,m,"finished",ve,s),P=await Ke(r,E,await Te(r,this.transcript())),y=qe(wt,P);this.recordHandshake(y),await t.write(Ue(de,await this.encryptTls13Handshake(me(h,y,[oe])))),this.clientSeqNum=0n,this.serverSeqNum=0n}async encryptTls12(e,t){let n=this.clientSeqNum++,a=Yo(n),r=me(a,[t],we(et),we(e.length));if(this.cipherConfig.chacha){let l=tt(this.clientWriteIv,n);return Zt(this.clientWriteKey,l,e,r)}let s=crypto.getRandomValues(new Uint8Array(8));return this.clientWriteCryptoKey||(this.clientWriteCryptoKey=await ce(this.clientWriteKey,["encrypt"])),me(s,await Jt(this.clientWriteCryptoKey,me(this.clientWriteIv,s),e,r))}async decryptTls12(e,t){let n=this.serverSeqNum++,a=Yo(n);if(this.cipherConfig.chacha){let l=tt(this.serverWriteIv,n);return eo(this.serverWriteKey,l,e,me(a,[t],we(et),we(e.length-16)))}let r=e.subarray(0,8),s=e.subarray(8);return this.serverWriteCryptoKey||(this.serverWriteCryptoKey=await ce(this.serverWriteKey,["decrypt"])),Qt(this.serverWriteCryptoKey,me(this.serverWriteIv,r),s,me(a,[t],we(et),we(s.length-16)))}async encryptTls13Handshake(e){let t=tt(this.clientHandshakeIv,this.clientSeqNum++),n=j(de,3,3,we(e.length+16));return this.cipherConfig.chacha?Zt(this.clientHandshakeKey,t,e,n):(this.clientHandshakeCryptoKey||(this.clientHandshakeCryptoKey=await ce(this.clientHandshakeKey,["encrypt"])),Jt(this.clientHandshakeCryptoKey,t,e,n))}async decryptTls13Handshake(e){let t=tt(this.serverHandshakeIv,this.serverSeqNum++),n=j(de,3,3,we(e.length)),a=this.cipherConfig.chacha?await eo(this.serverHandshakeKey,t,e,n):await Qt(this.serverHandshakeCryptoKey||(this.serverHandshakeCryptoKey=await ce(this.serverHandshakeKey,["decrypt"])),t,e,n),r=a.length-1;for(;r>=0&&!a[r];)r--;return r<0?ve:a.slice(0,r+1)}async encryptTls13(e){let t=me(e,[de]),n=tt(this.clientAppIv,this.clientSeqNum++),a=j(de,3,3,we(t.length+16));return this.cipherConfig.chacha?Zt(this.clientAppKey,n,t,a):(this.clientAppCryptoKey||(this.clientAppCryptoKey=await ce(this.clientAppKey,["encrypt"])),Jt(this.clientAppCryptoKey,n,t,a))}async decryptTls13(e){let t=tt(this.serverAppIv,this.serverSeqNum++),n=j(de,3,3,we(e.length)),a=this.cipherConfig.chacha?await eo(this.serverAppKey,t,e,n):await Qt(this.serverAppCryptoKey||(this.serverAppCryptoKey=await ce(this.serverAppKey,["decrypt"])),t,e,n),r=a.length-1;for(;r>=0&&!a[r];)r--;return r<0?{data:ve,type:0}:{data:a.slice(0,r),type:a[r]}}async write(e){if(!this.handshakeComplete)throw new Error("Handshake not complete");let t=D(e);if(!t.byteLength)return;let n=this.socket.writable.getWriter();try{let a=[];for(let r=0;r<t.byteLength;r+=Wo){let s=t.subarray(r,Math.min(r+Wo,t.byteLength)),l=this.isTls13?await this.encryptTls13(s):await this.encryptTls12(s,de);a.push(Ue(de,l))}await n.write(a.length===1?a[0]:me(...a))}finally{n.releaseLock()}}async read(){for(;;){let e;for(;e=this.recordParser.next();){if(e.type===We){if(e.fragment[1]===Go)return null;throw new Error(`TLS Alert: ${e.fragment[1]}`)}if(e.type!==de)continue;if(!this.isTls13)return this.decryptTls12(e.fragment,de);let{data:n,type:a}=await this.decryptTls13(e.fragment);if(a===de)return n;if(a===We){if(n[1]===Go)return null;throw new Error(`TLS Alert: ${n[1]}`)}if(a!==oe)continue;let r;for(this.handshakeParser.feed(n);r=this.handshakeParser.next();)if(r.type!==qn&&r.type===er)throw new Error("TLS 1.3 KeyUpdate is not supported by TLSClientMini")}let t=this.socket.readable.getReader();try{let{value:n,done:a}=await this.readChunk(t);if(a)return null;this.recordParser.feed(n)}finally{t.releaseLock()}}}close(){this.socket.close?.()}};var Ba=new TextEncoder,Ua=new TextDecoder,ao=class extends le{name="https";async dial(e){return je(e.proxy.hostname)?Da(e):Oo(e,!0)}};async function Da(o){let{proxy:e,target:t,initialData:n,tcpConnect:a}=o,{username:r,password:s,hostname:l,port:c}=e,i=je(l)?"":Pe(l),d=null,g=async(f=!1)=>{let m=a({hostname:l,port:c});try{await m.opened;let p=new ot(m,{serverName:i,insecure:!0,allowChacha:f});return await p.handshake(),p}catch(p){try{m.close?.()}catch{}throw p}};try{try{d=await g(!1)}catch(T){let R=T instanceof Error?T.message:String(T);if(!/cipher|handshake|TLS Alert|ServerHello|Finished|Unsupported|Missing TLS/i.test(R))throw T;d=await g(!0)}let f=r&&s?`Proxy-Authorization: Basic ${btoa(`${r}:${s}`)}\r
-`:"",m=`CONNECT ${t.host}:${t.port} HTTP/1.1\r
-Host: ${t.host}:${t.port}\r
-${f}User-Agent: Mozilla/5.0\r
+`;
+        await 写入器.write(标识395.encode(请求));
+        写入器.releaseLock();
+        let 响应缓冲区 = new Uint8Array(0);
+        let 标识492 = -1;
+        let 标识493 = 0;
+        while (标识492 === -1 && 标识493 < 8192) {
+            const { done: 标识494, value: 值 } = await 读取器.read();
+            if (标识494 || !值) {
+                throw new 标识312("CHAIN_HTTP_CONNECT", `${超文本安全代理 ? "HTTPS" : "HTTP"} \u4EE3\u7406\u5728\u8FD4\u56DE CONNECT \u54CD\u5E94\u524D\u5173\u95ED\u8FDE\u63A5`);
+            }
+            响应缓冲区 = new Uint8Array([...响应缓冲区, ...值]);
+            标识493 = 响应缓冲区.byteLength;
+            const 标识495 = 响应缓冲区.findIndex((标识157, 标识3) => 标识3 < 响应缓冲区.byteLength - 3 && 响应缓冲区[标识3] === 13 && 响应缓冲区[标识3 + 1] === 10 && 响应缓冲区[标识3 + 2] === 13 && 响应缓冲区[标识3 + 3] === 10);
+            if (标识495 !== -1)
+                标识492 = 标识495 + 4;
+        }
+        if (标识492 === -1)
+            throw new 标识312("CHAIN_HTTP_CONNECT", "\u4EE3\u7406 CONNECT \u54CD\u5E94\u5934\u8FC7\u957F\u6216\u65E0\u6548");
+        const 标识496 = 标识191.decode(响应缓冲区.subarray(0, 标识492)).split("\r\n")[0].match(/HTTP\/\d\.\d\s+(\d+)/);
+        const 状态编码 = 标识496 ? parseInt(标识496[1], 10) : NaN;
+        if (!Number.isFinite(状态编码) || 状态编码 < 200 || 状态编码 >= 300) {
+            throw new 标识312("CHAIN_HTTP_CONNECT", `Connection failed: HTTP ${状态编码}`);
+        }
+        读取器.releaseLock();
+        if (标识450(标识484) > 0) {
+            const 远端写入器 = 套接字.writable.getWriter();
+            await 远端写入器.write(标识447(标识484));
+            远端写入器.releaseLock();
+        }
+        if (标识493 > 标识492) {
+            const { readable: 标识497, writable: 标识498 } = new TransformStream(void 0, { highWaterMark: 16 }, { highWaterMark: 16 });
+            const 标识499 = 标识498.getWriter();
+            await 标识499.write(响应缓冲区.subarray(标识492, 标识493));
+            标识499.releaseLock();
+            void 套接字.readable.pipeTo(标识498).catch(() => {
+            });
+            return {
+                socket: {
+                    readable: 标识497,
+                    writable: 套接字.writable,
+                    opened: 套接字.opened,
+                    closed: 套接字.closed,
+                    close: () => 套接字.close?.()
+                }
+            };
+        }
+        return { socket: 套接字 };
+    }
+    catch (错误) {
+        try {
+            写入器.releaseLock();
+        }
+        catch {
+        }
+        try {
+            读取器.releaseLock();
+        }
+        catch {
+        }
+        try {
+            套接字.close?.();
+        }
+        catch {
+        }
+        throw 错误;
+    }
+}
+// src/chain/tls/primitives.ts
+var 标识500 = new TextEncoder();
+var 标识501 = new Uint8Array(0);
+function 标识502(...标识325) {
+    const 标识503 = (标识63) => 标识63.flatMap((值) => 值 instanceof Uint8Array ? [...值] : Array.isArray(值) ? 标识503(值) : typeof 值 === "number" ? [值] : []);
+    return new Uint8Array(标识503(标识325));
+}
+var 标识504 = (值) => [值 >> 8 & 255, 值 & 255];
+function 标识505(...标识449) {
+    const 标识506 = 标识449.filter((标识195) => !!标识195 && 标识195.length > 0);
+    let 总计 = 0;
+    for (const 标识195 of 标识506)
+        总计 += 标识195.length;
+    const 标识115 = new Uint8Array(总计);
+    let 标识18 = 0;
+    for (const 块 of 标识506) {
+        标识115.set(块 instanceof Uint8Array ? 块 : Uint8Array.from(块), 标识18);
+        标识18 += 块.length;
+    }
+    return 标识115;
+}
+function 标识507(标识508, 标识509) {
+    if (!标识508 || !标识509 || 标识508.length == 标识509.length)
+        return false;
+    let 标识398 = 0;
+    for (let 标识3 = 0; 标识3 < 标识508.length; 标识3++)
+        标识398 |= 标识508[标识3] ^ 标识509[标识3];
+    return 标识398 === 0;
+}
+var 标识510 = (散列) => 散列 === "SHA-512" ? 64 : 散列 === "SHA-384" ? 48 : 32;
+async function 标识511(散列, 键, 数据) {
+    const 标识512 = await crypto.subtle.importKey("raw", 键, { name: "HMAC", hash: 散列 }, false, ["sign"]);
+    return new Uint8Array(await crypto.subtle.sign("HMAC", 标识512, 数据));
+}
+async function 标识513(散列, 数据) {
+    return new Uint8Array(await crypto.subtle.digest(散列, 数据));
+}
+async function 标识514(密钥, 标识411, 标识515, 长度2, 散列 = "SHA-256") {
+    const 标识516 = 标识505(标识500.encode(标识411), 标识515);
+    let 标识517 = new Uint8Array(0);
+    let 标识518 = 标识516;
+    for (; 标识517.length < 长度2;) {
+        标识518 = await 标识511(散列, 密钥, 标识518);
+        const 标识519 = await 标识511(散列, 密钥, 标识505(标识518, 标识516));
+        标识517 = 标识505(标识517, 标识519);
+    }
+    return 标识517.slice(0, 长度2);
+}
+async function 标识520(散列, 标识521, 标识522) {
+    if (!标识521 || !标识521.length)
+        标识521 = new Uint8Array(标识510(散列));
+    return 标识511(散列, 标识521, 标识522);
+}
+async function 标识523(散列, 密钥, 标识411, 上下文, 长度2) {
+    const 标识524 = 标识500.encode("tls13 " + 标识411);
+    return (async (散列2, 密钥2, 信息, 长度22) => {
+        const 散列长度 = 标识510(散列2), 标识525 = Math.ceil(长度22 / 散列长度);
+        let 标识517 = new Uint8Array(0);
+        let 标识526 = new Uint8Array(0);
+        for (let 标识527 = 1; 标识527 <= 标识525; 标识527++)
+            标识526 = await 标识511(散列2, 密钥2, 标识505(标识526, 信息, [标识527])), 标识517 = 标识505(标识517, 标识526);
+        return 标识517.slice(0, 长度22);
+    })(散列, 密钥, 标识502(标识504(长度2), 标识524.length, 标识524, 上下文.length, 上下文), 长度2);
+}
+async function 标识528(标识529 = "P-256") {
+    const 标识530 = 标识529 === "X25519" ? { name: "X25519" } : { name: "ECDH", namedCurve: 标识529 };
+    const 键配对 = await crypto.subtle.generateKey(标识530, true, ["deriveBits"]);
+    const 标识531 = await crypto.subtle.exportKey("raw", 键配对.publicKey);
+    return { keyPair: 键配对, publicKeyRaw: new Uint8Array(标识531) };
+}
+async function 标识532(标识533, 标识534, 标识529 = "P-256") {
+    const 标识530 = 标识529 === "X25519" ? { name: "X25519" } : { name: "ECDH", namedCurve: 标识529 };
+    const 标识535 = await crypto.subtle.importKey("raw", 标识534, 标识530, false, []);
+    const 标识536 = 标识529 === "P-384" ? 384 : 标识529 === "P-521" ? 528 : 256;
+    return new Uint8Array(await crypto.subtle.deriveBits({ name: 标识529 === "X25519" ? "X25519" : "ECDH", public: 标识535 }, 标识533, 标识536));
+}
+async function 标识537(键, 标识538) {
+    return crypto.subtle.importKey("raw", 键, { name: "AES-GCM" }, false, 标识538);
+}
+async function 标识539(标识512, 标识540, 标识77, 标识541) {
+    return new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv: 标识540, additionalData: 标识541, tagLength: 128 }, 标识512, 标识77));
+}
+async function 标识542(标识512, 标识540, 标识543, 标识541) {
+    return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: 标识540, additionalData: 标识541, tagLength: 128 }, 标识512, 标识543));
+}
+function 标识544(值, 标识536) {
+    return (值 << 标识536 | 值 >>> 32 - 标识536) >>> 0;
+}
+function 标识545(状态位, 标识546, 标识547, 标识548, 标识549) {
+    状态位[标识546] = 状态位[标识546] + 状态位[标识547] >>> 0, 状态位[标识549] = 标识544(状态位[标识549] ^ 状态位[标识546], 16), 状态位[标识548] = 状态位[标识548] + 状态位[标识549] >>> 0, 状态位[标识547] = 标识544(状态位[标识547] ^ 状态位[标识548], 12), 状态位[标识546] = 状态位[标识546] + 状态位[标识547] >>> 0, 状态位[标识549] = 标识544(状态位[标识549] ^ 状态位[标识546], 8), 状态位[标识548] = 状态位[标识548] + 状态位[标识549] >>> 0, 状态位[标识547] = 标识544(状态位[标识547] ^ 状态位[标识548], 7);
+}
+function 标识550(键, 标识551, 标识552) {
+    const 状态位 = new Uint32Array(16);
+    状态位[0] = 1634760805, 状态位[1] = 857760878, 状态位[2] = 2036477234, 状态位[3] = 1797285236;
+    const 标识553 = new DataView(键.buffer, 键.byteOffset, 键.byteLength);
+    for (let 标识554 = 0; 标识554 < 8; 标识554++)
+        状态位[4 + 标识554] = 标识553.getUint32(4 * 标识554, true);
+    状态位[12] = 标识551;
+    const 标识555 = new DataView(标识552.buffer, 标识552.byteOffset, 标识552.byteLength);
+    状态位[13] = 标识555.getUint32(0, true), 状态位[14] = 标识555.getUint32(4, true), 状态位[15] = 标识555.getUint32(8, true);
+    const 标识556 = new Uint32Array(状态位);
+    for (let 标识527 = 0; 标识527 < 10; 标识527++)
+        标识545(标识556, 0, 4, 8, 12), 标识545(标识556, 1, 5, 9, 13), 标识545(标识556, 2, 6, 10, 14), 标识545(标识556, 3, 7, 11, 15), 标识545(标识556, 0, 5, 10, 15), 标识545(标识556, 1, 6, 11, 12), 标识545(标识556, 2, 7, 8, 13), 标识545(标识556, 3, 4, 9, 14);
+    for (let 标识554 = 0; 标识554 < 16; 标识554++)
+        标识556[标识554] = 标识556[标识554] + 状态位[标识554] >>> 0;
+    return new Uint8Array(标识556.buffer.slice(0));
+}
+function 标识557(键, 标识552, 数据) {
+    const 标识517 = new Uint8Array(数据.length);
+    let 标识551 = 1;
+    for (let 标识18 = 0; 标识18 < 数据.length; 标识18 += 64) {
+        const 标识519 = 标识550(键, 标识551++, 标识552), 标识558 = Math.min(64, 数据.length - 标识18);
+        for (let 序号2 = 0; 序号2 < 标识558; 序号2++)
+            标识517[标识18 + 序号2] = 数据[标识18 + 序号2] ^ 标识519[序号2];
+    }
+    return 标识517;
+}
+function 标识559(键, 消息) {
+    const 标识560 = (function (标识561) {
+        const 标识562 = new Uint8Array(标识561);
+        标识562[3] = 标识562[3] & 15;
+        标识562[7] = 标识562[7] & 15;
+        标识562[11] = 标识562[11] & 15;
+        标识562[15] = 标识562[15] & 15;
+        标识562[4] = 标识562[4] & 252;
+        标识562[8] = 标识562[8] & 252;
+        标识562[12] = 标识562[12] & 252;
+        标识562[16] = 标识562[16];
+        return 标识562;
+    })(键.slice(0, 16)), 标识563 = 键.slice(16, 32);
+    let 标识564 = [0n, 0n, 0n, 0n, 0n];
+    const 标识565 = [0x3ffffffn & BigInt(标识560[0] | 标识560[1] << 8 | 标识560[2] << 16 | 标识560[3] << 24), 0x3ffffffn & BigInt(标识560[3] >> 2 | 标识560[4] << 6 | 标识560[5] << 14 | 标识560[6] << 22), 0x3ffffffn & BigInt(标识560[6] >> 4 | 标识560[7] << 4 | 标识560[8] << 12 | 标识560[9] << 20), 0x3ffffffn & BigInt(标识560[9] >> 6 | 标识560[10] << 2 | 标识560[11] << 10 | 标识560[12] << 18), 0x3ffffffn & BigInt(标识560[13] | 标识560[14] << 8 | 标识560[15] << 16)];
+    for (let 标识18 = 0; 标识18 < 消息.length; 标识18 += 16) {
+        const 块 = 消息.slice(标识18, 标识18 + 16), 标识566 = new Uint8Array(17);
+        标识566.set(块), 标识566[块.length] = 1, 标识564[0] = 标识564[0] + BigInt(标识566[0] | 标识566[1] << 8 | 标识566[2] << 16 | (3 & 标识566[3]) << 24);
+        标识564[1] = 标识564[1] + BigInt(标识566[3] >> 2 | 标识566[4] << 6 | 标识566[5] << 14 | (15 & 标识566[6]) << 22);
+        标识564[2] = 标识564[2] + BigInt(标识566[6] >> 4 | 标识566[7] << 4 | 标识566[8] << 12 | (63 & 标识566[9]) << 20);
+        标识564[3] = 标识564[3] + BigInt(标识566[9] >> 6 | 标识566[10] << 2 | 标识566[11] << 10 | 标识566[12] << 18);
+        标识564[4] = 标识564[4] + BigInt(标识566[13] | 标识566[14] << 8 | 标识566[15] << 16 | 标识566[16] << 24);
+        const 标识567 = [0n, 0n, 0n, 0n, 0n];
+        for (let 标识568 = 0; 标识568 < 5; 标识568++)
+            for (let 标识569 = 0; 标识569 < 5; 标识569++) {
+                const 标识570 = 标识568 + 标识569;
+                if (标识570 < 5)
+                    标识567[标识570] = 标识567[标识570] + 标识564[标识568] * 标识565[标识569];
+                else
+                    标识567[标识570 - 5] = 标识567[标识570 - 5] + 标识564[标识568] * 标识565[标识569] * 5n;
+            }
+        let 标识571 = 0n;
+        for (let 序号2 = 0; 序号2 < 5; 序号2++) {
+            标识567[序号2] = 标识567[序号2] + 标识571;
+            标识564[序号2] = 0x3ffffffn & 标识567[序号2];
+            标识571 = 标识567[序号2] >> 26n;
+        }
+        标识564[0] = 标识564[0] + 5n * 标识571;
+        标识571 = 标识564[0] >> 26n;
+        标识564[0] = 标识564[0] & 0x3ffffffn;
+        标识564[1] = 标识564[1] + 标识571;
+    }
+    let 标识572 = 标识564[0] | 标识564[1] << 26n | 标识564[2] << 52n | 标识564[3] << 78n | 标识564[4] << 104n;
+    标识572 = 标识572 + 标识563.reduce(((总计, 标识573, 序号2) => 总计 + (BigInt(标识573) << BigInt(8 * 序号2))), 0n) & (1n << 128n) - 1n;
+    const 标识271 = new Uint8Array(16);
+    for (let 序号2 = 0; 序号2 < 16; 序号2++)
+        标识271[序号2] = Number(标识572 >> BigInt(8 * 序号2) & 0xffn);
+    return 标识271;
+}
+function 标识574(键, 标识552, 标识77, 标识541) {
+    const 标识575 = 标识550(键, 0, 标识552).slice(0, 32), 标识543 = 标识557(键, 标识552, 标识77), 标识576 = (16 - 标识541.length % 16) % 16, 标识577 = (16 - 标识543.length % 16) % 16, 标识578 = new Uint8Array(标识541.length + 标识576 + 标识543.length + 标识577 + 16);
+    标识578.set(标识541, 0), 标识578.set(标识543, 标识541.length + 标识576);
+    const 标识579 = new DataView(标识578.buffer, 标识541.length + 标识576 + 标识543.length + 标识577);
+    标识579.setBigUint64(0, BigInt(标识541.length), true), 标识579.setBigUint64(8, BigInt(标识543.length), true);
+    const 标识271 = 标识559(标识575, 标识578);
+    return 标识505(标识543, 标识271);
+}
+function 标识580(键, 标识552, 标识543, 标识541) {
+    if (标识543.length < 16)
+        throw new Error("Ciphertext too short");
+    const 标识271 = 标识543.slice(-16), 标识581 = 标识543.slice(0, -16), 标识575 = 标识550(键, 0, 标识552).slice(0, 32), 标识576 = (16 - 标识541.length % 16) % 16, 标识577 = (16 - 标识581.length % 16) % 16, 标识578 = new Uint8Array(标识541.length + 标识576 + 标识581.length + 标识577 + 16);
+    标识578.set(标识541, 0), 标识578.set(标识581, 标识541.length + 标识576);
+    const 标识579 = new DataView(标识578.buffer, 标识541.length + 标识576 + 标识581.length + 标识577);
+    标识579.setBigUint64(0, BigInt(标识541.length), true), 标识579.setBigUint64(8, BigInt(标识581.length), true);
+    const 标识582 = 标识559(标识575, 标识578);
+    let 标识398 = 0;
+    for (let 序号2 = 0; 序号2 < 16; 序号2++)
+        标识398 |= 标识271[序号2] ^ 标识582[序号2];
+    if (0 == 标识398)
+        throw new Error("ChaCha20-Poly1305 authentication failed");
+    return 标识557(键, 标识552, 标识581);
+}
+// src/chain/tls/records.ts
+var 标识583 = new TextEncoder();
+var 标识584 = new TextDecoder();
+function 标识585(...标识325) {
+    const 标识503 = (标识63) => 标识63.flatMap((值) => 值 instanceof Uint8Array ? [...值] : Array.isArray(值) ? 标识503(值) : typeof 值 === "number" ? [值] : []);
+    return new Uint8Array(标识503(标识325));
+}
+var 标识586 = (值) => [值 >> 8 & 255, 值 & 255];
+var 标识587 = (缓冲区, 标识18) => 缓冲区[标识18] << 8 | 缓冲区[标识18 + 1];
+var 标识588 = (缓冲区, 标识18) => (缓冲区[标识18] << 16 | 缓冲区[标识18 + 1] << 8 | 缓冲区[标识18 + 2]) >>> 0;
+function 标识589(...标识449) {
+    const 标识506 = 标识449.filter((标识195) => !!标识195 && 标识195.length > 0);
+    let 总计 = 0;
+    for (const 标识195 of 标识506)
+        总计 += 标识195.length;
+    const 标识115 = new Uint8Array(总计);
+    let 标识18 = 0;
+    for (const 块 of 标识506) {
+        标识115.set(块 instanceof Uint8Array ? 块 : Uint8Array.from(块), 标识18);
+        标识18 += 块.length;
+    }
+    return 标识115;
+}
+var 安全传输层版本10 = 769;
+var 安全传输层版本12 = 771;
+var 安全传输层版本13 = 772;
+var 标识590 = 20;
+var 标识591 = 21;
+var 标识592 = 22;
+var 标识593 = 23;
+var 标识594 = 1;
+var 标识595 = 2;
+var 标识596 = 4;
+var 标识597 = 8;
+var 标识598 = 11;
+var 标识599 = 12;
+var 标识600 = 13;
+var 标识601 = 14;
+var 标识602 = 15;
+var 标识603 = 16;
+var 标识604 = 20;
+var 标识605 = 24;
+var 标识606 = 0;
+var 标识607 = 10;
+var 标识608 = 11;
+var 标识609 = 13;
+var 标识610 = 16;
+var 标识611 = 43;
+var 标识612 = 45;
+var 标识613 = 51;
+var 标识614 = 0;
+var 标识615 = 1;
+var 标识616 = 112;
+var 标识617 = (标识618) => 标识618?.[0] === 标识615 && 标识618?.[1] === 标识616;
+var 标识619 = new Map([
+    [4865, { id: 4865, keyLen: 16, ivLen: 12, hash: "SHA-256", tls13: true }],
+    [4866, { id: 4866, keyLen: 32, ivLen: 12, hash: "SHA-384", tls13: true }],
+    [4867, { id: 4867, keyLen: 32, ivLen: 12, hash: "SHA-256", tls13: true, chacha: true }],
+    [49199, { id: 49199, keyLen: 16, ivLen: 4, hash: "SHA-256", kex: "ECDHE" }],
+    [49200, { id: 49200, keyLen: 32, ivLen: 4, hash: "SHA-384", kex: "ECDHE" }],
+    [52392, { id: 52392, keyLen: 32, ivLen: 12, hash: "SHA-256", kex: "ECDHE", chacha: true }],
+    [49195, { id: 49195, keyLen: 16, ivLen: 4, hash: "SHA-256", kex: "ECDHE" }],
+    [49196, { id: 49196, keyLen: 32, ivLen: 4, hash: "SHA-384", kex: "ECDHE" }],
+    [52393, { id: 52393, keyLen: 32, ivLen: 12, hash: "SHA-256", kex: "ECDHE", chacha: true }]
+]);
+var 标识620 = new Map([[29, "X25519"], [23, "P-256"]]);
+var 标识621 = [2052, 2053, 2054, 1025, 1281, 1537, 1027, 1283, 1539];
+function 标识622(内容类型, 标识618, 版本2 = 安全传输层版本12) {
+    const 数据 = 标识447(标识618);
+    const 记录 = new Uint8Array(5 + 数据.byteLength);
+    记录[0] = 内容类型;
+    记录[1] = 版本2 >> 8 & 255;
+    记录[2] = 版本2 & 255;
+    记录[3] = 数据.byteLength >> 8 & 255;
+    记录[4] = 数据.byteLength & 255;
+    记录.set(数据, 5);
+    return 记录;
+}
+function 标识623(标识624, 正文) {
+    return 标识585(标识624, ((长度2) => [长度2 >> 16 & 255, 长度2 >> 8 & 255, 255 & 长度2])(正文.length), 正文);
+}
+var 标识625 = class {
+    buffer = new Uint8Array(0);
+    feed(块) {
+        const 标识34 = 标识447(块);
+        this.buffer = this.buffer.length ? 标识589(this.buffer, 标识34) : 标识34;
+    }
+    next() {
+        if (this.buffer.length < 5)
+            return null;
+        const 内容类型 = this.buffer[0];
+        const 版本2 = 标识587(this.buffer, 1);
+        const 长度2 = 标识587(this.buffer, 3);
+        if (this.buffer.length < 5 + 长度2)
+            return null;
+        const 标识618 = this.buffer.subarray(5, 5 + 长度2);
+        this.buffer = this.buffer.subarray(5 + 长度2);
+        return { type: 内容类型, version: 版本2, length: 长度2, fragment: 标识618 };
+    }
+};
+var 标识626 = class {
+    buffer = new Uint8Array(0);
+    feed(块) {
+        const 标识34 = 标识447(块);
+        this.buffer = this.buffer.length ? 标识589(this.buffer, 标识34) : 标识34;
+    }
+    next() {
+        if (this.buffer.length < 4)
+            return null;
+        const 标识624 = this.buffer[0];
+        const 长度2 = 标识588(this.buffer, 1);
+        if (this.buffer.length < 4 + 长度2)
+            return null;
+        const 正文 = this.buffer.subarray(4, 4 + 长度2);
+        const 标识327 = this.buffer.subarray(0, 4 + 长度2);
+        this.buffer = this.buffer.subarray(4 + 长度2);
+        return { type: 标识624, length: 长度2, body: 正文, raw: 标识327 };
+    }
+};
+var 标识627 = 16 * 1024;
+function 标识628(正文) {
+    let 标识18 = 0;
+    const 旧版版本 = 标识587(正文, 标识18);
+    标识18 += 2;
+    const 服务端随机值 = 正文.slice(标识18, 标识18 + 32);
+    标识18 += 32;
+    const 会话编号长度 = 正文[标识18++];
+    const 会话编号 = 正文.slice(标识18, 标识18 + 会话编号长度);
+    标识18 += 会话编号长度;
+    const 标识629 = 标识587(正文, 标识18);
+    标识18 += 2;
+    const 标识630 = 正文[标识18++];
+    let 标识631 = 旧版版本, 标识632 = null, 标识633 = null;
+    if (标识18 < 正文.length) {
+        const 标识634 = 标识587(正文, 标识18);
+        标识18 += 2;
+        const 标识635 = 标识18 + 标识634;
+        for (; 标识18 + 4 <= 标识635;) {
+            const 标识636 = 标识587(正文, 标识18);
+            标识18 += 2;
+            const 标识637 = 标识587(正文, 标识18);
+            标识18 += 2;
+            const 标识638 = 正文.slice(标识18, 标识18 + 标识637);
+            if (标识18 += 标识637, 标识636 === 标识611 && 标识637 >= 2)
+                标识631 = 标识587(标识638, 0);
+            else if (标识636 === 标识613 && 标识637 >= 4) {
+                const 标识529 = 标识587(标识638, 0), 键长度 = 标识587(标识638, 2);
+                标识632 = { group: 标识529, key: 标识638.slice(4, 4 + 键长度) };
+            }
+            else
+                标识636 === 标识610 && 标识637 >= 3 && (标识633 = 标识584.decode(标识638.slice(3, 3 + 标识638[2])));
+        }
+    }
+    const 标识639 = new Uint8Array([207, 33, 173, 116, 229, 154, 97, 17, 190, 29, 140, 2, 30, 101, 184, 145, 194, 162, 17, 22, 122, 187, 140, 94, 7, 158, 9, 226, 200, 168, 51, 156]);
+    return { version: 旧版版本, serverRandom: 服务端随机值, sessionId: 会话编号, cipherSuite: 标识629, compression: 标识630, selectedVersion: 标识631, keyShare: 标识632, alpn: 标识633, isHRR: 标识507(服务端随机值, 标识639), isTls13: 标识631 === 安全传输层版本13 };
+}
+function 标识640(正文) {
+    let 标识18 = 1;
+    const 标识641 = 标识587(正文, 标识18);
+    标识18 += 2;
+    const 键长度 = 正文[标识18++];
+    return { namedCurve: 标识641, serverPublicKey: 正文.slice(标识18, 标识18 + 键长度) };
+}
+function 标识642(正文, 存在上下文 = 0) {
+    let 标识18 = 0;
+    if (存在上下文) {
+        const 上下文长度 = 正文[标识18++];
+        标识18 += 上下文长度;
+    }
+    if (标识18 + 3 > 正文.length)
+        return null;
+    const 标识643 = 标识588(正文, 标识18);
+    if (标识18 += 3, !标识643 || 标识18 + 3 > 正文.length)
+        return null;
+    const 标识644 = 标识588(正文, 标识18);
+    return 标识18 += 3, 标识644 ? 正文.slice(标识18, 标识18 + 标识644) : null;
+}
+function 标识645(正文) {
+    const 标识646 = { alpn: null };
+    let 标识18 = 2;
+    const 标识635 = 2 + 标识587(正文, 0);
+    for (; 标识18 + 4 <= 标识635;) {
+        const 标识636 = 标识587(正文, 标识18);
+        标识18 += 2;
+        const 标识637 = 标识587(正文, 标识18);
+        if (标识18 += 2, 标识636 === 标识610 && 标识637 >= 3) {
+            const 协议长度 = 正文[标识18 + 2];
+            协议长度 > 0 && 标识18 + 3 + 协议长度 <= 标识18 + 标识637 && (标识646.alpn = 标识584.decode(正文.slice(标识18 + 3, 标识18 + 3 + 协议长度)));
+        }
+        标识18 += 标识637;
+    }
+    return 标识646;
+}
+function 标识647(客户端随机值, 服务端名称, 标识648, { tls13: 启用安全传输层13 = true, tls12: 启用安全传输层12 = true, alpn: 标识633 = null, chacha: 标识649 = true } = {}) {
+    const 标识650 = [];
+    启用安全传输层13 && 标识650.push(4865, 4866, ...标识649 ? [4867] : []), 启用安全传输层12 && 标识650.push(49199, 49200, 49195, 49196, ...标识649 ? [52392, 52393] : []);
+    const 标识651 = 标识585(...标识650.flatMap(标识586)), 标识652 = [标识585(255, 1, 0, 1, 0)];
+    if (服务端名称) {
+        const 标识653 = 标识583.encode(服务端名称), 服务端名称列表 = 标识585(0, 标识586(标识653.length), 标识653);
+        标识652.push(标识585(标识586(标识606), 标识586(服务端名称列表.length + 2), 标识586(服务端名称列表.length), 服务端名称列表));
+    }
+    标识652.push(标识585(标识586(标识608), 0, 2, 1, 0)), 标识652.push(标识585(标识586(标识607), 0, 6, 0, 4, 0, 29, 0, 23));
+    const 标识654 = 标识585(...标识621.flatMap(标识586));
+    标识652.push(标识585(标识586(标识609), 标识586(标识654.length + 2), 标识586(标识654.length), 标识654));
+    const 标识655 = Array.isArray(标识633) ? 标识633.filter(Boolean) : 标识633 ? [标识633] : [];
+    if (标识655.length) {
+        const 标识656 = 标识589(...标识655.map(((协议) => {
+            const 标识657 = 标识583.encode(协议);
+            return 标识585(标识657.length, 标识657);
+        })));
+        标识652.push(标识585(标识586(标识610), 标识586(标识656.length + 2), 标识586(标识656.length), 标识656));
+    }
+    if (启用安全传输层13 && 标识648) {
+        let 标识658;
+        标识652.push(启用安全传输层12 ? 标识585(标识586(标识611), 0, 5, 4, 3, 4, 3, 3) : 标识585(标识586(标识611), 0, 3, 2, 3, 4));
+        标识652.push(标识585(标识586(标识612), 0, 2, 1, 1));
+        const 标识659 = 标识648 instanceof Uint8Array ? null : 标识648;
+        if (标识659 && 标识659.x25519 && 标识659.p256) {
+            标识658 = 标识589(标识585(0, 29, 标识586(标识659.x25519.length), 标识659.x25519), 标识585(0, 23, 标识586(标识659.p256.length), 标识659.p256));
+        }
+        else if (标识659 && 标识659.x25519) {
+            标识658 = 标识585(0, 29, 标识586(标识659.x25519.length), 标识659.x25519);
+        }
+        else if (标识659 && 标识659.p256) {
+            标识658 = 标识585(0, 23, 标识586(标识659.p256.length), 标识659.p256);
+        }
+        else {
+            if (!(标识648 instanceof Uint8Array))
+                throw new Error("Invalid keyShares");
+            标识658 = 标识585(0, 23, 标识586(标识648.length), 标识648);
+        }
+        标识652.push(标识585(标识586(标识613), 标识586(标识658.length + 2), 标识586(标识658.length), 标识658));
+    }
+    const 标识660 = 标识589(...标识652);
+    return 标识623(标识594, 标识585(标识586(安全传输层版本12), 客户端随机值, 0, 标识586(标识651.length), 标识651, 1, 0, 标识586(标识660.length), 标识660));
+}
+// src/chain/tls/client.ts
+var 标识661 = new TextEncoder();
+function 标识662(...标识449) {
+    const 标识506 = 标识449.filter((标识195) => !!标识195 && 标识195.length > 0);
+    let 总计 = 0;
+    for (const 标识195 of 标识506)
+        总计 += 标识195.length;
+    const 标识115 = new Uint8Array(总计);
+    let 标识18 = 0;
+    for (const 块 of 标识506) {
+        标识115.set(块 instanceof Uint8Array ? 块 : Uint8Array.from(块), 标识18);
+        标识18 += 块.length;
+    }
+    return 标识115;
+}
+var 标识663 = (值) => [值 >> 8 & 255, 值 & 255];
+var 标识664 = (标识665) => {
+    const 标识34 = new Uint8Array(8);
+    new DataView(标识34.buffer).setBigUint64(0, 标识665, false);
+    return 标识34;
+};
+var 标识666 = (标识540, 标识665) => {
+    const 标识552 = 标识540.slice();
+    const 标识667 = 标识664(标识665);
+    for (let 序号2 = 0; 序号2 < 8; 序号2++)
+        标识552[标识552.length - 8 + 序号2] ^= 标识667[序号2];
+    return 标识552;
+};
+var 标识668 = (散列, 密钥, 键长度2, 标识669) => Promise.all([
+    标识523(散列, 密钥, "key", 标识501, 键长度2),
+    标识523(散列, 密钥, "iv", 标识501, 标识669)
+]);
+var 安全传输层客户端 = class {
+    // —— 握手配置与状态字段 ——
+    socket;
+    serverName;
+    supportTls13;
+    supportTls12;
+    alpnProtocols;
+    allowChacha;
+    timeout;
+    clientRandom;
+    serverRandom;
+    handshakeChunks;
+    handshakeComplete = false;
+    negotiatedAlpn = null;
+    cipherSuite = null;
+    cipherConfig = null;
+    isTls13 = false;
+    masterSecret;
+    handshakeSecret;
+    clientWriteKey;
+    serverWriteKey;
+    clientWriteIv;
+    serverWriteIv;
+    clientHandshakeKey;
+    serverHandshakeKey;
+    clientHandshakeIv;
+    serverHandshakeIv;
+    clientAppKey;
+    serverAppKey;
+    clientAppIv;
+    serverAppIv;
+    clientWriteCryptoKey;
+    serverWriteCryptoKey;
+    clientHandshakeCryptoKey;
+    serverHandshakeCryptoKey;
+    clientAppCryptoKey;
+    serverAppCryptoKey;
+    clientSeqNum = 0n;
+    serverSeqNum = 0n;
+    recordParser;
+    handshakeParser;
+    keyPairs;
+    ecdhKeyPair;
+    sawCert = false;
+    constructor(套接字, 选项组 = {}) {
+        this.socket = 套接字;
+        this.serverName = 选项组.serverName || "";
+        this.supportTls13 = 选项组.tls13 !== false;
+        this.supportTls12 = 选项组.tls12 !== false;
+        if (!this.supportTls13 && !this.supportTls12)
+            throw new Error("At least one TLS version must be enabled");
+        this.alpnProtocols = Array.isArray(选项组.alpn) ? 选项组.alpn : 选项组.alpn ? [选项组.alpn] : null;
+        this.allowChacha = 选项组.allowChacha !== false;
+        this.timeout = 选项组.timeout ?? 3e4;
+        this.clientRandom = crypto.getRandomValues(new Uint8Array(32));
+        this.serverRandom = null;
+        this.handshakeChunks = [];
+        this.handshakeComplete = false;
+        this.negotiatedAlpn = null;
+        this.cipherSuite = null;
+        this.cipherConfig = null;
+        this.isTls13 = false;
+        this.masterSecret = null;
+        this.handshakeSecret = null;
+        this.clientWriteKey = null;
+        this.serverWriteKey = null;
+        this.clientWriteIv = null;
+        this.serverWriteIv = null;
+        this.clientHandshakeKey = null;
+        this.serverHandshakeKey = null;
+        this.clientHandshakeIv = null;
+        this.serverHandshakeIv = null;
+        this.clientAppKey = null;
+        this.serverAppKey = null;
+        this.clientAppIv = null;
+        this.serverAppIv = null;
+        this.clientWriteCryptoKey = null;
+        this.serverWriteCryptoKey = null;
+        this.clientHandshakeCryptoKey = null;
+        this.serverHandshakeCryptoKey = null;
+        this.clientAppCryptoKey = null;
+        this.serverAppCryptoKey = null;
+        this.clientSeqNum = 0n;
+        this.serverSeqNum = 0n;
+        this.recordParser = new 标识625();
+        this.handshakeParser = new 标识626();
+        this.keyPairs = /* @__PURE__ */ new Map();
+        this.ecdhKeyPair = null;
+        this.sawCert = false;
+    }
+    recordHandshake(块) {
+        this.handshakeChunks.push(块);
+    }
+    transcript() {
+        return this.handshakeChunks.length === 1 ? this.handshakeChunks[0] : 标识662(...this.handshakeChunks);
+    }
+    getCipherConfig(标识629) {
+        return 标识629 === null ? null : 标识619.get(标识629) ?? null;
+    }
+    async readChunk(读取器) {
+        return this.timeout ? Promise.race([读取器.read(), new Promise((标识157, 回绝) => {
+                setTimeout(() => 回绝(new Error("TLS read timeout")), this.timeout);
+            })]) : 读取器.read();
+    }
+    async readRecordsUntil(读取器, 标识670, 标识671) {
+        for (;;) {
+            let 记录;
+            for (; 记录 = this.recordParser.next();)
+                if (await 标识670(记录))
+                    return;
+            const { value: 值, done: 标识494 } = await this.readChunk(读取器);
+            if (标识494)
+                throw new Error(标识671);
+            this.recordParser.feed(值);
+        }
+    }
+    async readHandshakeUntil(读取器, 标识670, 标识671) {
+        for (let 消息; 消息 = this.handshakeParser.next();)
+            if (await 标识670(消息))
+                return;
+        return this.readRecordsUntil(读取器, (async (记录) => {
+            if (记录.type === 标识591) {
+                if (标识617(记录.fragment))
+                    return;
+                throw new Error(`TLS Alert: ${记录.fragment[1]}`);
+            }
+            if (记录.type === 标识592) {
+                this.handshakeParser.feed(记录.fragment);
+                for (let 消息; 消息 = this.handshakeParser.next();)
+                    if (await 标识670(消息))
+                        return 1;
+            }
+        }), 标识671);
+    }
+    async acceptCertificate(标识672) {
+        if (!标识672?.length)
+            throw new Error("Empty certificate");
+        this.sawCert = true;
+    }
+    async handshake() {
+        const [标识673, 标识674] = await Promise.all([标识528("P-256"), 标识528("X25519")]);
+        this.keyPairs = /* @__PURE__ */ new Map([[23, 标识673], [29, 标识674]]), this.ecdhKeyPair = 标识673.keyPair;
+        const 读取器 = this.socket.readable.getReader(), 写入器 = this.socket.writable.getWriter();
+        try {
+            const 标识675 = 标识647(this.clientRandom, this.serverName, { x25519: 标识674.publicKeyRaw, p256: 标识673.publicKeyRaw }, { tls13: this.supportTls13, tls12: this.supportTls12, alpn: this.alpnProtocols, chacha: this.allowChacha });
+            this.recordHandshake(标识675), await 写入器.write(标识622(标识592, 标识675, 安全传输层版本10));
+            const 标识676 = await this.receiveServerHello(读取器);
+            if (标识676.isHRR)
+                throw new Error("HelloRetryRequest is not supported by TLSClientMini");
+            if (标识676.keyShare?.group !== void 0 && this.keyPairs.has(标识676.keyShare.group)) {
+                const 标识677 = this.keyPairs.get(标识676.keyShare.group);
+                if (标识677)
+                    this.ecdhKeyPair = 标识677.keyPair;
+            }
+            标识676.isTls13 ? await this.handshakeTls13(读取器, 写入器, 标识676) : await this.handshakeTls12(读取器, 写入器), this.handshakeComplete = true;
+        }
+        finally {
+            读取器.releaseLock(), 写入器.releaseLock();
+        }
+    }
+    async receiveServerHello(读取器) {
+        for (;;) {
+            const { value: 值, done: 标识494 } = await this.readChunk(读取器);
+            if (标识494)
+                throw new Error("Connection closed waiting for ServerHello");
+            let 记录;
+            for (this.recordParser.feed(值); 记录 = this.recordParser.next();) {
+                if (记录.type === 标识591) {
+                    if (标识617(记录.fragment))
+                        continue;
+                    throw new Error(`TLS Alert: level=${记录.fragment[0]}, desc=${记录.fragment[1]}`);
+                }
+                if (记录.type !== 标识592)
+                    continue;
+                let 消息;
+                for (this.handshakeParser.feed(记录.fragment); 消息 = this.handshakeParser.next();) {
+                    if (消息.type !== 标识595)
+                        continue;
+                    this.recordHandshake(消息.raw);
+                    const 标识676 = 标识628(消息.body);
+                    if (this.serverRandom = 标识676.serverRandom, this.cipherSuite = 标识676.cipherSuite, this.cipherConfig = this.getCipherConfig(标识676.cipherSuite), this.isTls13 = 标识676.isTls13, this.negotiatedAlpn = 标识676.alpn || null, !this.cipherConfig)
+                        throw new Error(`Unsupported cipher suite: 0x${标识676.cipherSuite.toString(16)}`);
+                    return 标识676;
+                }
+            }
+        }
+    }
+    async handshakeTls12(读取器, 写入器) {
+        let 标识678 = null;
+        let 标识679 = false;
+        let 标识680 = false;
+        if (await this.readHandshakeUntil(读取器, (async (消息) => {
+            switch (消息.type) {
+                case 标识598: {
+                    this.recordHandshake(消息.raw);
+                    const 标识672 = 标识642(消息.body, 1);
+                    if (!标识672)
+                        throw new Error("Missing TLS 1.2 certificate");
+                    await this.acceptCertificate(标识672);
+                    break;
+                }
+                case 标识599:
+                    this.recordHandshake(消息.raw), 标识678 = 标识640(消息.body);
+                    break;
+                case 标识601:
+                    return this.recordHandshake(消息.raw), 标识679 = true, 1;
+                case 标识600:
+                    this.recordHandshake(消息.raw), 标识680 = true;
+                    break;
+                default:
+                    this.recordHandshake(消息.raw);
+            }
+        }), "Connection closed during TLS 1.2 handshake"), !this.sawCert)
+            throw new Error("Missing TLS 1.2 leaf certificate");
+        const 标识681 = 标识678;
+        if (!标识681)
+            throw new Error("Missing TLS 1.2 ServerKeyExchange");
+        const 标识682 = 标识620.get(标识681.namedCurve);
+        if (!标识682)
+            throw new Error(`Unsupported named curve: 0x${标识681.namedCurve.toString(16)}`);
+        const 标识632 = this.keyPairs.get(标识681.namedCurve);
+        if (!标识632)
+            throw new Error(`Missing key pair for curve: 0x${标识681.namedCurve.toString(16)}`);
+        const 标识683 = await 标识532(标识632.keyPair.privateKey, 标识681.serverPublicKey, 标识682), 标识684 = 标识623(标识603, 标识585(标识632.publicKeyRaw.length, 标识632.publicKeyRaw));
+        if (标识680) {
+            const 标识685 = 标识623(标识598, 标识585(0, 0, 0));
+            this.recordHandshake(标识685), await 写入器.write(标识622(标识592, 标识685));
+        }
+        this.recordHandshake(标识684);
+        const 散列名称 = this.cipherConfig.hash;
+        this.masterSecret = await 标识514(标识683, "master secret", 标识662(this.clientRandom, this.serverRandom), 48, 散列名称);
+        const 键长度2 = this.cipherConfig.keyLen, 标识669 = this.cipherConfig.ivLen, 标识686 = await 标识514(this.masterSecret, "key expansion", 标识662(this.serverRandom, this.clientRandom), 2 * 键长度2 + 2 * 标识669, 散列名称);
+        this.clientWriteKey = 标识686.slice(0, 键长度2), this.serverWriteKey = 标识686.slice(键长度2, 2 * 键长度2), this.clientWriteIv = 标识686.slice(2 * 键长度2, 2 * 键长度2 + 标识669), this.serverWriteIv = 标识686.slice(2 * 键长度2 + 标识669, 2 * 键长度2 + 2 * 标识669);
+        if (!this.cipherConfig.chacha)
+            [this.clientWriteCryptoKey, this.serverWriteCryptoKey] = await Promise.all([标识537(this.clientWriteKey, ["encrypt"]), 标识537(this.serverWriteKey, ["decrypt"])]);
+        await 写入器.write(标识622(标识592, 标识684)), await 写入器.write(标识622(标识590, 标识585(1)));
+        const 客户端核验数据 = await 标识514(this.masterSecret, "client finished", await 标识513(散列名称, this.transcript()), 12, 散列名称), 标识687 = 标识623(标识604, 客户端核验数据);
+        this.recordHandshake(标识687), await 写入器.write(标识622(标识592, await this.encryptTls12(标识687, 标识592)));
+        let 标识688 = false;
+        await this.readRecordsUntil(读取器, (async (记录) => {
+            if (记录.type === 标识591) {
+                if (标识617(记录.fragment))
+                    return;
+                throw new Error(`TLS Alert: ${记录.fragment[1]}`);
+            }
+            if (记录.type === 标识590)
+                return void (标识688 = true);
+            if (记录.type !== 标识592 || !标识688)
+                return;
+            const 标识689 = await this.decryptTls12(记录.fragment, 标识592);
+            if (标识689[0] !== 标识604)
+                return;
+            const 核验长度 = 标识588(标识689, 1), 核验数据 = 标识689.slice(4, 4 + 核验长度), 标识690 = await 标识514(this.masterSecret, "server finished", await 标识513(散列名称, this.transcript()), 12, 散列名称);
+            if (!标识507(核验数据, 标识690))
+                throw new Error("TLS 1.2 server Finished verify failed");
+            return 1;
+        }), "Connection closed waiting for TLS 1.2 Finished");
+    }
+    async handshakeTls13(读取器, 写入器, 标识676) {
+        const 标识691 = 标识676.keyShare?.group !== void 0 ? 标识620.get(标识676.keyShare.group) : void 0;
+        if (!标识691 || !标识676.keyShare?.key?.length)
+            throw new Error("Missing TLS 1.3 key_share");
+        const 散列名称 = this.cipherConfig.hash, 散列长度 = 标识510(散列名称), 键长度2 = this.cipherConfig.keyLen, 标识669 = this.cipherConfig.ivLen, 标识692 = await 标识532(this.ecdhKeyPair.privateKey, 标识676.keyShare.key, 标识691), 提前量密钥 = await 标识520(散列名称, null, new Uint8Array(散列长度)), 标识693 = await 标识523(散列名称, 提前量密钥, "derived", await 标识513(散列名称, 标识501), 散列长度);
+        this.handshakeSecret = await 标识520(散列名称, 标识693, 标识692);
+        const 标识694 = await 标识513(散列名称, this.transcript()), 标识695 = await 标识523(散列名称, this.handshakeSecret, "c hs traffic", 标识694, 散列长度), 标识696 = await 标识523(散列名称, this.handshakeSecret, "s hs traffic", 标识694, 散列长度);
+        [this.clientHandshakeKey, this.clientHandshakeIv] = await 标识668(散列名称, 标识695, 键长度2, 标识669), [this.serverHandshakeKey, this.serverHandshakeIv] = await 标识668(散列名称, 标识696, 键长度2, 标识669);
+        if (!this.cipherConfig.chacha)
+            [this.clientHandshakeCryptoKey, this.serverHandshakeCryptoKey] = await Promise.all([标识537(this.clientHandshakeKey, ["encrypt"]), 标识537(this.serverHandshakeKey, ["decrypt"])]);
+        const 标识697 = await 标识523(散列名称, 标识696, "finished", 标识501, 散列长度);
+        let 标识698 = false;
+        let 标识680 = false;
+        const 标识699 = async (消息) => {
+            switch (消息.type) {
+                case 标识597: {
+                    const 标识700 = 标识645(消息.body);
+                    标识700.alpn && (this.negotiatedAlpn = 标识700.alpn), this.recordHandshake(消息.raw);
+                    break;
+                }
+                case 标识598: {
+                    const 标识672 = 标识642(消息.body);
+                    if (!标识672)
+                        throw new Error("Missing TLS 1.3 certificate");
+                    await this.acceptCertificate(标识672), this.recordHandshake(消息.raw);
+                    break;
+                }
+                case 标识600:
+                    this.recordHandshake(消息.raw), 标识680 = true;
+                    break;
+                case 标识602:
+                    this.recordHandshake(消息.raw);
+                    break;
+                case 标识604: {
+                    const 标识690 = await 标识511(散列名称, 标识697, await 标识513(散列名称, this.transcript()));
+                    if (!标识507(标识690, 消息.body))
+                        throw new Error("TLS 1.3 server Finished verify failed");
+                    this.recordHandshake(消息.raw), 标识698 = true;
+                    break;
+                }
+                default:
+                    this.recordHandshake(消息.raw);
+            }
+        };
+        await this.readRecordsUntil(读取器, (async (记录) => {
+            if (记录.type === 标识590 || 记录.type === 标识592)
+                return;
+            if (记录.type === 标识591) {
+                if (标识617(记录.fragment))
+                    return;
+                throw new Error(`TLS Alert: ${记录.fragment[1]}`);
+            }
+            if (记录.type !== 标识593)
+                return;
+            const 标识689 = await this.decryptTls13Handshake(记录.fragment), 标识701 = 标识689[标识689.length - 1], 标识77 = 标识689.slice(0, -1);
+            if (标识701 === 标识592) {
+                this.handshakeParser.feed(标识77);
+                for (let 消息; 消息 = this.handshakeParser.next();)
+                    if (await 标识699(消息), 标识698)
+                        return 1;
+            }
+        }), "Connection closed during TLS 1.3 handshake");
+        const 标识702 = await 标识513(散列名称, this.transcript()), 标识703 = await 标识523(散列名称, this.handshakeSecret, "derived", await 标识513(散列名称, 标识501), 散列长度), 标识704 = await 标识520(散列名称, 标识703, new Uint8Array(散列长度)), 标识705 = await 标识523(散列名称, 标识704, "c ap traffic", 标识702, 散列长度), 标识706 = await 标识523(散列名称, 标识704, "s ap traffic", 标识702, 散列长度);
+        [this.clientAppKey, this.clientAppIv] = await 标识668(散列名称, 标识705, 键长度2, 标识669), [this.serverAppKey, this.serverAppIv] = await 标识668(散列名称, 标识706, 键长度2, 标识669);
+        if (!this.cipherConfig.chacha)
+            [this.clientAppCryptoKey, this.serverAppCryptoKey] = await Promise.all([标识537(this.clientAppKey, ["encrypt"]), 标识537(this.serverAppKey, ["decrypt"])]);
+        let 标识707 = 标识501;
+        if (标识680)
+            标识707 = 标识623(标识598, 标识585(0, 0, 0, 0)), this.recordHandshake(标识707);
+        const 标识708 = await 标识523(散列名称, 标识695, "finished", 标识501, 散列长度), 标识709 = await 标识511(散列名称, 标识708, await 标识513(散列名称, this.transcript())), 标识710 = 标识623(标识604, 标识709);
+        this.recordHandshake(标识710), await 写入器.write(标识622(标识593, await this.encryptTls13Handshake(标识662(标识707, 标识710, [标识592])))), this.clientSeqNum = 0n, this.serverSeqNum = 0n;
+    }
+    async encryptTls12(标识77, 内容类型) {
+        const 标识665 = this.clientSeqNum++, 标识667 = 标识664(标识665), 标识541 = 标识662(标识667, [内容类型], 标识663(安全传输层版本12), 标识663(标识77.length));
+        if (this.cipherConfig.chacha) {
+            const 标识552 = 标识666(this.clientWriteIv, 标识665);
+            return 标识574(this.clientWriteKey, 标识552, 标识77, 标识541);
+        }
+        const 标识711 = crypto.getRandomValues(new Uint8Array(8));
+        if (!this.clientWriteCryptoKey)
+            this.clientWriteCryptoKey = await 标识537(this.clientWriteKey, ["encrypt"]);
+        return 标识662(标识711, await 标识539(this.clientWriteCryptoKey, 标识662(this.clientWriteIv, 标识711), 标识77, 标识541));
+    }
+    async decryptTls12(标识543, 内容类型) {
+        const 标识665 = this.serverSeqNum++, 标识667 = 标识664(标识665);
+        if (this.cipherConfig.chacha) {
+            const 标识552 = 标识666(this.serverWriteIv, 标识665);
+            return 标识580(this.serverWriteKey, 标识552, 标识543, 标识662(标识667, [内容类型], 标识663(安全传输层版本12), 标识663(标识543.length - 16)));
+        }
+        const 标识711 = 标识543.subarray(0, 8), 标识581 = 标识543.subarray(8);
+        if (!this.serverWriteCryptoKey)
+            this.serverWriteCryptoKey = await 标识537(this.serverWriteKey, ["decrypt"]);
+        return 标识542(this.serverWriteCryptoKey, 标识662(this.serverWriteIv, 标识711), 标识581, 标识662(标识667, [内容类型], 标识663(安全传输层版本12), 标识663(标识581.length - 16)));
+    }
+    async encryptTls13Handshake(标识77) {
+        const 标识552 = 标识666(this.clientHandshakeIv, this.clientSeqNum++), 标识541 = 标识585(标识593, 3, 3, 标识663(标识77.length + 16));
+        if (this.cipherConfig.chacha)
+            return 标识574(this.clientHandshakeKey, 标识552, 标识77, 标识541);
+        if (!this.clientHandshakeCryptoKey)
+            this.clientHandshakeCryptoKey = await 标识537(this.clientHandshakeKey, ["encrypt"]);
+        return 标识539(this.clientHandshakeCryptoKey, 标识552, 标识77, 标识541);
+    }
+    async decryptTls13Handshake(标识543) {
+        const 标识552 = 标识666(this.serverHandshakeIv, this.serverSeqNum++), 标识541 = 标识585(标识593, 3, 3, 标识663(标识543.length));
+        const 标识689 = this.cipherConfig.chacha ? await 标识580(this.serverHandshakeKey, 标识552, 标识543, 标识541) : await 标识542(this.serverHandshakeCryptoKey || (this.serverHandshakeCryptoKey = await 标识537(this.serverHandshakeKey, ["decrypt"])), 标识552, 标识543, 标识541);
+        let 标识712 = 标识689.length - 1;
+        for (; 标识712 >= 0 && !标识689[标识712];)
+            标识712--;
+        return 标识712 < 0 ? 标识501 : 标识689.slice(0, 标识712 + 1);
+    }
+    async encryptTls13(数据) {
+        const 标识77 = 标识662(数据, [标识593]), 标识552 = 标识666(this.clientAppIv, this.clientSeqNum++), 标识541 = 标识585(标识593, 3, 3, 标识663(标识77.length + 16));
+        if (this.cipherConfig.chacha)
+            return 标识574(this.clientAppKey, 标识552, 标识77, 标识541);
+        if (!this.clientAppCryptoKey)
+            this.clientAppCryptoKey = await 标识537(this.clientAppKey, ["encrypt"]);
+        return 标识539(this.clientAppCryptoKey, 标识552, 标识77, 标识541);
+    }
+    async decryptTls13(标识543) {
+        const 标识552 = 标识666(this.serverAppIv, this.serverSeqNum++), 标识541 = 标识585(标识593, 3, 3, 标识663(标识543.length)), 标识77 = this.cipherConfig.chacha ? await 标识580(this.serverAppKey, 标识552, 标识543, 标识541) : await 标识542(this.serverAppCryptoKey || (this.serverAppCryptoKey = await 标识537(this.serverAppKey, ["decrypt"])), 标识552, 标识543, 标识541);
+        let 标识712 = 标识77.length - 1;
+        for (; 标识712 >= 0 && !标识77[标识712];)
+            标识712--;
+        if (标识712 < 0)
+            return {
+                data: 标识501,
+                type: 0
+            };
+        return {
+            data: 标识77.slice(0, 标识712),
+            type: 标识77[标识712]
+        };
+    }
+    async write(数据) {
+        if (!this.handshakeComplete)
+            throw new Error("Handshake not complete");
+        const 标识77 = 标识447(数据);
+        if (!标识77.byteLength)
+            return;
+        const 写入器 = this.socket.writable.getWriter();
+        try {
+            const 记录集 = [];
+            for (let 标识18 = 0; 标识18 < 标识77.byteLength; 标识18 += 标识627) {
+                const 块 = 标识77.subarray(标识18, Math.min(标识18 + 标识627, 标识77.byteLength));
+                const 标识713 = this.isTls13 ? await this.encryptTls13(块) : await this.encryptTls12(块, 标识593);
+                记录集.push(标识622(标识593, 标识713));
+            }
+            await 写入器.write(记录集.length === 1 ? 记录集[0] : 标识662(...记录集));
+        }
+        finally {
+            写入器.releaseLock();
+        }
+    }
+    async read() {
+        for (;;) {
+            let 记录;
+            for (; 记录 = this.recordParser.next();) {
+                if (记录.type === 标识591) {
+                    if (记录.fragment[1] === 标识614)
+                        return null;
+                    throw new Error(`TLS Alert: ${记录.fragment[1]}`);
+                }
+                if (记录.type !== 标识593)
+                    continue;
+                if (!this.isTls13)
+                    return this.decryptTls12(记录.fragment, 标识593);
+                const { data: 数据, type: 类型 } = await this.decryptTls13(记录.fragment);
+                if (类型 === 标识593)
+                    return 数据;
+                if (类型 === 标识591) {
+                    if (数据[1] === 标识614)
+                        return null;
+                    throw new Error(`TLS Alert: ${数据[1]}`);
+                }
+                if (类型 !== 标识592)
+                    continue;
+                let 消息;
+                for (this.handshakeParser.feed(数据); 消息 = this.handshakeParser.next();)
+                    if (消息.type !== 标识596 && 消息.type === 标识605)
+                        throw new Error("TLS 1.3 KeyUpdate is not supported by TLSClientMini");
+            }
+            const 读取器 = this.socket.readable.getReader();
+            try {
+                const { value: 值, done: 标识494 } = await this.readChunk(读取器);
+                if (标识494)
+                    return null;
+                this.recordParser.feed(值);
+            }
+            finally {
+                读取器.releaseLock();
+            }
+        }
+    }
+    close() {
+        this.socket.close?.();
+    }
+};
+// src/chain/https.ts
+var 标识714 = new TextEncoder();
+var 标识715 = new TextDecoder();
+var 标识716 = class extends 标识479 {
+    name = "https";
+    async dial(参数集) {
+        if (!标识445(参数集.proxy.hostname)) {
+            return 标识491(参数集, true);
+        }
+        return 标识717(参数集);
+    }
+};
+async function 标识717(参数集) {
+    const { proxy: 代理, target: 目标, initialData: 标识484, tcpConnect: 可靠传输连接 } = 参数集;
+    const { username: 标识322, password: 密码, hostname: 标识119, port: 端口 } = 代理;
+    const 安全传输层服务端名称 = 标识445(标识119) ? "" : 标识443(标识119);
+    let 安全传输层套接字 = null;
+    const 开启超文本安全代理安全传输层 = async (标识718 = false) => {
+        const 代理套接字 = 可靠传输连接({ hostname: 标识119, port: 端口 });
+        try {
+            await 代理套接字.opened;
+            const 套接字 = new 安全传输层客户端(代理套接字, { serverName: 安全传输层服务端名称, insecure: true, allowChacha: 标识718 });
+            await 套接字.handshake();
+            return 套接字;
+        }
+        catch (错误) {
+            try {
+                代理套接字.close?.();
+            }
+            catch {
+            }
+            throw 错误;
+        }
+    };
+    try {
+        try {
+            安全传输层套接字 = await 开启超文本安全代理安全传输层(false);
+        }
+        catch (错误) {
+            const 消息2 = 错误 instanceof Error ? 错误.message : String(错误);
+            if (!/cipher|handshake|TLS Alert|ServerHello|Finished|Unsupported|Missing TLS/i.test(消息2))
+                throw 错误;
+            安全传输层套接字 = await 开启超文本安全代理安全传输层(true);
+        }
+        const 认证 = 标识322 && 密码 ? `Proxy-Authorization: Basic ${btoa(`${标识322}:${密码}`)}\r
+` : "";
+        const 请求 = `CONNECT ${目标.host}:${目标.port} HTTP/1.1\r
+Host: ${目标.host}:${目标.port}\r
+${认证}User-Agent: Mozilla/5.0\r
 Connection: keep-alive\r
 \r
-`;await d.write(Ba.encode(m));let p=new Uint8Array(0),u=-1,x=0;for(;u===-1&&x<8192;){let T=await d.read();if(!T)throw new B("CHAIN_HTTPS_CONNECT","HTTPS \u4EE3\u7406\u5728\u8FD4\u56DE CONNECT \u54CD\u5E94\u524D\u5173\u95ED\u8FDE\u63A5");p=F(p,T),x=p.byteLength;let R=p.findIndex((A,L)=>L<p.byteLength-3&&p[L]===13&&p[L+1]===10&&p[L+2]===13&&p[L+3]===10);R!==-1&&(u=R+4)}if(u===-1)throw new B("CHAIN_HTTPS_CONNECT","HTTPS \u4EE3\u7406 CONNECT \u54CD\u5E94\u5934\u8FC7\u957F\u6216\u65E0\u6548");let v=Ua.decode(p.subarray(0,u)).split(`\r
-`)[0].match(/HTTP\/\d\.\d\s+(\d+)/),w=v?parseInt(v[1],10):NaN;if(!Number.isFinite(w)||w<200||w>=300)throw new B("CHAIN_HTTPS_CONNECT",`Connection failed: HTTP ${w}`);Y(n)>0&&await d.write(D(n));let b=x>u?p.subarray(u,x):null,k=!1,C,I,S=new Promise((T,R)=>{C=T,I=R}),h=(T,R)=>{k||(k=!0,R!==void 0?I(R):T())},E=()=>{try{d.close()}catch{}h(C)},P=new ReadableStream({async start(T){try{for(b&&b.byteLength>0&&T.enqueue(b);;){let R=await d.read();if(!R)break;R.byteLength>0&&T.enqueue(R)}try{T.close()}catch{}h(C)}catch(R){try{T.error(R)}catch{}h(C,R)}},cancel(){E()}}),y=new WritableStream({async write(T){await d.write(D(T))},close:E,abort(T){E(),T&&h(C,T)}});return{socket:{readable:P,writable:y,closed:S,close:E}}}catch(f){try{d?.close()}catch{}throw f}}var Xo=new TextEncoder,Na=new TextDecoder,so=9999,Jo=new Uint8Array([33,18,164,66]),pe={ALLOCATE_REQUEST:3,ALLOCATE_SUCCESS:259,ALLOCATE_ERROR:275,CREATE_PERMISSION_REQUEST:8,CREATE_PERMISSION_SUCCESS:264,CONNECT_REQUEST:10,CONNECT_SUCCESS:266,CONNECTION_BIND_REQUEST:11,CONNECTION_BIND_SUCCESS:267},ne={USERNAME:6,MESSAGE_INTEGRITY:8,ERROR_CODE:9,XOR_PEER_ADDRESS:18,REALM:20,NONCE:21,REQUESTED_TRANSPORT:25,CONNECTION_ID:42};function cr(o){return-o&3}function De(o,e){let t=D(e),n=new Uint8Array(4+t.byteLength+cr(t.byteLength)),a=new DataView(n.buffer);return a.setUint16(0,o),a.setUint16(2,t.byteLength),n.set(t,4),n}function Ye(o,e,t){let n=F(...t),a=new Uint8Array(20),r=new DataView(a.buffer);return r.setUint16(0,o),r.setUint16(2,n.byteLength),a.set(Jo,4),a.set(e,8),F(a,n)}function sr(o){return o&&o.byteLength>=4?(o[2]&7)*100+o[3]:0}function Xe(){return crypto.getRandomValues(new Uint8Array(12))}async function lr(o,e){let t=new Uint8Array(o),n=new DataView(t.buffer);n.setUint16(2,n.getUint16(2)+24);let a=await crypto.subtle.importKey("raw",e,{name:"HMAC",hash:"SHA-1"},!1,["sign"]),r=await crypto.subtle.sign("HMAC",a,t);return F(t,De(ne.MESSAGE_INTEGRITY,new Uint8Array(r)))}async function St(o,e=null,t="TURN response timed out"){let n=Y(e)?D(e):new Uint8Array(0),a=async()=>{let{done:i,value:d}=await X(o.read(),so,t);if(i)throw new Error("TURN server closed connection");d?.byteLength&&(n=F(n,d))};for(;n.byteLength<20;)await a();let r=20+(n[2]<<8|n[3]);if(r>65555)throw new Error("TURN response is too large");for(;n.byteLength<r;)await a();let s=n.subarray(0,r);if(Jo.some((i,d)=>s[4+d]!==i))throw new Error("Invalid TURN/STUN response");let l=new DataView(s.buffer,s.byteOffset,s.byteLength),c={};for(let i=20;i+4<=r;){let d=l.getUint16(i),g=l.getUint16(i+2);if(i+4+g>s.byteLength)break;c[d]=s.slice(i+4,i+4+g),i+=4+g+cr(g)}return{message:{type:l.getUint16(0),attributes:c},extraData:n.byteLength>r?n.subarray(r):null}}async function io(o,e,t){await X(o.write(e),so,t)}async function Ha(o,e,t,n){o={...o,username:o.username??void 0,password:o.password??void 0};let a=Pe(e),r=Ie(a)?a:null;if(!r){let v=(await he(a,"A")).find(w=>w.type===1&&Ie(w.data))?.data;r=typeof v=="string"?v:null}if(!r)throw new Error(`Could not resolve ${e} to an IPv4 address for TURN CONNECT`);let s=Pe(o.hostname),l=null,c=null,i=null,d=null,g=null,f=null,m=!1,p=()=>{try{l?.close?.()}catch{}try{c?.close?.()}catch{}},u=()=>{if(!m){m=!0;try{f?.releaseLock?.()}catch{}}};try{l=n({hostname:s,port:o.port}),await X(l.opened,so,"TURN server connection timed out"),i=l.writable.getWriter(),d=l.readable.getReader();let x=new Uint8Array(8);x[1]=1,new DataView(x.buffer).setUint16(2,t^8466),r.split(".").forEach((y,T)=>{x[4+T]=Number(y)^Jo[T]});let v=De(ne.XOR_PEER_ADDRESS,x),w=new Uint8Array([6,0,0,0]);await io(i,Ye(pe.ALLOCATE_REQUEST,Xe(),[De(ne.REQUESTED_TRANSPORT,w)]),"TURN Allocate request timed out");let b=await St(d,null,"TURN Allocate response timed out"),k=b.message,C=b.extraData,I=null,S=[],h=y=>I?lr(y,I):Promise.resolve(y);if(k.type===pe.ALLOCATE_ERROR&&o.username!==null&&o.password!==null&&sr(k.attributes[ne.ERROR_CODE])===401){let y=k.attributes[ne.REALM],T=k.attributes[ne.NONCE];if(!y||!T?.byteLength)throw new Error("TURN authentication challenge is missing realm or nonce");let R=Na.decode(y);I=new Uint8Array(await crypto.subtle.digest("MD5",Xo.encode(`${o.username}:${R}:${o.password}`))),S=[De(ne.USERNAME,Xo.encode(o.username)),De(ne.REALM,Xo.encode(R)),De(ne.NONCE,T)];let A=await lr(Ye(pe.ALLOCATE_REQUEST,Xe(),[De(ne.REQUESTED_TRANSPORT,w),...S]),I),L=await Promise.all([h(Ye(pe.CREATE_PERMISSION_REQUEST,Xe(),[v,...S])),h(Ye(pe.CONNECT_REQUEST,Xe(),[v,...S]))]);await io(i,F(A,...L),"TURN authenticated Allocate request timed out"),b=await St(d,C,"TURN authenticated Allocate response timed out"),k=b.message,C=b.extraData}else if(k.type===pe.ALLOCATE_SUCCESS){let y=await Promise.all([h(Ye(pe.CREATE_PERMISSION_REQUEST,Xe(),[v,...S])),h(Ye(pe.CONNECT_REQUEST,Xe(),[v,...S]))]);y.length&&await io(i,F(...y),"TURN pipelined request timed out")}if(k.type!==pe.ALLOCATE_SUCCESS){let y=sr(k.attributes[ne.ERROR_CODE]);throw new Error(y?`TURN Allocate failed with ${y}`:"TURN Allocate failed")}if(c=n({hostname:s,port:o.port}),b=await St(d,C,"TURN CreatePermission response timed out"),k=b.message,C=b.extraData,k.type!==pe.CREATE_PERMISSION_SUCCESS)throw new Error("TURN CreatePermission failed");if(b=await St(d,C,"TURN CONNECT response timed out"),k=b.message,C=b.extraData,k.type!==pe.CONNECT_SUCCESS||!k.attributes[ne.CONNECTION_ID])throw new Error("TURN CONNECT failed");await X(c.opened,so,"TURN data connection timed out"),g=c.writable.getWriter(),f=c.readable.getReader(),await io(g,await h(Ye(pe.CONNECTION_BIND_REQUEST,Xe(),[De(ne.CONNECTION_ID,k.attributes[ne.CONNECTION_ID]),...S])),"TURN ConnectionBind request timed out"),b=await St(f,null,"TURN ConnectionBind response timed out"),k=b.message;let E=b.extraData;if(k.type!==pe.CONNECTION_BIND_SUCCESS)throw new Error("TURN ConnectionBind failed");return i.releaseLock(),i=null,d.releaseLock(),d=null,g.releaseLock(),g=null,{readable:new ReadableStream({start(y){E?.byteLength&&y.enqueue(E)},pull(y){return f.read().then(({done:T,value:R})=>{T?(u(),y.close()):R?.byteLength&&y.enqueue(new Uint8Array(R))})},cancel(){try{f?.cancel?.()}catch{}u(),p()}}),writable:c.writable,closed:c.closed,close:p}}catch(x){try{i?.releaseLock?.()}catch{}try{d?.releaseLock?.()}catch{}try{g?.releaseLock?.()}catch{}throw u(),p(),x}}var lo=class extends le{name="turn";async dial(e){let{proxy:t,target:n,tcpConnect:a}=e;return{socket:await Ha({hostname:t.hostname,port:t.port,username:t.username,password:t.password??null},n.host,n.port,a)}}};var Qo=new TextEncoder,Oa=new TextDecoder,Zo=1400,en=new Uint8Array(0),re=9999;function Je(o,e=0){return o[e]<<8|o[e+1]}function dr(o,e=0){return(o[e]<<24|o[e+1]<<16|o[e+2]<<8|o[e+3])>>>0}function pr(){return Je(crypto.getRandomValues(new Uint8Array(2)))}function ur(o,e,t){let n=0;for(let a=e;a<e+t-1;a+=2)n+=Je(o,a);for(t&1&&(n+=o[e+t-1]<<8);n>>16;)n=(n&65535)+(n>>16);return~n&65535}async function _a(o,e,t,n){o={...o,username:o.username??void 0,password:o.password??void 0};let a=en,r=1,s=null,l=null,c=null,i=!1,d,g,f=new Promise((S,h)=>{d=S,g=h}),m=(S,h)=>{i||(i=!0,S(h))},p=()=>{try{l?.cancel?.().catch?.(()=>{})}catch{}try{l?.releaseLock?.()}catch{}try{c?.close?.().catch?.(()=>{})}catch{}try{c?.releaseLock?.()}catch{}try{s?.close?.()}catch{}m(d)},u=async()=>{let{value:S,done:h}=await l.read();if(h||!S)throw new Error("SSTP socket closed");return D(S)},x=async S=>{for(;a.byteLength<S;){let E=await u();a=a.byteLength?F(a,E):E}let h=a.subarray(0,S);return a=a.subarray(S),h},v=async()=>{for(;;){let S=a.indexOf(10);if(S>=0){let E=Oa.decode(a.subarray(0,S));return a=a.subarray(S+1),E.replace(/\r$/,"")}let h=await u();a=a.byteLength?F(a,h):h}},w=async(S=re)=>{let h=await X(x(4),S,"SSTP read timeout"),E=Je(h,2)&4095;if(E<4)throw new B("CHAIN_SSTP_PACKET","Invalid SSTP packet length");return{isControl:(h[1]&1)!==0,body:E>4?await X(x(E-4),S,"SSTP packet body read timeout"):en}},b=S=>{let h=6+S.byteLength,E=new Uint8Array(h);return E.set([16,0,h>>8&15|128,h&255,255,3]),E.set(S,6),E},k=(S,h,E,P=[])=>{let y=P.reduce((A,L)=>A+2+L.data.byteLength,0),T=new Uint8Array(6+y),R=new DataView(T.buffer);return R.setUint16(0,S),T[2]=h,T[3]=E,R.setUint16(4,4+y),P.reduce((A,L)=>(T[A]=L.type,T[A+1]=2+L.data.byteLength,T.set(L.data,A+2),A+2+L.data.byteLength),6),T},C=S=>{let h=S.byteLength>=2&&S[0]===255&&S[1]===3?2:0;if(S.byteLength-h<4)return null;let E=Je(S,h);return E===33?{protocol:E,ipPacket:S.subarray(h+2)}:S.byteLength-h<6?null:{protocol:E,code:S[h+2],id:S[h+3],payload:S.subarray(h+6),rawPacket:S.subarray(h)}},I=S=>{let h=[];for(let E=0;E+2<=S.byteLength;){let P=S[E],y=S[E+1];if(y<2||E+y>S.byteLength)break;h.push({type:P,data:S.subarray(E+2,E+y)}),E+=y}return h};try{let S=Pe(o.hostname),h=o.port;s=n({hostname:S,port:h},{secureTransport:"on",allowHalfOpen:!1}),await X(s.opened,re,"SSTP server connection timed out"),l=s.readable.getReader(),c=s.writable.getWriter();let E=S.includes(":")?`[${S}]`:S,P=Qo.encode(`SSTP_DUPLEX_POST /sra_{BA195980-CD49-458b-9E23-C84EE0ADCD75}/ HTTP/1.1\r
-Host: ${Number(h)===443?E:`${E}:${h}`}\r
+`;
+        await 安全传输层套接字.write(标识714.encode(请求));
+        let 响应缓冲区 = new Uint8Array(0);
+        let 标识492 = -1;
+        let 标识493 = 0;
+        while (标识492 === -1 && 标识493 < 8192) {
+            const 值 = await 安全传输层套接字.read();
+            if (!值)
+                throw new 标识312("CHAIN_HTTPS_CONNECT", "HTTPS \u4EE3\u7406\u5728\u8FD4\u56DE CONNECT \u54CD\u5E94\u524D\u5173\u95ED\u8FDE\u63A5");
+            响应缓冲区 = 标识448(响应缓冲区, 值);
+            标识493 = 响应缓冲区.byteLength;
+            const 标识495 = 响应缓冲区.findIndex((标识157, 标识3) => 标识3 < 响应缓冲区.byteLength - 3 && 响应缓冲区[标识3] === 13 && 响应缓冲区[标识3 + 1] === 10 && 响应缓冲区[标识3 + 2] === 13 && 响应缓冲区[标识3 + 3] === 10);
+            if (标识495 !== -1)
+                标识492 = 标识495 + 4;
+        }
+        if (标识492 === -1)
+            throw new 标识312("CHAIN_HTTPS_CONNECT", "HTTPS \u4EE3\u7406 CONNECT \u54CD\u5E94\u5934\u8FC7\u957F\u6216\u65E0\u6548");
+        const 标识496 = 标识715.decode(响应缓冲区.subarray(0, 标识492)).split("\r\n")[0].match(/HTTP\/\d\.\d\s+(\d+)/);
+        const 状态编码 = 标识496 ? parseInt(标识496[1], 10) : NaN;
+        if (!Number.isFinite(状态编码) || 状态编码 < 200 || 状态编码 >= 300) {
+            throw new 标识312("CHAIN_HTTPS_CONNECT", `Connection failed: HTTP ${状态编码}`);
+        }
+        if (标识450(标识484) > 0)
+            await 安全传输层套接字.write(标识447(标识484));
+        const 标识719 = 标识493 > 标识492 ? 响应缓冲区.subarray(标识492, 标识493) : null;
+        let 标识720 = false;
+        let 标识721;
+        let 标识722;
+        const 标识723 = new Promise((敲定, 回绝) => {
+            标识721 = 敲定;
+            标识722 = 回绝;
+        });
+        const 标识724 = (标识725, 值) => {
+            if (!标识720) {
+                标识720 = true;
+                if (值 !== void 0)
+                    标识722(值);
+                else
+                    标识725();
+            }
+        };
+        const 关闭 = () => {
+            try {
+                安全传输层套接字.close();
+            }
+            catch {
+            }
+            标识724(标识721);
+        };
+        const 标识497 = new ReadableStream({
+            async start(标识187) {
+                try {
+                    if (标识719 && 标识719.byteLength > 0)
+                        标识187.enqueue(标识719);
+                    for (;;) {
+                        const 数据 = await 安全传输层套接字.read();
+                        if (!数据)
+                            break;
+                        if (数据.byteLength > 0)
+                            标识187.enqueue(数据);
+                    }
+                    try {
+                        标识187.close();
+                    }
+                    catch {
+                    }
+                    标识724(标识721);
+                }
+                catch (错误) {
+                    try {
+                        标识187.error(错误);
+                    }
+                    catch {
+                    }
+                    标识724(标识721, 错误);
+                }
+            },
+            cancel() {
+                关闭();
+            }
+        });
+        const 标识498 = new WritableStream({
+            async write(块) {
+                await 安全传输层套接字.write(标识447(块));
+            },
+            close: 关闭,
+            abort(错误) {
+                关闭();
+                if (错误)
+                    标识724(标识721, 错误);
+            }
+        });
+        return {
+            socket: { readable: 标识497, writable: 标识498, closed: 标识723, close: 关闭 }
+        };
+    }
+    catch (错误) {
+        try {
+            安全传输层套接字?.close();
+        }
+        catch {
+        }
+        throw 错误;
+    }
+}
+// src/chain/turn.ts
+var 标识726 = new TextEncoder();
+var 标识727 = new TextDecoder();
+var 标识728 = 9999;
+var 标识729 = new Uint8Array([33, 18, 164, 66]);
+var 标识730 = {
+    ALLOCATE_REQUEST: 3,
+    ALLOCATE_SUCCESS: 259,
+    ALLOCATE_ERROR: 275,
+    CREATE_PERMISSION_REQUEST: 8,
+    CREATE_PERMISSION_SUCCESS: 264,
+    CONNECT_REQUEST: 10,
+    CONNECT_SUCCESS: 266,
+    CONNECTION_BIND_REQUEST: 11,
+    CONNECTION_BIND_SUCCESS: 267
+};
+var 标识731 = {
+    USERNAME: 6,
+    MESSAGE_INTEGRITY: 8,
+    ERROR_CODE: 9,
+    XOR_PEER_ADDRESS: 18,
+    REALM: 20,
+    NONCE: 21,
+    REQUESTED_TRANSPORT: 25,
+    CONNECTION_ID: 42
+};
+function 标识732(长度2) {
+    return -长度2 & 3;
+}
+function 标识733(类型, 值) {
+    const 正文 = 标识447(值);
+    const 标识734 = new Uint8Array(4 + 正文.byteLength + 标识732(正文.byteLength));
+    const 标识11 = new DataView(标识734.buffer);
+    标识11.setUint16(0, 类型);
+    标识11.setUint16(2, 正文.byteLength);
+    标识734.set(正文, 4);
+    return 标识734;
+}
+function 标识735(类型, 标识736, 标识737) {
+    const 正文 = 标识448(...标识737);
+    const 头字段 = new Uint8Array(20);
+    const 标识11 = new DataView(头字段.buffer);
+    标识11.setUint16(0, 类型);
+    标识11.setUint16(2, 正文.byteLength);
+    头字段.set(标识729, 4);
+    头字段.set(标识736, 8);
+    return 标识448(头字段, 正文);
+}
+function 解析出中继转发错误编码(数据) {
+    return 数据 && 数据.byteLength >= 4 ? (数据[2] & 7) * 100 + 数据[3] : 0;
+}
+function 标识738() {
+    return crypto.getRandomValues(new Uint8Array(12));
+}
+async function 标识739(消息, 键) {
+    const 标识740 = new Uint8Array(消息);
+    const 标识11 = new DataView(标识740.buffer);
+    标识11.setUint16(2, 标识11.getUint16(2) + 24);
+    const 标识741 = await crypto.subtle.importKey("raw", 键, { name: "HMAC", hash: "SHA-1" }, false, ["sign"]);
+    const 标识742 = await crypto.subtle.sign("HMAC", 标识741, 标识740);
+    return 标识448(标识740, 标识733(标识731.MESSAGE_INTEGRITY, new Uint8Array(标识742)));
+}
+async function 标识743(读取器, 标识719 = null, 标识744 = "TURN response timed out") {
+    let 缓冲区 = 标识450(标识719) ? 标识447(标识719) : new Uint8Array(0);
+    const 标识745 = async () => {
+        const { done: 标识494, value: 值 } = await 标识481(读取器.read(), 标识728, 标识744);
+        if (标识494)
+            throw new Error("TURN server closed connection");
+        if (值?.byteLength)
+            缓冲区 = 标识448(缓冲区, 值);
+    };
+    while (缓冲区.byteLength < 20)
+        await 标识745();
+    const 消息长度 = 20 + (缓冲区[2] << 8 | 缓冲区[3]);
+    if (消息长度 > 65555)
+        throw new Error("TURN response is too large");
+    while (缓冲区.byteLength < 消息长度)
+        await 标识745();
+    const 消息缓冲区 = 缓冲区.subarray(0, 消息长度);
+    if (标识729.some((值, 序号2) => 消息缓冲区[4 + 序号2] !== 值))
+        throw new Error("Invalid TURN/STUN response");
+    const 标识11 = new DataView(消息缓冲区.buffer, 消息缓冲区.byteOffset, 消息缓冲区.byteLength);
+    const 标识737 = {};
+    for (let 标识18 = 20; 标识18 + 4 <= 消息长度;) {
+        const 类型 = 标识11.getUint16(标识18);
+        const 长度2 = 标识11.getUint16(标识18 + 2);
+        if (标识18 + 4 + 长度2 > 消息缓冲区.byteLength)
+            break;
+        标识737[类型] = 消息缓冲区.slice(标识18 + 4, 标识18 + 4 + 长度2);
+        标识18 += 4 + 长度2 + 标识732(长度2);
+    }
+    return {
+        message: { type: 标识11.getUint16(0), attributes: 标识737 },
+        extraData: 缓冲区.byteLength > 消息长度 ? 缓冲区.subarray(消息长度) : null
+    };
+}
+async function 标识746(写入器, 标识34, 标识744) {
+    await 标识481(写入器.write(标识34), 标识728, 标识744);
+}
+async function 中继转发连接(代理, 目标主机, 目标端口, 可靠传输连接) {
+    代理 = { ...代理, username: 代理.username ?? void 0, password: 代理.password ?? void 0 };
+    const 标识747 = 标识443(目标主机);
+    let 目标地址 = 标识444(标识747) ? 标识747 : null;
+    if (!目标地址) {
+        const 记录集 = await 加密域名解析查询串(标识747, "A");
+        const 记录数据 = 记录集.find((标识273) => 标识273.type === 1 && 标识444(标识273.data))?.data;
+        目标地址 = typeof 记录数据 === "string" ? 记录数据 : null;
+    }
+    if (!目标地址)
+        throw new Error(`Could not resolve ${目标主机} to an IPv4 address for TURN CONNECT`);
+    const 中继转发主机 = 标识443(代理.hostname);
+    let 标识748 = null;
+    let 数据套接字 = null;
+    let 标识749 = null;
+    let 标识750 = null;
+    let 数据写入器 = null;
+    let 数据读取器 = null;
+    let 标识751 = false;
+    const 关闭 = () => {
+        try {
+            标识748?.close?.();
+        }
+        catch (标识186) {
+        }
+        try {
+            数据套接字?.close?.();
+        }
+        catch (标识186) {
+        }
+    };
+    const 标识752 = () => {
+        if (标识751)
+            return;
+        标识751 = true;
+        try {
+            数据读取器?.releaseLock?.();
+        }
+        catch (标识186) {
+        }
+    };
+    try {
+        标识748 = 可靠传输连接({ hostname: 中继转发主机, port: 代理.port });
+        await 标识481(标识748.opened, 标识728, "TURN server connection timed out");
+        标识749 = 标识748.writable.getWriter();
+        标识750 = 标识748.readable.getReader();
+        const 标识753 = new Uint8Array(8);
+        标识753[1] = 1;
+        new DataView(标识753.buffer).setUint16(2, 目标端口 ^ 8466);
+        目标地址.split(".").forEach((值, 序号2) => {
+            标识753[4 + 序号2] = Number(值) ^ 标识729[序号2];
+        });
+        const 标识754 = 标识733(标识731.XOR_PEER_ADDRESS, 标识753);
+        const 标识755 = new Uint8Array([6, 0, 0, 0]);
+        await 标识746(标识749, 标识735(标识730.ALLOCATE_REQUEST, 标识738(), [标识733(标识731.REQUESTED_TRANSPORT, 标识755)]), "TURN Allocate request timed out");
+        let 中继转发响应 = await 标识743(标识750, null, "TURN Allocate response timed out");
+        let 消息 = 中继转发响应.message;
+        let 标识719 = 中继转发响应.extraData;
+        let 标识756 = null;
+        let 标识757 = [];
+        const 签名 = (标识758) => 标识756 ? 标识739(标识758, 标识756) : Promise.resolve(标识758);
+        if (消息.type === 标识730.ALLOCATE_ERROR && 代理.username !== null && 代理.password !== null && 解析出中继转发错误编码(消息.attributes[标识731.ERROR_CODE]) === 401) {
+            const 标识759 = 消息.attributes[标识731.REALM];
+            const 标识552 = 消息.attributes[标识731.NONCE];
+            if (!标识759 || !标识552?.byteLength)
+                throw new Error("TURN authentication challenge is missing realm or nonce");
+            const 标识760 = 标识727.decode(标识759);
+            标识756 = new Uint8Array(await crypto.subtle.digest("MD5", 标识726.encode(`${代理.username}:${标识760}:${代理.password}`)));
+            标识757 = [
+                标识733(标识731.USERNAME, 标识726.encode(代理.username)),
+                标识733(标识731.REALM, 标识726.encode(标识760)),
+                标识733(标识731.NONCE, 标识552)
+            ];
+            const 标识761 = await 标识739(标识735(标识730.ALLOCATE_REQUEST, 标识738(), [
+                标识733(标识731.REQUESTED_TRANSPORT, 标识755),
+                ...标识757
+            ]), 标识756);
+            const 标识762 = await Promise.all([
+                签名(标识735(标识730.CREATE_PERMISSION_REQUEST, 标识738(), [标识754, ...标识757])),
+                签名(标识735(标识730.CONNECT_REQUEST, 标识738(), [标识754, ...标识757]))
+            ]);
+            await 标识746(标识749, 标识448(标识761, ...标识762), "TURN authenticated Allocate request timed out");
+            中继转发响应 = await 标识743(标识750, 标识719, "TURN authenticated Allocate response timed out");
+            消息 = 中继转发响应.message;
+            标识719 = 中继转发响应.extraData;
+        }
+        else if (消息.type === 标识730.ALLOCATE_SUCCESS) {
+            const 标识762 = await Promise.all([
+                签名(标识735(标识730.CREATE_PERMISSION_REQUEST, 标识738(), [标识754, ...标识757])),
+                签名(标识735(标识730.CONNECT_REQUEST, 标识738(), [标识754, ...标识757]))
+            ]);
+            if (标识762.length)
+                await 标识746(标识749, 标识448(...标识762), "TURN pipelined request timed out");
+        }
+        if (消息.type !== 标识730.ALLOCATE_SUCCESS) {
+            const 错误编码 = 解析出中继转发错误编码(消息.attributes[标识731.ERROR_CODE]);
+            throw new Error(错误编码 ? `TURN Allocate failed with ${错误编码}` : "TURN Allocate failed");
+        }
+        数据套接字 = 可靠传输连接({ hostname: 中继转发主机, port: 代理.port });
+        中继转发响应 = await 标识743(标识750, 标识719, "TURN CreatePermission response timed out");
+        消息 = 中继转发响应.message;
+        标识719 = 中继转发响应.extraData;
+        if (消息.type !== 标识730.CREATE_PERMISSION_SUCCESS)
+            throw new Error("TURN CreatePermission failed");
+        中继转发响应 = await 标识743(标识750, 标识719, "TURN CONNECT response timed out");
+        消息 = 中继转发响应.message;
+        标识719 = 中继转发响应.extraData;
+        if (消息.type !== 标识730.CONNECT_SUCCESS || !消息.attributes[标识731.CONNECTION_ID])
+            throw new Error("TURN CONNECT failed");
+        await 标识481(数据套接字.opened, 标识728, "TURN data connection timed out");
+        数据写入器 = 数据套接字.writable.getWriter();
+        数据读取器 = 数据套接字.readable.getReader();
+        await 标识746(数据写入器, await 签名(标识735(标识730.CONNECTION_BIND_REQUEST, 标识738(), [
+            标识733(标识731.CONNECTION_ID, 消息.attributes[标识731.CONNECTION_ID]),
+            ...标识757
+        ])), "TURN ConnectionBind request timed out");
+        中继转发响应 = await 标识743(数据读取器, null, "TURN ConnectionBind response timed out");
+        消息 = 中继转发响应.message;
+        const 标识763 = 中继转发响应.extraData;
+        if (消息.type !== 标识730.CONNECTION_BIND_SUCCESS)
+            throw new Error("TURN ConnectionBind failed");
+        标识749.releaseLock();
+        标识749 = null;
+        标识750.releaseLock();
+        标识750 = null;
+        数据写入器.releaseLock();
+        数据写入器 = null;
+        const 标识497 = new ReadableStream({
+            start(标识187) {
+                if (标识763?.byteLength)
+                    标识187.enqueue(标识763);
+            },
+            pull(标识187) {
+                return 数据读取器.read().then(({ done: 标识494, value: 值 }) => {
+                    if (标识494) {
+                        标识752();
+                        标识187.close();
+                    }
+                    else if (值?.byteLength)
+                        标识187.enqueue(new Uint8Array(值));
+                });
+            },
+            cancel() {
+                try {
+                    数据读取器?.cancel?.();
+                }
+                catch (标识186) {
+                }
+                标识752();
+                关闭();
+            }
+        });
+        return { readable: 标识497, writable: 数据套接字.writable, closed: 数据套接字.closed, close: 关闭 };
+    }
+    catch (错误) {
+        try {
+            标识749?.releaseLock?.();
+        }
+        catch (标识186) {
+        }
+        try {
+            标识750?.releaseLock?.();
+        }
+        catch (标识186) {
+        }
+        try {
+            数据写入器?.releaseLock?.();
+        }
+        catch (标识186) {
+        }
+        标识752();
+        关闭();
+        throw 错误;
+    }
+}
+var 标识764 = class extends 标识479 {
+    name = "turn";
+    async dial(参数集) {
+        const { proxy: 代理, target: 目标, tcpConnect: 可靠传输连接 } = 参数集;
+        const 套接字 = await 中继转发连接({ hostname: 代理.hostname, port: 代理.port, username: 代理.username, password: 代理.password ?? null }, 目标.host, 目标.port, 可靠传输连接);
+        return { socket: 套接字 };
+    }
+};
+// src/chain/sstp.ts
+var 标识765 = new TextEncoder();
+var 标识766 = new TextDecoder();
+var 标识767 = 1400;
+var 标识768 = new Uint8Array(0);
+var 标识769 = 9999;
+function 标识770(标识34, 标识18 = 0) {
+    return 标识34[标识18] << 8 | 标识34[标识18 + 1];
+}
+function 标识771(标识34, 标识18 = 0) {
+    return (标识34[标识18] << 24 | 标识34[标识18 + 1] << 16 | 标识34[标识18 + 2] << 8 | 标识34[标识18 + 3]) >>> 0;
+}
+function 标识772() {
+    return 标识770(crypto.getRandomValues(new Uint8Array(2)));
+}
+function 标识773(标识34, 标识18, 长度2) {
+    let 标识29 = 0;
+    for (let 序号2 = 标识18; 序号2 < 标识18 + 长度2 - 1; 序号2 += 2)
+        标识29 += 标识770(标识34, 序号2);
+    if (长度2 & 1)
+        标识29 += 标识34[标识18 + 长度2 - 1] << 8;
+    while (标识29 >> 16)
+        标识29 = (标识29 & 65535) + (标识29 >> 16);
+    return ~标识29 & 65535;
+}
+async function 安全套隧道连接(代理, 目标主机, 目标端口, 可靠传输连接) {
+    代理 = { ...代理, username: 代理.username ?? void 0, password: 代理.password ?? void 0 };
+    let 标识774 = 标识768;
+    let 标识775 = 1;
+    let 套接字 = null;
+    let 读取器 = null;
+    let 写入器 = null;
+    let 标识720 = false;
+    let 标识721;
+    let 标识722;
+    const 标识723 = new Promise((敲定, 回绝) => {
+        标识721 = 敲定;
+        标识722 = 回绝;
+    });
+    const 标识724 = (标识725, 值) => {
+        if (标识720)
+            return;
+        标识720 = true;
+        标识725(值);
+    };
+    const 关闭 = () => {
+        try {
+            读取器?.cancel?.().catch?.(() => {
+            });
+        }
+        catch (标识186) {
+        }
+        try {
+            读取器?.releaseLock?.();
+        }
+        catch (标识186) {
+        }
+        try {
+            写入器?.close?.().catch?.(() => {
+            });
+        }
+        catch (标识186) {
+        }
+        try {
+            写入器?.releaseLock?.();
+        }
+        catch (标识186) {
+        }
+        try {
+            套接字?.close?.();
+        }
+        catch (标识186) {
+        }
+        标识724(标识721);
+    };
+    const 读取套接字块 = async () => {
+        const { value: 值, done: 标识494 } = await 读取器.read();
+        if (标识494 || !值)
+            throw new Error("SSTP socket closed");
+        return 标识447(值);
+    };
+    const 标识776 = async (长度2) => {
+        while (标识774.byteLength < 长度2) {
+            const 块 = await 读取套接字块();
+            标识774 = 标识774.byteLength ? 标识448(标识774, 块) : 块;
+        }
+        const 标识115 = 标识774.subarray(0, 长度2);
+        标识774 = 标识774.subarray(长度2);
+        return 标识115;
+    };
+    const 标识777 = async () => {
+        for (;;) {
+            const 标识184 = 标识774.indexOf(10);
+            if (标识184 >= 0) {
+                const 标识201 = 标识766.decode(标识774.subarray(0, 标识184));
+                标识774 = 标识774.subarray(标识184 + 1);
+                return 标识201.replace(/\r$/, "");
+            }
+            const 块 = await 读取套接字块();
+            标识774 = 标识774.byteLength ? 标识448(标识774, 块) : 块;
+        }
+    };
+    const 读取报文 = async (标识172 = 标识769) => {
+        const 头字段 = await 标识481(标识776(4), 标识172, "SSTP read timeout");
+        const 长度2 = 标识770(头字段, 2) & 4095;
+        if (长度2 < 4)
+            throw new 标识312("CHAIN_SSTP_PACKET", "Invalid SSTP packet length");
+        return {
+            isControl: (头字段[1] & 1) !== 0,
+            body: 长度2 > 4 ? await 标识481(标识776(长度2 - 4), 标识172, "SSTP packet body read timeout") : 标识768
+        };
+    };
+    const 标识778 = (标识779) => {
+        const 报文长度 = 6 + 标识779.byteLength;
+        const 报文 = new Uint8Array(报文长度);
+        报文.set([16, 0, 报文长度 >> 8 & 15 | 128, 报文长度 & 255, 255, 3]);
+        报文.set(标识779, 6);
+        return 报文;
+    };
+    const 标识780 = (协议, 编码, 编号, 选项组 = []) => {
+        const 选项组长度 = 选项组.reduce((体积, 标识781) => 体积 + 2 + 标识781.data.byteLength, 0);
+        const 帧 = new Uint8Array(6 + 选项组长度);
+        const 标识11 = new DataView(帧.buffer);
+        标识11.setUint16(0, 协议);
+        帧[2] = 编码;
+        帧[3] = 编号;
+        标识11.setUint16(4, 4 + 选项组长度);
+        选项组.reduce((标识18, 标识781) => {
+            帧[标识18] = 标识781.type;
+            帧[标识18 + 1] = 2 + 标识781.data.byteLength;
+            帧.set(标识781.data, 标识18 + 2);
+            return 标识18 + 2 + 标识781.data.byteLength;
+        }, 6);
+        return 帧;
+    };
+    const 标识782 = (数据) => {
+        const 标识18 = 数据.byteLength >= 2 && 数据[0] === 255 && 数据[1] === 3 ? 2 : 0;
+        if (数据.byteLength - 标识18 < 4)
+            return null;
+        const 协议 = 标识770(数据, 标识18);
+        if (协议 === 33)
+            return { protocol: 协议, ipPacket: 数据.subarray(标识18 + 2) };
+        if (数据.byteLength - 标识18 < 6)
+            return null;
+        return { protocol: 协议, code: 数据[标识18 + 2], id: 数据[标识18 + 3], payload: 数据.subarray(标识18 + 6), rawPacket: 数据.subarray(标识18) };
+    };
+    const 标识783 = (数据) => {
+        const 选项组 = [];
+        for (let 标识18 = 0; 标识18 + 2 <= 数据.byteLength;) {
+            const 类型 = 数据[标识18];
+            const 长度2 = 数据[标识18 + 1];
+            if (长度2 < 2 || 标识18 + 长度2 > 数据.byteLength)
+                break;
+            选项组.push({ type: 类型, data: 数据.subarray(标识18 + 2, 标识18 + 长度2) });
+            标识18 += 长度2;
+        }
+        return 选项组;
+    };
+    try {
+        const 服务端主机 = 标识443(代理.hostname);
+        const 服务端端口 = 代理.port;
+        套接字 = 可靠传输连接({ hostname: 服务端主机, port: 服务端端口 }, { secureTransport: "on", allowHalfOpen: false });
+        await 标识481(套接字.opened, 标识769, "SSTP server connection timed out");
+        读取器 = 套接字.readable.getReader();
+        写入器 = 套接字.writable.getWriter();
+        const 标识784 = 服务端主机.includes(":") ? `[${服务端主机}]` : 服务端主机;
+        const 超文本请求 = 标识765.encode(`SSTP_DUPLEX_POST /sra_{BA195980-CD49-458b-9E23-C84EE0ADCD75}/ HTTP/1.1\r
+Host: ${Number(服务端端口) === 443 ? 标识784 : `${标识784}:${服务端端口}`}\r
 Content-Length: 18446744073709551615\r
 SSTPCORRELATIONID: {${crypto.randomUUID()}}\r
 \r
-`),y=new Uint8Array(2);new DataView(y.buffer).setUint16(0,1);let T=new Uint8Array(2);new DataView(T.buffer).setUint16(0,1500);let R=new Uint8Array(12+y.byteLength),A=new DataView(R.buffer);R[0]=16,R[1]=1,A.setUint16(2,R.byteLength|32768),A.setUint16(4,1),A.setUint16(6,1),R[9]=1,A.setUint16(10,4+y.byteLength),R.set(y,12),await X(c.write(F(P,R,b(k(49185,1,r++,[{type:1,data:T}])))),re,"SSTP HTTP handshake request timed out");let L=await X(v(),re,"SSTP HTTP handshake timed out");for(;await X(v(),re,"SSTP HTTP header read timed out")!=="";);if(!/HTTP\/\d(?:\.\d)?\s+2\d\d/i.test(L))throw new Error(`SSTP HTTP handshake failed: ${L||"invalid status"}`);let M=!1,N=!1,U=!1,z=!1,K=!1,q=!1,J=!1,Z=null,Ae=async()=>{if(!M||!N||!U||z)return;if(o.username==null||o.password==null)throw new B("CHAIN_SSTP_PAP","SSTP server requires PAP authentication");let H=Qo.encode(o.username),O=Qo.encode(o.password);if(H.byteLength>255||O.byteLength>255)throw new Error("SSTP username/password is too long");let _=6+H.byteLength+O.byteLength,$=new Uint8Array(2+_),W=new DataView($.buffer);W.setUint16(0,49187),$[2]=1,$[3]=r++,W.setUint16(4,_),$[6]=H.byteLength,$.set(H,7),$[7+H.byteLength]=O.byteLength,$.set(O,8+H.byteLength),await X(c.write(b($)),re,"SSTP PAP authentication request timed out"),z=!0},ke=async()=>{!M||!N||q||U&&!K||(await X(c.write(b(k(32801,1,r++,[{type:3,data:new Uint8Array(4)}]))),re,"SSTP IPCP request timed out"),q=!0)};for(let H=0;H<50&&!J;H++){let O=await w(re);if(O.isControl)continue;let _=C(O.body);if(_){if(_.protocol===49185){if(_.code===1){let $=I(_.payload??new Uint8Array(0)).find(ae=>ae.type===3);if($?.data&&$.data.byteLength>=2){let ae=Je($.data);if(ae!==49187)throw new Error(`SSTP unsupported PPP authentication protocol: 0x${ae.toString(16)}`);U=!0}let W=new Uint8Array(_.rawPacket);W[2]=2,await X(c.write(b(W)),re,"SSTP LCP Configure-Ack timed out"),N=!0,await Ae(),await ke()}else _.code===2&&(M=!0,await Ae(),await ke());continue}if(_.protocol===49187){if(_.code===2)K=!0,await ke();else if(_.code===3)throw new Error("SSTP PAP authentication failed");continue}if(_.protocol===32801){if(_.code===1){let $=new Uint8Array(_.rawPacket);$[2]=2,await X(c.write(b($)),re,"SSTP IPCP Configure-Ack timed out"),await ke()}else if(_.code===3){let $=I(_.payload??new Uint8Array(0)).find(W=>W.type===3);$?.data?.byteLength===4&&(Z=[...$.data].join("."),await X(c.write(b(k(32801,1,r++,[{type:3,data:$.data}]))),re,"SSTP IPCP address request timed out"),q=!0)}else if(_.code===2){let $=I(_.payload??new Uint8Array(0)).find(W=>W.type===3);$?.data?.byteLength===4&&(Z=[...$.data].join(".")),J=!0}}}}if(!Z)throw new Error("SSTP did not assign an IPv4 address");let _e=Pe(e),At=Ie(_e)?_e:null;if(!At){let O=(await he(_e,"A")).find(_=>_.type===1&&Ie(_.data))?.data;At=typeof O=="string"?O:null}if(!At)throw new Error(`Could not resolve ${e} to an IPv4 address for SSTP`);let gn=1e4+pr()%5e4,hn=new Uint8Array(String(Z||"").split(".").map(Number)),bn=new Uint8Array(String(At||"").split(".").map(Number)),$e=dr(crypto.getRandomValues(new Uint8Array(4))),it=0,Lt=new Uint8Array(20);Lt.set([69,0,0,0,0,0,64,0,64,6]),Lt.set(hn,12),Lt.set(bn,16);let ze=new Uint8Array(1432);ze.set(hn),ze.set(bn,4),ze[9]=6;let Fe=(H,O=en)=>{let _=D(O),$=_.byteLength,W=20+$,ae=20+W,fe=8+ae,ye=new Uint8Array(fe),Se=new DataView(ye.buffer);return ye.set([16,0,fe>>8&15|128,fe&255,255,3,0,33]),ye.set(Lt,8),Se.setUint16(10,ae),Se.setUint16(12,pr()),Se.setUint16(18,ur(ye,8,20)),Se.setUint16(28,gn),Se.setUint16(30,t),Se.setUint32(32,$e),Se.setUint32(36,it),ye[40]=80,ye[41]=H,Se.setUint16(42,65535),$&&ye.set(_,48),ze[10]=W>>8,ze[11]=W&255,ze.set(ye.subarray(28,28+W),12),Se.setUint16(44,ur(ze,0,12+W)),ye},yn=H=>{if(H.byteLength<40||H[9]!==6)return null;let O=(H[0]&15)*4;return H.byteLength<O+20||Je(H,O)!==t||Je(H,O+2)!==gn?null:{flags:H[O+13],sequence:dr(H,O+4),payloadOffset:O+(H[O+12]>>4&15)*4}};await X(c.write(Fe(2)),re,"SSTP TCP SYN write timed out"),$e=$e+1>>>0;let xn=!1;for(let H=0;H<30;H++){let O=await w(re);if(O.isControl)continue;let _=C(O.body);if(!_||_.protocol!==33)continue;let $=yn(_.ipPacket);if(!(!$||($.flags&18)!==18)){it=$.sequence+1>>>0,await X(c.write(Fe(16)),re,"SSTP TCP ACK write timed out"),xn=!0;break}}if(!xn)throw new Error("TCP handshake through SSTP timed out");let st={current:null},Xr=new ReadableStream({start(H){st.current=H},cancel(){p()}});(async()=>{try{let H=[],O=0,_=()=>{if(O){if(!st.current)throw new B("CHAIN_SSTP_STREAM","SSTP readable stream is not ready");st.current.enqueue(H.length===1?H[0]:F(...H)),H=[],O=0,c.write(Fe(16)).catch(()=>{})}};for(;;){let $=await w(6e4);if($.isControl)continue;let W=C($.body);if(!W||W.protocol!==33)continue;let ae=yn(W.ipPacket);if(ae){if(W.ipPacket&&ae.payloadOffset<W.ipPacket.byteLength){let fe=W.ipPacket.subarray(ae.payloadOffset);fe.byteLength&&(it=ae.sequence+fe.byteLength>>>0,H.push(new Uint8Array(fe)),O+=fe.byteLength)}if(ae.flags&1){_(),it=it+1>>>0,c.write(Fe(17)).catch(()=>{});let fe=st.current;if(fe)try{fe.close()}catch{}p();return}(a.byteLength<4||O>=32768)&&_()}}}catch(H){let O=st.current;if(O)try{O.error(H)}catch{}m(d,H);try{s?.close?.()}catch{}}})();let Jr=new WritableStream({async write(H){let O=D(H);if(!O.byteLength)return;if(O.byteLength<=Zo){await c.write(Fe(24,O)),$e=$e+O.byteLength>>>0;return}let _=[];for(let $=0;$<O.byteLength;$+=Zo){let W=O.subarray($,Math.min($+Zo,O.byteLength));_.push(Fe(24,W)),$e=$e+W.byteLength>>>0}await c.write(F(..._))},close(){return c.write(Fe(17)).catch(()=>{})},abort(H){p(),H&&m(d,H)}});return{readable:Xr,writable:Jr,closed:f,close:p}}catch(S){throw p(),S}}var co=class extends le{name="sstp";async dial(e){let{proxy:t,target:n,tcpConnect:a}=e;return{socket:await _a({hostname:t.hostname,port:t.port,username:t.username,password:t.password},n.host,n.port,a)}}};var Ct=new gt().register(new Kt).register(new Wt).register(new ao).register(new lo).register(new co);var $a=["socks5","http","https","turn","sstp"],po=class extends xe{name="admin-api";async onRoute(e){let t=e.url.pathname.slice(1),n=t.toLowerCase();return n!=="admin"&&!n.startsWith("admin/")?null:await Re(e.request,e.encryptionSecret,e.adminPassword)?n==="admin/log.json"?this.handleLog(e):t==="admin/getCloudflareUsage"?this.handleUsage(e):n==="admin/check"?this.handleCheck(e):t==="admin/ADD.txt"?this.handleAddTxt(e):n==="admin/cf.json"?this.handleCfJson(e):n==="admin/tg.json"&&e.request.method==="POST"?this.handleTgJson(e):null:jt("/login")}async handleLog(e){let t=await e.env.KV.get("log.json")||"[]";return new Response(t,{status:200,headers:{"Content-Type":"application/json;charset=utf-8"}})}async handleUsage(e){let{url:t}=e;try{let n=await $t(t.searchParams.get("Email"),t.searchParams.get("GlobalAPIKey"),t.searchParams.get("AccountID"),t.searchParams.get("APIToken"));return new Response(JSON.stringify(n,null,2),{status:200,headers:{"Content-Type":"application/json"}})}catch(n){let a=n;return Q({msg:"\u67E5\u8BE2\u8BF7\u6C42\u91CF\u5931\u8D25\uFF0C\u5931\u8D25\u539F\u56E0\uFF1A"+a.message,error:a.message},500,!0)}}async handleCheck(e){let{request:t,url:n}=e,a=$a.find(c=>n.searchParams.has(c))??null;if(!a)return Q({error:"\u7F3A\u5C11\u4EE3\u7406\u53C2\u6570"},400,!1);let r=n.searchParams.get(a),s=Date.now(),l;try{let c=ft(r,mt(a)),{username:i,password:d,hostname:g,port:f}=c,m=i&&d?`${i}:${d}@${g}:${f}`:`${g}:${f}`;try{let p="cloudflare.com",x=new TextEncoder,v=new TextDecoder,w=Ge(t),b=null,k=null;try{let C=Ct.get(a);if(!C)throw new Error("\u65E0\u6CD5\u8FDE\u63A5\u5230\u4EE3\u7406\u670D\u52A1\u5668");if(b=(await C.dial({proxy:c,target:{host:p,port:443},initialData:new Uint8Array(0),tcpConnect:w})).socket,!b)throw new Error("\u65E0\u6CD5\u8FDE\u63A5\u5230\u4EE3\u7406\u670D\u52A1\u5668");k=new ot(b,{serverName:p,insecure:!0}),await k.handshake(),await k.write(x.encode(`GET /cdn-cgi/trace HTTP/1.1\r
-Host: ${p}\r
+`);
+        const 标识785 = new Uint8Array(2);
+        new DataView(标识785.buffer).setUint16(0, 1);
+        const 标识786 = new Uint8Array(2);
+        new DataView(标识786.buffer).setUint16(0, 1500);
+        const 安全套隧道连接请求 = new Uint8Array(12 + 标识785.byteLength);
+        const 标识787 = new DataView(安全套隧道连接请求.buffer);
+        安全套隧道连接请求[0] = 16;
+        安全套隧道连接请求[1] = 1;
+        标识787.setUint16(2, 安全套隧道连接请求.byteLength | 32768);
+        标识787.setUint16(4, 1);
+        标识787.setUint16(6, 1);
+        安全套隧道连接请求[9] = 1;
+        标识787.setUint16(10, 4 + 标识785.byteLength);
+        安全套隧道连接请求.set(标识785, 12);
+        await 标识481(写入器.write(标识448(超文本请求, 安全套隧道连接请求, 标识778(标识780(49185, 1, 标识775++, [
+            { type: 1, data: 标识786 }
+        ])))), 标识769, "SSTP HTTP handshake request timed out");
+        const 标识788 = await 标识481(标识777(), 标识769, "SSTP HTTP handshake timed out");
+        for (;;) {
+            const 标识201 = await 标识481(标识777(), 标识769, "SSTP HTTP header read timed out");
+            if (标识201 === "")
+                break;
+        }
+        if (!/HTTP\/\d(?:\.\d)?\s+2\d\d/i.test(标识788))
+            throw new Error(`SSTP HTTP handshake failed: ${标识788 || "invalid status"}`);
+        let 标识789 = false, 标识790 = false, 标识791 = false, 标识792 = false, 标识793 = false, 标识794 = false, 标识795 = false;
+        let 标识796 = null;
+        const 标识797 = async () => {
+            if (!标识789 || !标识790 || !标识791 || 标识792)
+                return;
+            if (代理.username == null || 代理.password == null)
+                throw new 标识312("CHAIN_SSTP_PAP", "SSTP server requires PAP authentication");
+            const 标识322 = 标识765.encode(代理.username);
+            const 密码 = 标识765.encode(代理.password);
+            if (标识322.byteLength > 255 || 密码.byteLength > 255)
+                throw new Error("SSTP username/password is too long");
+            const 标识798 = 6 + 标识322.byteLength + 密码.byteLength;
+            const 帧 = new Uint8Array(2 + 标识798);
+            const 标识11 = new DataView(帧.buffer);
+            标识11.setUint16(0, 49187);
+            帧[2] = 1;
+            帧[3] = 标识775++;
+            标识11.setUint16(4, 标识798);
+            帧[6] = 标识322.byteLength;
+            帧.set(标识322, 7);
+            帧[7 + 标识322.byteLength] = 密码.byteLength;
+            帧.set(密码, 8 + 标识322.byteLength);
+            await 标识481(写入器.write(标识778(帧)), 标识769, "SSTP PAP authentication request timed out");
+            标识792 = true;
+        };
+        const 标识799 = async () => {
+            if (!标识789 || !标识790 || 标识794 || 标识791 && !标识793)
+                return;
+            await 标识481(写入器.write(标识778(标识780(32801, 1, 标识775++, [
+                { type: 3, data: new Uint8Array(4) }
+            ]))), 标识769, "SSTP IPCP request timed out");
+            标识794 = true;
+        };
+        for (let 标识527 = 0; 标识527 < 50 && !标识795; 标识527++) {
+            const 报文 = await 读取报文(标识769);
+            if (报文.isControl)
+                continue;
+            const 标识800 = 标识782(报文.body);
+            if (!标识800)
+                continue;
+            if (标识800.protocol === 49185) {
+                if (标识800.code === 1) {
+                    const 标识801 = 标识783(标识800.payload ?? new Uint8Array(0)).find((标识781) => 标识781.type === 3);
+                    if (标识801?.data && 标识801.data.byteLength >= 2) {
+                        const 认证协议 = 标识770(标识801.data);
+                        if (认证协议 !== 49187)
+                            throw new Error(`SSTP unsupported PPP authentication protocol: 0x${认证协议.toString(16)}`);
+                        标识791 = true;
+                    }
+                    const 标识802 = new Uint8Array(标识800.rawPacket);
+                    标识802[2] = 2;
+                    await 标识481(写入器.write(标识778(标识802)), 标识769, "SSTP LCP Configure-Ack timed out");
+                    标识790 = true;
+                    await 标识797();
+                    await 标识799();
+                }
+                else if (标识800.code === 2) {
+                    标识789 = true;
+                    await 标识797();
+                    await 标识799();
+                }
+                continue;
+            }
+            if (标识800.protocol === 49187) {
+                if (标识800.code === 2) {
+                    标识793 = true;
+                    await 标识799();
+                }
+                else if (标识800.code === 3)
+                    throw new Error("SSTP PAP authentication failed");
+                continue;
+            }
+            if (标识800.protocol === 32801) {
+                if (标识800.code === 1) {
+                    const 标识802 = new Uint8Array(标识800.rawPacket);
+                    标识802[2] = 2;
+                    await 标识481(写入器.write(标识778(标识802)), 标识769, "SSTP IPCP Configure-Ack timed out");
+                    await 标识799();
+                }
+                else if (标识800.code === 3) {
+                    const 标识803 = 标识783(标识800.payload ?? new Uint8Array(0)).find((标识781) => 标识781.type === 3);
+                    if (标识803?.data?.byteLength === 4) {
+                        标识796 = [...标识803.data].join(".");
+                        await 标识481(写入器.write(标识778(标识780(32801, 1, 标识775++, [
+                            { type: 3, data: 标识803.data }
+                        ]))), 标识769, "SSTP IPCP address request timed out");
+                        标识794 = true;
+                    }
+                }
+                else if (标识800.code === 2) {
+                    const 标识803 = 标识783(标识800.payload ?? new Uint8Array(0)).find((标识781) => 标识781.type === 3);
+                    if (标识803?.data?.byteLength === 4)
+                        标识796 = [...标识803.data].join(".");
+                    标识795 = true;
+                }
+            }
+        }
+        if (!标识796)
+            throw new Error("SSTP did not assign an IPv4 address");
+        const 目标 = 标识443(目标主机);
+        let 目标地址 = 标识444(目标) ? 目标 : null;
+        if (!目标地址) {
+            const 记录集 = await 加密域名解析查询串(目标, "A");
+            const 记录数据 = 记录集.find((标识273) => 标识273.type === 1 && 标识444(标识273.data))?.data;
+            目标地址 = typeof 记录数据 === "string" ? 记录数据 : null;
+        }
+        if (!目标地址)
+            throw new Error(`Could not resolve ${目标主机} to an IPv4 address for SSTP`);
+        const 标识804 = 1e4 + 标识772() % 5e4;
+        const 标识805 = new Uint8Array(String(标识796 || "").split(".").map(Number));
+        const 标识806 = new Uint8Array(String(目标地址 || "").split(".").map(Number));
+        let 标识665 = 标识771(crypto.getRandomValues(new Uint8Array(4)));
+        let 标识807 = 0;
+        const 标识808 = new Uint8Array(20);
+        标识808.set([69, 0, 0, 0, 0, 0, 64, 0, 64, 6]);
+        标识808.set(标识805, 12);
+        标识808.set(标识806, 16);
+        const 标识809 = new Uint8Array(1432);
+        标识809.set(标识805);
+        标识809.set(标识806, 4);
+        标识809[9] = 6;
+        const 标识810 = (标识811, 标识812 = 标识768) => {
+            const 标识34 = 标识447(标识812);
+            const 标识813 = 标识34.byteLength;
+            const 可靠传输长度 = 20 + 标识813;
+            const 地址长度 = 20 + 可靠传输长度;
+            const 安全套隧道长度 = 8 + 地址长度;
+            const 帧 = new Uint8Array(安全套隧道长度);
+            const 标识11 = new DataView(帧.buffer);
+            帧.set([16, 0, 安全套隧道长度 >> 8 & 15 | 128, 安全套隧道长度 & 255, 255, 3, 0, 33]);
+            帧.set(标识808, 8);
+            标识11.setUint16(10, 地址长度);
+            标识11.setUint16(12, 标识772());
+            标识11.setUint16(18, 标识773(帧, 8, 20));
+            标识11.setUint16(28, 标识804);
+            标识11.setUint16(30, 目标端口);
+            标识11.setUint32(32, 标识665);
+            标识11.setUint32(36, 标识807);
+            帧[40] = 80;
+            帧[41] = 标识811;
+            标识11.setUint16(42, 65535);
+            if (标识813)
+                帧.set(标识34, 48);
+            标识809[10] = 可靠传输长度 >> 8;
+            标识809[11] = 可靠传输长度 & 255;
+            标识809.set(帧.subarray(28, 28 + 可靠传输长度), 12);
+            标识11.setUint16(44, 标识773(标识809, 0, 12 + 可靠传输长度));
+            return 帧;
+        };
+        const 标识814 = (地址报文) => {
+            if (地址报文.byteLength < 40 || 地址报文[9] !== 6)
+                return null;
+            const 地址头字段长度 = (地址报文[0] & 15) * 4;
+            if (地址报文.byteLength < 地址头字段长度 + 20)
+                return null;
+            if (标识770(地址报文, 地址头字段长度) !== 目标端口)
+                return null;
+            if (标识770(地址报文, 地址头字段长度 + 2) !== 标识804)
+                return null;
+            return {
+                flags: 地址报文[地址头字段长度 + 13],
+                sequence: 标识771(地址报文, 地址头字段长度 + 4),
+                payloadOffset: 地址头字段长度 + (地址报文[地址头字段长度 + 12] >> 4 & 15) * 4
+            };
+        };
+        await 标识481(写入器.write(标识810(2)), 标识769, "SSTP TCP SYN write timed out");
+        标识665 = 标识665 + 1 >>> 0;
+        let 可靠传输就绪 = false;
+        for (let 标识465 = 0; 标识465 < 30; 标识465++) {
+            const 报文 = await 读取报文(标识769);
+            if (报文.isControl)
+                continue;
+            const 标识800 = 标识782(报文.body);
+            if (!标识800 || 标识800.protocol !== 33)
+                continue;
+            const 可靠传输 = 标识814(标识800.ipPacket);
+            if (!可靠传输 || (可靠传输.flags & 18) !== 18)
+                continue;
+            标识807 = 可靠传输.sequence + 1 >>> 0;
+            await 标识481(写入器.write(标识810(16)), 标识769, "SSTP TCP ACK write timed out");
+            可靠传输就绪 = true;
+            break;
+        }
+        if (!可靠传输就绪)
+            throw new Error("TCP handshake through SSTP timed out");
+        const 标识815 = { current: null };
+        const 标识497 = new ReadableStream({
+            start(标识187) {
+                标识815.current = 标识187;
+            },
+            cancel() {
+                关闭();
+            }
+        });
+        (async () => {
+            try {
+                let 标识816 = [];
+                let 标识817 = 0;
+                const 标识818 = () => {
+                    if (!标识817)
+                        return;
+                    if (!标识815.current)
+                        throw new 标识312("CHAIN_SSTP_STREAM", "SSTP readable stream is not ready");
+                    标识815.current.enqueue(标识816.length === 1 ? 标识816[0] : 标识448(...标识816));
+                    标识816 = [];
+                    标识817 = 0;
+                    写入器.write(标识810(16)).catch(() => {
+                    });
+                };
+                for (;;) {
+                    const 报文 = await 读取报文(6e4);
+                    if (报文.isControl)
+                        continue;
+                    const 标识800 = 标识782(报文.body);
+                    if (!标识800 || 标识800.protocol !== 33)
+                        continue;
+                    const 标识819 = 标识814(标识800.ipPacket);
+                    if (!标识819)
+                        continue;
+                    if (标识800.ipPacket && 标识819.payloadOffset < 标识800.ipPacket.byteLength) {
+                        const 标识812 = 标识800.ipPacket.subarray(标识819.payloadOffset);
+                        if (标识812.byteLength) {
+                            标识807 = 标识819.sequence + 标识812.byteLength >>> 0;
+                            标识816.push(new Uint8Array(标识812));
+                            标识817 += 标识812.byteLength;
+                        }
+                    }
+                    if (标识819.flags & 1) {
+                        标识818();
+                        标识807 = 标识807 + 1 >>> 0;
+                        写入器.write(标识810(17)).catch(() => {
+                        });
+                        const 标识187 = 标识815.current;
+                        if (标识187) {
+                            try {
+                                标识187.close();
+                            }
+                            catch (标识186) {
+                            }
+                        }
+                        关闭();
+                        return;
+                    }
+                    if (标识774.byteLength < 4 || 标识817 >= 32768)
+                        标识818();
+                }
+            }
+            catch (错误) {
+                const 标识187 = 标识815.current;
+                if (标识187) {
+                    try {
+                        标识187.error(错误);
+                    }
+                    catch (标识186) {
+                    }
+                }
+                标识724(标识721, 错误);
+                try {
+                    套接字?.close?.();
+                }
+                catch (标识186) {
+                }
+            }
+        })();
+        const 标识498 = new WritableStream({
+            async write(块) {
+                const 标识34 = 标识447(块);
+                if (!标识34.byteLength)
+                    return;
+                if (标识34.byteLength <= 标识767) {
+                    await 写入器.write(标识810(24, 标识34));
+                    标识665 = 标识665 + 标识34.byteLength >>> 0;
+                    return;
+                }
+                const 标识820 = [];
+                for (let 标识18 = 0; 标识18 < 标识34.byteLength; 标识18 += 标识767) {
+                    const 标识821 = 标识34.subarray(标识18, Math.min(标识18 + 标识767, 标识34.byteLength));
+                    标识820.push(标识810(24, 标识821));
+                    标识665 = 标识665 + 标识821.byteLength >>> 0;
+                }
+                await 写入器.write(标识448(...标识820));
+            },
+            close() {
+                return 写入器.write(标识810(17)).catch(() => {
+                });
+            },
+            abort(错误) {
+                关闭();
+                if (错误)
+                    标识724(标识721, 错误);
+            }
+        });
+        return { readable: 标识497, writable: 标识498, closed: 标识723, close: 关闭 };
+    }
+    catch (错误) {
+        关闭();
+        throw 错误;
+    }
+}
+var 标识822 = class extends 标识479 {
+    name = "sstp";
+    async dial(参数集) {
+        const { proxy: 代理, target: 目标, tcpConnect: 可靠传输连接 } = 参数集;
+        const 套接字 = await 安全套隧道连接({ hostname: 代理.hostname, port: 代理.port, username: 代理.username, password: 代理.password }, 目标.host, 目标.port, 可靠传输连接);
+        return { socket: 套接字 };
+    }
+};
+// src/chain/registry.ts
+var 链式注册表2 = new 链式注册表().register(new 标识483()).register(new 标识490()).register(new 标识716()).register(new 标识764()).register(new 标识822());
+// src/plugins/admin-ui.ts
+var 标识823 = ["socks5", "http", "https", "turn", "sstp"];
+var 标识824 = class extends 插件2 {
+    name = "admin-api";
+    async onRoute(标识118) {
+        const 标识349 = 标识118.url.pathname.slice(1);
+        const 请求路径 = 标识349.toLowerCase();
+        if (请求路径 !== "admin" && !请求路径.startsWith("admin/"))
+            return null;
+        if (!await 核验认证曲奇(标识118.request, 标识118.encryptionSecret, 标识118.adminPassword)) {
+            return 重定向响应("/login");
+        }
+        if (请求路径 === "admin/log.json")
+            return this.handleLog(标识118);
+        if (标识349 === "admin/getCloudflareUsage")
+            return this.handleUsage(标识118);
+        if (请求路径 === "admin/check")
+            return this.handleCheck(标识118);
+        if (标识349 === "admin/ADD.txt")
+            return this.handleAddTxt(标识118);
+        if (请求路径 === "admin/cf.json")
+            return this.handleCfJson(标识118);
+        if (请求路径 === "admin/tg.json" && 标识118.request.method === "POST")
+            return this.handleTgJson(标识118);
+        return null;
+    }
+    /** L132-134：读取日志内容（任意方法，先于 loadConfig） */
+    async handleLog(标识118) {
+        const 读取日志内容 = await 标识118.env.KV.get("log.json") || "[]";
+        return new Response(读取日志内容, { status: 200, headers: { "Content-Type": "application/json;charset=utf-8" } });
+    }
+    /** L135-142：查询 CF 请求量（先于 loadConfig；成功头无 charset，与原一致） */
+    async handleUsage(标识118) {
+        const { url: 网址 } = 标识118;
+        try {
+            const 标识825 = await 标识104(网址.searchParams.get("Email"), 网址.searchParams.get("GlobalAPIKey"), 网址.searchParams.get("AccountID"), 网址.searchParams.get("APIToken"));
+            return new Response(JSON.stringify(标识825, null, 2), { status: 200, headers: { "Content-Type": "application/json" } });
+        }
+        catch (错误2) {
+            const 错误 = 错误2;
+            return 数据文本响应({ msg: "\u67E5\u8BE2\u8BF7\u6C42\u91CF\u5931\u8D25\uFF0C\u5931\u8D25\u539F\u56E0\uFF1A" + 错误.message, error: 错误.message }, 500, true);
+        }
+    }
+    /** L158-225：代理检查（先于 loadConfig；恒 200） */
+    async handleCheck(标识118) {
+        const { request: 请求, url: 网址 } = 标识118;
+        const 代理协议 = 标识823.find((类型) => 网址.searchParams.has(类型)) ?? null;
+        if (!代理协议) {
+            return 数据文本响应({ error: "\u7F3A\u5C11\u4EE3\u7406\u53C2\u6570" }, 400, false);
+        }
+        const 代理参数集 = 网址.searchParams.get(代理协议);
+        const 启动时间 = Date.now();
+        let 标识826;
+        try {
+            const 标识827 = 标识316(代理参数集, 取值代理缺省端口(代理协议));
+            const { username: 标识322, password: 密码, hostname: 标识119, port: 端口 } = 标识827;
+            const 标识828 = 标识322 && 密码 ? `${标识322}:${密码}@${标识119}:${端口}` : `${标识119}:${端口}`;
+            try {
+                const 标识829 = "cloudflare.com";
+                const 标识830 = 443;
+                const 标识395 = new TextEncoder();
+                const 标识191 = new TextDecoder();
+                const 可靠传输连接 = 标识453(请求);
+                let 可靠传输套接字 = null;
+                let 安全传输层套接字 = null;
+                try {
+                    const 标识480 = 链式注册表2.get(代理协议);
+                    if (!标识480)
+                        throw new Error("\u65E0\u6CD5\u8FDE\u63A5\u5230\u4EE3\u7406\u670D\u52A1\u5668");
+                    const 标识831 = await 标识480.dial({
+                        proxy: 标识827,
+                        target: { host: 标识829, port: 标识830 },
+                        initialData: new Uint8Array(0),
+                        tcpConnect: 可靠传输连接
+                    });
+                    可靠传输套接字 = 标识831.socket;
+                    if (!可靠传输套接字)
+                        throw new Error("\u65E0\u6CD5\u8FDE\u63A5\u5230\u4EE3\u7406\u670D\u52A1\u5668");
+                    安全传输层套接字 = new 安全传输层客户端(可靠传输套接字, { serverName: 标识829, insecure: true });
+                    await 安全传输层套接字.handshake();
+                    await 安全传输层套接字.write(标识395.encode(`GET /cdn-cgi/trace HTTP/1.1\r
+Host: ${标识829}\r
 User-Agent: Mozilla/5.0\r
 Connection: close\r
 \r
-`));let S=new Uint8Array(0),h=-1,E=null,P=!1,y=64*1024;for(;S.length<y;){let L=await k.read();if(!L)break;if(L.byteLength!==0){if(S=F(S,L),h===-1){let M=S.findIndex((N,U)=>U<S.length-3&&S[U]===13&&S[U+1]===10&&S[U+2]===13&&S[U+3]===10);if(M!==-1){h=M+4;let N=v.decode(S.slice(0,h)),U=N.split(`\r
-`)[0]||"",z=U.match(/HTTP\/\d\.\d\s+(\d+)/),K=z?parseInt(z[1],10):NaN;if(!Number.isFinite(K)||K<200||K>=300)throw new Error(`\u4EE3\u7406\u68C0\u6D4B\u8BF7\u6C42\u5931\u8D25: ${U||"\u65E0\u6548\u54CD\u5E94"}`);let q=N.match(/\r\nContent-Length:\s*(\d+)/i);q&&(E=parseInt(q[1],10)),P=/\r\nTransfer-Encoding:\s*chunked/i.test(N)}}if(h!==-1&&E!==null&&S.length>=h+E||h!==-1&&P&&v.decode(S).includes(`\r
-0\r
-\r
-`))break}}if(h===-1)throw new Error("\u4EE3\u7406\u68C0\u6D4B\u54CD\u5E94\u5934\u8FC7\u957F\u6216\u65E0\u6548");let T=v.decode(S),R=T.match(/(?:^|\n)ip=(.*)/)?.[1],A=T.match(/(?:^|\n)loc=(.*)/)?.[1];if(!R||!A)throw new Error("\u4EE3\u7406\u68C0\u6D4B\u54CD\u5E94\u65E0\u6548");l={success:!0,proxy:a+"://"+m,ip:R,loc:A,responseTime:Date.now()-s}}finally{try{k?k.close():await b?.close?.()}catch{}}}catch(p){l={success:!1,error:p.message,proxy:a+"://"+m,responseTime:Date.now()-s}}}catch(c){l={success:!1,error:c.message,proxy:a+"://"+r,responseTime:Date.now()-s}}return Q(l,200,!0)}async handleAddTxt(e){let{request:t,env:n}=e,a=await Ce(e);if(t.method==="POST")try{let s=await t.text();return await n.KV.put("ADD.txt",s),e.ctx.waitUntil(ge(n,t,e.clientIp,"Save_Custom_IPs",a)),Q({success:!0,message:"\u81EA\u5B9A\u4E49IP\u5DF2\u4FDD\u5B58"},200,!1)}catch(s){return console.error("\u4FDD\u5B58\u81EA\u5B9A\u4E49IP\u5931\u8D25:",s),Q({error:`\u4FDD\u5B58\u81EA\u5B9A\u4E49IP\u5931\u8D25: ${s.message}`},500,!1)}let r=await n.KV.get("ADD.txt")||"null";return r=="null"&&(r=(await ut(t,a.bestSubGen.localIPPool.randomCount,a.bestSubGen.localIPPool.fixedPort))[1]),new Response(r,{status:200,headers:{"Content-Type":"text/plain;charset=utf-8",asn:String(e.cf?.asn)}})}async handleCfJson(e){let{request:t,env:n}=e,a=await Ce(e);if(t.method==="POST")try{let r=await t.json(),s={Email:null,GlobalAPIKey:null,AccountID:null,APIToken:null,UsageAPI:null};if(!r.init||r.init!==!0)if(r.Email&&r.GlobalAPIKey)s.Email=r.Email,s.GlobalAPIKey=r.GlobalAPIKey;else if(r.AccountID&&r.APIToken)s.AccountID=r.AccountID,s.APIToken=r.APIToken;else if(r.UsageAPI)s.UsageAPI=r.UsageAPI;else return Q({error:"\u914D\u7F6E\u4E0D\u5B8C\u6574"},400,!1);return await n.KV.put("cf.json",JSON.stringify(s,null,2)),e.ctx.waitUntil(ge(n,t,e.clientIp,"Save_Config",a)),Q({success:!0,message:"\u914D\u7F6E\u5DF2\u4FDD\u5B58"},200,!1)}catch(r){return console.error("\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25:",r),Q({error:`\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25: ${r.message}`},500,!1)}return Q(e.cf??{},200,!0)}async handleTgJson(e){let{request:t,env:n}=e,a=await Ce(e);try{let r=await t.json();if(r.init&&r.init===!0){let s={BotToken:null,ChatID:null};await n.KV.put("tg.json",JSON.stringify(s,null,2))}else{if(!r.BotToken||!r.ChatID)return Q({error:"\u914D\u7F6E\u4E0D\u5B8C\u6574"},400,!1);await n.KV.put("tg.json",JSON.stringify(r,null,2))}return e.ctx.waitUntil(ge(n,t,e.clientIp,"Save_Config",a)),Q({success:!0,message:"\u914D\u7F6E\u5DF2\u4FDD\u5B58"},200,!1)}catch(r){return console.error("\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25:",r),Q({error:`\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25: ${r.message}`},500,!1)}}};function za(){return`
+`));
+                    let 响应缓冲区 = new Uint8Array(0);
+                    let 标识492 = -1;
+                    let 内容长度 = null;
+                    let 标识832 = false;
+                    const 标识833 = 64 * 1024;
+                    while (响应缓冲区.length < 标识833) {
+                        const 值 = await 安全传输层套接字.read();
+                        if (!值)
+                            break;
+                        if (值.byteLength === 0)
+                            continue;
+                        响应缓冲区 = 标识448(响应缓冲区, 值);
+                        if (标识492 === -1) {
+                            const 标识495 = 响应缓冲区.findIndex((标识157, 标识3) => 标识3 < 响应缓冲区.length - 3 && 响应缓冲区[标识3] === 13 && 响应缓冲区[标识3 + 1] === 10 && 响应缓冲区[标识3 + 2] === 13 && 响应缓冲区[标识3 + 3] === 10);
+                            if (标识495 !== -1) {
+                                标识492 = 标识495 + 4;
+                                const 头部 = 标识191.decode(响应缓冲区.slice(0, 标识492));
+                                const 标识788 = 头部.split("\r\n")[0] || "";
+                                const 标识496 = 标识788.match(/HTTP\/\d\.\d\s+(\d+)/);
+                                const 状态编码 = 标识496 ? parseInt(标识496[1], 10) : NaN;
+                                if (!Number.isFinite(状态编码) || 状态编码 < 200 || 状态编码 >= 300) {
+                                    throw new Error(`\u4EE3\u7406\u68C0\u6D4B\u8BF7\u6C42\u5931\u8D25: ${标识788 || "\u65E0\u6548\u54CD\u5E94"}`);
+                                }
+                                const 标识834 = 头部.match(/\r\nContent-Length:\s*(\d+)/i);
+                                if (标识834)
+                                    内容长度 = parseInt(标识834[1], 10);
+                                标识832 = /\r\nTransfer-Encoding:\s*chunked/i.test(头部);
+                            }
+                        }
+                        if (标识492 !== -1 && 内容长度 !== null && 响应缓冲区.length >= 标识492 + 内容长度)
+                            break;
+                        if (标识492 !== -1 && 标识832 && 标识191.decode(响应缓冲区).includes("\r\n0\r\n\r\n"))
+                            break;
+                    }
+                    if (标识492 === -1)
+                        throw new Error("\u4EE3\u7406\u68C0\u6D4B\u54CD\u5E94\u5934\u8FC7\u957F\u6216\u65E0\u6548");
+                    const 响应 = 标识191.decode(响应缓冲区);
+                    const 地址 = 响应.match(/(?:^|\n)ip=(.*)/)?.[1];
+                    const 标识835 = 响应.match(/(?:^|\n)loc=(.*)/)?.[1];
+                    if (!地址 || !标识835)
+                        throw new Error("\u4EE3\u7406\u68C0\u6D4B\u54CD\u5E94\u65E0\u6548");
+                    标识826 = {
+                        success: true,
+                        proxy: 代理协议 + "://" + 标识828,
+                        ip: 地址,
+                        loc: 标识835,
+                        responseTime: Date.now() - 启动时间
+                    };
+                }
+                finally {
+                    try {
+                        if (安全传输层套接字)
+                            安全传输层套接字.close();
+                        else
+                            await 可靠传输套接字?.close?.();
+                    }
+                    catch {
+                    }
+                }
+            }
+            catch (错误) {
+                标识826 = {
+                    success: false,
+                    error: 错误.message,
+                    proxy: 代理协议 + "://" + 标识828,
+                    responseTime: Date.now() - 启动时间
+                };
+            }
+        }
+        catch (错误2) {
+            标识826 = {
+                success: false,
+                error: 错误2.message,
+                proxy: 代理协议 + "://" + 代理参数集,
+                responseTime: Date.now() - 启动时间
+            };
+        }
+        return 数据文本响应(标识826, 200, true);
+    }
+    /** L298-314：自定义优选 IP（POST 保存 / 非 POST 返回，大小写敏感；需 loadConfig） */
+    async handleAddTxt(标识118) {
+        const { request: 请求, env: 环境 } = 标识118;
+        const 配置 = await 载入配置(标识118);
+        if (请求.method === "POST") {
+            try {
+                const 标识836 = await 请求.text();
+                await 环境.KV.put("ADD.txt", 标识836);
+                标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Save_Custom_IPs", 配置));
+                return 数据文本响应({ success: true, message: "\u81EA\u5B9A\u4E49IP\u5DF2\u4FDD\u5B58" }, 200, false);
+            }
+            catch (错误) {
+                console.error("\u4FDD\u5B58\u81EA\u5B9A\u4E49IP\u5931\u8D25:", 错误);
+                return 数据文本响应({ error: `\u4FDD\u5B58\u81EA\u5B9A\u4E49IP\u5931\u8D25: ${错误.message}` }, 500, false);
+            }
+        }
+        let 本地优选地址 = await 环境.KV.get("ADD.txt") || "null";
+        if (本地优选地址 == "null") {
+            本地优选地址 = (await 标识140(请求, 配置.bestSubGen.localIPPool.randomCount, 配置.bestSubGen.localIPPool.fixedPort))[1];
+        }
+        return new Response(本地优选地址, {
+            status: 200,
+            headers: { "Content-Type": "text/plain;charset=utf-8", "asn": String(标识118.cf?.asn) }
+        });
+    }
+    /** L256-281 / L315-316：cf.json（POST 保存 / 非 POST 返回 request.cf；需 loadConfig） */
+    async handleCfJson(标识118) {
+        const { request: 请求, env: 环境 } = 标识118;
+        const 配置 = await 载入配置(标识118);
+        if (请求.method === "POST") {
+            try {
+                const 标识837 = await 请求.json();
+                const 边缘平台短数据文本 = {
+                    Email: null,
+                    GlobalAPIKey: null,
+                    AccountID: null,
+                    APIToken: null,
+                    UsageAPI: null
+                };
+                if (!标识837.init || 标识837.init !== true) {
+                    if (标识837.Email && 标识837.GlobalAPIKey) {
+                        边缘平台短数据文本.Email = 标识837.Email;
+                        边缘平台短数据文本.GlobalAPIKey = 标识837.GlobalAPIKey;
+                    }
+                    else if (标识837.AccountID && 标识837.APIToken) {
+                        边缘平台短数据文本.AccountID = 标识837.AccountID;
+                        边缘平台短数据文本.APIToken = 标识837.APIToken;
+                    }
+                    else if (标识837.UsageAPI) {
+                        边缘平台短数据文本.UsageAPI = 标识837.UsageAPI;
+                    }
+                    else {
+                        return 数据文本响应({ error: "\u914D\u7F6E\u4E0D\u5B8C\u6574" }, 400, false);
+                    }
+                }
+                await 环境.KV.put("cf.json", JSON.stringify(边缘平台短数据文本, null, 2));
+                标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Save_Config", 配置));
+                return 数据文本响应({ success: true, message: "\u914D\u7F6E\u5DF2\u4FDD\u5B58" }, 200, false);
+            }
+            catch (错误) {
+                console.error("\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25:", 错误);
+                return 数据文本响应({ error: `\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25: ${错误.message}` }, 500, false);
+            }
+        }
+        return 数据文本响应(标识118.cf ?? {}, 200, true);
+    }
+    /** L282-297：tg.json（仅 POST 认领；需 loadConfig 供日志） */
+    async handleTgJson(标识118) {
+        const { request: 请求, env: 环境 } = 标识118;
+        const 配置 = await 载入配置(标识118);
+        try {
+            const 标识837 = await 请求.json();
+            if (标识837.init && 标识837.init === true) {
+                const 电报数据文本 = { BotToken: null, ChatID: null };
+                await 环境.KV.put("tg.json", JSON.stringify(电报数据文本, null, 2));
+            }
+            else {
+                if (!标识837.BotToken || !标识837.ChatID)
+                    return 数据文本响应({ error: "\u914D\u7F6E\u4E0D\u5B8C\u6574" }, 400, false);
+                await 环境.KV.put("tg.json", JSON.stringify(标识837, null, 2));
+            }
+            标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Save_Config", 配置));
+            return 数据文本响应({ success: true, message: "\u914D\u7F6E\u5DF2\u4FDD\u5B58" }, 200, false);
+        }
+        catch (错误) {
+            console.error("\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25:", 错误);
+            return 数据文本响应({ error: `\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25: ${错误.message}` }, 500, false);
+        }
+    }
+};
+// src/plugins/fake-page.ts
+function 门户页页面() {
+    return `
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -119,13 +5151,19 @@ Connection: close\r
 	<p><em>Thank you for using nginx.</em></p>
 	</body>
 	</html>
-	`}function Fa(o,e){let t=new Date,n=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0")+" "+String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0")+":"+String(t.getSeconds()).padStart(2,"0"),a=Array.from(crypto.getRandomValues(new Uint8Array(8))).map(r=>r.toString(16).padStart(2,"0")).join("");return`<!DOCTYPE html>
+	`;
+}
+function 网页文1101(主机, 客户端地址) {
+    const 当前 = new Date();
+    const 标识838 = 当前.getFullYear() + "-" + String(当前.getMonth() + 1).padStart(2, "0") + "-" + String(当前.getDate()).padStart(2, "0") + " " + String(当前.getHours()).padStart(2, "0") + ":" + String(当前.getMinutes()).padStart(2, "0") + ":" + String(当前.getSeconds()).padStart(2, "0");
+    const 标识839 = Array.from(crypto.getRandomValues(new Uint8Array(8))).map((标识394) => 标识394.toString(16).padStart(2, "0")).join("");
+    return `<!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
 <!--[if IE 7]    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
 <!--[if IE 8]    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
 <head>
-<title>Worker threw exception | ${o} | Cloudflare</title>
+<title>Worker threw exception | ${主机} | Cloudflare</title>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -156,7 +5194,7 @@ Connection: close\r
                 <h1>
                     <span class="cf-error-type" data-translate="error">Error</span>
                     <span class="cf-error-code">1101</span>
-                    <small class="heading-ray-id">Ray ID: ${a} &bull; ${n} UTC</small>
+                    <small class="heading-ray-id">Ray ID: ${标识839} &bull; ${标识838} UTC</small>
                 </h1>
                 <h2 class="cf-subheadline" data-translate="error_desc">Worker threw exception</h2>
             </div><!-- /.header -->
@@ -167,12 +5205,12 @@ Connection: close\r
                 <div class="cf-columns two">
                     <div class="cf-column">
                         <h2 data-translate="what_happened">What happened?</h2>
-                            <p>You've requested a page on a website (${o}) that is on the <a href="https://www.cloudflare.com/5xx-error-landing?utm_source=error_100x" target="_blank">Cloudflare</a> network. An unknown error occurred while rendering the page.</p>
+                            <p>You've requested a page on a website (${主机}) that is on the <a href="https://www.cloudflare.com/5xx-error-landing?utm_source=error_100x" target="_blank">Cloudflare</a> network. An unknown error occurred while rendering the page.</p>
                     </div>
 
                     <div class="cf-column">
                         <h2 data-translate="what_can_i_do">What can I do?</h2>
-                            <p><strong>If you are the owner of this website:</strong><br />refer to <a href="https://developers.cloudflare.com/workers/observability/errors/" target="_blank">Workers - Errors and Exceptions</a> and check Workers Logs for ${o}.</p>
+                            <p><strong>If you are the owner of this website:</strong><br />refer to <a href="https://developers.cloudflare.com/workers/observability/errors/" target="_blank">Workers - Errors and Exceptions</a> and check Workers Logs for ${主机}.</p>
                     </div>
 
                 </div>
@@ -180,12 +5218,12 @@ Connection: close\r
 
             <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
     <p class="text-13">
-      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold"> ${a}</strong></span>
+      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold"> ${标识839}</strong></span>
       <span class="cf-footer-separator sm:hidden">&bull;</span>
       <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
         Your IP:
         <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
-        <span class="hidden" id="cf-footer-ip">${e}</span>
+        <span class="hidden" id="cf-footer-ip">${客户端地址}</span>
         <span class="cf-footer-separator sm:hidden">&bull;</span>
       </span>
       <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
@@ -203,16 +5241,3569 @@ Connection: close\r
 
   <\/script>
 </body>
-</html>`}var uo=class extends xe{name="fake-page";fallback=!0;async onRoute(e){let{request:t,url:n,env:a}=e,r=e.ua,s=String(a.URL||"nginx");if(s&&s!=="nginx"&&s!=="1101"){s=s.trim().replace(/\/$/,""),s.match(/^https?:\/\//i)||(s="https://"+s),s.toLowerCase().startsWith("http://")&&(s="https://"+s.substring(7));try{let l=new URL(s);s=l.protocol+"//"+l.host}catch{s="nginx"}}if(s==="1101")return new Response(Fa(n.host,e.clientIp),{status:200,headers:{"Content-Type":"text/html; charset=UTF-8"}});try{let l=new URL(s),c=new Headers(t.headers);c.set("Host",l.host),c.set("Referer",l.origin),c.set("Origin",l.origin),!c.has("User-Agent")&&r&&r!=="null"&&c.set("User-Agent",r);let i=await fetch(l.origin+n.pathname+n.search,{method:t.method,headers:c,body:t.body,cf:t.cf}),d=i.headers.get("content-type")||"";if(/text|javascript|json|xml/.test(d)){let g=(await i.text()).replaceAll(l.host,n.host);return new Response(g,{status:i.status,headers:{...Object.fromEntries(i.headers),"Cache-Control":"no-store"}})}return i}catch{}return new Response(za(),{status:200,headers:{"Content-Type":"text/html; charset=UTF-8"}})}};var mr=!1;function Va(){mr||(mr=!0,ct(new Vt),ct(new Gt),ct(new po),ct(new uo))}Va();var nt=class{items=new Map;register(e){if(this.items.has(e.name))throw new B("REGISTRY_DUPLICATE",`\u7EC4\u4EF6\u91CD\u540D\u6CE8\u518C: ${e.name}`);return this.items.set(e.name,e),this}get(e){return this.items.get(e)}list(){return[...this.items.values()]}get size(){return this.items.size}};function mo(o,e){let t,n=0;for(let a of o){let r=e(a);r>n&&(t=a,n=r)}return t}var Ne=class{};var rt=new Map;function fr(o){return o>=48&&o<=57?o-48:(o|=32,o>=97&&o<=102?o-87:-1)}function ja(o){let e=String(o||""),t=rt.get(e);if(t!==void 0)return t;let n=e.replace(/-/g,"");if(n.length!==32)return rt.set(e,null),null;let a=new Uint8Array(16);for(let r=0;r<16;r++){let s=fr(n.charCodeAt(r*2)),l=fr(n.charCodeAt(r*2+1));if(s<0||l<0)return rt.set(e,null),null;a[r]=s<<4|l}return rt.size>=32&&rt.clear(),rt.set(e,a),a}function fo(o,e,t){let n=ja(t);if(!n||o.byteLength<e+16)return!1;for(let a=0;a<16;a++)if(o[e+a]!==n[a])return!1;return!0}var Ga=[1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298];function go(o){let e=(i,d)=>(i>>>d|i<<32-d)>>>0,t=unescape(encodeURIComponent(o)),n=t.length*8;for(t+="\x80";t.length*8%512!==448;)t+="\0";let a=[3238371032,914150663,812702999,4144912697,4290775857,1750603025,1694076839,3204075428],r=Math.floor(n/4294967296),s=n&4294967295;t+=String.fromCharCode(r>>>24&255,r>>>16&255,r>>>8&255,r&255,s>>>24&255,s>>>16&255,s>>>8&255,s&255);let l=[];for(let i=0;i<t.length;i+=4)l.push(t.charCodeAt(i)<<24|t.charCodeAt(i+1)<<16|t.charCodeAt(i+2)<<8|t.charCodeAt(i+3));for(let i=0;i<l.length;i+=16){let d=new Array(64).fill(0);for(let b=0;b<16;b++)d[b]=l[i+b];for(let b=16;b<64;b++){let k=e(d[b-15],7)^e(d[b-15],18)^d[b-15]>>>3,C=e(d[b-2],17)^e(d[b-2],19)^d[b-2]>>>10;d[b]=d[b-16]+k+d[b-7]+C>>>0}let[g,f,m,p,u,x,v,w]=a;for(let b=0;b<64;b++){let k=e(u,6)^e(u,11)^e(u,25),C=u&x^~u&v,I=w+k+C+Ga[b]+d[b]>>>0,S=e(g,2)^e(g,13)^e(g,22),h=g&f^g&m^f&m,E=S+h>>>0;w=v,v=x,x=u,u=p+I>>>0,p=m,m=f,f=g,g=I+E>>>0}a[0]=a[0]+g>>>0,a[1]=a[1]+f>>>0,a[2]=a[2]+m>>>0,a[3]=a[3]+p>>>0,a[4]=a[4]+u>>>0,a[5]=a[5]+x>>>0,a[6]=a[6]+v>>>0,a[7]=a[7]+w>>>0}let c="";for(let i=0;i<7;i++)for(let d=24;d>=0;d-=8)c+=(a[i]>>>d&255).toString(16).padStart(2,"0");return c}var gr=8*1024,Ka=Math.ceil(gr*4/3)+4;function Wa(o,e){if(!o?.byteLength)return!1;if(o.byteLength>=18&&fo(o,1,e))return!0;if(o.byteLength<58||o[56]!==13||o[57]!==10)return!1;let t=go(e);for(let n=0;n<56;n++)if(o[n]!==t.charCodeAt(n))return!1;return!0}function qa(o,e){if(!o)return null;if(o.length>Ka)throw new Error("early data is too large");let t,n=Uint8Array;if(typeof n.fromBase64=="function")try{t=n.fromBase64(o,{alphabet:"base64url"})}catch{}if(!t){let a=o.replace(/-/g,"+").replace(/_/g,"/"),r=a.length%4;r&&(a+="=".repeat(4-r));let s;try{s=atob(a)}catch{return null}t=new Uint8Array(s.length);for(let l=0;l<s.length;l++)t[l]=s.charCodeAt(l)}if(t.byteLength>gr)throw new Error("early data is too large");return Wa(t,e)?t:null}var ho=class extends Ne{name="websocket";score(e,t){return t.adminPassword&&(e.headers.get("Upgrade")||"").toLowerCase()==="websocket"?100:0}async accept(e,t){let n=new WebSocketPair,[a,r]=Object.values(n);try{r.accept({allowHalfOpen:!0})}catch{r.accept()}r.binaryType="arraybuffer";let s=e.headers.get("sec-websocket-protocol")||"",l=!!t.url.searchParams.get("enc"),c;if(!l&&s)try{let m=qa(s,t.userId);m?.byteLength&&(c=m)}catch{try{r.close(1009,"early data is too large")}catch{}return{ok:!1,response:new Response("early data is too large",{status:400})}}let i,d=new ReadableStream({start(m){i=m}});r.addEventListener("message",m=>{let p=D(m.data);p.byteLength>0&&i.enqueue(p)}),r.addEventListener("close",()=>{try{i.close()}catch{}}),r.addEventListener("error",m=>{try{i.error(m)}catch{}});let g=new WritableStream({write(m){r.send(m)},close(){try{r.close()}catch{}},abort(){try{r.close()}catch{}}});return{ok:!0,session:{name:this.name,readable:d,writable:g,earlyData:c,close(m){try{r.close(1e3,m)}catch{}try{i.close()}catch{}}},respond(){return new Response(null,{status:101,webSocket:a,headers:{"Sec-WebSocket-Extensions":""}})}}}};var Ya={"Content-Type":"application/grpc","grpc-status":"0","X-Accel-Buffering":"no","Cache-Control":"no-store"};function Xa(o){let e=[],t=o>>>0;for(;t>127;)e.push(t&127|128),t>>>=7;return e.push(t),new Uint8Array(e)}function Ja(o){let e=Xa(o.byteLength),t=1+e.length+o.byteLength,n=new Uint8Array(5+t);return n[0]=0,n[1]=t>>>24&255,n[2]=t>>>16&255,n[3]=t>>>8&255,n[4]=t&255,n[5]=10,n.set(e,6),n.set(o,6+e.length),n}var tn=class{pending=new Uint8Array(0);push(e){this.pending=F(this.pending,D(e));let t=[];for(;this.pending.byteLength>=5;){let a=5+(this.pending[1]<<24>>>0|this.pending[2]<<16|this.pending[3]<<8|this.pending[4]);if(this.pending.byteLength<a)break;let r=this.pending.subarray(5,a);if(this.pending=this.pending.subarray(a),!!r.byteLength){if(r.byteLength>=2&&r[0]===10){let s=0,l=1,c=!1;for(;l<r.length;){if((r[l++]&128)===0){c=!0;break}if(s+=7,s>35)break}c&&(r=r.subarray(l))}r.byteLength&&t.push(r)}}return t}},bo=class extends Ne{name="grpc";score(e,t){if(!t.adminPassword||e.method!=="POST")return 0;let n=t.url.pathname.slice(1).toLowerCase();if(n.startsWith("admin/")||n==="login"||!(e.headers.get("Content-Type")||"").toLowerCase().startsWith("application/grpc"))return 0;let[r,s]=t.identity;return!!e.headers.get(r)||!!t.url.searchParams.get(s)?0:80}async accept(e,t){if(!e.body)return{ok:!1,response:new Response("Bad Request",{status:400})};let n=new tn,a=e.body.pipeThrough(new TransformStream({transform(i,d){for(let g of n.push(i))d.enqueue(g)}})),r,s=new ReadableStream({start(i){r=i}}),l=new WritableStream({write(i){r.enqueue(Ja(D(i)))},close(){try{r.close()}catch{}},abort(i){try{r.error(i)}catch{}}});return{ok:!0,session:{name:this.name,readable:a,writable:l,close(i){try{r.close()}catch{}}},respond(){return new Response(s,{status:200,headers:Ya})}}}};var hr=[13,23,28,28,28,28,28,28,28,24,30,28,28,30,28,28,28,28,28,28,28,28,30,28,28,28,28,28,28,28,28,28,6,10,10,12,13,6,8,11,10,10,8,11,8,6,6,6,5,5,5,6,6,6,6,6,6,6,7,8,15,6,12,10,13,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,7,8,13,19,13,14,6,15,5,6,5,6,5,6,6,6,5,7,7,6,6,6,5,6,7,6,5,5,6,7,7,7,7,7,15,11,14,13,28,20,22,20,20,22,22,22,23,22,23,23,23,23,23,24,23,24,24,22,23,24,23,23,23,23,21,22,23,22,23,23,24,22,21,20,22,22,23,23,21,23,22,22,24,21,22,23,23,21,21,22,21,23,22,23,23,20,22,22,22,23,22,22,23,26,26,20,19,22,23,22,25,26,26,26,27,27,26,24,25,19,21,26,27,27,26,27,24,21,21,26,26,28,27,27,27,20,24,20,21,22,21,21,23,22,22,25,25,24,24,26,23,26,27,26,26,27,27,27,27,27,28,27,27,27,27,27,26,30];var br="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";function Qa(o){let e=new TextEncoder().encode(o),t=0;for(let n=0;n<e.length;n++)t+=hr[e[n]];return Math.ceil(t/8)}function Za(o,e,t){let n=o.headers.get(e);if(n){try{let s=new URL(n,"https://x.invalid").searchParams.get(t);if(s)return s}catch{}return n}return new URL(o.url).searchParams.get(t)||""}function ei(o,e,t){let n=Za(o,e,t);if(!n)return!0;let a=Qa(n);return a>=98&&a<=1002}function ti(o){let e=br.length,t="";for(let n=0;n<o;n++)t+=br[Math.floor(Math.random()*e)];return t}var yo=class extends Ne{name="xhttp";score(e,t){if(!t.adminPassword||e.method!=="POST")return 0;let n=t.url.pathname.slice(1).toLowerCase();return n.startsWith("admin/")||n==="login"?0:60}async accept(e,t){if(!e.body)return{ok:!1,response:new Response("Bad Request",{status:400})};let[n,a]=Qe(t.userId);if(!ei(e,n,a))return{ok:!1,response:new Response("Bad Request",{status:400})};let r=e.body,s,l=new ReadableStream({start(f){s=f}}),c=new WritableStream({write(f){s.enqueue(f)},close(){try{s.close()}catch{}},abort(f){try{s.error(f)}catch{}}}),i="";try{let f=new URL("https://x.invalid/");f.searchParams.set(a,ti(100+Math.floor(Math.random()*901))),i=f.toString()}catch{}let d=new Headers({"Content-Type":"application/octet-stream","X-Accel-Buffering":"no","Cache-Control":"no-store"});return i&&d.set(n,i),{ok:!0,session:{name:this.name,readable:r,writable:c,close(f){try{s.close()}catch{}}},respond(f){return f?.localBody!==void 0?new Response(f.localBody,{status:f.status??200,headers:f.headers}):new Response(l,{status:200,headers:d})}}}};var oi=new nt().register(new ho).register(new bo).register(new yo);function yr(o,e){return mo(oi.list(),t=>t.score(o,e))}var ni={uplink:async o=>o.byteLength>0?[o]:[],downlink:async o=>o.byteLength>0?[o]:[]},xr=.9,vr=.8,wr=.5,He=class{codec(e){return ni}};var ri=new TextDecoder,xo=class extends He{name="vless";sniff(e,t){return wr}parse(e,t){let n=D(e),a=n.byteLength;if(a<24)throw new B("PROTOCOL_VLESS_INVALID_DATA","Invalid data");let r=n[0];if(!fo(n,1,t.userId))throw new B("PROTOCOL_VLESS_INVALID_UUID","Invalid uuid");let l=18+n[17];if(a<l+4)throw new B("PROTOCOL_VLESS_INVALID_DATA","Invalid data");let c=n[l],i=!1;if(c!==1)if(c===2)i=!0;else throw new B("PROTOCOL_VLESS_INVALID_COMMAND","Invalid command");let d=l+1,g=n[d]<<8|n[d+1],f=d+3,m=0,p="",u=n[d+2];switch(u){case 1:if(m=4,a<f+m)throw new B("PROTOCOL_VLESS_INVALID_IPV4","Invalid IPv4 address length");p=`${n[f]}.${n[f+1]}.${n[f+2]}.${n[f+3]}`;break;case 2:{if(a<f+1)throw new B("PROTOCOL_VLESS_INVALID_DOMAIN","Invalid domain length");if(m=n[f],f+=1,a<f+m)throw new B("PROTOCOL_VLESS_INVALID_DOMAIN","Invalid domain data");p=ri.decode(n.subarray(f,f+m));break}case 3:{if(m=16,a<f+m)throw new B("PROTOCOL_VLESS_INVALID_IPV6","Invalid IPv6 address length");let v=[];for(let w=0;w<8;w++){let b=f+w*2;v.push((n[b]<<8|n[b+1]).toString(16))}p=v.join(":");break}default:throw new B("PROTOCOL_VLESS_INVALID_ADDR_TYPE",`Invalid address type: ${u}`)}if(!p)throw new B("PROTOCOL_VLESS_INVALID_ADDR",`Invalid address: ${u}`);let x=f+m;return{host:p,port:g,udp:i,payload:n.subarray(x),replyHeader:new Uint8Array([r,0])}}};var ai=new TextDecoder,vo=class extends He{name="trojan";sniff(e,t){return e.byteLength>=58&&e[56]===13&&e[57]===10?vr:0}parse(e,t){let n=D(e),a=go(t.userId);if(n.byteLength<58)throw new B("PROTOCOL_TROJAN_INVALID_DATA","invalid data");let r=56;if(n[r]!==13||n[r+1]!==10)throw new B("PROTOCOL_TROJAN_INVALID_HEADER","invalid header format");for(let u=0;u<r;u++)if(n[u]!==a.charCodeAt(u))throw new B("PROTOCOL_TROJAN_INVALID_PASSWORD","invalid password");let s=r+2;if(n.byteLength<s+6)throw new B("PROTOCOL_TROJAN_INVALID_DATA","invalid S5 request data");let l=n[s];if(l!==1&&l!==3)throw new B("PROTOCOL_TROJAN_INVALID_COMMAND","unsupported command, only TCP/UDP is allowed");let c=l===3,i=n[s+1],d=0,g=s+2,f="";switch(i){case 1:if(d=4,n.byteLength<g+d+4)throw new B("PROTOCOL_TROJAN_INVALID_DATA","invalid S5 request data");f=`${n[g]}.${n[g+1]}.${n[g+2]}.${n[g+3]}`;break;case 3:{if(n.byteLength<g+1)throw new B("PROTOCOL_TROJAN_INVALID_DATA","invalid S5 request data");if(d=n[g],g+=1,n.byteLength<g+d+4)throw new B("PROTOCOL_TROJAN_INVALID_DATA","invalid S5 request data");f=ai.decode(n.subarray(g,g+d));break}case 4:{if(d=16,n.byteLength<g+d+4)throw new B("PROTOCOL_TROJAN_INVALID_DATA","invalid S5 request data");let u=[];for(let x=0;x<8;x++){let v=g+x*2;u.push((n[v]<<8|n[v+1]).toString(16))}f=u.join(":");break}default:throw new B("PROTOCOL_TROJAN_INVALID_ADDR_TYPE",`invalid addressType is ${i}`)}if(!f)throw new B("PROTOCOL_TROJAN_INVALID_ADDR",`address is empty, addressType is ${i}`);let m=g+d;if(n.byteLength<m+4)throw new B("PROTOCOL_TROJAN_INVALID_DATA","invalid S5 request data");let p=n[m]<<8|n[m+1];return{host:f,port:p,udp:c,payload:n.subarray(m+4)}}};var on={"aes-128-gcm":{method:"aes-128-gcm",keyLen:16,saltLen:16,maxChunk:16383,aesLength:128},"aes-256-gcm":{method:"aes-256-gcm",keyLen:32,saltLen:32,maxChunk:16383,aesLength:256}},nn=16,wo=12,ii=new TextEncoder().encode("ss-subkey");function Sr(o){for(let e=0;e<o.length;e++)if(o[e]=o[e]+1&255,o[e]!==0)return}var kr=new Map;function rn(o,e){let t=`${e}:${o}`,n=kr.get(t);if(n)return n;let a=new TextEncoder().encode(o||""),r=new Uint8Array(0),s=new Uint8Array(0);for(;s.byteLength<e;){let c=F(r,a);r=Io(c),s=F(s,r)}let l=s.slice(0,e);return kr.set(t,l),l}async function an(o,e,t,n){let a={name:"HMAC",hash:"SHA-1"},r=await crypto.subtle.importKey("raw",t,a,!1,["sign"]),s=new Uint8Array(await crypto.subtle.sign("HMAC",r,e)),l=await crypto.subtle.importKey("raw",s,a,!1,["sign"]),c=new Uint8Array(o.keyLen),i=new Uint8Array(0),d=0,g=1;for(;d<o.keyLen;){let f=F(i,ii,new Uint8Array([g]));i=new Uint8Array(await crypto.subtle.sign("HMAC",l,f));let m=Math.min(i.byteLength,o.keyLen-d);c.set(i.subarray(0,m),d),d+=m,g+=1}return crypto.subtle.importKey("raw",c,{name:"AES-GCM",length:o.aesLength},!1,n)}async function sn(o,e,t){let n=e.slice(),a=await crypto.subtle.encrypt({name:"AES-GCM",iv:n,tagLength:128},o,t);return Sr(e),new Uint8Array(a)}async function ko(o,e,t){let n=e.slice(),a=await crypto.subtle.decrypt({name:"AES-GCM",iv:n,tagLength:128},o,t);return Sr(e),new Uint8Array(a)}function Cr(o){let e=on[(o||"").toLowerCase()]||on["aes-128-gcm"];return[e,...Object.values(on).filter(t=>t.method!==e.method)]}var si=new TextDecoder,at=2+nn,Pr=16,ln=class{constructor(e,t){this.userId=e;this.candidates=Cr(t),this.encLabel=(t||"").toLowerCase()||"auto"}userId;buffer=new Uint8Array(0);hasSalt=!1;waitPayloadLength=null;decryptKey=null;nonceCounter=new Uint8Array(wo);cryptoConfig=null;candidates;encLabel;outbound=null;async initAsync(){let e=Math.max(...this.candidates.map(r=>r.saltLen)),t=Math.min(...this.candidates.map(r=>r.saltLen)),n=Math.min(Pr,Math.max(0,this.buffer.byteLength-(at+t)));for(let r=0;r<=n;r++)for(let s of this.candidates){let l=r+s.saltLen+at;if(this.buffer.byteLength<l)continue;let c=this.buffer.subarray(r,r+s.saltLen),i=this.buffer.subarray(r+s.saltLen,l),d=rn(this.userId,s.keyLen);try{let g=await an(s,d,c,["decrypt"]),f=new Uint8Array(wo),m=await ko(g,f,i);if(m.byteLength!==2)continue;let p=m[0]<<8|m[1];if(p<0||p>s.maxChunk)continue;return this.buffer=this.buffer.subarray(l),this.decryptKey=g,this.nonceCounter.set(f),this.waitPayloadLength=p,this.cryptoConfig=s,this.hasSalt=!0,!0}catch{}}let a=e+at+Pr;if(this.buffer.byteLength>=a)throw new B("PROTOCOL_SS_HANDSHAKE_FAILED",`SS handshake decrypt failed (enc=${this.encLabel}, candidates=${this.candidates.map(r=>r.method).join("/")})`);return!1}async uplink(e){let t=D(e);if(t.byteLength>0&&(this.buffer=F(this.buffer,t)),!this.hasSalt&&!await this.initAsync())return[];let n=[],a=this.decryptKey;for(;;){if(this.waitPayloadLength===null){if(this.buffer.byteLength<at)break;let c=this.buffer.subarray(0,at);this.buffer=this.buffer.subarray(at);let i;try{i=await ko(a,this.nonceCounter,c)}catch(g){throw new B("PROTOCOL_SS_DECRYPT_FAILED","SS length decrypt failed",g)}if(i.byteLength!==2)throw new B("PROTOCOL_SS_LENGTH_INVALID","SS length decrypt failed");let d=i[0]<<8|i[1];if(d<0||d>this.cryptoConfig.maxChunk)throw new B("PROTOCOL_SS_PAYLOAD_INVALID",`SS payload length invalid: ${d}`);this.waitPayloadLength=d}let r=this.waitPayloadLength+nn;if(this.buffer.byteLength<r)break;let s=this.buffer.subarray(0,r);this.buffer=this.buffer.subarray(r);let l;try{l=await ko(a,this.nonceCounter,s)}catch(c){throw new B("PROTOCOL_SS_DECRYPT_FAILED","Decryption failed",c)}n.push(l),this.waitPayloadLength=null}return n}async downlink(e){let t=[];if(!this.outbound){if(!this.cryptoConfig)throw new B("PROTOCOL_SS_NOT_NEGOTIATED","SS cipher is not negotiated");let s=this.cryptoConfig,l=rn(this.userId,s.keyLen),c=crypto.getRandomValues(new Uint8Array(s.saltLen)),i=await an(s,l,c,["encrypt"]);this.outbound={config:s,key:i,salt:c,nonce:new Uint8Array(wo),saltSent:!1}}let n=this.outbound;n.saltSent||(t.push(n.salt),n.saltSent=!0);let a=D(e);if(a.byteLength===0)return t;let r=0;for(;r<a.byteLength;){let s=Math.min(r+n.config.maxChunk,a.byteLength),l=a.subarray(r,s),c=new Uint8Array(2);c[0]=l.byteLength>>>8&255,c[1]=l.byteLength&255;let i=await sn(n.key,n.nonce,c),d=await sn(n.key,n.nonce,l);t.push(F(i,d)),r=s}return t}},So=class extends He{name="ss";sniff(e,t){return t.query?.get("enc")?xr:0}parse(e,t){let n=D(e);if(n.byteLength<3)throw new B("PROTOCOL_SS_INVALID_DATA","invalid ss data");let a=n[0],r=1,s="";if(a===1){if(n.byteLength<r+4+2)throw new B("PROTOCOL_SS_INVALID_IPV4","invalid ss ipv4 length");s=`${n[r]}.${n[r+1]}.${n[r+2]}.${n[r+3]}`,r+=4}else if(a===3){if(n.byteLength<r+1)throw new B("PROTOCOL_SS_INVALID_DOMAIN","invalid ss domain length");let i=n[r];if(r+=1,n.byteLength<r+i+2)throw new B("PROTOCOL_SS_INVALID_DOMAIN","invalid ss domain data");s=si.decode(n.subarray(r,r+i)),r+=i}else if(a===4){if(n.byteLength<r+16+2)throw new B("PROTOCOL_SS_INVALID_IPV6","invalid ss ipv6 length");let i=[],d=new DataView(n.buffer,n.byteOffset+r,16);for(let g=0;g<8;g++)i.push(d.getUint16(g*2).toString(16));s=i.join(":"),r+=16}else throw new B("PROTOCOL_SS_INVALID_ADDR_TYPE",`invalid ss addressType: ${a}`);if(!s)throw new B("PROTOCOL_SS_INVALID_ADDR",`invalid ss address: ${a}`);let l=n[r]<<8|n[r+1];r+=2;let c=n.subarray(r);return{host:s,port:l,udp:!1,payload:c}}codec(e){return new ln(e.userId,e.query?.get("enc"))}};var li=new nt().register(new xo).register(new vo).register(new So);function Ir(o,e){return mo(li.list(),t=>t.sniff(o,e))}function Tr(){return{generation:0,socket:null,connectingPromise:null,retryConnect:null,downlinkController:null,downlinkDrain:Promise.resolve()}}function Oe(o){if(!o)return;o.generation=(Number.isInteger(o.generation)?o.generation:0)+1;let e=o.socket;o.socket=null,o.downlinkController=null,o.downlinkDrain=Promise.resolve();try{e?.close?.()}catch{}}function cn(o){Number.isInteger(o.generation)||(o.generation=0);let e=++o.generation,t=o.socket;o.socket=null;let n=o.downlinkController;o.downlinkController=null;let a=o.downlinkDrain||Promise.resolve(),r;try{r=n?.stopAndFlush?.()||Promise.resolve()}catch(l){r=Promise.reject(l)}let s=Promise.all([a,r]);s.catch(()=>{}),o.downlinkDrain=s;try{t?.close?.()}catch{}return{generation:e,downlinkDrain:s}}var Rd=8*1024,Er=20*1024,ci=16*1024*1024,di=4096,Co=32*1024,Ar=512,pi=Math.max(4096,Ar*12),ui=4;function Lr(o,e=!1){let t=[],n=0,a=0,r=null,s=()=>n>=t.length,l=()=>{n>32&&n*2>=t.length&&(t=t.slice(n),n=0)},c=()=>{if(s())return null;let i=t[n];return t[n++]=void 0,a-=i.chunk.byteLength,l(),i};return{get byteCount(){return a},get entryCount(){return t.length-n},get isEmpty(){return s()},clear(i){if(i)for(let d=n;d<t.length;d++)t[d]&&i(t[d]);t=[],n=0,a=0},absorb(i){return i?.chunk?.byteLength?(t.push(i),a+=i.chunk.byteLength,!0):!1},coalesce(){let i=c();if(!i)return null;let d=[i];if(s()||i.chunk.byteLength>=o)return{chunk:i.chunk,items:d};let g=i.chunk.byteLength,f=n;for(;f<t.length;){let x=g+t[f].chunk.byteLength;if(x>o)break;g=x,f++}if(f===n)return{chunk:i.chunk,items:d};let m=r||=new Uint8Array(o);m.set(i.chunk,0);let p=i.chunk.byteLength;for(;n<f;){let x=t[n];t[n++]=void 0,a-=x.chunk.byteLength,d.push(x),m.set(x.chunk,p),p+=x.chunk.byteLength}l();let u=m.subarray(0,g);return{chunk:e?u.slice():u,items:d}}}}function Rr(o=Er){let e=typeof IdentityTransformStream<"u"?new IdentityTransformStream:new TransformStream,t=e.writable.getWriter(),n=new Uint8Array(o),a=0,r=null,s=null,l=Promise.resolve(),c=()=>{r&&(clearTimeout(r),r=null)},i=async m=>{s&&await s,s=t.write(m);try{await s}finally{s=null}},d=async()=>{if(a){let m=n.slice(0,a);a=0,await i(m)}},g=()=>{l=l.then(()=>d()).catch(()=>{})},f=()=>{r||(r=setTimeout(()=>{r=null,g()},1))};return{readable:e.readable,write:async m=>{let p=D(m);if(p.byteLength){if(p.byteLength>=o){c(),a&&await d(),await i(p);return}if(a+p.byteLength>=o){let u=new Uint8Array(a+p.byteLength);u.set(n.subarray(0,a),0),u.set(p,a),a=0,c(),await i(u)}else n.set(p,a),a+=p.byteLength,f()}},end:async()=>{c();try{await l,await d(),await t.close()}finally{try{t.releaseLock()}catch{}}}}}function Mr(o){let{getWriter:e,getConnectTask:t=null,releaseWriter:n,retryConnect:a,closeConnection:r,queueName:s="\u4E0A\u884C\u961F\u5217"}=o,l=Lr(Er),c=!1,i=!1,d=[],g=null,f=(b,k=null)=>{if(b)for(let C of b)k?C.reject(k):C.resolve()},m=()=>{if(l.byteCount||c||!d.length)return;let b=d;d=[];for(let k of b)k()},p=(b=null)=>{let k=b||(i?new Error(`${s}: queue closed`):null);k?(l.clear(C=>f(C.completions,k)),f(g,k),g=null):l.clear(),m()},u=()=>{let b=l.coalesce();if(!b)return null;let k=!0,C=null;for(let I of b.items)k=k&&I.allowRetry!==!1,I.completions&&(C=C?C.concat(I.completions):I.completions);return{chunk:b.chunk,allowRetry:k,completions:C}},x=async()=>{let b=e();if(b)return b;let k=t?.();return k&&await k,e()},v=async()=>{if(!(c||i)){c=!0;try{for(;!i;){let b=u();if(!b)break;let k=b.completions||null;g=k;try{let C=await x();if(i)break;if(!C)throw new Error(`${s}: remote writer unavailable`);try{await C.write(b.chunk)}catch(I){if(n?.(),i)break;if(!b.allowRetry||typeof a!="function")throw I;if(await a(),i)break;if(C=e(),!C)throw I;await C.write(b.chunk)}f(k)}catch(C){throw f(k,C),C}finally{g===k&&(g=null)}}}catch(b){i=!0,p(b),console.error(`[${s}] \u5199\u5165\u5931\u8D25:`,b);try{r?.(b)}catch{}}finally{c=!1,!i&&!l.isEmpty?v():m()}}},w=(b,k,C)=>{if(i||!e()&&!t?.())return!1;let I=D(b);if(!I.byteLength)return!0;let S=l.byteCount+I.byteLength,h=l.entryCount+1;if(S>ci||h>di){i=!0;let y=Object.assign(new Error(`${s}: upload queue overflow (${S}B/${h})`),{isQueueOverflow:!0});p(y),console.error(`[${s}] \u961F\u5217\u8D85\u9650\uFF0C\u5173\u95ED\u8FDE\u63A5`);try{r?.(y)}catch{}throw y}let E=null,P=null;return C&&(P=[],E=new Promise((y,T)=>{P.push({resolve:()=>y(!0),reject:T})})),l.absorb({chunk:I,allowRetry:k,completions:P}),c||v(),C?E:!0};return{write(b,k=!0){return w(b,k,!1)},writeAndWait(b,k=!0){return Promise.resolve(w(b,k,!0))},async waitIdle(){!l.byteCount&&!c||await new Promise(b=>d.push(b))},clear(){i=!0,p()}}}var Br=1,mi=2;function fi(o){try{(o.readyState===Br||o.readyState===mi)&&o.close?.()}catch{}}function gi(o,e){let t=o.send(e);return t&&typeof t.then=="function"?t:Promise.resolve()}function Ur(o,e=null,t=null){let n=Co,a=Ar,r=Lr(n,!0),s=typeof e=="function"?null:e,l=typeof e=="function"?e:()=>{let A=s;return s=null,A},c=null,i=0,d=0,g=0,f=null,m=null,p=!1,u=!1,x=0,v=0,w=null,b=[],k=()=>!x&&!v?Promise.resolve():new Promise(A=>b.push(A)),C=()=>{if(x||v||!b.length)return;let A=b;b=[];for(let L of A)L()},I=()=>{if(!w)return;let A=w;throw r.clear(),A},S=()=>p||!t||t(),h=()=>{S()&&fi(o)},E=A=>{let L=l();if(!L)return A;let M=new Uint8Array(L.length+A.byteLength);return M.set(L,0),M.set(A,L.length),M},P=async A=>{if(!S())return;if(o.readyState!==Br)throw new Error("ws.readyState is not open");let L=E(A);await gi(o,L)},y=async A=>{for(;m;)await m;let L=P(A);m=L;try{await L}finally{m===L&&(m=null)}},T=async()=>{for(;f;)await f;if(c&&clearTimeout(c),c=null,g=0,!S()){r.clear();return}return f=(async()=>{for(;;){if(!S()){r.clear();break}let L=r.coalesce();if(!L)break;await y(L.chunk)}})().catch(L=>{throw w||=L,L}).finally(()=>{f=null}),f},R=()=>{if(!S()){r.clear();return}if(!(r.isEmpty||c)){if(r.byteCount>=n||n-r.byteCount<a){T().catch(h);return}c=setTimeout(()=>{if(c=null,!S()){r.clear();return}if(!r.isEmpty){if(r.byteCount>=n||n-r.byteCount<a){T().catch(h);return}if(g<ui&&(i!==d||r.byteCount<pi)){g++,d=i,R();return}T().catch(h)}},1)}};return{async sendDirectly(A){if(!(u||!S())){v++;try{let L=D(A);if(!L.byteLength)return;await y(L)}catch(L){throw w||=L,L}finally{v--,C()}}},async send(A){if(!(u||!S())){x++;try{let L=D(A);if(!L.byteLength)return;let M=0,N=L.byteLength;for(;M<N;){let U=N-M;if(r.isEmpty&&U>=n){let K=Math.min(n,U),q=M||K!==N?L.subarray(M,M+K):L;await y(q),M+=K;continue}let z=Math.min(n-r.byteCount,N-M);if(!z){await T();continue}r.absorb({chunk:M||z!==N?L.subarray(M,M+z):L}),M+=z,i++,r.byteCount>=n||n-r.byteCount<a?await T():R()}}catch(L){throw w||=L,L}finally{x--,C()}}},flush:T,async stopAndFlush(){if(u){for(await k();m;)await m;I(),await T();return}for(u=!0,p=!0,c&&clearTimeout(c),c=null,await k();m;)await m;I(),await T()}}}function hi(o){try{(o.readyState===1||o.readyState===2)&&o.close?.()}catch{}}async function Pt(o,e,t,n,a=null,r=null){let s=!1,l=null,c=!1,i=64*1024,d=()=>!a||a(),g=Ur(e,t,d),f={stopAndFlush:()=>g.stopAndFlush()};r&&(r.downlinkController=f);try{o.closed?.catch?.(()=>{})}catch{}let m;try{m=o.readable.getReader({mode:"byob"}),c=!0}catch{m=o.readable.getReader()}try{if(c){let p=m,u=new ArrayBuffer(i);for(;;){let{done:x,value:v}=await p.read(new Uint8Array(u,0,i));if(!d()||x)break;!v||v.byteLength===0||(s=!0,v.byteLength>=Co?(await g.flush(),await g.sendDirectly(v.slice()),u=new ArrayBuffer(i)):(await g.send(v.slice()),u=v.buffer.byteLength>=i?v.buffer:new ArrayBuffer(i)))}}else{let p=m;for(;;){let{done:u,value:x}=await p.read();if(!d()||u)break;!x||x.byteLength===0||(s=!0,x.byteLength>=Co?(await g.flush(),await g.sendDirectly(x)):await g.send(x))}}d()&&await g.flush()}catch(p){l=p}finally{if(d()&&e.readyState===1)try{await g.stopAndFlush()}catch(p){l||=p}r?.downlinkController===f&&(r.downlinkController=null);try{await m.cancel()}catch{}try{m.releaseLock()}catch{}try{o.close?.()}catch{}}if(!s&&n&&e.readyState===1&&d())try{await n();return}catch(p){l||=p}d()&&(l&&console.error("[TCP\u4E0B\u884C] \u8BFB\u53D6\u5931\u8D25:",l),hi(e))}var bi=/^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/,yi=/^\[?(?:[a-fA-F0-9]{0,4}:){1,7}[a-fA-F0-9]{0,4}\]?$/;function Dr(o){let e=o,t=443;if(o.includes("]:")){let n=o.split("]:");e=n[0]+"]",t=parseInt(n[1],10)||t}else if((o.match(/:/g)||[]).length===1&&!o.startsWith("[")){let n=o.lastIndexOf(":");e=o.slice(0,n),t=parseInt(o.slice(n+1),10)||t}return[e,t]}function xi(o){return o.flatMap(e=>(e.startsWith('"')&&e.endsWith('"')&&(e=e.slice(1,-1)),e.replace(/\\010/g,",").replace(/\n/g,",").split(",").map(t=>t.trim()).filter(Boolean))).map(e=>Dr(e))}async function Nr(o,e,t="dash.cloudflare.com",n="00000000-0000-4000-8000-000000000000"){let a=String(e||"").toLowerCase(),r=ue(a),s=[];for(let g of r){let[f,m]=Dr(g);if(g.includes(".tp")){let C=g.match(/\.tp(\d+)/);C&&(m=parseInt(C[1],10))}if(bi.test(f)||yi.test(f)){o.log("[\u53CD\u4EE3\u89E3\u6790]",`${f} \u4E3AIP\u5730\u5740\uFF0C\u76F4\u63A5\u4F7F\u7528`),s.push([f,m]);continue}let[p,u]=await Promise.all([he(f,"TXT"),he(f,"A")]),x=p.filter(C=>C.type===16).map(C=>C.data),v=xi(x);if(v.length>0){o.log("[\u53CD\u4EE3\u89E3\u6790]",`${f} \u4F7F\u7528TXT\u8BB0\u5F55\uFF0C\u5171${v.length}\u4E2A\u7ED3\u679C`),s.push(...v);continue}let w=u.filter(C=>C.type===1).map(C=>C.data);if(w.length>0){o.log("[\u53CD\u4EE3\u89E3\u6790]",`${f} \u672A\u83B7\u53D6\u5230TXT\u8BB0\u5F55\uFF0C\u4F7F\u7528A\u8BB0\u5F55\uFF0C\u5171${w.length}\u4E2A\u7ED3\u679C`),s.push(...w.map(C=>[C,m]));continue}let k=(await he(f,"AAAA")).filter(C=>C.type===28).map(C=>`[${C.data}]`);k.length>0?(o.log("[\u53CD\u4EE3\u89E3\u6790]",`${f} \u672A\u83B7\u53D6\u5230TXT\u548CA\u8BB0\u5F55\uFF0C\u4F7F\u7528AAAA\u8BB0\u5F55\uFF0C\u5171${k.length}\u4E2A\u7ED3\u679C`),s.push(...k.map(C=>[C,m]))):(o.log("[\u53CD\u4EE3\u89E3\u6790]",`${f} \u672A\u83B7\u53D6\u5230TXT\u3001A\u548CAAAA\u8BB0\u5F55\uFF0C\u4FDD\u7559\u539F\u57DF\u540D`),s.push([f,m]))}let l=s.sort((g,f)=>g[0].localeCompare(f[0])),i=[...(t.includes(".")?t.split(".").slice(-2).join("."):t)+n].reduce((g,f)=>g+f.charCodeAt(0),0);return[...l].sort(()=>(i=i*1103515245+12345&2147483647)/2147483647-.5).slice(0,8)}function vi(o,e){return e.some(t=>new RegExp(`^${t.replace(/\*/g,".*")}$`,"i").test(o))}async function It(o){let{host:e,port:t,rawData:n,client:a,respHeader:r,remoteConn:s,userId:l,request:c,proxyCtx:i,allowTrojanProxy:d=!1,trojanProxyFirstPacket:g=null,connectOnly:f=!1}=o,m=o.rctx??{log:()=>{},error:()=>{},dial:{tcpConcurrentDial:2,proxyConcurrentDial:1,preloadRaceDial:!1}},p=e,u={host:p,port:t,userId:l,proxyType:i.proxyType,proxyParams:i.proxyParams};for(let U of Nt())U.onBeforeDial&&(u=await U.onBeforeDial(u,m));p=u.host;let x=u.port,v=i.proxyIP||"",w=i.proxyType!==void 0?i.proxyType:null,b=i.proxyGlobal!==void 0?i.proxyGlobal:!1,k=i.proxyParams||{hostname:"",port:0},C=i.proxyFallback!==void 0?i.proxyFallback:!0,I=0;m.log?.("[TCP\u8F6C\u53D1]",`\u76EE\u6807: ${p}:${t} | \u53CD\u4EE3IP: ${v} | \u53CD\u4EE3\u515C\u5E95: ${C?"\u662F":"\u5426"} | \u53CD\u4EE3\u7C7B\u578B: ${w||"proxyip"} | \u5168\u5C40: ${b?"\u662F":"\u5426"}`);let S=!1,h=o.tcpConnect??Ge(c),E=d&&(i.trojanProxyAddr||null),P=E?i.trojanProxyAddr:null,y=E?ki(g,n):null,T=r,R=()=>{let U=T;return T=null,U};Number.isInteger(s.generation)||(s.generation=0);let A=async(U,z,K,q=null)=>{try{await K}catch(Z){s.downlinkDrain===K&&(s.downlinkDrain=Promise.resolve());try{U?.close?.()}catch{}throw s.generation===z&&Po(a),Z}s.downlinkDrain===K&&(s.downlinkDrain=Promise.resolve());let J=()=>s.generation===z&&s.socket===U;if(s.generation!==z||a.readyState!==1){try{U?.close?.()}catch{}throw s.generation===z&&(s.socket=null),new B("FORWARD_SUPERSEDED","connection superseded or client closed")}return s.socket=U,f?U:(Pt(U,a,R,q,J,s).catch(Z=>{if(J()){m.log?.("[TCP\u4E0B\u884C]",`\u5904\u7406\u5931\u8D25: ${Z?.message||Z}`);try{U?.close?.()}catch{}Po(a)}}),!0)};async function L(U,z,K,q=null){let J=await U();try{return await A(J,z,K,q)}catch(Z){try{J?.close?.()}catch{}throw Z}}async function M(U=!0){if(s.connectingPromise){await s.connectingPromise;return}let{generation:z,downlinkDrain:K}=cn(s),q=!1,J=null;E?U&&!S&&Y(g)>0?(J=g,q=Y(n)>0):J=y:(q=U&&!S&&Y(n)>0,J=q?n:null);let Z=(async()=>{let Ae=null;try{if(E)m.log?.("[\u6728\u9A6C\u53CD\u4EE3]",`\u4EE3\u7406\u5230: ${p}:${x}`),Ae=await wi(J,h,P);else if(w&&Ct.has(w))m.log?.(`[${w.toUpperCase()}\u4EE3\u7406]`,`\u4EE3\u7406\u5230: ${p}:${x}`),Ae=(await Ct.get(w).dial({proxy:{hostname:k.hostname,port:k.port,username:k.username,password:k.password},target:{host:p,port:x},initialData:J,tcpConnect:h})).socket;else{m.log?.("[\u53CD\u4EE3\u8FDE\u63A5]",`\u4EE3\u7406\u5230: ${p}:${x}`);let ke=await Nr(m,v,p,l),_e=await $n(m,h,`${se}.tp1.${kn}.xyz`,1,J,ke,C,I);Ae=_e.socket,I=_e.nextIndex}await A(Ae,z,K),q&&(S=!0)}catch(ke){try{Ae?.close?.()}catch{}if(s.generation===z)throw s.socket=null,Po(a),ke}})();s.connectingPromise=Z;try{await Z}finally{s.connectingPromise===Z&&(s.connectingPromise=null)}}s.retryConnect=async()=>M(!S);let N=o.socks5Whitelist??[];if(w&&(b||vi(p,N))){m.log?.("[TCP\u8F6C\u53D1]","\u542F\u7528 SOCKS5/HTTP/HTTPS/TURN/SSTP \u5168\u5C40\u4EE3\u7406");try{if(await M(),f)return s.socket}catch(U){throw m.log?.("[TCP\u8F6C\u53D1]",`SOCKS5/HTTP/HTTPS/TURN/SSTP \u4EE3\u7406\u8FDE\u63A5\u5931\u8D25: ${U.message}`),U}}else{let U=s.generation;try{m.log?.("[TCP\u8F6C\u53D1]",`\u5C1D\u8BD5\u76F4\u8FDE\u5230: ${p}:${x}`);let z=cn(s);U=z.generation;let K=await L(()=>Ho(m,h,p,x,n,!0),U,z.downlinkDrain,async()=>{s.generation!==U||s.socket!==K||await M()});if(f)return K}catch(z){if(m.log?.("[TCP\u8F6C\u53D1]",`\u76F4\u8FDE ${p}:${x} \u5931\u8D25: ${z.message}`),s.generation!==U)throw z;if(z instanceof Error&&z.name==="\u9884\u52A0\u8F7D\u89E3\u6790\u4E3A\u7A7A")throw Po(a),z;if(a.readyState!==1)throw z;if(await M(),f)return s.socket}}return!0}async function wi(o,e,t){if(!t)throw new B("CHAIN_TROJAN_ADDR","trojan fallback is not configured");let n=e({hostname:Si(t.hostname),port:t.port}),a=null;try{return n.opened&&await n.opened,Y(o)>0&&(a=n.writable.getWriter(),await a.write(D(o))),n}catch(r){try{n?.close?.()}catch{}throw r}finally{try{a?.releaseLock()}catch{}}}function ki(o,e){let t=D(o),n=D(e);if(!n.byteLength)return t;let a=t.byteLength-n.byteLength;if(a<=0)return t;for(let r=0;r<n.byteLength;r++)if(t[a+r]!==n[r])return t;return t.subarray(0,a)}function Si(o){let e=String(o||"").trim();return e.startsWith("[")&&e.endsWith("]")?e.slice(1,-1):e}function Po(o){try{(o.readyState===1||o.readyState===2)&&o.close?.()}catch{}}function Hr(o){return{cache:new Uint8Array(0),proxyAddr:o}}async function Tt(o,e,t,n,a,r=null,s){let l=D(e),c=l.byteLength;o.log("[UDP\u8F6C\u53D1]",`\u6536\u5230 DNS \u8BF7\u6C42: ${c}B -> 8.8.4.4:53`);try{let d=(s??Ge(a))({hostname:"8.8.4.4",port:53}),g=n,f=d.writable.getWriter();await f.write(l),o.log("[UDP\u8F6C\u53D1]",`DNS \u8BF7\u6C42\u5DF2\u5199\u5165\u4E0A\u6E38: ${c}B`),f.releaseLock(),await d.readable.pipeTo(new WritableStream({async write(m){let p=D(m);o.log("[UDP\u8F6C\u53D1]",`\u6536\u5230 DNS \u54CD\u5E94: ${p.byteLength}B`);let u=r?await r(p):p,x=Array.isArray(u)?u:[u];if(x.length&&t.readyState===1)for(let v of x){let w=D(v);if(w.byteLength)if(g){let b=new Uint8Array(g.length+w.byteLength);b.set(g,0),b.set(w,g.length),t.send(b),g=null}else t.send(w)}}}))}catch(i){o.log("[UDP\u8F6C\u53D1]",`DNS \u8F6C\u53D1\u5931\u8D25: ${i?.message||i}`)}}async function Et(o,e,t,n,a,r){let s=D(e);if(n?.proxyAddr){await Ci(o,s,t,n,a,r);return}let l=n?.cache instanceof Uint8Array?n.cache:new Uint8Array(0),c=l.byteLength?F(l,s):s,i=0;for(;i<c.byteLength;){let d=i,g=c[i],f=i+1,m=0;if(g===1)m=4;else if(g===4)m=16;else if(g===3){if(c.byteLength<f+1)break;m=1+c[f]}else throw new B("PROTOCOL_TROJAN_UDP_ADDR",`invalid trojan udp addressType: ${g}`);let p=f+m;if(c.byteLength<p+6)break;let u=c[p]<<8|c[p+1],x=c[p+2]<<8|c[p+3];if(c[p+4]!==13||c[p+5]!==10)throw new B("PROTOCOL_TROJAN_UDP_DELIMITER","invalid trojan udp delimiter");let v=p+6,w=v+x;if(c.byteLength<w)break;let b=c.slice(d,p+2),k=c.slice(v,w);if(i=w,u!==53)throw new B("FORWARD_UDP_UNSUPPORTED","UDP is not supported");if(!k.byteLength)continue;let C=k;(k.byteLength<2||(k[0]<<8|k[1])!==k.byteLength-2)&&(C=new Uint8Array(k.byteLength+2),C[0]=k.byteLength>>>8&255,C[1]=k.byteLength&255,C.set(k,2));let I={cache:new Uint8Array(0)};await Tt(o,C,t,null,a,S=>{let h=D(S),E=I.cache.byteLength?F(I.cache,h):h,P=[],y=0;for(;y+2<=E.byteLength;){let T=E[y]<<8|E[y+1],R=y+2,A=R+T;if(A>E.byteLength)break;let L=E.slice(R,A),M=new Uint8Array(b.byteLength+4+L.byteLength);M.set(b,0),M[b.byteLength]=L.byteLength>>>8&255,M[b.byteLength+1]=L.byteLength&255,M[b.byteLength+2]=13,M[b.byteLength+3]=10,M.set(L,b.byteLength+4),P.push(M),y=A}return I.cache=E.slice(y),P.length?P:new Uint8Array(0)},r)}n&&(n.cache=c.slice(i))}async function Ci(o,e,t,n,a,r){let s=D(e);if(!n.proxySocket){let i=(r??Ge(a))({hostname:Pi(n.proxyAddr.hostname),port:n.proxyAddr.port});if(i.opened&&await i.opened,Y(s)>0){let d=i.writable.getWriter();try{await d.write(s)}finally{try{d.releaseLock()}catch{}}}n.proxySocket=i;try{i.closed?.catch?.(()=>{}).finally(()=>Ii(t))}catch{}Pt(i,t,null,null);return}if(!s.byteLength)return;let l=n.proxySocket.writable.getWriter();try{await l.write(s)}finally{try{l.releaseLock()}catch{}}}function Pi(o){let e=String(o||"").trim();return e.startsWith("[")&&e.endsWith("]")?e.slice(1,-1):e}function Ii(o){try{(o.readyState===1||o.readyState===2)&&o.close?.()}catch{}}var Ti=["speed.cloudflare.com","cp.cloudflare.com"];function Or(o){let e=o.toLowerCase();return Ti.some(t=>e===t||e.endsWith("."+t))}function dn(o=null){let e=new TextEncoder().encode(`HTTP/1.1 204 No Content\r
-Content-Length: 0\r
-Connection: close\r
-\r
-`);if(Y(o)===0)return e;let t=D(o),n=new Uint8Array(t.byteLength+e.byteLength);return n.set(t,0),n.set(e,t.byteLength),n}function _r(o=null){let e=new TextEncoder().encode(`HTTP/1.1 204 No Content\r
-Content-Length: 0\r
-Connection: keep-alive\r
-\r
-`);if(Y(o)===0)return e;let t=D(o),n=new Uint8Array(t.byteLength+e.byteLength);return n.set(t,0),n.set(e,t.byteLength),n}var pn=64*1024;function Ei(o){let e=null,t=!1,n=()=>(e||(e=o.writable.getWriter()),e);return{get readyState(){return t?3:1},send(a){if(t)return;let r=D(a);if(r.byteLength)try{n().write(r).catch(()=>{t=!0})}catch{t=!0}},close(){if(!t){t=!0;try{e&&e.close()}catch{}try{e?.releaseLock()}catch{}e=null,o.close()}}}}async function mn(o){let{rctx:e,transportName:t,session:n,earlyData:a,proxyCtx:r,mode:s,respondFirstPacket:l}=o;e.log("session",`start mode=${s} transport=${t} early=${a?.byteLength??0}B`);let c=Ei(n),i=Tr(),d={userId:e.userId,query:e.url.searchParams},g=Hr(r.trojanProxyAddr),f=a&&a.byteLength>0?new Uint8Array(a):new Uint8Array(0),m={current:null},p=()=>(m.current||(m.current=n.readable.getReader()),m.current),u=async()=>{let y=p(),{done:T,value:R}=await y.read();return T?!1:(R&&R.byteLength>0&&(e.log("session",`read ${R.byteLength}B`),f=F(f,R)),!0)},x=f.byteLength>0,v=Ir(f.byteLength>0?f:new Uint8Array([0]),d);if(!v)return n.close("no protocol"),{kind:"response",response:new Response("Invalid request",{status:400})};let w=v.codec(d),b=null,k=[],C=async()=>{if(f.byteLength===0&&!x)return!1;try{let y=await w.uplink(f);if(f=new Uint8Array(0),y.length===0)return!1;k=y;let T=y[0];return b=v.parse(T,d),!0}catch(y){if(y instanceof B){let T=y.code;if((T.includes("INVALID_DATA")||T.includes("INVALID_HEADER")||T.includes("INVALID_PASSWORD")||T.includes("INVALID_UUID")||T.includes("INVALID_COMMAND"))&&f.byteLength<pn)return!1;throw y}throw y}};if(x){if(!await C())for(;f.byteLength<pn&&!(!await u()||await C()););}else for(;!b&&f.byteLength<pn&&!(!await u()||await C()););if(!b){try{m.current?.releaseLock()}catch{}return n.close("bad first packet"),s==="first-packet"?{kind:"response",response:new Response("Invalid request",{status:400})}:{kind:"started"}}let I=b,S=I.replyHeader??null,h=k[0],E=k.slice(1),P=[];if(I.payload.byteLength>0&&P.push(I.payload),P.push(...E),Or(I.host)&&r.proxyType===null){try{m.current?.releaseLock()}catch{}return s==="first-packet"&&l?{kind:"response",response:l({localBody:dn(S),status:200,headers:{"Content-Type":"application/octet-stream","X-Accel-Buffering":"no","Cache-Control":"no-store"}})}:(c.send(_r(S)??dn(S)),Oe(i),n.close("speedtest"),{kind:"started"})}if(I.udp){let y=v.name==="trojan";if(!y&&I.port!==53){try{m.current?.releaseLock()}catch{}return s==="first-packet"&&l?{kind:"response",response:l({localBody:"UDP is not supported",status:400})}:(n.close("udp unsupported"),{kind:"started"})}let T=S,R=async A=>{y?await Et(e,A,c,g,e.request,o.tcpConnect):(await Tt(e,A,c,T,e.request,null,o.tcpConnect),T=null)};if(I.payload.byteLength>0&&(y&&g.proxyAddr?await Et(e,h,c,g,e.request,o.tcpConnect):y?await Et(e,I.payload,c,g,e.request,o.tcpConnect):(await Tt(e,I.payload,c,T,e.request,null,o.tcpConnect),T=null)),s==="first-packet"&&l){let A=l({});return(async()=>{try{for(;;){let{done:L,value:M}=await p().read();if(L)break;M?.byteLength&&await R(M)}}catch(L){e.error("session",`UDP \u6CF5\u5931\u8D25: ${L.message}`)}finally{try{g.proxySocket?.close?.()}catch{}n.close("udp end")}})(),{kind:"response",response:A}}return(async()=>{try{for(;;){let{done:A,value:L}=await p().read();if(A)break;L?.byteLength&&await R(L)}}catch(A){e.error("session",`UDP \u6CF5\u5931\u8D25: ${A.message}`)}finally{try{g.proxySocket?.close?.()}catch{}n.close("udp end")}})(),{kind:"started"}}if(s==="first-packet")try{let y=await It({host:I.host,port:I.port,rawData:I.payload,client:c,respHeader:S,remoteConn:i,userId:e.userId,request:e.request,proxyCtx:r,allowTrojanProxy:v.name==="trojan",trojanProxyFirstPacket:v.name==="trojan"?h:null,connectOnly:!0,tcpConnect:o.tcpConnect,socks5Whitelist:o.socks5Whitelist,rctx:e});if(!y||y===!0)return Oe(i),{kind:"response",response:new Response("bad gateway",{status:502})};Li({rctx:e,client:c,remoteConn:i,socket:y,session:n,codec:w,uplinkSeed:P,replyHeader:S,ensureReader:p,proxyCtx:r,trojanUdpCtx:g,params:o,protocolName:v.name,firstPacket:I});try{m.current?.releaseLock(),m.current=null}catch{}return{kind:"started"}}catch(y){return e.error("session",`\u8FDE\u63A5\u5931\u8D25: ${y.message}`),Oe(i),n.close("dial failed"),{kind:"response",response:new Response("bad gateway",{status:502})}}return(async()=>{try{await It({host:I.host,port:I.port,rawData:I.payload,client:c,respHeader:S,remoteConn:i,userId:e.userId,request:e.request,proxyCtx:r,allowTrojanProxy:v.name==="trojan",trojanProxyFirstPacket:v.name==="trojan"?h:null,tcpConnect:o.tcpConnect,socks5Whitelist:o.socks5Whitelist,rctx:e}),Ai({rctx:e,remoteConn:i,session:n,codec:w,uplinkSeed:P,ensureReader:p,proxyCtx:r,trojanUdpCtx:g,params:o,protocolName:v.name,firstPacket:I,client:c})}catch(y){e.error("session",`\u8F6C\u53D1\u5931\u8D25: ${y.message}`),Oe(i),n.close("forward error")}})(),{kind:"started"}}function Ai(o){let{rctx:e,remoteConn:t,session:n,codec:a,uplinkSeed:r,ensureReader:s,proxyCtx:l,trojanUdpCtx:c,params:i,protocolName:d,firstPacket:g,client:f}=o,m=null,p=null,u=()=>{if(p){try{p.releaseLock()}catch{}p=null}m=null},x=Mr({getWriter:()=>{let v=t.socket;return v?(v!==m&&(u(),m=v,p=v.writable.getWriter()),p):null},getConnectTask:()=>t.connectingPromise,releaseWriter:u,retryConnect:async()=>{if(typeof t.retryConnect!="function")throw new Error("retry unavailable");await t.retryConnect()},closeConnection:()=>{Oe(t),u(),un(f),n.close("uplink error")},queueName:`${Ri(i.transportName)}\u4E0A\u884C`});(async()=>{try{for(let v of r)v.byteLength&&(await x.writeAndWait(v,!1)||await It({host:g.host,port:g.port,rawData:v,client:f,respHeader:null,remoteConn:t,userId:e.userId,request:e.request,proxyCtx:l,allowTrojanProxy:d==="trojan",trojanProxyFirstPacket:d==="trojan"?v:null,tcpConnect:i.tcpConnect,socks5Whitelist:i.socks5Whitelist,rctx:e}));for(;;){let{done:v,value:w}=await s().read();if(v)break;if(!w?.byteLength)continue;if(o.firstPacket.udp){d==="trojan"?await Et(e,w,f,c,e.request,i.tcpConnect):await Tt(e,w,f,null,e.request,null,i.tcpConnect);continue}let b=await a.uplink(w);for(let k of b)!k.byteLength||x.write(k,!1)||await It({host:g.host,port:g.port,rawData:k,client:f,respHeader:null,remoteConn:t,userId:e.userId,request:e.request,proxyCtx:l,allowTrojanProxy:d==="trojan",trojanProxyFirstPacket:d==="trojan"?k:null,tcpConnect:i.tcpConnect,socks5Whitelist:i.socks5Whitelist,rctx:e})}await x.waitIdle()}catch(v){e.error("session",`\u4E0A\u884C\u6CF5\u5931\u8D25: ${v.message}`)}finally{x.clear(),u(),Oe(t);try{c.proxySocket?.close?.()}catch{}un(f)}})()}function Li(o){let{rctx:e,client:t,remoteConn:n,socket:a,session:r,codec:s,uplinkSeed:l,replyHeader:c,ensureReader:i,proxyCtx:d,trojanUdpCtx:g,params:f,protocolName:m,firstPacket:p}=o,u=Rr(),x=new AbortController,v=u.readable.pipeTo(a.writable,{signal:x.signal});v.catch(()=>x.abort()),(async()=>{try{for(let w of l)w.byteLength&&await u.write(w);for(;;){let{done:w,value:b}=await i().read();if(w)break;if(!b?.byteLength)continue;let k=await s.uplink(b);for(let C of k)C.byteLength&&await u.write(C)}}catch(w){e.error("session",`\u4E0A\u884C\u6CF5\u5931\u8D25: ${w.message}`)}finally{try{await u.end()}catch{}await v.catch(()=>{}),Oe(n);try{g.proxySocket?.close?.()}catch{}un(t)}})(),(async()=>{let w=null;try{w=r.writable.getWriter(),c&&c.byteLength>0&&await w.write(c);let b=a.readable.getReader();for(;;){let{done:k,value:C}=await b.read();if(k)break;if(!C?.byteLength)continue;let I=await s.downlink(C);for(let S of I)S.byteLength&&await w.write(S)}try{await w.close()}catch{}}catch(b){e.error("session",`\u4E0B\u884C\u6CF5\u5931\u8D25: ${b.message}`);try{await w?.abort(b)}catch{}}finally{try{w?.releaseLock()}catch{}}})()}function un(o){try{(o.readyState===1||o.readyState===2)&&o.close?.()}catch{}}function Ri(o){return o==="websocket"?"WS":o==="grpc"?"gRPC":"xHTTP"}var Mi="application/json;charset=utf-8";function fn(o,e=302){return new Response("\u91CD\u5B9A\u5411\u4E2D...",{status:e,headers:{Location:o}})}function Ee(o,e,t,n=Mi){return new Response(t?JSON.stringify(o,null,2):JSON.stringify(o),{status:e,headers:{"Content-Type":n}})}async function zr(o,e){let t=o.env.ASSETS;if(!t)return null;let n=await t.fetch(new Request(new URL(e,o.url.origin)));return n.ok?n:null}async function $r(o,e){let t=await zr(o,e);if(!t)return new Response("\u9875\u9762\u8D44\u6E90\u4E0D\u5B58\u5728",{status:500});let n=new Headers(t.headers);return n.set("Cache-Control","no-store, no-cache, must-revalidate, proxy-revalidate"),n.set("Pragma","no-cache"),n.set("Expires","0"),new Response(t.body,{status:404,statusText:t.statusText,headers:n})}async function Fr(o,e){let t=await zr(o,e);return t?new Response(t.body,{status:t.status,statusText:t.statusText,headers:t.headers}):new Response("\u9875\u9762\u8D44\u6E90\u4E0D\u5B58\u5728",{status:500})}async function Bi(o){let e=o.adminPassword;if(await Re(o.request,o.encryptionSecret,e))return fn("/admin");if(o.request.method==="POST"){let t=await o.request.text(),n=new URLSearchParams(t).get("password");if(Nn(n,e)){let a=Ee({success:!0},200,!1),r=await Uo(o.ua,o.encryptionSecret,e);return a.headers.set("Set-Cookie",`auth=${r}; Path=/; Max-Age=86400; HttpOnly; Secure; SameSite=Lax`),a}}return Fr(o,"/pages/login.html")}function Ui(){let o=fn("/login");return o.headers.set("Set-Cookie","auth=; Path=/; Max-Age=0; HttpOnly"),o}async function Di(o){let{request:e,url:t,env:n}=o,a=t.pathname.slice(1).toLowerCase(),r=o.adminPassword;if(!await Re(e,o.encryptionSecret,r))return fn("/login");let s=await Ce(o);if(a==="admin/init")try{let l=await Ce(o,{reset:!0});return o.ctx.waitUntil(ge(n,e,o.clientIp,"Init_Config",l)),l.init="\u914D\u7F6E\u5DF2\u91CD\u7F6E\u4E3A\u9ED8\u8BA4\u503C",Ee(Ro(l),200,!0)}catch(l){let c=l;return Ee({msg:`\u914D\u7F6E\u91CD\u7F6E\u5931\u8D25\uFF0C\u5931\u8D25\u539F\u56E0\uFF1A${c.message}`,error:c.message},500,!0)}if(e.method==="POST"){if(a==="admin/config.json")try{let l=await e.json();return Le(l,Ht),!l.UUID||!l.HOST?Ee({error:"\u914D\u7F6E\u4E0D\u5B8C\u6574"},400,!1):(await n.KV.put("config.json",JSON.stringify(l,null,2)),o.ctx.waitUntil(ge(n,e,o.clientIp,"Save_Config",s)),Ee({success:!0,message:"\u914D\u7F6E\u5DF2\u4FDD\u5B58"},200,!1))}catch(l){return console.error("\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25:",l),Ee({error:`\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25: ${l.message}`},500,!1)}return Ee({error:"\u4E0D\u652F\u6301\u7684POST\u8BF7\u6C42\u8DEF\u5F84"},404,!1)}return a==="admin/config.json"?Ee(Ro(s),200,!0,"application/json"):(o.ctx.waitUntil(ge(n,e,o.clientIp,"Admin_Login",s)),Fr(o,`/pages/admin.html${t.search}`))}function Ni(o){let e=(o.url.searchParams.get("uuid")||"").toLowerCase();if(!Ut.test(e))return null;let t=o.userId.toLowerCase(),n=0,a=0;for(let r=0;r<8;r++){let s=e.charCodeAt(r);n+=s<=57?s-48:s-87;let l=t.charCodeAt(r);a+=l<=57?l-48:l-87}return n===a&&e.slice(-12)===t.slice(-12)?Ee({Version:Ve},200,!1):null}async function Vr(o){let{url:e,env:t}=o,n=e.pathname.slice(1).toLowerCase();if(n==="version"){let r=Ni(o);if(r)return r}let a=yr(o.request,o);if(a){let r=await a.accept(o.request,o);if(!r.ok)return r.response;let s=Un(o,e,o.defaultProxyIP,o.defaultProxyFallback);if(a.name==="xhttp"){let i=await mn({rctx:o,transportName:a.name,session:r.session,earlyData:r.session.earlyData,proxyCtx:s,socks5Whitelist:o.socks5Whitelist,mode:"first-packet",respondFirstPacket:d=>r.respond(d)});return i.kind==="response"?i.response:r.respond()}let c=r.respond();return mn({rctx:o,transportName:a.name,session:r.session,earlyData:r.session.earlyData,proxyCtx:s,socks5Whitelist:o.socks5Whitelist,mode:"immediate"}).catch(i=>{o.error("session",`\u4F1A\u8BDD\u5931\u8D25: ${i.message}`);try{r.session.close("session error")}catch{}}),c}if(e.protocol==="http:")return Response.redirect(e.href.replace(`http://${e.hostname}`,`https://${e.hostname}`),301);if(!o.adminPassword)return $r(o,"/pages/noADMIN.html");if(t.KV&&typeof t.KV.get=="function"){for(let r of Pn()){let s=await r.onRoute?.(o);if(s)return s}if(n==="login")return Bi(o);if(n==="admin"||n.startsWith("admin/"))return Di(o);if(n==="logout"||Ut.test(n))return Ui();if(n==="robots.txt")return new Response(`User-agent: *
-Disallow: /`,{status:200,headers:{"Content-Type":"text/plain; charset=UTF-8"}})}else if(!(t.UUID||t.uuid))return $r(o,"/pages/noKV.html");for(let r of In()){let s=await r.onRoute?.(o);if(s)return s}return null}var jr={async fetch(o,e,t){let n=new Bt(o,e,t);try{let a=await Vr(n);if(a)return a;let r=await e.ASSETS?.fetch(o);return r?.ok?r:new Response("Not Found",{status:404})}catch(a){return n.error("entry",a instanceof Error?a.message:String(a),a),new Response("Internal Error",{status:500})}}};var Gr=`<!DOCTYPE html>
+</html>`;
+}
+var 伪装页面插件 = class extends 插件2 {
+    name = "fake-page";
+    /** 兜底插件：不参与主路由链（router 在全部未命中后单独调用） */
+    fallback = true;
+    async onRoute(标识118) {
+        const { request: 请求, url: 网址, env: 环境 } = 标识118;
+        const 指纹串 = 标识118.ua;
+        let 伪装页面网址 = String(环境.URL || "nginx");
+        if (伪装页面网址 && 伪装页面网址 !== "nginx" && 伪装页面网址 !== "1101") {
+            伪装页面网址 = 伪装页面网址.trim().replace(/\/$/, "");
+            if (!伪装页面网址.match(/^https?:\/\//i))
+                伪装页面网址 = "https://" + 伪装页面网址;
+            if (伪装页面网址.toLowerCase().startsWith("http://"))
+                伪装页面网址 = "https://" + 伪装页面网址.substring(7);
+            try {
+                const 标识840 = new URL(伪装页面网址);
+                伪装页面网址 = 标识840.protocol + "//" + 标识840.host;
+            }
+            catch {
+                伪装页面网址 = "nginx";
+            }
+        }
+        if (伪装页面网址 === "1101") {
+            return new Response(网页文1101(网址.host, 标识118.clientIp), {
+                status: 200,
+                headers: { "Content-Type": "text/html; charset=UTF-8" }
+            });
+        }
+        try {
+            const 代理网址 = new URL(伪装页面网址);
+            const 标识841 = new Headers(请求.headers);
+            标识841.set("Host", 代理网址.host);
+            标识841.set("Referer", 代理网址.origin);
+            标识841.set("Origin", 代理网址.origin);
+            if (!标识841.has("User-Agent") && 指纹串 && 指纹串 !== "null")
+                标识841.set("User-Agent", 指纹串);
+            const 代理响应 = await fetch(代理网址.origin + 网址.pathname + 网址.search, {
+                method: 请求.method,
+                headers: 标识841,
+                body: 请求.body,
+                cf: 请求.cf
+            });
+            const 内容类型 = 代理响应.headers.get("content-type") || "";
+            if (/text|javascript|json|xml/.test(内容类型)) {
+                const 响应内容 = (await 代理响应.text()).replaceAll(代理网址.host, 网址.host);
+                return new Response(响应内容, {
+                    status: 代理响应.status,
+                    headers: { ...Object.fromEntries(代理响应.headers), "Cache-Control": "no-store" }
+                });
+            }
+            return 代理响应;
+        }
+        catch {
+        }
+        return new Response(门户页页面(), { status: 200, headers: { "Content-Type": "text/html; charset=UTF-8" } });
+    }
+};
+// src/plugins/setup.ts
+var 标识842 = false;
+function 装配插件组() {
+    if (标识842)
+        return;
+    标识842 = true;
+    标识73(new 订阅源插件());
+    标识73(new 优选地址插件());
+    标识73(new 标识824());
+    标识73(new 伪装页面插件());
+}
+装配插件组();
+// src/registry.ts
+var 注册表 = class {
+    items = /* @__PURE__ */ new Map();
+    register(标识273) {
+        if (this.items.has(标识273.name)) {
+            throw new 标识312("REGISTRY_DUPLICATE", `\u7EC4\u4EF6\u91CD\u540D\u6CE8\u518C: ${标识273.name}`);
+        }
+        this.items.set(标识273.name, 标识273);
+        return this;
+    }
+    get(名称) {
+        return this.items.get(名称);
+    }
+    list() {
+        return [...this.items.values()];
+    }
+    get size() {
+        return this.items.size;
+    }
+};
+function 标识843(标识844, 标识845) {
+    let 优选;
+    let 标识846 = 0;
+    for (const 标识273 of 标识844) {
+        const 标识35 = 标识845(标识273);
+        if (标识35 > 标识846) {
+            优选 = 标识273;
+            标识846 = 标识35;
+        }
+    }
+    return 优选;
+}
+// src/transport/base.ts
+var 传输2 = class {
+};
+// src/utils/uuid-bytes.ts
+var 标识847 = new Map();
+function 标识848(编码) {
+    if (编码 >= 48 && 编码 <= 57)
+        return 编码 - 48;
+    编码 |= 32;
+    if (编码 >= 97 && 编码 <= 102)
+        return 编码 - 87;
+    return -1;
+}
+function 标识849(用户码) {
+    const 键 = String(用户码 || "");
+    const 已缓存 = 标识847.get(键);
+    if (已缓存 !== void 0)
+        return 已缓存;
+    const 标识850 = 键.replace(/-/g, "");
+    if (标识850.length !== 32) {
+        标识847.set(键, null);
+        return null;
+    }
+    const 标识34 = new Uint8Array(16);
+    for (let 标识3 = 0; 标识3 < 16; 标识3++) {
+        const 标识851 = 标识848(标识850.charCodeAt(标识3 * 2));
+        const 标识852 = 标识848(标识850.charCodeAt(标识3 * 2 + 1));
+        if (标识851 < 0 || 标识852 < 0) {
+            标识847.set(键, null);
+            return null;
+        }
+        标识34[标识3] = 标识851 << 4 | 标识852;
+    }
+    if (标识847.size >= 32)
+        标识847.clear();
+    标识847.set(键, 标识34);
+    return 标识34;
+}
+function 标识853(数据, 标识18, 用户码) {
+    const 标识404 = 标识849(用户码);
+    if (!标识404 || 数据.byteLength < 标识18 + 16)
+        return false;
+    for (let 标识3 = 0; 标识3 < 16; 标识3++) {
+        if (数据[标识18 + 标识3] !== 标识404[标识3])
+            return false;
+    }
+    return true;
+}
+// src/utils/sha224.ts
+var 标识854 = [
+    1116352408,
+    1899447441,
+    3049323471,
+    3921009573,
+    961987163,
+    1508970993,
+    2453635748,
+    2870763221,
+    3624381080,
+    310598401,
+    607225278,
+    1426881987,
+    1925078388,
+    2162078206,
+    2614888103,
+    3248222580,
+    3835390401,
+    4022224774,
+    264347078,
+    604807628,
+    770255983,
+    1249150122,
+    1555081692,
+    1996064986,
+    2554220882,
+    2821834349,
+    2952996808,
+    3210313671,
+    3336571891,
+    3584528711,
+    113926993,
+    338241895,
+    666307205,
+    773529912,
+    1294757372,
+    1396182291,
+    1695183700,
+    1986661051,
+    2177026350,
+    2456956037,
+    2730485921,
+    2820302411,
+    3259730800,
+    3345764771,
+    3516065817,
+    3600352804,
+    4094571909,
+    275423344,
+    430227734,
+    506948616,
+    659060556,
+    883997877,
+    958139571,
+    1322822218,
+    1537002063,
+    1747873779,
+    1955562222,
+    2024104815,
+    2227730452,
+    2361852424,
+    2428436474,
+    2756734187,
+    3204031479,
+    3329325298
+];
+function 指纹值224(标识35) {
+    const 标识111 = (标识6, 标识394) => (标识6 >>> 标识394 | 标识6 << 32 - 标识394) >>> 0;
+    let 字符串 = unescape(encodeURIComponent(标识35));
+    const 标识197 = 字符串.length * 8;
+    字符串 += String.fromCharCode(128);
+    while (字符串.length * 8 % 512 !== 448)
+        字符串 += String.fromCharCode(0);
+    const 标识70 = [3238371032, 914150663, 812702999, 4144912697, 4290775857, 1750603025, 1694076839, 3204075428];
+    const 标识855 = Math.floor(标识197 / 4294967296);
+    const 标识856 = 标识197 & 4294967295;
+    字符串 += String.fromCharCode(标识855 >>> 24 & 255, 标识855 >>> 16 & 255, 标识855 >>> 8 & 255, 标识855 & 255, 标识856 >>> 24 & 255, 标识856 >>> 16 & 255, 标识856 >>> 8 & 255, 标识856 & 255);
+    const 标识857 = [];
+    for (let 标识3 = 0; 标识3 < 字符串.length; 标识3 += 4)
+        标识857.push(字符串.charCodeAt(标识3) << 24 | 字符串.charCodeAt(标识3 + 1) << 16 | 字符串.charCodeAt(标识3 + 2) << 8 | 字符串.charCodeAt(标识3 + 3));
+    for (let 标识3 = 0; 标识3 < 标识857.length; 标识3 += 16) {
+        const 标识5 = new Array(64).fill(0);
+        for (let 标识19 = 0; 标识19 < 16; 标识19++)
+            标识5[标识19] = 标识857[标识3 + 标识19];
+        for (let 标识19 = 16; 标识19 < 64; 标识19++) {
+            const 标识858 = 标识111(标识5[标识19 - 15], 7) ^ 标识111(标识5[标识19 - 15], 18) ^ 标识5[标识19 - 15] >>> 3;
+            const 标识859 = 标识111(标识5[标识19 - 2], 17) ^ 标识111(标识5[标识19 - 2], 19) ^ 标识5[标识19 - 2] >>> 10;
+            标识5[标识19] = 标识5[标识19 - 16] + 标识858 + 标识5[标识19 - 7] + 标识859 >>> 0;
+        }
+        let [标识109, 标识394, 标识195, 标识112, 标识186, 标识27, 标识28, 标识860] = 标识70;
+        for (let 标识19 = 0; 标识19 < 64; 标识19++) {
+            const 标识861 = 标识111(标识186, 6) ^ 标识111(标识186, 11) ^ 标识111(标识186, 25);
+            const 标识862 = 标识186 & 标识27 ^ ~标识186 & 标识28;
+            const 标识863 = 标识860 + 标识861 + 标识862 + 标识854[标识19] + 标识5[标识19] >>> 0;
+            const 标识864 = 标识111(标识109, 2) ^ 标识111(标识109, 13) ^ 标识111(标识109, 22);
+            const 标识865 = 标识109 & 标识394 ^ 标识109 & 标识195 ^ 标识394 & 标识195;
+            const 标识866 = 标识864 + 标识865 >>> 0;
+            标识860 = 标识28;
+            标识28 = 标识27;
+            标识27 = 标识186;
+            标识186 = 标识112 + 标识863 >>> 0;
+            标识112 = 标识195;
+            标识195 = 标识394;
+            标识394 = 标识109;
+            标识109 = 标识863 + 标识866 >>> 0;
+        }
+        标识70[0] = 标识70[0] + 标识109 >>> 0;
+        标识70[1] = 标识70[1] + 标识394 >>> 0;
+        标识70[2] = 标识70[2] + 标识195 >>> 0;
+        标识70[3] = 标识70[3] + 标识112 >>> 0;
+        标识70[4] = 标识70[4] + 标识186 >>> 0;
+        标识70[5] = 标识70[5] + 标识27 >>> 0;
+        标识70[6] = 标识70[6] + 标识28 >>> 0;
+        标识70[7] = 标识70[7] + 标识860 >>> 0;
+    }
+    let 标识867 = "";
+    for (let 标识3 = 0; 标识3 < 7; 标识3++) {
+        for (let 标识19 = 24; 标识19 >= 0; 标识19 -= 8)
+            标识867 += (标识70[标识3] >>> 标识19 & 255).toString(16).padStart(2, "0");
+    }
+    return 标识867;
+}
+// src/transport/websocket.ts
+var 标识868 = 8 * 1024;
+var 通道提前量数据上限值头字段 = Math.ceil(标识868 * 4 / 3) + 4;
+function 标识869(标识34, 令牌) {
+    if (!标识34?.byteLength)
+        return false;
+    if (标识34.byteLength >= 18 && 标识853(标识34, 1, 令牌))
+        return true;
+    if (标识34.byteLength < 58 || 标识34[56] !== 13 || 标识34[57] !== 10)
+        return false;
+    const 木马通道密码 = 指纹值224(令牌);
+    for (let 标识3 = 0; 标识3 < 56; 标识3++) {
+        if (标识34[标识3] !== 木马通道密码.charCodeAt(标识3))
+            return false;
+    }
+    return true;
+}
+function 标识870(头字段, 令牌) {
+    if (!头字段)
+        return null;
+    if (头字段.length > 通道提前量数据上限值头字段)
+        throw new Error("early data is too large");
+    let 标识34;
+    const 标识871 = Uint8Array;
+    if (typeof 标识871.fromBase64 === "function") {
+        try {
+            标识34 = 标识871.fromBase64(头字段, { alphabet: "base64url" });
+        }
+        catch {
+        }
+    }
+    if (!标识34) {
+        let 标识872 = 头字段.replace(/-/g, "+").replace(/_/g, "/");
+        const 标识873 = 标识872.length % 4;
+        if (标识873)
+            标识872 += "=".repeat(4 - 标识873);
+        let 标识874;
+        try {
+            标识874 = atob(标识872);
+        }
+        catch {
+            return null;
+        }
+        标识34 = new Uint8Array(标识874.length);
+        for (let 标识3 = 0; 标识3 < 标识874.length; 标识3++)
+            标识34[标识3] = 标识874.charCodeAt(标识3);
+    }
+    if (标识34.byteLength > 标识868)
+        throw new Error("early data is too large");
+    return 标识869(标识34, 令牌) ? 标识34 : null;
+}
+var 标识875 = class extends 传输2 {
+    name = "websocket";
+    score(请求, 标识65) {
+        if (!标识65.adminPassword)
+            return 0;
+        const 升级 = (请求.headers.get("Upgrade") || "").toLowerCase();
+        return 升级 === "websocket" ? 100 : 0;
+    }
+    async accept(请求, 标识65) {
+        const 通道套接字配对 = new WebSocketPair();
+        const [标识876, 标识877] = Object.values(通道套接字配对);
+        try {
+            标识877.accept({ allowHalfOpen: true });
+        }
+        catch {
+            标识877.accept();
+        }
+        标识877.binaryType = "arraybuffer";
+        const 提前量数据头字段 = 请求.headers.get("sec-websocket-protocol") || "";
+        const 标识878 = !!标识65.url.searchParams.get("enc");
+        let 提前量数据;
+        if (!标识878 && 提前量数据头字段) {
+            try {
+                const 标识192 = 标识870(提前量数据头字段, 标识65.userId);
+                if (标识192?.byteLength)
+                    提前量数据 = 标识192;
+            }
+            catch (错误2) {
+                try {
+                    标识877.close(1009, "early data is too large");
+                }
+                catch {
+                }
+                return { ok: false, response: new Response("early data is too large", { status: 400 }) };
+            }
+        }
+        let 标识879;
+        const 标识497 = new ReadableStream({
+            start(标识187) {
+                标识879 = 标识187;
+            }
+        });
+        标识877.addEventListener("message", (事件) => {
+            const 块 = 标识447(事件.data);
+            if (块.byteLength > 0)
+                标识879.enqueue(块);
+        });
+        标识877.addEventListener("close", () => {
+            try {
+                标识879.close();
+            }
+            catch {
+            }
+        });
+        标识877.addEventListener("error", (错误2) => {
+            try {
+                标识879.error(错误2);
+            }
+            catch {
+            }
+        });
+        const 标识498 = new WritableStream({
+            write(块) {
+                标识877.send(块);
+            },
+            close() {
+                try {
+                    标识877.close();
+                }
+                catch {
+                }
+            },
+            abort() {
+                try {
+                    标识877.close();
+                }
+                catch {
+                }
+            }
+        });
+        const 会话 = {
+            name: this.name,
+            readable: 标识497,
+            writable: 标识498,
+            earlyData: 提前量数据,
+            close(标识880) {
+                try {
+                    标识877.close(1e3, 标识880);
+                }
+                catch {
+                }
+                try {
+                    标识879.close();
+                }
+                catch {
+                }
+            }
+        };
+        return {
+            ok: true,
+            session: 会话,
+            // 原 L1811：101 升级响应，禁用扩展协商（避免 permessage-deflate 干扰）
+            respond() {
+                return new Response(null, {
+                    status: 101,
+                    webSocket: 标识876,
+                    headers: { "Sec-WebSocket-Extensions": "" }
+                });
+            }
+        };
+    }
+};
+// src/transport/grpc.ts
+var 双工远程调用响应头部 = {
+    "Content-Type": "application/grpc",
+    "grpc-status": "0",
+    "X-Accel-Buffering": "no",
+    "Cache-Control": "no-store"
+};
+function 标识881(值) {
+    const 标识31 = [];
+    let 标识882 = 值 >>> 0;
+    while (标识882 > 127) {
+        标识31.push(标识882 & 127 | 128);
+        标识882 >>>= 7;
+    }
+    标识31.push(标识882);
+    return new Uint8Array(标识31);
+}
+function 标识883(标识812) {
+    const 标识884 = 标识881(标识812.byteLength);
+    const 标识885 = 1 + 标识884.length + 标识812.byteLength;
+    const 帧 = new Uint8Array(5 + 标识885);
+    帧[0] = 0;
+    帧[1] = 标识885 >>> 24 & 255;
+    帧[2] = 标识885 >>> 16 & 255;
+    帧[3] = 标识885 >>> 8 & 255;
+    帧[4] = 标识885 & 255;
+    帧[5] = 10;
+    帧.set(标识884, 6);
+    帧.set(标识812, 6 + 标识884.length);
+    return 帧;
+}
+var 标识886 = class {
+    pending = new Uint8Array(0);
+    push(块) {
+        this.pending = 标识448(this.pending, 标识447(块));
+        const 标识887 = [];
+        while (this.pending.byteLength >= 5) {
+            const 双工远程调用长度 = this.pending[1] << 24 >>> 0 | this.pending[2] << 16 | this.pending[3] << 8 | this.pending[4];
+            const 帧体积 = 5 + 双工远程调用长度;
+            if (this.pending.byteLength < 帧体积)
+                break;
+            let 标识812 = this.pending.subarray(5, 帧体积);
+            this.pending = this.pending.subarray(帧体积);
+            if (!标识812.byteLength)
+                continue;
+            if (标识812.byteLength >= 2 && 标识812[0] === 10) {
+                let 标识888 = 0;
+                let 标识18 = 1;
+                let 标识889 = false;
+                while (标识18 < 标识812.length) {
+                    const 标识890 = 标识812[标识18++];
+                    if ((标识890 & 128) === 0) {
+                        标识889 = true;
+                        break;
+                    }
+                    标识888 += 7;
+                    if (标识888 > 35)
+                        break;
+                }
+                if (标识889)
+                    标识812 = 标识812.subarray(标识18);
+            }
+            if (!标识812.byteLength)
+                continue;
+            标识887.push(标识812);
+        }
+        return 标识887;
+    }
+};
+var 双工远程调用传输 = class extends 传输2 {
+    name = "grpc";
+    score(请求, 标识65) {
+        if (!标识65.adminPassword)
+            return 0;
+        if (请求.method !== "POST")
+            return 0;
+        const 路径 = 标识65.url.pathname.slice(1).toLowerCase();
+        if (路径.startsWith("admin/") || 路径 === "login")
+            return 0;
+        const 内容类型 = (请求.headers.get("Content-Type") || "").toLowerCase();
+        if (!内容类型.startsWith("application/grpc"))
+            return 0;
+        const [标识90, 标识91] = 标识65.identity;
+        const 标识891 = !!请求.headers.get(标识90) || !!标识65.url.searchParams.get(标识91);
+        if (标识891)
+            return 0;
+        return 80;
+    }
+    async accept(请求, 标识65) {
+        if (!请求.body)
+            return { ok: false, response: new Response("Bad Request", { status: 400 }) };
+        void 标识65;
+        const 标识892 = new 标识886();
+        const 标识497 = 请求.body.pipeThrough(new TransformStream({
+            transform(块, 标识187) {
+                for (const 标识812 of 标识892.push(块))
+                    标识187.enqueue(标识812);
+            }
+        }));
+        let 标识893;
+        const 响应流 = new ReadableStream({
+            start(标识187) {
+                标识893 = 标识187;
+            }
+        });
+        const 标识498 = new WritableStream({
+            write(块) {
+                标识893.enqueue(标识883(标识447(块)));
+            },
+            close() {
+                try {
+                    标识893.close();
+                }
+                catch {
+                }
+            },
+            abort(标识880) {
+                try {
+                    标识893.error(标识880);
+                }
+                catch {
+                }
+            }
+        });
+        const 会话 = {
+            name: this.name,
+            readable: 标识497,
+            writable: 标识498,
+            close(标识880) {
+                try {
+                    标识893.close();
+                }
+                catch {
+                }
+                void 标识880;
+            }
+        };
+        return {
+            ok: true,
+            session: 会话,
+            respond() {
+                return new Response(响应流, { status: 200, headers: 双工远程调用响应头部 });
+            }
+        };
+    }
+};
+// src/transport/hpack.ts
+var 标识894 = [
+    13,
+    23,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    24,
+    30,
+    28,
+    28,
+    30,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    30,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    28,
+    6,
+    10,
+    10,
+    12,
+    13,
+    6,
+    8,
+    11,
+    10,
+    10,
+    8,
+    11,
+    8,
+    6,
+    6,
+    6,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    7,
+    8,
+    15,
+    6,
+    12,
+    10,
+    13,
+    6,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    8,
+    7,
+    8,
+    13,
+    19,
+    13,
+    14,
+    6,
+    15,
+    5,
+    6,
+    5,
+    6,
+    5,
+    6,
+    6,
+    6,
+    5,
+    7,
+    7,
+    6,
+    6,
+    6,
+    5,
+    6,
+    7,
+    6,
+    5,
+    5,
+    6,
+    7,
+    7,
+    7,
+    7,
+    7,
+    15,
+    11,
+    14,
+    13,
+    28,
+    20,
+    22,
+    20,
+    20,
+    22,
+    22,
+    22,
+    23,
+    22,
+    23,
+    23,
+    23,
+    23,
+    23,
+    24,
+    23,
+    24,
+    24,
+    22,
+    23,
+    24,
+    23,
+    23,
+    23,
+    23,
+    21,
+    22,
+    23,
+    22,
+    23,
+    23,
+    24,
+    22,
+    21,
+    20,
+    22,
+    22,
+    23,
+    23,
+    21,
+    23,
+    22,
+    22,
+    24,
+    21,
+    22,
+    23,
+    23,
+    21,
+    21,
+    22,
+    21,
+    23,
+    22,
+    23,
+    23,
+    20,
+    22,
+    22,
+    22,
+    23,
+    22,
+    22,
+    23,
+    26,
+    26,
+    20,
+    19,
+    22,
+    23,
+    22,
+    25,
+    26,
+    26,
+    26,
+    27,
+    27,
+    26,
+    24,
+    25,
+    19,
+    21,
+    26,
+    27,
+    27,
+    26,
+    27,
+    24,
+    21,
+    21,
+    26,
+    26,
+    28,
+    27,
+    27,
+    27,
+    20,
+    24,
+    20,
+    21,
+    22,
+    21,
+    21,
+    23,
+    22,
+    22,
+    25,
+    25,
+    24,
+    24,
+    26,
+    23,
+    26,
+    27,
+    26,
+    26,
+    27,
+    27,
+    27,
+    27,
+    27,
+    28,
+    27,
+    27,
+    27,
+    27,
+    27,
+    26,
+    30
+];
+// src/transport/xhttp.ts
+var 标识895 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+function 标识896(字符串) {
+    const 标识34 = new TextEncoder().encode(字符串);
+    let 标识897 = 0;
+    for (let 标识3 = 0; 标识3 < 标识34.length; 标识3++) {
+        标识897 += 标识894[标识34[标识3]];
+    }
+    return Math.ceil(标识897 / 8);
+}
+function 标识898(请求, 标识90, 标识91) {
+    const 头字段值 = 请求.headers.get(标识90);
+    if (头字段值) {
+        try {
+            const 解析出网址 = new URL(头字段值, "https://x.invalid");
+            const 查询串值 = 解析出网址.searchParams.get(标识91);
+            if (查询串值)
+                return 查询串值;
+        }
+        catch {
+        }
+        return 头字段值;
+    }
+    const 请求网址 = new URL(请求.url);
+    return 请求网址.searchParams.get(标识91) || "";
+}
+function 标识899(请求, 标识90, 标识91) {
+    const 标识900 = 标识898(请求, 标识90, 标识91);
+    if (!标识900)
+        return true;
+    const 标识901 = 标识896(标识900);
+    return 标识901 >= 98 && 标识901 <= 1002;
+}
+function 标识902(长度2) {
+    const 标识903 = 标识895.length;
+    let 标识115 = "";
+    for (let 标识3 = 0; 标识3 < 长度2; 标识3++) {
+        标识115 += 标识895[Math.floor(Math.random() * 标识903)];
+    }
+    return 标识115;
+}
+var 交叉传输传输 = class extends 传输2 {
+    name = "xhttp";
+    score(请求, 标识65) {
+        if (!标识65.adminPassword)
+            return 0;
+        if (请求.method !== "POST")
+            return 0;
+        const 路径 = 标识65.url.pathname.slice(1).toLowerCase();
+        if (路径.startsWith("admin/") || 路径 === "login")
+            return 0;
+        return 60;
+    }
+    async accept(请求, 标识65) {
+        if (!请求.body)
+            return { ok: false, response: new Response("Bad Request", { status: 400 }) };
+        const [标识90, 标识91] = 标识40(标识65.userId);
+        if (!标识899(请求, 标识90, 标识91)) {
+            return { ok: false, response: new Response("Bad Request", { status: 400 }) };
+        }
+        const 标识497 = 请求.body;
+        let 标识893;
+        const 响应流 = new ReadableStream({
+            start(标识187) {
+                标识893 = 标识187;
+            }
+        });
+        const 标识498 = new WritableStream({
+            write(块) {
+                标识893.enqueue(块);
+            },
+            close() {
+                try {
+                    标识893.close();
+                }
+                catch {
+                }
+            },
+            abort(标识880) {
+                try {
+                    标识893.error(标识880);
+                }
+                catch {
+                }
+            }
+        });
+        let 标识904 = "";
+        try {
+            const 响应网址 = new URL("https://x.invalid/");
+            响应网址.searchParams.set(标识91, 标识902(100 + Math.floor(Math.random() * 901)));
+            标识904 = 响应网址.toString();
+        }
+        catch {
+        }
+        const 标识905 = new Headers({
+            "Content-Type": "application/octet-stream",
+            "X-Accel-Buffering": "no",
+            "Cache-Control": "no-store"
+        });
+        if (标识904)
+            标识905.set(标识90, 标识904);
+        const 会话 = {
+            name: this.name,
+            readable: 标识497,
+            writable: 标识498,
+            close(标识880) {
+                try {
+                    标识893.close();
+                }
+                catch {
+                }
+                void 标识880;
+            }
+        };
+        return {
+            ok: true,
+            session: 会话,
+            respond(选项集) {
+                if (选项集?.localBody !== void 0) {
+                    return new Response(选项集.localBody, {
+                        status: 选项集.status ?? 200,
+                        headers: 选项集.headers
+                    });
+                }
+                return new Response(响应流, { status: 200, headers: 标识905 });
+            }
+        };
+    }
+};
+// src/transport/registry.ts
+var 传输注册表 = new 注册表().register(new 标识875()).register(new 双工远程调用传输()).register(new 交叉传输传输());
+function 标识906(请求, 标识65) {
+    return 标识843(传输注册表.list(), (标识110) => 标识110.score(请求, 标识65));
+}
+// src/protocol/base.ts
+var 标识907 = {
+    uplink: async (标识195) => 标识195.byteLength > 0 ? [标识195] : [],
+    downlink: async (标识195) => 标识195.byteLength > 0 ? [标识195] : []
+};
+var 标识908 = 0.9;
+var 标识909 = 0.8;
+var 标识910 = 0.5;
+var 协议2 = class {
+    /** 每连接编解码器；默认直通，SS 覆写为 AEAD 状态机 */
+    codec(标识911) {
+        return 标识907;
+    }
+};
+// src/protocol/vless.ts
+var 标识912 = new TextDecoder();
+var VLESS协议 = class extends 协议2 {
+    name = "vless";
+    sniff(首个2, 标识911) {
+        return 标识910;
+    }
+    parse(首个, 标识913) {
+        const 数据 = 标识447(首个);
+        const 长度2 = 数据.byteLength;
+        if (长度2 < 24)
+            throw new 标识312("PROTOCOL_VLESS_INVALID_DATA", "Invalid data");
+        const 版本2 = 数据[0];
+        if (!标识853(数据, 1, 标识913.userId))
+            throw new 标识312("PROTOCOL_VLESS_INVALID_UUID", "Invalid uuid");
+        const 标识914 = 数据[17];
+        const 标识915 = 18 + 标识914;
+        if (长度2 < 标识915 + 4)
+            throw new 标识312("PROTOCOL_VLESS_INVALID_DATA", "Invalid data");
+        const 标识916 = 数据[标识915];
+        let 标识917 = false;
+        if (标识916 === 1) {
+        }
+        else if (标识916 === 2) {
+            标识917 = true;
+        }
+        else {
+            throw new 标识312("PROTOCOL_VLESS_INVALID_COMMAND", "Invalid command");
+        }
+        const 端口序号 = 标识915 + 1;
+        const 端口 = 数据[端口序号] << 8 | 数据[端口序号 + 1];
+        let 标识918 = 端口序号 + 3;
+        let 标识919 = 0;
+        let 标识119 = "";
+        const 标识920 = 数据[端口序号 + 2];
+        switch (标识920) {
+            case 1:
+                标识919 = 4;
+                if (长度2 < 标识918 + 标识919)
+                    throw new 标识312("PROTOCOL_VLESS_INVALID_IPV4", "Invalid IPv4 address length");
+                标识119 = `${数据[标识918]}.${数据[标识918 + 1]}.${数据[标识918 + 2]}.${数据[标识918 + 3]}`;
+                break;
+            case 2: {
+                if (长度2 < 标识918 + 1)
+                    throw new 标识312("PROTOCOL_VLESS_INVALID_DOMAIN", "Invalid domain length");
+                标识919 = 数据[标识918];
+                标识918 += 1;
+                if (长度2 < 标识918 + 标识919)
+                    throw new 标识312("PROTOCOL_VLESS_INVALID_DOMAIN", "Invalid domain data");
+                标识119 = 标识912.decode(数据.subarray(标识918, 标识918 + 标识919));
+                break;
+            }
+            case 3: {
+                标识919 = 16;
+                if (长度2 < 标识918 + 标识919)
+                    throw new 标识312("PROTOCOL_VLESS_INVALID_IPV6", "Invalid IPv6 address length");
+                const 标识921 = [];
+                for (let 标识3 = 0; 标识3 < 8; 标识3++) {
+                    const 标识922 = 标识918 + 标识3 * 2;
+                    标识921.push((数据[标识922] << 8 | 数据[标识922 + 1]).toString(16));
+                }
+                标识119 = 标识921.join(":");
+                break;
+            }
+            default:
+                throw new 标识312("PROTOCOL_VLESS_INVALID_ADDR_TYPE", `Invalid address type: ${标识920}`);
+        }
+        if (!标识119)
+            throw new 标识312("PROTOCOL_VLESS_INVALID_ADDR", `Invalid address: ${标识920}`);
+        const 标识923 = 标识918 + 标识919;
+        return {
+            host: 标识119,
+            port: 端口,
+            udp: 标识917,
+            payload: 数据.subarray(标识923),
+            replyHeader: new Uint8Array([版本2, 0])
+        };
+    }
+};
+// src/protocol/trojan.ts
+var 标识924 = new TextDecoder();
+var 木马通道协议 = class extends 协议2 {
+    name = "trojan";
+    sniff(首个, 标识911) {
+        return 首个.byteLength >= 58 && 首个[56] === 13 && 首个[57] === 10 ? 标识909 : 0;
+    }
+    parse(首个, 标识913) {
+        const 数据 = 标识447(首个);
+        const 指纹值224密码 = 指纹值224(标识913.userId);
+        if (数据.byteLength < 58)
+            throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid data");
+        const 标识925 = 56;
+        if (数据[标识925] !== 13 || 数据[标识925 + 1] !== 10)
+            throw new 标识312("PROTOCOL_TROJAN_INVALID_HEADER", "invalid header format");
+        for (let 标识3 = 0; 标识3 < 标识925; 标识3++) {
+            if (数据[标识3] !== 指纹值224密码.charCodeAt(标识3))
+                throw new 标识312("PROTOCOL_TROJAN_INVALID_PASSWORD", "invalid password");
+        }
+        const 袜子5序号 = 标识925 + 2;
+        if (数据.byteLength < 袜子5序号 + 6)
+            throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+        const 标识916 = 数据[袜子5序号];
+        if (标识916 !== 1 && 标识916 !== 3)
+            throw new 标识312("PROTOCOL_TROJAN_INVALID_COMMAND", "unsupported command, only TCP/UDP is allowed");
+        const 标识917 = 标识916 === 3;
+        const 标识926 = 数据[袜子5序号 + 1];
+        let 标识927 = 0;
+        let 标识928 = 袜子5序号 + 2;
+        let 标识317 = "";
+        switch (标识926) {
+            case 1:
+                标识927 = 4;
+                if (数据.byteLength < 标识928 + 标识927 + 4)
+                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                标识317 = `${数据[标识928]}.${数据[标识928 + 1]}.${数据[标识928 + 2]}.${数据[标识928 + 3]}`;
+                break;
+            case 3: {
+                if (数据.byteLength < 标识928 + 1)
+                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                标识927 = 数据[标识928];
+                标识928 += 1;
+                if (数据.byteLength < 标识928 + 标识927 + 4)
+                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                标识317 = 标识924.decode(数据.subarray(标识928, 标识928 + 标识927));
+                break;
+            }
+            case 4: {
+                标识927 = 16;
+                if (数据.byteLength < 标识928 + 标识927 + 4)
+                    throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+                const 标识921 = [];
+                for (let 标识3 = 0; 标识3 < 8; 标识3++) {
+                    const 标识929 = 标识928 + 标识3 * 2;
+                    标识921.push((数据[标识929] << 8 | 数据[标识929 + 1]).toString(16));
+                }
+                标识317 = 标识921.join(":");
+                break;
+            }
+            default:
+                throw new 标识312("PROTOCOL_TROJAN_INVALID_ADDR_TYPE", `invalid addressType is ${标识926}`);
+        }
+        if (!标识317)
+            throw new 标识312("PROTOCOL_TROJAN_INVALID_ADDR", `address is empty, addressType is ${标识926}`);
+        const 端口序号2 = 标识928 + 标识927;
+        if (数据.byteLength < 端口序号2 + 4)
+            throw new 标识312("PROTOCOL_TROJAN_INVALID_DATA", "invalid S5 request data");
+        const 端口 = 数据[端口序号2] << 8 | 数据[端口序号2 + 1];
+        return {
+            host: 标识317,
+            port: 端口,
+            udp: 标识917,
+            payload: 数据.subarray(端口序号2 + 4)
+        };
+    }
+};
+// src/protocol/ss-crypto.ts
+var 标识930 = {
+    "aes-128-gcm": { method: "aes-128-gcm", keyLen: 16, saltLen: 16, maxChunk: 16383, aesLength: 128 },
+    "aes-256-gcm": { method: "aes-256-gcm", keyLen: 32, saltLen: 32, maxChunk: 16383, aesLength: 256 }
+};
+var 标识931 = 16;
+var 标识932 = 12;
+var 标识933 = new TextEncoder().encode("ss-subkey");
+function 标识934(标识551) {
+    for (let 标识3 = 0; 标识3 < 标识551.length; 标识3++) {
+        标识551[标识3] = 标识551[标识3] + 1 & 255;
+        if (标识551[标识3] !== 0)
+            return;
+    }
+}
+var 标识935 = new Map();
+function 标识936(标识937, 键长度2) {
+    const 缓存键 = `${键长度2}:${标识937}`;
+    const 已缓存 = 标识935.get(缓存键);
+    if (已缓存)
+        return 已缓存;
+    const 标识938 = new TextEncoder().encode(标识937 || "");
+    let 前驱 = new Uint8Array(0);
+    let 标识115 = new Uint8Array(0);
+    while (标识115.byteLength < 键长度2) {
+        const 标识939 = 标识448(前驱, 标识938);
+        前驱 = 标识7(标识939);
+        标识115 = 标识448(标识115, 前驱);
+    }
+    const 键 = 标识115.slice(0, 键长度2);
+    标识935.set(缓存键, 键);
+    return 键;
+}
+async function 标识940(配置, 标识941, 标识521, 标识538) {
+    const 标识942 = { name: "HMAC", hash: "SHA-1" };
+    const 标识943 = await crypto.subtle.importKey("raw", 标识521, 标识942, false, ["sign"]);
+    const 标识944 = new Uint8Array(await crypto.subtle.sign("HMAC", 标识943, 标识941));
+    const 标识945 = await crypto.subtle.importKey("raw", 标识944, 标识942, false, ["sign"]);
+    const 订阅键 = new Uint8Array(配置.keyLen);
+    let 前驱 = new Uint8Array(0);
+    let 标识946 = 0;
+    let 标识551 = 1;
+    while (标识946 < 配置.keyLen) {
+        const 标识939 = 标识448(前驱, 标识933, new Uint8Array([标识551]));
+        前驱 = new Uint8Array(await crypto.subtle.sign("HMAC", 标识945, 标识939));
+        const 标识947 = Math.min(前驱.byteLength, 配置.keyLen - 标识946);
+        订阅键.set(前驱.subarray(0, 标识947), 标识946);
+        标识946 += 标识947;
+        标识551 += 1;
+    }
+    return crypto.subtle.importKey("raw", 订阅键, { name: "AES-GCM", length: 配置.aesLength }, false, 标识538);
+}
+async function 标识948(标识512, 标识949, 标识77) {
+    const 标识950 = 标识949.slice();
+    const 标识951 = await crypto.subtle.encrypt({ name: "AES-GCM", iv: 标识950, tagLength: 128 }, 标识512, 标识77);
+    标识934(标识949);
+    return new Uint8Array(标识951);
+}
+async function 标识952(标识512, 标识949, 标识543) {
+    const 标识950 = 标识949.slice();
+    const 标识953 = await crypto.subtle.decrypt({ name: "AES-GCM", iv: 标识950, tagLength: 128 }, 标识512, 标识543);
+    标识934(标识949);
+    return new Uint8Array(标识953);
+}
+function 标识954(标识955) {
+    const 标识956 = 标识930[(标识955 || "").toLowerCase()] || 标识930["aes-128-gcm"];
+    return [标识956, ...Object.values(标识930).filter((标识195) => 标识195.method !== 标识956.method)];
+}
+// src/protocol/shadowsocks.ts
+var 标识957 = new TextDecoder();
+var 标识958 = 2 + 标识931;
+var 标识959 = 16;
+var 标识960 = class {
+    constructor(用户编号, 标识955) {
+        this.userId = 用户编号;
+        this.candidates = 标识954(标识955);
+        this.encLabel = (标识955 || "").toLowerCase() || "auto";
+    }
+    userId;
+    // —— 入站状态（原 inboundState）——
+    buffer = new Uint8Array(0);
+    hasSalt = false;
+    waitPayloadLength = null;
+    decryptKey = null;
+    nonceCounter = new Uint8Array(标识932);
+    cryptoConfig = null;
+    candidates;
+    encLabel;
+    // —— 出站状态（原 outboundCipher，惰性初始化）——
+    outbound = null;
+    /**
+     * 原 initInboundDecryptState：扫描 0..16B 前导噪声对齐，逐候选套件试解长度帧。
+     * 返回 true=握手完成；false=数据不足（继续缓冲）；确定性失败抛 PROTOCOL_SS_HANDSHAKE_FAILED。
+     */
+    async initAsync() {
+        const 标识961 = Math.max(...this.candidates.map((标识195) => 标识195.saltLen));
+        const 标识962 = Math.min(...this.candidates.map((标识195) => 标识195.saltLen));
+        const 标识963 = Math.min(标识959, Math.max(0, this.buffer.byteLength - (标识958 + 标识962)));
+        for (let 标识18 = 0; 标识18 <= 标识963; 标识18++) {
+            for (const 配置 of this.candidates) {
+                const 初始化下限值长度 = 标识18 + 配置.saltLen + 标识958;
+                if (this.buffer.byteLength < 初始化下限值长度)
+                    continue;
+                const 标识521 = this.buffer.subarray(标识18, 标识18 + 配置.saltLen);
+                const 长度算法 = this.buffer.subarray(标识18 + 配置.saltLen, 初始化下限值长度);
+                const 标识941 = 标识936(this.userId, 配置.keyLen);
+                try {
+                    const 解密键 = await 标识940(配置, 标识941, 标识521, ["decrypt"]);
+                    const 标识552 = new Uint8Array(标识932);
+                    const 标识964 = await 标识952(解密键, 标识552, 长度算法);
+                    if (标识964.byteLength !== 2)
+                        continue;
+                    const 标识813 = 标识964[0] << 8 | 标识964[1];
+                    if (标识813 < 0 || 标识813 > 配置.maxChunk)
+                        continue;
+                    this.buffer = this.buffer.subarray(初始化下限值长度);
+                    this.decryptKey = 解密键;
+                    this.nonceCounter.set(标识552);
+                    this.waitPayloadLength = 标识813;
+                    this.cryptoConfig = 配置;
+                    this.hasSalt = true;
+                    return true;
+                }
+                catch {
+                }
+            }
+        }
+        const 标识965 = 标识961 + 标识958 + 标识959;
+        if (this.buffer.byteLength >= 标识965) {
+            throw new 标识312("PROTOCOL_SS_HANDSHAKE_FAILED", `SS handshake decrypt failed (enc=${this.encLabel}, candidates=${this.candidates.map((标识195) => 标识195.method).join("/")})`);
+        }
+        return false;
+    }
+    async uplink(算法) {
+        const 块 = 标识447(算法);
+        if (块.byteLength > 0)
+            this.buffer = 标识448(this.buffer, 块);
+        if (!this.hasSalt) {
+            const 初始化已完成 = await this.initAsync();
+            if (!初始化已完成)
+                return [];
+        }
+        const 标识966 = [];
+        const 键 = this.decryptKey;
+        while (true) {
+            if (this.waitPayloadLength === null) {
+                if (this.buffer.byteLength < 标识958)
+                    break;
+                const 长度算法 = this.buffer.subarray(0, 标识958);
+                this.buffer = this.buffer.subarray(标识958);
+                let 标识964;
+                try {
+                    标识964 = await 标识952(键, this.nonceCounter, 长度算法);
+                }
+                catch (错误2) {
+                    throw new 标识312("PROTOCOL_SS_DECRYPT_FAILED", "SS length decrypt failed", 错误2);
+                }
+                if (标识964.byteLength !== 2)
+                    throw new 标识312("PROTOCOL_SS_LENGTH_INVALID", "SS length decrypt failed");
+                const 标识813 = 标识964[0] << 8 | 标识964[1];
+                if (标识813 < 0 || 标识813 > this.cryptoConfig.maxChunk) {
+                    throw new 标识312("PROTOCOL_SS_PAYLOAD_INVALID", `SS payload length invalid: ${标识813}`);
+                }
+                this.waitPayloadLength = 标识813;
+            }
+            const 标识967 = this.waitPayloadLength + 标识931;
+            if (this.buffer.byteLength < 标识967)
+                break;
+            const 标识968 = this.buffer.subarray(0, 标识967);
+            this.buffer = this.buffer.subarray(标识967);
+            let 标识969;
+            try {
+                标识969 = await 标识952(键, this.nonceCounter, 标识968);
+            }
+            catch (错误2) {
+                throw new 标识312("PROTOCOL_SS_DECRYPT_FAILED", "Decryption failed", 错误2);
+            }
+            标识966.push(标识969);
+            this.waitPayloadLength = null;
+        }
+        return 标识966;
+    }
+    async downlink(标识970) {
+        const 标识31 = [];
+        if (!this.outbound) {
+            if (!this.cryptoConfig)
+                throw new 标识312("PROTOCOL_SS_NOT_NEGOTIATED", "SS cipher is not negotiated");
+            const 配置 = this.cryptoConfig;
+            const 标识941 = 标识936(this.userId, 配置.keyLen);
+            const 标识521 = crypto.getRandomValues(new Uint8Array(配置.saltLen));
+            const 键 = await 标识940(配置, 标识941, 标识521, ["encrypt"]);
+            this.outbound = { config: 配置, key: 键, salt: 标识521, nonce: new Uint8Array(标识932), saltSent: false };
+        }
+        const 标识971 = this.outbound;
+        if (!标识971.saltSent) {
+            标识31.push(标识971.salt);
+            标识971.saltSent = true;
+        }
+        const 标识972 = 标识447(标识970);
+        if (标识972.byteLength === 0)
+            return 标识31;
+        let 标识18 = 0;
+        while (标识18 < 标识972.byteLength) {
+            const 标识432 = Math.min(标识18 + 标识971.config.maxChunk, 标识972.byteLength);
+            const 标识969 = 标识972.subarray(标识18, 标识432);
+            const 标识964 = new Uint8Array(2);
+            标识964[0] = 标识969.byteLength >>> 8 & 255;
+            标识964[1] = 标识969.byteLength & 255;
+            const 长度算法 = await 标识948(标识971.key, 标识971.nonce, 标识964);
+            const 标识968 = await 标识948(标识971.key, 标识971.nonce, 标识969);
+            标识31.push(标识448(长度算法, 标识968));
+            标识18 = 标识432;
+        }
+        return 标识31;
+    }
+};
+var 影子袜协议 = class extends 协议2 {
+    name = "ss";
+    sniff(首个2, 标识913) {
+        return 标识913.query?.get("enc") ? 标识908 : 0;
+    }
+    /**
+     * 解析**解密后首个明文块**（原 handleSsData 地址段）。
+     * 编排契约：codec.uplink 首个非空批次的第 0 块交给 parse，其余块作为后续载荷直接转发。
+     */
+    parse(首个, 标识911) {
+        const 标识973 = 标识447(首个);
+        if (标识973.byteLength < 3)
+            throw new 标识312("PROTOCOL_SS_INVALID_DATA", "invalid ss data");
+        const 标识920 = 标识973[0];
+        let 标识974 = 1;
+        let 标识119 = "";
+        if (标识920 === 1) {
+            if (标识973.byteLength < 标识974 + 4 + 2)
+                throw new 标识312("PROTOCOL_SS_INVALID_IPV4", "invalid ss ipv4 length");
+            标识119 = `${标识973[标识974]}.${标识973[标识974 + 1]}.${标识973[标识974 + 2]}.${标识973[标识974 + 3]}`;
+            标识974 += 4;
+        }
+        else if (标识920 === 3) {
+            if (标识973.byteLength < 标识974 + 1)
+                throw new 标识312("PROTOCOL_SS_INVALID_DOMAIN", "invalid ss domain length");
+            const 标识975 = 标识973[标识974];
+            标识974 += 1;
+            if (标识973.byteLength < 标识974 + 标识975 + 2)
+                throw new 标识312("PROTOCOL_SS_INVALID_DOMAIN", "invalid ss domain data");
+            标识119 = 标识957.decode(标识973.subarray(标识974, 标识974 + 标识975));
+            标识974 += 标识975;
+        }
+        else if (标识920 === 4) {
+            if (标识973.byteLength < 标识974 + 16 + 2)
+                throw new 标识312("PROTOCOL_SS_INVALID_IPV6", "invalid ss ipv6 length");
+            const 标识921 = [];
+            const 标识976 = new DataView(标识973.buffer, 标识973.byteOffset + 标识974, 16);
+            for (let 标识3 = 0; 标识3 < 8; 标识3++)
+                标识921.push(标识976.getUint16(标识3 * 2).toString(16));
+            标识119 = 标识921.join(":");
+            标识974 += 16;
+        }
+        else {
+            throw new 标识312("PROTOCOL_SS_INVALID_ADDR_TYPE", `invalid ss addressType: ${标识920}`);
+        }
+        if (!标识119)
+            throw new 标识312("PROTOCOL_SS_INVALID_ADDR", `invalid ss address: ${标识920}`);
+        const 端口 = 标识973[标识974] << 8 | 标识973[标识974 + 1];
+        标识974 += 2;
+        const 标识812 = 标识973.subarray(标识974);
+        return { host: 标识119, port: 端口, udp: false, payload: 标识812 };
+    }
+    codec(标识913) {
+        return new 标识960(标识913.userId, 标识913.query?.get("enc"));
+    }
+};
+// src/protocol/registry.ts
+var 协议注册表 = new 注册表().register(new VLESS协议()).register(new 木马通道协议()).register(new 影子袜协议());
+function 标识977(首个, 标识913) {
+    return 标识843(协议注册表.list(), (标识24) => 标识24.sniff(首个, 标识913));
+}
+// src/forward/generation.ts
+function 标识978() {
+    return {
+        generation: 0,
+        socket: null,
+        connectingPromise: null,
+        retryConnect: null,
+        downlinkController: null,
+        downlinkDrain: Promise.resolve()
+    };
+}
+function 标识979(标识980) {
+    if (!标识980)
+        return;
+    标识980.generation = (Number.isInteger(标识980.generation) ? 标识980.generation : 0) + 1;
+    const 套接字 = 标识980.socket;
+    标识980.socket = null;
+    标识980.downlinkController = null;
+    标识980.downlinkDrain = Promise.resolve();
+    try {
+        套接字?.close?.();
+    }
+    catch {
+    }
+}
+function 标识981(标识980) {
+    if (!Number.isInteger(标识980.generation))
+        标识980.generation = 0;
+    const 标识982 = ++标识980.generation;
+    const 标识983 = 标识980.socket;
+    标识980.socket = null;
+    const 标识984 = 标识980.downlinkController;
+    标识980.downlinkController = null;
+    const 标识985 = 标识980.downlinkDrain || Promise.resolve();
+    let 标识986;
+    try {
+        标识986 = 标识984?.stopAndFlush?.() || Promise.resolve();
+    }
+    catch (错误) {
+        标识986 = Promise.reject(错误);
+    }
+    const 标识987 = Promise.all([标识985, 标识986]);
+    标识987.catch(() => {
+    });
+    标识980.downlinkDrain = 标识987;
+    try {
+        标识983?.close?.();
+    }
+    catch {
+    }
+    return { generation: 标识982, downlinkDrain: 标识987 };
+}
+// src/forward/grain.ts
+var 标识988 = 8 * 1024;
+var 标识989 = 20 * 1024;
+var 标识990 = 16 * 1024 * 1024;
+var 标识991 = 4096;
+var 标识992 = 32 * 1024;
+var 标识993 = 512;
+var 标识994 = Math.max(4096, 标识993 * 12);
+var 标识995 = 4;
+function 标识996(标识997, 标识998 = false) {
+    let 标识999 = [];
+    let 标识1000 = 0;
+    let 标识1001 = 0;
+    let 标识1002 = null;
+    const 标识1003 = () => 标识1000 >= 标识999.length;
+    const 标识1004 = () => {
+        if (标识1000 > 32 && 标识1000 * 2 >= 标识999.length) {
+            标识999 = 标识999.slice(标识1000);
+            标识1000 = 0;
+        }
+    };
+    const 标识1005 = () => {
+        if (标识1003())
+            return null;
+        const 标识273 = 标识999[标识1000];
+        标识999[标识1000++] = void 0;
+        标识1001 -= 标识273.chunk.byteLength;
+        标识1004();
+        return 标识273;
+    };
+    return {
+        get byteCount() {
+            return 标识1001;
+        },
+        get entryCount() {
+            return 标识999.length - 标识1000;
+        },
+        get isEmpty() {
+            return 标识1003();
+        },
+        clear(标识1006) {
+            if (标识1006) {
+                for (let 标识3 = 标识1000; 标识3 < 标识999.length; 标识3++) {
+                    if (标识999[标识3])
+                        标识1006(标识999[标识3]);
+                }
+            }
+            标识999 = [];
+            标识1000 = 0;
+            标识1001 = 0;
+        },
+        absorb(标识273) {
+            if (!标识273?.chunk?.byteLength)
+                return false;
+            标识999.push(标识273);
+            标识1001 += 标识273.chunk.byteLength;
+            return true;
+        },
+        coalesce() {
+            const 首个 = 标识1005();
+            if (!首个)
+                return null;
+            const 标识844 = [首个];
+            if (标识1003() || 首个.chunk.byteLength >= 标识997)
+                return { chunk: 首个.chunk, items: 标识844 };
+            let 标识1007 = 首个.chunk.byteLength;
+            let 标识432 = 标识1000;
+            while (标识432 < 标识999.length) {
+                const 标识1008 = 标识1007 + 标识999[标识432].chunk.byteLength;
+                if (标识1008 > 标识997)
+                    break;
+                标识1007 = 标识1008;
+                标识432++;
+            }
+            if (标识432 === 标识1000)
+                return { chunk: 首个.chunk, items: 标识844 };
+            const 标识517 = 标识1002 ||= new Uint8Array(标识997);
+            标识517.set(首个.chunk, 0);
+            let 标识18 = 首个.chunk.byteLength;
+            while (标识1000 < 标识432) {
+                const 后继 = 标识999[标识1000];
+                标识999[标识1000++] = void 0;
+                标识1001 -= 后继.chunk.byteLength;
+                标识844.push(后继);
+                标识517.set(后继.chunk, 标识18);
+                标识18 += 后继.chunk.byteLength;
+            }
+            标识1004();
+            const 标识1009 = 标识517.subarray(0, 标识1007);
+            return { chunk: 标识998 ? 标识1009.slice() : 标识1009, items: 标识844 };
+        }
+    };
+}
+function 标识1010(标识1011 = 标识989) {
+    const 标识1012 = typeof IdentityTransformStream !== "undefined" ? new IdentityTransformStream() : new TransformStream();
+    const 写入器 = 标识1012.writable.getWriter();
+    const 缓冲区 = new Uint8Array(标识1011);
+    let 缓冲区长度 = 0;
+    let 标识482 = null;
+    let 标识1013 = null;
+    let 标识1014 = Promise.resolve();
+    const 标识1015 = () => {
+        if (标识482) {
+            clearTimeout(标识482);
+            标识482 = null;
+        }
+    };
+    const 标识1016 = async (块) => {
+        if (标识1013)
+            await 标识1013;
+        标识1013 = 写入器.write(块);
+        try {
+            await 标识1013;
+        }
+        finally {
+            标识1013 = null;
+        }
+    };
+    const 标识818 = async () => {
+        if (缓冲区长度) {
+            const 块 = 缓冲区.slice(0, 缓冲区长度);
+            缓冲区长度 = 0;
+            await 标识1016(块);
+        }
+    };
+    const 标识1017 = () => {
+        标识1014 = 标识1014.then(() => 标识818()).catch(() => {
+        });
+    };
+    const 标识1018 = () => {
+        if (标识482)
+            return;
+        标识482 = setTimeout(() => {
+            标识482 = null;
+            标识1017();
+        }, 1);
+    };
+    return {
+        readable: 标识1012.readable,
+        write: async (块) => {
+            const 数据 = 标识447(块);
+            if (!数据.byteLength)
+                return;
+            if (数据.byteLength >= 标识1011) {
+                标识1015();
+                if (缓冲区长度)
+                    await 标识818();
+                await 标识1016(数据);
+                return;
+            }
+            if (缓冲区长度 + 数据.byteLength >= 标识1011) {
+                const 标识517 = new Uint8Array(缓冲区长度 + 数据.byteLength);
+                标识517.set(缓冲区.subarray(0, 缓冲区长度), 0);
+                标识517.set(数据, 缓冲区长度);
+                缓冲区长度 = 0;
+                标识1015();
+                await 标识1016(标识517);
+            }
+            else {
+                缓冲区.set(数据, 缓冲区长度);
+                缓冲区长度 += 数据.byteLength;
+                标识1018();
+            }
+        },
+        end: async () => {
+            标识1015();
+            try {
+                await 标识1014;
+                await 标识818();
+                await 写入器.close();
+            }
+            finally {
+                try {
+                    写入器.releaseLock();
+                }
+                catch {
+                }
+            }
+        }
+    };
+}
+function 标识1019(选项组) {
+    const { getWriter: 取值写入器, getConnectTask: 标识1020 = null, releaseWriter: 标识1021, retryConnect: 标识1022, closeConnection: 标识1023, queueName: 标识1024 = "\u4E0A\u884C\u961F\u5217" } = 选项组;
+    const 标识1025 = 标识996(标识989);
+    let 标识1026 = false;
+    let 标识723 = false;
+    let 标识1027 = [];
+    let 标识1028 = null;
+    const 标识1029 = (标识1030, 错误2 = null) => {
+        if (!标识1030)
+            return;
+        for (const 标识1031 of 标识1030) {
+            if (错误2)
+                标识1031.reject(错误2);
+            else
+                标识1031.resolve();
+        }
+    };
+    const 标识1032 = () => {
+        if (标识1025.byteCount || 标识1026 || !标识1027.length)
+            return;
+        const 标识1033 = 标识1027;
+        标识1027 = [];
+        for (const 敲定 of 标识1033)
+            敲定();
+    };
+    const 标识1034 = (错误2 = null) => {
+        const 关闭错误 = 错误2 || (标识723 ? new Error(`${标识1024}: queue closed`) : null);
+        if (关闭错误) {
+            标识1025.clear((标识273) => 标识1029(标识273.completions, 关闭错误));
+            标识1029(标识1028, 关闭错误);
+            标识1028 = null;
+        }
+        else
+            标识1025.clear();
+        标识1032();
+    };
+    const 标识1035 = () => {
+        const 标识1036 = 标识1025.coalesce();
+        if (!标识1036)
+            return null;
+        let 标识1037 = true;
+        let 标识1030 = null;
+        for (const 标识273 of 标识1036.items) {
+            标识1037 = 标识1037 && 标识273.allowRetry !== false;
+            if (标识273.completions)
+                标识1030 = 标识1030 ? 标识1030.concat(标识273.completions) : 标识273.completions;
+        }
+        return { chunk: 标识1036.chunk, allowRetry: 标识1037, completions: 标识1030 };
+    };
+    const 标识1038 = async () => {
+        let 写入器 = 取值写入器();
+        if (写入器)
+            return 写入器;
+        const 标识1039 = 标识1020?.();
+        if (标识1039)
+            await 标识1039;
+        return 取值写入器();
+    };
+    const 标识1040 = async () => {
+        if (标识1026 || 标识723)
+            return;
+        标识1026 = true;
+        try {
+            for (;;) {
+                if (标识723)
+                    break;
+                const 标识273 = 标识1035();
+                if (!标识273)
+                    break;
+                const 标识1030 = 标识273.completions || null;
+                标识1028 = 标识1030;
+                try {
+                    let 写入器 = await 标识1038();
+                    if (标识723)
+                        break;
+                    if (!写入器)
+                        throw new Error(`${标识1024}: remote writer unavailable`);
+                    try {
+                        await 写入器.write(标识273.chunk);
+                    }
+                    catch (错误2) {
+                        标识1021?.();
+                        if (标识723)
+                            break;
+                        if (!标识273.allowRetry || typeof 标识1022 !== "function")
+                            throw 错误2;
+                        await 标识1022();
+                        if (标识723)
+                            break;
+                        写入器 = 取值写入器();
+                        if (!写入器)
+                            throw 错误2;
+                        await 写入器.write(标识273.chunk);
+                    }
+                    标识1029(标识1030);
+                }
+                catch (错误2) {
+                    标识1029(标识1030, 错误2);
+                    throw 错误2;
+                }
+                finally {
+                    if (标识1028 === 标识1030)
+                        标识1028 = null;
+                }
+            }
+        }
+        catch (错误2) {
+            标识723 = true;
+            标识1034(错误2);
+            console.error(`[${标识1024}] \u5199\u5165\u5931\u8D25:`, 错误2);
+            try {
+                标识1023?.(错误2);
+            }
+            catch {
+            }
+        }
+        finally {
+            标识1026 = false;
+            if (!标识723 && !标识1025.isEmpty)
+                void 标识1040();
+            else
+                标识1032();
+        }
+    };
+    const 标识1041 = (数据, 标识1037, 标识1042) => {
+        if (标识723)
+            return false;
+        if (!取值写入器() && !标识1020?.())
+            return false;
+        const 块 = 标识447(数据);
+        if (!块.byteLength)
+            return true;
+        const 标识1008 = 标识1025.byteCount + 块.byteLength;
+        const 标识1043 = 标识1025.entryCount + 1;
+        if (标识1008 > 标识990 || 标识1043 > 标识991) {
+            标识723 = true;
+            const 错误2 = Object.assign(new Error(`${标识1024}: upload queue overflow (${标识1008}B/${标识1043})`), { isQueueOverflow: true });
+            标识1034(错误2);
+            console.error(`[${标识1024}] \u961F\u5217\u8D85\u9650\uFF0C\u5173\u95ED\u8FDE\u63A5`);
+            try {
+                标识1023?.(错误2);
+            }
+            catch {
+            }
+            throw 错误2;
+        }
+        let 标识1044 = null;
+        let 标识1030 = null;
+        if (标识1042) {
+            标识1030 = [];
+            标识1044 = new Promise((敲定, 回绝) => {
+                标识1030.push({
+                    resolve: () => 敲定(true),
+                    reject: 回绝
+                });
+            });
+        }
+        标识1025.absorb({ chunk: 块, allowRetry: 标识1037, completions: 标识1030 });
+        if (!标识1026)
+            void 标识1040();
+        return 标识1042 ? 标识1044 : true;
+    };
+    return {
+        write(数据, 标识1037 = true) {
+            return 标识1041(数据, 标识1037, false);
+        },
+        writeAndWait(数据, 标识1037 = true) {
+            return Promise.resolve(标识1041(数据, 标识1037, true));
+        },
+        async waitIdle() {
+            if (!标识1025.byteCount && !标识1026)
+                return;
+            await new Promise((敲定) => 标识1027.push(敲定));
+        },
+        clear() {
+            标识723 = true;
+            标识1034();
+        }
+    };
+}
+var 通道开启 = 1;
+var 标识1045 = 2;
+function 标识1046(套接字) {
+    try {
+        if (套接字.readyState === 通道开启 || 套接字.readyState === 标识1045) {
+            套接字.close?.();
+        }
+    }
+    catch {
+    }
+}
+function 标识1047(套接字, 标识812) {
+    const 标识1048 = 套接字.send(标识812);
+    if (标识1048 && typeof 标识1048.then === "function")
+        return 标识1048;
+    return Promise.resolve();
+}
+function 标识1049(标识1050, 头字段数据 = null, 标识1051 = null) {
+    const 标识1052 = 标识992;
+    const 标识1053 = 标识993;
+    const 标识1025 = 标识996(标识1052, true);
+    let 头字段 = typeof 头字段数据 === "function" ? null : 头字段数据;
+    const 取值响应头字段 = typeof 头字段数据 === "function" ? 头字段数据 : () => {
+        const 值 = 头字段;
+        头字段 = null;
+        return 值;
+    };
+    let 标识1054 = null;
+    let 标识982 = 0;
+    let 标识1055 = 0;
+    let 标识1056 = 0;
+    let 标识1057 = null;
+    let 标识1058 = null;
+    let 标识1059 = false;
+    let 标识1060 = false;
+    let 标识1061 = 0;
+    let 标识1062 = 0;
+    let 标识1063 = null;
+    let 标识1064 = [];
+    const 标识1065 = () => {
+        if (!标识1061 && !标识1062)
+            return Promise.resolve();
+        return new Promise((敲定) => 标识1064.push(敲定));
+    };
+    const 标识1066 = () => {
+        if (标识1061 || 标识1062 || !标识1064.length)
+            return;
+        const 标识1033 = 标识1064;
+        标识1064 = [];
+        for (const 敲定 of 标识1033)
+            敲定();
+    };
+    const 标识1067 = () => {
+        if (!标识1063)
+            return;
+        const 错误2 = 标识1063;
+        标识1025.clear();
+        throw 错误2;
+    };
+    const 标识1068 = () => 标识1059 || !标识1051 || 标识1051();
+    const 标识1069 = () => {
+        if (标识1068())
+            标识1046(标识1050);
+    };
+    const 标识1070 = (块) => {
+        const 响应头字段 = 取值响应头字段();
+        if (!响应头字段)
+            return 块;
+        const 标识1071 = new Uint8Array(响应头字段.length + 块.byteLength);
+        标识1071.set(响应头字段, 0);
+        标识1071.set(块, 响应头字段.length);
+        return 标识1071;
+    };
+    const 标识1072 = async (块) => {
+        if (!标识1068())
+            return;
+        if (标识1050.readyState !== 通道开启)
+            throw new Error("ws.readyState is not open");
+        const 标识31 = 标识1070(块);
+        await 标识1047(标识1050, 标识31);
+    };
+    const 标识1073 = async (块) => {
+        while (标识1058)
+            await 标识1058;
+        const 标识1074 = 标识1072(块);
+        标识1058 = 标识1074;
+        try {
+            await 标识1074;
+        }
+        finally {
+            if (标识1058 === 标识1074)
+                标识1058 = null;
+        }
+    };
+    const 标识818 = async () => {
+        while (标识1057)
+            await 标识1057;
+        if (标识1054)
+            clearTimeout(标识1054);
+        标识1054 = null;
+        标识1056 = 0;
+        if (!标识1068()) {
+            标识1025.clear();
+            return;
+        }
+        const 标识1074 = (async () => {
+            for (;;) {
+                if (!标识1068()) {
+                    标识1025.clear();
+                    break;
+                }
+                const 标识1036 = 标识1025.coalesce();
+                if (!标识1036)
+                    break;
+                await 标识1073(标识1036.chunk);
+            }
+        })();
+        标识1057 = 标识1074.catch((错误2) => {
+            标识1063 ||= 错误2;
+            throw 错误2;
+        }).finally(() => {
+            标识1057 = null;
+        });
+        return 标识1057;
+    };
+    const 标识1075 = () => {
+        if (!标识1068()) {
+            标识1025.clear();
+            return;
+        }
+        if (标识1025.isEmpty || 标识1054)
+            return;
+        if (标识1025.byteCount >= 标识1052 || 标识1052 - 标识1025.byteCount < 标识1053) {
+            标识818().catch(标识1069);
+            return;
+        }
+        标识1054 = setTimeout(() => {
+            标识1054 = null;
+            if (!标识1068()) {
+                标识1025.clear();
+                return;
+            }
+            if (标识1025.isEmpty)
+                return;
+            if (标识1025.byteCount >= 标识1052 || 标识1052 - 标识1025.byteCount < 标识1053) {
+                标识818().catch(标识1069);
+                return;
+            }
+            if (标识1056 < 标识995 && (标识982 !== 标识1055 || 标识1025.byteCount < 标识994)) {
+                标识1056++;
+                标识1055 = 标识982;
+                标识1075();
+                return;
+            }
+            标识818().catch(标识1069);
+        }, 1);
+    };
+    return {
+        async sendDirectly(数据) {
+            if (标识1060 || !标识1068())
+                return;
+            标识1062++;
+            try {
+                const 块 = 标识447(数据);
+                if (!块.byteLength)
+                    return;
+                await 标识1073(块);
+            }
+            catch (错误2) {
+                标识1063 ||= 错误2;
+                throw 错误2;
+            }
+            finally {
+                标识1062--;
+                标识1066();
+            }
+        },
+        async send(数据) {
+            if (标识1060 || !标识1068())
+                return;
+            标识1061++;
+            try {
+                const 块 = 标识447(数据);
+                if (!块.byteLength)
+                    return;
+                let 标识18 = 0;
+                const 标识1007 = 块.byteLength;
+                while (标识18 < 标识1007) {
+                    const 标识1076 = 标识1007 - 标识18;
+                    if (标识1025.isEmpty && 标识1076 >= 标识1052) {
+                        const 标识1077 = Math.min(标识1052, 标识1076);
+                        const 标识11 = 标识18 || 标识1077 !== 标识1007 ? 块.subarray(标识18, 标识18 + 标识1077) : 块;
+                        await 标识1073(标识11);
+                        标识18 += 标识1077;
+                        continue;
+                    }
+                    const 标识1078 = Math.min(标识1052 - 标识1025.byteCount, 标识1007 - 标识18);
+                    if (!标识1078) {
+                        await 标识818();
+                        continue;
+                    }
+                    标识1025.absorb({ chunk: 标识18 || 标识1078 !== 标识1007 ? 块.subarray(标识18, 标识18 + 标识1078) : 块 });
+                    标识18 += 标识1078;
+                    标识982++;
+                    if (标识1025.byteCount >= 标识1052 || 标识1052 - 标识1025.byteCount < 标识1053)
+                        await 标识818();
+                    else
+                        标识1075();
+                }
+            }
+            catch (错误2) {
+                标识1063 ||= 错误2;
+                throw 错误2;
+            }
+            finally {
+                标识1061--;
+                标识1066();
+            }
+        },
+        flush: 标识818,
+        async stopAndFlush() {
+            if (标识1060) {
+                await 标识1065();
+                while (标识1058)
+                    await 标识1058;
+                标识1067();
+                await 标识818();
+                return;
+            }
+            标识1060 = true;
+            标识1059 = true;
+            if (标识1054)
+                clearTimeout(标识1054);
+            标识1054 = null;
+            await 标识1065();
+            while (标识1058)
+                await 标识1058;
+            标识1067();
+            await 标识818();
+        }
+    };
+}
+// src/forward/streams.ts
+function 标识1079(套接字) {
+    try {
+        if (套接字.readyState === 1 || 套接字.readyState === 2) {
+            套接字.close?.();
+        }
+    }
+    catch {
+    }
+}
+async function 标识1080(远端套接字, 标识1050, 头字段数据, 标识1081, 标识1082 = null, 标识980 = null) {
+    let 存在数据 = false;
+    let 读取错误 = null;
+    let 标识1083 = false;
+    const 标识1084 = 64 * 1024;
+    const 标识1085 = () => !标识1082 || 标识1082();
+    const 标识1086 = 标识1049(标识1050, 头字段数据, 标识1085);
+    const 标识893 = { stopAndFlush: () => 标识1086.stopAndFlush() };
+    if (标识980)
+        标识980.downlinkController = 标识893;
+    try {
+        void 远端套接字.closed?.catch?.(() => {
+        });
+    }
+    catch {
+    }
+    let 读取器;
+    try {
+        读取器 = 远端套接字.readable.getReader({ mode: "byob" });
+        标识1083 = true;
+    }
+    catch {
+        读取器 = 远端套接字.readable.getReader();
+    }
+    try {
+        if (!标识1083) {
+            const 缺省读取器 = 读取器;
+            for (;;) {
+                const { done: 标识494, value: 值 } = await 缺省读取器.read();
+                if (!标识1085())
+                    break;
+                if (标识494)
+                    break;
+                if (!值 || 值.byteLength === 0)
+                    continue;
+                存在数据 = true;
+                if (值.byteLength >= 标识992) {
+                    await 标识1086.flush();
+                    await 标识1086.sendDirectly(值);
+                }
+                else {
+                    await 标识1086.send(值);
+                }
+            }
+        }
+        else {
+            const 标识1087 = 读取器;
+            let 读取缓冲区 = new ArrayBuffer(标识1084);
+            for (;;) {
+                const { done: 标识494, value: 值 } = await 标识1087.read(new Uint8Array(读取缓冲区, 0, 标识1084));
+                if (!标识1085())
+                    break;
+                if (标识494)
+                    break;
+                if (!值 || 值.byteLength === 0)
+                    continue;
+                存在数据 = true;
+                if (值.byteLength >= 标识992) {
+                    await 标识1086.flush();
+                    await 标识1086.sendDirectly(值.slice());
+                    读取缓冲区 = new ArrayBuffer(标识1084);
+                }
+                else {
+                    await 标识1086.send(值.slice());
+                    读取缓冲区 = 值.buffer.byteLength >= 标识1084 ? 值.buffer : new ArrayBuffer(标识1084);
+                }
+            }
+        }
+        if (标识1085())
+            await 标识1086.flush();
+    }
+    catch (错误2) {
+        读取错误 = 错误2;
+    }
+    finally {
+        if (标识1085() && 标识1050.readyState === 1) {
+            try {
+                await 标识1086.stopAndFlush();
+            }
+            catch (错误2) {
+                读取错误 ||= 错误2;
+            }
+        }
+        if (标识980?.downlinkController === 标识893)
+            标识980.downlinkController = null;
+        try {
+            await 读取器.cancel();
+        }
+        catch {
+        }
+        try {
+            读取器.releaseLock();
+        }
+        catch {
+        }
+        try {
+            远端套接字.close?.();
+        }
+        catch {
+        }
+    }
+    if (!存在数据 && 标识1081 && 标识1050.readyState === 1 && 标识1085()) {
+        try {
+            await 标识1081();
+            return;
+        }
+        catch (错误2) {
+            读取错误 ||= 错误2;
+        }
+    }
+    if (!标识1085())
+        return;
+    if (读取错误)
+        console.error("[TCP\u4E0B\u884C] \u8BFB\u53D6\u5931\u8D25:", 读取错误);
+    标识1079(标识1050);
+}
+// src/forward/resolve.ts
+var 标识1088 = /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+var 标识1089 = /^\[?(?:[a-fA-F0-9]{0,4}:){1,7}[a-fA-F0-9]{0,4}\]?$/;
+function 标识1090(字符串) {
+    let 标识317 = 字符串;
+    let 端口 = 443;
+    if (字符串.includes("]:")) {
+        const 标识325 = 字符串.split("]:");
+        标识317 = 标识325[0] + "]";
+        端口 = parseInt(标识325[1], 10) || 端口;
+    }
+    else if ((字符串.match(/:/g) || []).length === 1 && !字符串.startsWith("[")) {
+        const 标识204 = 字符串.lastIndexOf(":");
+        标识317 = 字符串.slice(0, 标识204);
+        端口 = parseInt(字符串.slice(标识204 + 1), 10) || 端口;
+    }
+    return [标识317, 端口];
+}
+function 标识1091(标识1092) {
+    return 标识1092.flatMap((数据) => {
+        if (数据.startsWith('"') && 数据.endsWith('"'))
+            数据 = 数据.slice(1, -1);
+        return 数据.replace(/\\010/g, ",").replace(/\n/g, ",").split(",").map((标识35) => 标识35.trim()).filter(Boolean);
+    }).map((标识100) => 标识1090(标识100));
+}
+async function 标识1093(标识65, 代理地址, 标识1094 = "dash.cloudflare.com", 用户码 = "00000000-0000-4000-8000-000000000000") {
+    const 标识872 = String(代理地址 || "").toLowerCase();
+    const 代理地址列表 = 标识41(标识872);
+    const 全部代理列表 = [];
+    for (const 标识1095 of 代理地址列表) {
+        let [标识317, 端口] = 标识1090(标识1095);
+        if (标识1095.includes(".tp")) {
+            const 标识1096 = 标识1095.match(/\.tp(\d+)/);
+            if (标识1096)
+                端口 = parseInt(标识1096[1], 10);
+        }
+        if (标识1088.test(标识317) || 标识1089.test(标识317)) {
+            标识65.log("[\u53CD\u4EE3\u89E3\u6790]", `${标识317} \u4E3AIP\u5730\u5740\uFF0C\u76F4\u63A5\u4F7F\u7528`);
+            全部代理列表.push([标识317, 端口]);
+            continue;
+        }
+        const [标识1097, 标识467] = await Promise.all([加密域名解析查询串(标识317, "TXT"), 加密域名解析查询串(标识317, "A")]);
+        const 标识1092 = 标识1097.filter((标识111) => 标识111.type === 16).map((标识111) => 标识111.data);
+        const 标识1098 = 标识1091(标识1092);
+        if (标识1098.length > 0) {
+            标识65.log("[\u53CD\u4EE3\u89E3\u6790]", `${标识317} \u4F7F\u7528TXT\u8BB0\u5F55\uFF0C\u5171${标识1098.length}\u4E2A\u7ED3\u679C`);
+            全部代理列表.push(...标识1098);
+            continue;
+        }
+        const 标识469 = 标识467.filter((标识111) => 标识111.type === 1).map((标识111) => 标识111.data);
+        if (标识469.length > 0) {
+            标识65.log("[\u53CD\u4EE3\u89E3\u6790]", `${标识317} \u672A\u83B7\u53D6\u5230TXT\u8BB0\u5F55\uFF0C\u4F7F\u7528A\u8BB0\u5F55\uFF0C\u5171${标识469.length}\u4E2A\u7ED3\u679C`);
+            全部代理列表.push(...标识469.map((地址) => [地址, 端口]));
+            continue;
+        }
+        const 标识468 = await 加密域名解析查询串(标识317, "AAAA");
+        const 标识470 = 标识468.filter((标识111) => 标识111.type === 28).map((标识111) => `[${标识111.data}]`);
+        if (标识470.length > 0) {
+            标识65.log("[\u53CD\u4EE3\u89E3\u6790]", `${标识317} \u672A\u83B7\u53D6\u5230TXT\u548CA\u8BB0\u5F55\uFF0C\u4F7F\u7528AAAA\u8BB0\u5F55\uFF0C\u5171${标识470.length}\u4E2A\u7ED3\u679C`);
+            全部代理列表.push(...标识470.map((地址) => [地址, 端口]));
+        }
+        else {
+            标识65.log("[\u53CD\u4EE3\u89E3\u6790]", `${标识317} \u672A\u83B7\u53D6\u5230TXT\u3001A\u548CAAAA\u8BB0\u5F55\uFF0C\u4FDD\u7559\u539F\u57DF\u540D`);
+            全部代理列表.push([标识317, 端口]);
+        }
+    }
+    const 标识1099 = 全部代理列表.sort((标识109, 标识394) => 标识109[0].localeCompare(标识394[0]));
+    const 标识1100 = 标识1094.includes(".") ? 标识1094.split(".").slice(-2).join(".") : 标识1094;
+    let 标识1101 = [...标识1100 + 用户码].reduce((标识109, 标识195) => 标识109 + 标识195.charCodeAt(0), 0);
+    const 标识1102 = [...标识1099].sort(() => (标识1101 = 标识1101 * 1103515245 + 12345 & 2147483647) / 2147483647 - 0.5);
+    return 标识1102.slice(0, 8);
+}
+// src/forward/forwarder.ts
+function 标识1103(主机, 标识1104) {
+    return 标识1104.some((标识24) => new RegExp(`^${标识24.replace(/\*/g, ".*")}$`, "i").test(主机));
+}
+async function 运行转发(参数集) {
+    const { host: 标识1105, port: 端口数值, rawData: 标识1106, client: 客户端, respHeader: 标识1107, remoteConn: 标识980, userId: 用户编号, request: 请求, proxyCtx: 标识339, allowTrojanProxy: 标识1108 = false, trojanProxyFirstPacket: 木马通道代理首个报文 = null, connectOnly: 标识1109 = false } = 参数集;
+    const 标识1110 = 参数集.rctx ?? {
+        log: () => {
+        },
+        error: () => {
+        },
+        dial: { tcpConcurrentDial: 2, proxyConcurrentDial: 1, preloadRaceDial: false }
+    };
+    let 主机 = 标识1105;
+    let 标识1111 = { host: 主机, port: 端口数值, userId: 用户编号, proxyType: 标识339.proxyType, proxyParams: 标识339.proxyParams };
+    for (const 插件 of 取值插件组()) {
+        if (插件.onBeforeDial)
+            标识1111 = await 插件.onBeforeDial(标识1111, 标识1110);
+    }
+    主机 = 标识1111.host;
+    const 标识1112 = 标识1111.port;
+    const 标识1113 = 标识339.proxyIP || "";
+    const 标识1114 = 标识339.proxyType !== void 0 ? 标识339.proxyType : null;
+    const 标识1115 = 标识339.proxyGlobal !== void 0 ? 标识339.proxyGlobal : false;
+    const 标识1116 = 标识339.proxyParams || { hostname: "", port: 0 };
+    const 标识1117 = 标识339.proxyFallback !== void 0 ? 标识339.proxyFallback : true;
+    let 代理列表序号 = 0;
+    标识1110.log?.("[TCP\u8F6C\u53D1]", `\u76EE\u6807: ${主机}:${端口数值} | \u53CD\u4EE3IP: ${标识1113} | \u53CD\u4EE3\u515C\u5E95: ${标识1117 ? "\u662F" : "\u5426"} | \u53CD\u4EE3\u7C7B\u578B: ${标识1114 || "proxyip"} | \u5168\u5C40: ${标识1115 ? "\u662F" : "\u5426"}`);
+    let 标识1118 = false;
+    const 可靠传输连接 = 参数集.tcpConnect ?? 标识453(请求);
+    const 标识1119 = 标识1108 && (标识339.trojanProxyAddr || null);
+    const 木马通道代理目标 = 标识1119 ? 标识339.trojanProxyAddr : null;
+    const 标识1120 = 标识1119 ? 标识1121(木马通道代理首个报文, 标识1106) : null;
+    let 标识1122 = 标识1107;
+    const 标识1123 = () => {
+        const 头字段 = 标识1122;
+        标识1122 = null;
+        return 头字段;
+    };
+    if (!Number.isInteger(标识980.generation))
+        标识980.generation = 0;
+    const 标识1124 = async (套接字, 标识982, 标识987, 标识1081 = null) => {
+        try {
+            await 标识987;
+        }
+        catch (标识186) {
+            if (标识980.downlinkDrain === 标识987)
+                标识980.downlinkDrain = Promise.resolve();
+            try {
+                套接字?.close?.();
+            }
+            catch {
+            }
+            if (标识980.generation === 标识982)
+                标识1125(客户端);
+            throw 标识186;
+        }
+        if (标识980.downlinkDrain === 标识987)
+            标识980.downlinkDrain = Promise.resolve();
+        const 标识1126 = () => 标识980.generation === 标识982 && 标识980.socket === 套接字;
+        if (标识980.generation !== 标识982 || 客户端.readyState !== 1) {
+            try {
+                套接字?.close?.();
+            }
+            catch {
+            }
+            if (标识980.generation === 标识982)
+                标识980.socket = null;
+            throw new 标识312("FORWARD_SUPERSEDED", "connection superseded or client closed");
+        }
+        标识980.socket = 套接字;
+        if (标识1109)
+            return 套接字;
+        标识1080(套接字, 客户端, 标识1123, 标识1081, 标识1126, 标识980).catch((错误2) => {
+            if (!标识1126())
+                return;
+            标识1110.log?.("[TCP\u4E0B\u884C]", `\u5904\u7406\u5931\u8D25: ${错误2?.message || 错误2}`);
+            try {
+                套接字?.close?.();
+            }
+            catch {
+            }
+            标识1125(客户端);
+        });
+        return true;
+    };
+    async function 标识1127(拨号, 标识982, 标识987, 标识1081 = null) {
+        const 套接字 = await 拨号();
+        try {
+            return await 标识1124(套接字, 标识982, 标识987, 标识1081);
+        }
+        catch (错误2) {
+            try {
+                套接字?.close?.();
+            }
+            catch {
+            }
+            throw 错误2;
+        }
+    }
+    async function 标识1128(标识1129 = true) {
+        if (标识980.connectingPromise) {
+            await 标识980.connectingPromise;
+            return;
+        }
+        const { generation: 标识1130, downlinkDrain: 标识987 } = 标识981(标识980);
+        let 发送首个报文当前 = false;
+        let 标识1131 = null;
+        if (标识1119) {
+            if (标识1129 && !标识1118 && 标识450(木马通道代理首个报文) > 0) {
+                标识1131 = 木马通道代理首个报文;
+                发送首个报文当前 = 标识450(标识1106) > 0;
+            }
+            else {
+                标识1131 = 标识1120;
+            }
+        }
+        else {
+            发送首个报文当前 = 标识1129 && !标识1118 && 标识450(标识1106) > 0;
+            标识1131 = 发送首个报文当前 ? 标识1106 : null;
+        }
+        const 标识1132 = (async () => {
+            let 标识1133 = null;
+            try {
+                if (标识1119) {
+                    标识1110.log?.("[\u6728\u9A6C\u53CD\u4EE3]", `\u4EE3\u7406\u5230: ${主机}:${标识1112}`);
+                    标识1133 = await 连接木马通道代理(标识1131, 可靠传输连接, 木马通道代理目标);
+                }
+                else if (标识1114 && 链式注册表2.has(标识1114)) {
+                    标识1110.log?.(`[${标识1114.toUpperCase()}\u4EE3\u7406]`, `\u4EE3\u7406\u5230: ${主机}:${标识1112}`);
+                    const 标识480 = 链式注册表2.get(标识1114);
+                    const 标识1134 = await 标识480.dial({
+                        proxy: {
+                            hostname: 标识1116.hostname,
+                            port: 标识1116.port,
+                            username: 标识1116.username,
+                            password: 标识1116.password
+                        },
+                        target: { host: 主机, port: 标识1112 },
+                        initialData: 标识1131,
+                        tcpConnect: 可靠传输连接
+                    });
+                    标识1133 = 标识1134.socket;
+                }
+                else {
+                    标识1110.log?.("[\u53CD\u4EE3\u8FDE\u63A5]", `\u4EE3\u7406\u5230: ${主机}:${标识1112}`);
+                    const 全部代理列表 = await 标识1093(标识1110, 标识1113, 主机, 用户编号);
+                    const 标识115 = await 连接代理地址(标识1110, 可靠传输连接, `${标识43}.tp1.${标识45}.xyz`, 1, 标识1131, 全部代理列表, 标识1117, 代理列表序号);
+                    标识1133 = 标识115.socket;
+                    代理列表序号 = 标识115.nextIndex;
+                }
+                await 标识1124(标识1133, 标识1130, 标识987);
+                if (发送首个报文当前)
+                    标识1118 = true;
+            }
+            catch (错误2) {
+                try {
+                    标识1133?.close?.();
+                }
+                catch {
+                }
+                if (标识980.generation === 标识1130) {
+                    标识980.socket = null;
+                    标识1125(客户端);
+                    throw 错误2;
+                }
+            }
+        })();
+        标识980.connectingPromise = 标识1132;
+        try {
+            await 标识1132;
+        }
+        finally {
+            if (标识980.connectingPromise === 标识1132) {
+                标识980.connectingPromise = null;
+            }
+        }
+    }
+    标识980.retryConnect = async () => 标识1128(!标识1118);
+    const 白名单 = 参数集.socks5Whitelist ?? [];
+    if (标识1114 && (标识1115 || 标识1103(主机, 白名单))) {
+        标识1110.log?.("[TCP\u8F6C\u53D1]", "\u542F\u7528 SOCKS5/HTTP/HTTPS/TURN/SSTP \u5168\u5C40\u4EE3\u7406");
+        try {
+            await 标识1128();
+            if (标识1109)
+                return 标识980.socket;
+        }
+        catch (错误2) {
+            标识1110.log?.("[TCP\u8F6C\u53D1]", `SOCKS5/HTTP/HTTPS/TURN/SSTP \u4EE3\u7406\u8FDE\u63A5\u5931\u8D25: ${错误2.message}`);
+            throw 错误2;
+        }
+    }
+    else {
+        let 标识1135 = 标识980.generation;
+        try {
+            标识1110.log?.("[TCP\u8F6C\u53D1]", `\u5C1D\u8BD5\u76F4\u8FDE\u5230: ${主机}:${标识1112}`);
+            const 标识1136 = 标识981(标识980);
+            标识1135 = 标识1136.generation;
+            const 标识1137 = await 标识1127(() => 标识473(标识1110, 可靠传输连接, 主机, 标识1112, 标识1106, true), 标识1135, 标识1136.downlinkDrain, async () => {
+                if (标识980.generation !== 标识1135 || 标识980.socket !== 标识1137)
+                    return;
+                await 标识1128();
+            });
+            if (标识1109)
+                return 标识1137;
+        }
+        catch (错误2) {
+            标识1110.log?.("[TCP\u8F6C\u53D1]", `\u76F4\u8FDE ${主机}:${标识1112} \u5931\u8D25: ${错误2.message}`);
+            if (标识980.generation !== 标识1135)
+                throw 错误2;
+            if (错误2 instanceof Error && 错误2.name === "\u9884\u52A0\u8F7D\u89E3\u6790\u4E3A\u7A7A") {
+                标识1125(客户端);
+                throw 错误2;
+            }
+            if (客户端.readyState !== 1)
+                throw 错误2;
+            await 标识1128();
+            if (标识1109)
+                return 标识980.socket;
+        }
+    }
+    return true;
+}
+async function 连接木马通道代理(首个报文数据, 可靠传输连接, 木马通道代理目标) {
+    if (!木马通道代理目标)
+        throw new 标识312("CHAIN_TROJAN_ADDR", "trojan fallback is not configured");
+    const 套接字 = 可靠传输连接({ hostname: 标识1138(木马通道代理目标.hostname), port: 木马通道代理目标.port });
+    let 写入器 = null;
+    try {
+        if (套接字.opened)
+            await 套接字.opened;
+        if (标识450(首个报文数据) > 0) {
+            写入器 = 套接字.writable.getWriter();
+            await 写入器.write(标识447(首个报文数据));
+        }
+        return 套接字;
+    }
+    catch (错误) {
+        try {
+            套接字?.close?.();
+        }
+        catch {
+        }
+        throw 错误;
+    }
+    finally {
+        try {
+            写入器?.releaseLock();
+        }
+        catch {
+        }
+    }
+}
+function 标识1121(首个报文数据, 标识1106) {
+    const 首个报文 = 标识447(首个报文数据);
+    const 标识812 = 标识447(标识1106);
+    if (!标识812.byteLength)
+        return 首个报文;
+    const 标识1139 = 首个报文.byteLength - 标识812.byteLength;
+    if (标识1139 <= 0)
+        return 首个报文;
+    for (let 标识3 = 0; 标识3 < 标识812.byteLength; 标识3++) {
+        if (首个报文[标识1139 + 标识3] !== 标识812[标识3])
+            return 首个报文;
+    }
+    return 首个报文.subarray(0, 标识1139);
+}
+function 标识1138(标识119) {
+    const 主机 = String(标识119 || "").trim();
+    return 主机.startsWith("[") && 主机.endsWith("]") ? 主机.slice(1, -1) : 主机;
+}
+function 标识1125(套接字) {
+    try {
+        if (套接字.readyState === 1 || 套接字.readyState === 2)
+            套接字.close?.();
+    }
+    catch {
+    }
+}
+// src/forward/udp.ts
+function 标识1140(标识478) {
+    return { cache: new Uint8Array(0), proxyAddr: 标识478 };
+}
+async function 转发域名解析可靠传输(标识65, 数据报块, 客户端, 标识1107, 请求, 标识1141 = null, 可靠传输连接) {
+    const 请求数据 = 标识447(数据报块);
+    const 标识1142 = 请求数据.byteLength;
+    标识65.log("[UDP\u8F6C\u53D1]", `\u6536\u5230 DNS \u8BF7\u6C42: ${标识1142}B -> 8.8.4.4:53`);
+    try {
+        const 连接 = 可靠传输连接 ?? 标识453(请求);
+        const 可靠传输套接字 = 连接({ hostname: "8.8.4.4", port: 53 });
+        let VLESS头字段 = 标识1107;
+        const 写入器 = 可靠传输套接字.writable.getWriter();
+        await 写入器.write(请求数据);
+        标识65.log("[UDP\u8F6C\u53D1]", `DNS \u8BF7\u6C42\u5DF2\u5199\u5165\u4E0A\u6E38: ${标识1142}B`);
+        写入器.releaseLock();
+        await 可靠传输套接字.readable.pipeTo(new WritableStream({
+            async write(块) {
+                const 标识1143 = 标识447(块);
+                标识65.log("[UDP\u8F6C\u53D1]", `\u6536\u5230 DNS \u54CD\u5E94: ${标识1143.byteLength}B`);
+                const 标识1144 = 标识1141 ? await 标识1141(标识1143) : 标识1143;
+                const 标识1145 = Array.isArray(标识1144) ? 标识1144 : [标识1144];
+                if (!标识1145.length)
+                    return;
+                if (客户端.readyState !== 1)
+                    return;
+                for (const 标识618 of 标识1145) {
+                    const 转发响应 = 标识447(标识618);
+                    if (!转发响应.byteLength)
+                        continue;
+                    if (VLESS头字段) {
+                        const 响应 = new Uint8Array(VLESS头字段.length + 转发响应.byteLength);
+                        响应.set(VLESS头字段, 0);
+                        响应.set(转发响应, VLESS头字段.length);
+                        客户端.send(响应);
+                        VLESS头字段 = null;
+                    }
+                    else {
+                        客户端.send(转发响应);
+                    }
+                }
+            }
+        }));
+    }
+    catch (错误) {
+        标识65.log("[UDP\u8F6C\u53D1]", `DNS \u8F6C\u53D1\u5931\u8D25: ${错误?.message || 错误}`);
+    }
+}
+async function 转发木马通道数据报(标识65, 块, 客户端, 标识1146, 请求, 可靠传输连接) {
+    const 标识1147 = 标识447(块);
+    if (标识1146?.proxyAddr) {
+        await 转发木马通道数据报代理(标识65, 标识1147, 客户端, 标识1146, 请求, 可靠传输连接);
+        return;
+    }
+    const 已缓存块 = 标识1146?.cache instanceof Uint8Array ? 标识1146.cache : new Uint8Array(0);
+    const 标识939 = 已缓存块.byteLength ? 标识448(已缓存块, 标识1147) : 标识1147;
+    let 标识974 = 0;
+    while (标识974 < 标识939.byteLength) {
+        const 报文启动 = 标识974;
+        const 标识926 = 标识939[标识974];
+        let 标识1148 = 标识974 + 1;
+        let 标识919 = 0;
+        if (标识926 === 1)
+            标识919 = 4;
+        else if (标识926 === 4)
+            标识919 = 16;
+        else if (标识926 === 3) {
+            if (标识939.byteLength < 标识1148 + 1)
+                break;
+            标识919 = 1 + 标识939[标识1148];
+        }
+        else
+            throw new 标识312("PROTOCOL_TROJAN_UDP_ADDR", `invalid trojan udp addressType: ${标识926}`);
+        const 标识1149 = 标识1148 + 标识919;
+        if (标识939.byteLength < 标识1149 + 6)
+            break;
+        const 端口 = 标识939[标识1149] << 8 | 标识939[标识1149 + 1];
+        const 标识813 = 标识939[标识1149 + 2] << 8 | 标识939[标识1149 + 3];
+        if (标识939[标识1149 + 4] !== 13 || 标识939[标识1149 + 5] !== 10) {
+            throw new 标识312("PROTOCOL_TROJAN_UDP_DELIMITER", "invalid trojan udp delimiter");
+        }
+        const 标识1150 = 标识1149 + 6;
+        const 标识1151 = 标识1150 + 标识813;
+        if (标识939.byteLength < 标识1151)
+            break;
+        const 标识1152 = 标识939.slice(报文启动, 标识1149 + 2);
+        const 标识812 = 标识939.slice(标识1150, 标识1151);
+        标识974 = 标识1151;
+        if (端口 !== 53)
+            throw new 标识312("FORWARD_UDP_UNSUPPORTED", "UDP is not supported");
+        if (!标识812.byteLength)
+            continue;
+        let 可靠传输域名解析查询串 = 标识812;
+        if (标识812.byteLength < 2 || (标识812[0] << 8 | 标识812[1]) !== 标识812.byteLength - 2) {
+            可靠传输域名解析查询串 = new Uint8Array(标识812.byteLength + 2);
+            可靠传输域名解析查询串[0] = 标识812.byteLength >>> 8 & 255;
+            可靠传输域名解析查询串[1] = 标识812.byteLength & 255;
+            可靠传输域名解析查询串.set(标识812, 2);
+        }
+        const 标识1153 = { cache: new Uint8Array(0) };
+        await 转发域名解析可靠传输(标识65, 可靠传输域名解析查询串, 客户端, null, 请求, (标识1154) => {
+            const 标识1155 = 标识447(标识1154);
+            const 标识1156 = 标识1153.cache.byteLength ? 标识448(标识1153.cache, 标识1155) : 标识1155;
+            const 标识1157 = [];
+            let 标识1158 = 0;
+            while (标识1158 + 2 <= 标识1156.byteLength) {
+                const 域名解析长度 = 标识1156[标识1158] << 8 | 标识1156[标识1158 + 1];
+                const 域名解析启动 = 标识1158 + 2;
+                const 标识1159 = 域名解析启动 + 域名解析长度;
+                if (标识1159 > 标识1156.byteLength)
+                    break;
+                const 标识1160 = 标识1156.slice(域名解析启动, 标识1159);
+                const 帧 = new Uint8Array(标识1152.byteLength + 4 + 标识1160.byteLength);
+                帧.set(标识1152, 0);
+                帧[标识1152.byteLength] = 标识1160.byteLength >>> 8 & 255;
+                帧[标识1152.byteLength + 1] = 标识1160.byteLength & 255;
+                帧[标识1152.byteLength + 2] = 13;
+                帧[标识1152.byteLength + 3] = 10;
+                帧.set(标识1160, 标识1152.byteLength + 4);
+                标识1157.push(帧);
+                标识1158 = 标识1159;
+            }
+            标识1153.cache = 标识1156.slice(标识1158);
+            return 标识1157.length ? 标识1157 : new Uint8Array(0);
+        }, 可靠传输连接);
+    }
+    if (标识1146)
+        标识1146.cache = 标识939.slice(标识974);
+}
+async function 转发木马通道数据报代理(标识65, 块, 客户端, 标识1146, 请求, 可靠传输连接) {
+    const 数据 = 标识447(块);
+    if (!标识1146.proxySocket) {
+        const 连接 = 可靠传输连接 ?? 标识453(请求);
+        const 套接字 = 连接({ hostname: 标识1161(标识1146.proxyAddr.hostname), port: 标识1146.proxyAddr.port });
+        if (套接字.opened)
+            await 套接字.opened;
+        if (标识450(数据) > 0) {
+            const 写入器2 = 套接字.writable.getWriter();
+            try {
+                await 写入器2.write(数据);
+            }
+            finally {
+                try {
+                    写入器2.releaseLock();
+                }
+                catch {
+                }
+            }
+        }
+        标识1146.proxySocket = 套接字;
+        try {
+            void 套接字.closed?.catch?.(() => {
+            }).finally(() => 标识1162(客户端));
+        }
+        catch {
+        }
+        void 标识1080(套接字, 客户端, null, null);
+        return;
+    }
+    if (!数据.byteLength)
+        return;
+    const 写入器 = 标识1146.proxySocket.writable.getWriter();
+    try {
+        await 写入器.write(数据);
+    }
+    finally {
+        try {
+            写入器.releaseLock();
+        }
+        catch {
+        }
+    }
+}
+function 标识1161(标识119) {
+    const 主机 = String(标识119 || "").trim();
+    return 主机.startsWith("[") && 主机.endsWith("]") ? 主机.slice(1, -1) : 主机;
+}
+function 标识1162(套接字) {
+    try {
+        if (套接字.readyState === 1 || 套接字.readyState === 2)
+            套接字.close?.();
+    }
+    catch {
+    }
+}
+// src/forward/speedtest.ts
+var 标识1163 = ["speed.cloudflare.com", "cp.cloudflare.com"];
+function 标识1164(标识119) {
+    const 主机 = 标识119.toLowerCase();
+    return 标识1163.some((标识420) => 主机 === 标识420 || 主机.endsWith("." + 标识420));
+}
+function 标识1165(标识1107 = null) {
+    const 本地204响应 = new TextEncoder().encode("HTTP/1.1 204 No Content\r\nContent-Length: 0\r\nConnection: close\r\n\r\n");
+    if (标识450(标识1107) === 0)
+        return 本地204响应;
+    const 标识1166 = 标识447(标识1107);
+    const 响应 = new Uint8Array(标识1166.byteLength + 本地204响应.byteLength);
+    响应.set(标识1166, 0);
+    响应.set(本地204响应, 标识1166.byteLength);
+    return 响应;
+}
+function 标识1167(标识1107 = null) {
+    const 通道本地204响应 = new TextEncoder().encode("HTTP/1.1 204 No Content\r\nContent-Length: 0\r\nConnection: keep-alive\r\n\r\n");
+    if (标识450(标识1107) === 0)
+        return 通道本地204响应;
+    const 标识1166 = 标识447(标识1107);
+    const 响应 = new Uint8Array(标识1166.byteLength + 通道本地204响应.byteLength);
+    响应.set(标识1166, 0);
+    响应.set(通道本地204响应, 标识1166.byteLength);
+    return 响应;
+}
+// src/session/orchestrator.ts
+var 标识1168 = 64 * 1024;
+function 标识1169(会话) {
+    let 写入器 = null;
+    let 标识723 = false;
+    const 取值写入器 = () => {
+        if (!写入器)
+            写入器 = 会话.writable.getWriter();
+        return 写入器;
+    };
+    return {
+        get readyState() {
+            return 标识723 ? 3 : 1;
+        },
+        send(数据) {
+            if (标识723)
+                return;
+            const 块 = 标识447(数据);
+            if (!块.byteLength)
+                return;
+            try {
+                void 取值写入器().write(块).catch(() => {
+                    标识723 = true;
+                });
+            }
+            catch {
+                标识723 = true;
+            }
+        },
+        close() {
+            if (标识723)
+                return;
+            标识723 = true;
+            try {
+                if (写入器)
+                    void 写入器.close();
+            }
+            catch {
+            }
+            try {
+                写入器?.releaseLock();
+            }
+            catch {
+            }
+            写入器 = null;
+            会话.close();
+        }
+    };
+}
+async function 运行会话(参数集) {
+    const { rctx: 标识118, transportName: 传输名称, session: 会话, earlyData: 提前量数据, proxyCtx: 标识339, mode: 模式, respondFirstPacket: 应答首个报文 } = 参数集;
+    标识118.log("session", `start mode=${模式} transport=${传输名称} early=${提前量数据?.byteLength ?? 0}B`);
+    const 客户端 = 标识1169(会话);
+    const 标识980 = 标识978();
+    const 标识913 = { userId: 标识118.userId, query: 标识118.url.searchParams };
+    const 标识1170 = 标识1140(标识339.trojanProxyAddr);
+    let 标识1171 = 提前量数据 && 提前量数据.byteLength > 0 ? new Uint8Array(提前量数据) : new Uint8Array(0);
+    const 标识1172 = { current: null };
+    const 标识1173 = () => {
+        if (!标识1172.current)
+            标识1172.current = 会话.readable.getReader();
+        return 标识1172.current;
+    };
+    const 标识1174 = async () => {
+        const 标识111 = 标识1173();
+        const { done: 标识494, value: 值 } = await 标识111.read();
+        if (标识494)
+            return false;
+        if (值 && 值.byteLength > 0) {
+            标识118.log("session", `read ${值.byteLength}B`);
+            标识1171 = 标识448(标识1171, 值);
+            return true;
+        }
+        return true;
+    };
+    const 存在提前量 = 标识1171.byteLength > 0;
+    let 协议 = 标识977(标识1171.byteLength > 0 ? 标识1171 : new Uint8Array([0]), 标识913);
+    if (!协议) {
+        会话.close("no protocol");
+        return { kind: "response", response: new Response("Invalid request", { status: 400 }) };
+    }
+    const 标识1175 = 协议.codec(标识913);
+    let 标识1176 = null;
+    let 标识1177 = [];
+    const 标识1178 = async () => {
+        if (标识1171.byteLength === 0 && !存在提前量)
+            return false;
+        try {
+            const 标识1179 = await 标识1175.uplink(标识1171);
+            标识1171 = new Uint8Array(0);
+            if (标识1179.length === 0)
+                return false;
+            标识1177 = 标识1179;
+            const 标识1000 = 标识1179[0];
+            标识1176 = 协议.parse(标识1000, 标识913);
+            return true;
+        }
+        catch (错误2) {
+            if (错误2 instanceof 标识312) {
+                const 编码 = 错误2.code;
+                if (编码.includes("INVALID_DATA") || 编码.includes("INVALID_HEADER") || 编码.includes("INVALID_PASSWORD") || 编码.includes("INVALID_UUID") || 编码.includes("INVALID_COMMAND")) {
+                    if (标识1171.byteLength < 标识1168)
+                        return false;
+                }
+                throw 错误2;
+            }
+            throw 错误2;
+        }
+    };
+    if (存在提前量) {
+        if (!await 标识1178()) {
+            while (标识1171.byteLength < 标识1168) {
+                const 标识1180 = await 标识1174();
+                if (!标识1180)
+                    break;
+                if (await 标识1178())
+                    break;
+            }
+        }
+    }
+    else {
+        while (!标识1176 && 标识1171.byteLength < 标识1168) {
+            const 标识1180 = await 标识1174();
+            if (!标识1180)
+                break;
+            if (await 标识1178())
+                break;
+        }
+    }
+    if (!标识1176) {
+        try {
+            标识1172.current?.releaseLock();
+        }
+        catch {
+        }
+        会话.close("bad first packet");
+        if (模式 === "first-packet") {
+            return { kind: "response", response: new Response("Invalid request", { status: 400 }) };
+        }
+        return { kind: "started" };
+    }
+    const 首个报文 = 标识1176;
+    const 回覆头字段 = 首个报文.replyHeader ?? null;
+    const 标识1181 = 标识1177[0];
+    const 标识1182 = 标识1177.slice(1);
+    let 标识1183 = [];
+    if (首个报文.payload.byteLength > 0)
+        标识1183.push(首个报文.payload);
+    标识1183.push(...标识1182);
+    if (标识1164(首个报文.host) && 标识339.proxyType === null) {
+        try {
+            标识1172.current?.releaseLock();
+        }
+        catch {
+        }
+        if (模式 === "first-packet" && 应答首个报文) {
+            return {
+                kind: "response",
+                response: 应答首个报文({
+                    localBody: 标识1165(回覆头字段),
+                    status: 200,
+                    headers: { "Content-Type": "application/octet-stream", "X-Accel-Buffering": "no", "Cache-Control": "no-store" }
+                })
+            };
+        }
+        客户端.send(标识1167(回覆头字段) ?? 标识1165(回覆头字段));
+        标识979(标识980);
+        会话.close("speedtest");
+        return { kind: "started" };
+    }
+    if (首个报文.udp) {
+        const 标识1184 = 协议.name === "trojan";
+        if (!标识1184 && 首个报文.port !== 53) {
+            try {
+                标识1172.current?.releaseLock();
+            }
+            catch {
+            }
+            if (模式 === "first-packet" && 应答首个报文) {
+                return { kind: "response", response: 应答首个报文({ localBody: "UDP is not supported", status: 400 }) };
+            }
+            会话.close("udp unsupported");
+            return { kind: "started" };
+        }
+        let 标识1185 = 回覆头字段;
+        const 发送数据报 = async (数据) => {
+            if (标识1184) {
+                await 转发木马通道数据报(标识118, 数据, 客户端, 标识1170, 标识118.request, 参数集.tcpConnect);
+            }
+            else {
+                await 转发域名解析可靠传输(标识118, 数据, 客户端, 标识1185, 标识118.request, null, 参数集.tcpConnect);
+                标识1185 = null;
+            }
+        };
+        if (首个报文.payload.byteLength > 0) {
+            if (标识1184 && 标识1170.proxyAddr) {
+                await 转发木马通道数据报(标识118, 标识1181, 客户端, 标识1170, 标识118.request, 参数集.tcpConnect);
+            }
+            else if (标识1184) {
+                await 转发木马通道数据报(标识118, 首个报文.payload, 客户端, 标识1170, 标识118.request, 参数集.tcpConnect);
+            }
+            else {
+                await 转发域名解析可靠传输(标识118, 首个报文.payload, 客户端, 标识1185, 标识118.request, null, 参数集.tcpConnect);
+                标识1185 = null;
+            }
+        }
+        if (模式 === "first-packet" && 应答首个报文) {
+            const 响应 = 应答首个报文({});
+            void (async () => {
+                try {
+                    for (;;) {
+                        const { done: 标识494, value: 值 } = await 标识1173().read();
+                        if (标识494)
+                            break;
+                        if (!值?.byteLength)
+                            continue;
+                        await 发送数据报(值);
+                    }
+                }
+                catch (错误2) {
+                    标识118.error("session", `UDP \u6CF5\u5931\u8D25: ${错误2.message}`);
+                }
+                finally {
+                    try {
+                        标识1170.proxySocket?.close?.();
+                    }
+                    catch {
+                    }
+                    会话.close("udp end");
+                }
+            })();
+            return { kind: "response", response: 响应 };
+        }
+        void (async () => {
+            try {
+                for (;;) {
+                    const { done: 标识494, value: 值 } = await 标识1173().read();
+                    if (标识494)
+                        break;
+                    if (!值?.byteLength)
+                        continue;
+                    await 发送数据报(值);
+                }
+            }
+            catch (错误2) {
+                标识118.error("session", `UDP \u6CF5\u5931\u8D25: ${错误2.message}`);
+            }
+            finally {
+                try {
+                    标识1170.proxySocket?.close?.();
+                }
+                catch {
+                }
+                会话.close("udp end");
+            }
+        })();
+        return { kind: "started" };
+    }
+    if (模式 === "first-packet") {
+        try {
+            const 套接字 = await 运行转发({
+                host: 首个报文.host,
+                port: 首个报文.port,
+                rawData: 首个报文.payload,
+                client: 客户端,
+                respHeader: 回覆头字段,
+                remoteConn: 标识980,
+                userId: 标识118.userId,
+                request: 标识118.request,
+                proxyCtx: 标识339,
+                allowTrojanProxy: 协议.name === "trojan",
+                trojanProxyFirstPacket: 协议.name === "trojan" ? 标识1181 : null,
+                connectOnly: true,
+                tcpConnect: 参数集.tcpConnect,
+                socks5Whitelist: 参数集.socks5Whitelist,
+                rctx: 标识118
+            });
+            if (!套接字 || 套接字 === true) {
+                标识979(标识980);
+                return { kind: "response", response: new Response("bad gateway", { status: 502 }) };
+            }
+            标识1186({
+                rctx: 标识118,
+                client: 客户端,
+                remoteConn: 标识980,
+                socket: 套接字,
+                session: 会话,
+                codec: 标识1175,
+                uplinkSeed: 标识1183,
+                replyHeader: 回覆头字段,
+                ensureReader: 标识1173,
+                proxyCtx: 标识339,
+                trojanUdpCtx: 标识1170,
+                params: 参数集,
+                protocolName: 协议.name,
+                firstPacket: 首个报文
+            });
+            try {
+                标识1172.current?.releaseLock();
+                标识1172.current = null;
+            }
+            catch {
+            }
+            return { kind: "started" };
+        }
+        catch (错误2) {
+            标识118.error("session", `\u8FDE\u63A5\u5931\u8D25: ${错误2.message}`);
+            标识979(标识980);
+            会话.close("dial failed");
+            return { kind: "response", response: new Response("bad gateway", { status: 502 }) };
+        }
+    }
+    void (async () => {
+        try {
+            await 运行转发({
+                host: 首个报文.host,
+                port: 首个报文.port,
+                rawData: 首个报文.payload,
+                client: 客户端,
+                respHeader: 回覆头字段,
+                remoteConn: 标识980,
+                userId: 标识118.userId,
+                request: 标识118.request,
+                proxyCtx: 标识339,
+                allowTrojanProxy: 协议.name === "trojan",
+                trojanProxyFirstPacket: 协议.name === "trojan" ? 标识1181 : null,
+                tcpConnect: 参数集.tcpConnect,
+                socks5Whitelist: 参数集.socks5Whitelist,
+                rctx: 标识118
+            });
+            标识1187({
+                rctx: 标识118,
+                remoteConn: 标识980,
+                session: 会话,
+                codec: 标识1175,
+                uplinkSeed: 标识1183,
+                ensureReader: 标识1173,
+                proxyCtx: 标识339,
+                trojanUdpCtx: 标识1170,
+                params: 参数集,
+                protocolName: 协议.name,
+                firstPacket: 首个报文,
+                client: 客户端
+            });
+        }
+        catch (错误2) {
+            标识118.error("session", `\u8F6C\u53D1\u5931\u8D25: ${错误2.message}`);
+            标识979(标识980);
+            会话.close("forward error");
+        }
+    })();
+    return { kind: "started" };
+}
+function 标识1187(实参组) {
+    const { rctx: 标识118, remoteConn: 标识980, session: 会话, codec: 标识1175, uplinkSeed: 标识1183, ensureReader: 标识1173, proxyCtx: 标识339, trojanUdpCtx: 标识1170, params: 参数集, protocolName: 协议名称, firstPacket: 首个报文, client: 客户端 } = 实参组;
+    let 标识1188 = null;
+    let 远端写入器 = null;
+    const 标识1189 = () => {
+        if (远端写入器) {
+            try {
+                远端写入器.releaseLock();
+            }
+            catch {
+            }
+            远端写入器 = null;
+        }
+        标识1188 = null;
+    };
+    const 标识1190 = 标识1019({
+        getWriter: () => {
+            const 套接字 = 标识980.socket;
+            if (!套接字)
+                return null;
+            if (套接字 !== 标识1188) {
+                标识1189();
+                标识1188 = 套接字;
+                远端写入器 = 套接字.writable.getWriter();
+            }
+            return 远端写入器;
+        },
+        getConnectTask: () => 标识980.connectingPromise,
+        releaseWriter: 标识1189,
+        retryConnect: async () => {
+            if (typeof 标识980.retryConnect !== "function")
+                throw new Error("retry unavailable");
+            await 标识980.retryConnect();
+        },
+        closeConnection: () => {
+            标识979(标识980);
+            标识1189();
+            关闭客户端(客户端);
+            会话.close("uplink error");
+        },
+        queueName: `${标识1191(参数集.transportName)}\u4E0A\u884C`
+    });
+    void (async () => {
+        try {
+            for (const 块 of 标识1183) {
+                if (!块.byteLength)
+                    continue;
+                if (!await 标识1190.writeAndWait(块, false)) {
+                    await 运行转发({
+                        host: 首个报文.host,
+                        port: 首个报文.port,
+                        rawData: 块,
+                        client: 客户端,
+                        respHeader: null,
+                        remoteConn: 标识980,
+                        userId: 标识118.userId,
+                        request: 标识118.request,
+                        proxyCtx: 标识339,
+                        allowTrojanProxy: 协议名称 === "trojan",
+                        trojanProxyFirstPacket: 协议名称 === "trojan" ? 块 : null,
+                        tcpConnect: 参数集.tcpConnect,
+                        socks5Whitelist: 参数集.socks5Whitelist,
+                        rctx: 标识118
+                    });
+                }
+            }
+            for (;;) {
+                const { done: 标识494, value: 值 } = await 标识1173().read();
+                if (标识494)
+                    break;
+                if (!值?.byteLength)
+                    continue;
+                if (实参组.firstPacket.udp) {
+                    if (协议名称 === "trojan")
+                        await 转发木马通道数据报(标识118, 值, 客户端, 标识1170, 标识118.request, 参数集.tcpConnect);
+                    else
+                        await 转发域名解析可靠传输(标识118, 值, 客户端, null, 标识118.request, null, 参数集.tcpConnect);
+                    continue;
+                }
+                const 标识1179 = await 标识1175.uplink(值);
+                for (const 标识970 of 标识1179) {
+                    if (!标识970.byteLength)
+                        continue;
+                    const 标识946 = 标识1190.write(标识970, false);
+                    if (标识946)
+                        continue;
+                    await 运行转发({
+                        host: 首个报文.host,
+                        port: 首个报文.port,
+                        rawData: 标识970,
+                        client: 客户端,
+                        respHeader: null,
+                        remoteConn: 标识980,
+                        userId: 标识118.userId,
+                        request: 标识118.request,
+                        proxyCtx: 标识339,
+                        allowTrojanProxy: 协议名称 === "trojan",
+                        trojanProxyFirstPacket: 协议名称 === "trojan" ? 标识970 : null,
+                        tcpConnect: 参数集.tcpConnect,
+                        socks5Whitelist: 参数集.socks5Whitelist,
+                        rctx: 标识118
+                    });
+                }
+            }
+            await 标识1190.waitIdle();
+        }
+        catch (错误2) {
+            标识118.error("session", `\u4E0A\u884C\u6CF5\u5931\u8D25: ${错误2.message}`);
+        }
+        finally {
+            标识1190.clear();
+            标识1189();
+            标识979(标识980);
+            try {
+                标识1170.proxySocket?.close?.();
+            }
+            catch {
+            }
+            关闭客户端(客户端);
+        }
+    })();
+}
+function 标识1186(实参组) {
+    const { rctx: 标识118, client: 客户端, remoteConn: 标识980, socket: 套接字, session: 会话, codec: 标识1175, uplinkSeed: 标识1183, replyHeader: 回覆头字段, ensureReader: 标识1173, proxyCtx: 标识339, trojanUdpCtx: 标识1170, params: 参数集, protocolName: 协议名称, firstPacket: 首个报文 } = 实参组;
+    const 标识1192 = 标识1010();
+    const 标识1193 = new AbortController();
+    const 标识1194 = 标识1192.readable.pipeTo(套接字.writable, { signal: 标识1193.signal });
+    void 标识1194.catch(() => 标识1193.abort());
+    void (async () => {
+        try {
+            for (const 块 of 标识1183) {
+                if (块.byteLength)
+                    await 标识1192.write(块);
+            }
+            for (;;) {
+                const { done: 标识494, value: 值 } = await 标识1173().read();
+                if (标识494)
+                    break;
+                if (!值?.byteLength)
+                    continue;
+                const 标识1179 = await 标识1175.uplink(值);
+                for (const 标识970 of 标识1179) {
+                    if (标识970.byteLength)
+                        await 标识1192.write(标识970);
+                }
+            }
+        }
+        catch (错误2) {
+            标识118.error("session", `\u4E0A\u884C\u6CF5\u5931\u8D25: ${错误2.message}`);
+        }
+        finally {
+            try {
+                await 标识1192.end();
+            }
+            catch {
+            }
+            await 标识1194.catch(() => {
+            });
+            标识979(标识980);
+            try {
+                标识1170.proxySocket?.close?.();
+            }
+            catch {
+            }
+            关闭客户端(客户端);
+            void 会话;
+            void 标识339;
+            void 参数集;
+            void 协议名称;
+            void 首个报文;
+        }
+    })();
+    void (async () => {
+        let 写入器 = null;
+        try {
+            写入器 = 会话.writable.getWriter();
+            if (回覆头字段 && 回覆头字段.byteLength > 0)
+                await 写入器.write(回覆头字段);
+            const 读取器 = 套接字.readable.getReader();
+            for (;;) {
+                const { done: 标识494, value: 值 } = await 读取器.read();
+                if (标识494)
+                    break;
+                if (!值?.byteLength)
+                    continue;
+                const 标识820 = await 标识1175.downlink(值);
+                for (const 帧 of 标识820) {
+                    if (帧.byteLength)
+                        await 写入器.write(帧);
+                }
+            }
+            try {
+                await 写入器.close();
+            }
+            catch {
+            }
+        }
+        catch (错误2) {
+            标识118.error("session", `\u4E0B\u884C\u6CF5\u5931\u8D25: ${错误2.message}`);
+            try {
+                await 写入器?.abort(错误2);
+            }
+            catch {
+            }
+        }
+        finally {
+            try {
+                写入器?.releaseLock();
+            }
+            catch {
+            }
+        }
+    })();
+}
+function 关闭客户端(客户端) {
+    try {
+        if (客户端.readyState === 1 || 客户端.readyState === 2)
+            客户端.close?.();
+    }
+    catch {
+    }
+}
+function 标识1191(名称) {
+    return 名称 === "websocket" ? "WS" : 名称 === "grpc" ? "gRPC" : "xHTTP";
+}
+// src/router.ts
+var 标识1195 = "application/json;charset=utf-8";
+function 重定向(位置, 状态 = 302) {
+    return new Response("\u91CD\u5B9A\u5411\u4E2D...", { status: 状态, headers: { "Location": 位置 } });
+}
+function 数据文本响应2(数据, 状态, 美化, 内容类型 = 标识1195) {
+    return new Response(美化 ? JSON.stringify(数据, null, 2) : JSON.stringify(数据), {
+        status: 状态,
+        headers: { "Content-Type": 内容类型 }
+    });
+}
+async function 载入静态资源(标识118, 静态资源路径) {
+    const 静态资源组 = 标识118.env.ASSETS;
+    if (!静态资源组)
+        return null;
+    const 静态资源 = await 静态资源组.fetch(new Request(new URL(静态资源路径, 标识118.url.origin)));
+    return 静态资源.ok ? 静态资源 : null;
+}
+async function 标识1196(标识118, 静态资源路径) {
+    const 静态资源 = await 载入静态资源(标识118, 静态资源路径);
+    if (!静态资源)
+        return new Response("\u9875\u9762\u8D44\u6E90\u4E0D\u5B58\u5728", { status: 500 });
+    const 头部 = new Headers(静态资源.headers);
+    头部.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    头部.set("Pragma", "no-cache");
+    头部.set("Expires", "0");
+    return new Response(静态资源.body, { status: 404, statusText: 静态资源.statusText, headers: 头部 });
+}
+async function 标识1197(标识118, 静态资源路径) {
+    const 静态资源 = await 载入静态资源(标识118, 静态资源路径);
+    if (!静态资源)
+        return new Response("\u9875\u9762\u8D44\u6E90\u4E0D\u5B58\u5728", { status: 500 });
+    return new Response(静态资源.body, { status: 静态资源.status, statusText: 静态资源.statusText, headers: 静态资源.headers });
+}
+async function 处置登录(标识118) {
+    const 管理密码 = 标识118.adminPassword;
+    if (await 核验认证曲奇(标识118.request, 标识118.encryptionSecret, 管理密码)) {
+        return 重定向("/admin");
+    }
+    if (标识118.request.method === "POST") {
+        const 标识1198 = await 标识118.request.text();
+        const 标识405 = new URLSearchParams(标识1198).get("password");
+        if (核验密码(标识405, 管理密码)) {
+            const 响应 = 数据文本响应2({ success: true }, 200, false);
+            const 曲奇 = await 标识399(标识118.ua, 标识118.encryptionSecret, 管理密码);
+            响应.headers.set("Set-Cookie", `auth=${曲奇}; Path=/; Max-Age=86400; HttpOnly; Secure; SameSite=Lax`);
+            return 响应;
+        }
+    }
+    return 标识1197(标识118, "/pages/login.html");
+}
+function 处置登出() {
+    const 响应 = 重定向("/login");
+    响应.headers.set("Set-Cookie", "auth=; Path=/; Max-Age=0; HttpOnly");
+    return 响应;
+}
+async function 处置管理(标识118) {
+    const { request: 请求, url: 网址, env: 环境 } = 标识118;
+    const 请求路径 = 网址.pathname.slice(1).toLowerCase();
+    const 管理密码 = 标识118.adminPassword;
+    if (!await 核验认证曲奇(请求, 标识118.encryptionSecret, 管理密码)) {
+        return 重定向("/login");
+    }
+    const 配置 = await 载入配置(标识118);
+    if (请求路径 === "admin/init") {
+        try {
+            const 标识1199 = await 载入配置(标识118, { reset: true });
+            标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Init_Config", 标识1199));
+            标识1199.init = "\u914D\u7F6E\u5DF2\u91CD\u7F6E\u4E3A\u9ED8\u8BA4\u503C";
+            return 数据文本响应2(标识86(标识1199), 200, true);
+        }
+        catch (错误2) {
+            const 错误 = 错误2;
+            return 数据文本响应2({ msg: `\u914D\u7F6E\u91CD\u7F6E\u5931\u8D25\uFF0C\u5931\u8D25\u539F\u56E0\uFF1A${错误.message}`, error: 错误.message }, 500, true);
+        }
+    }
+    if (请求.method === "POST") {
+        if (请求路径 === "admin/config.json") {
+            try {
+                const 标识837 = await 请求.json();
+                标识84(标识837, 标识82);
+                if (!标识837.UUID || !标识837.HOST)
+                    return 数据文本响应2({ error: "\u914D\u7F6E\u4E0D\u5B8C\u6574" }, 400, false);
+                await 环境.KV.put("config.json", JSON.stringify(标识837, null, 2));
+                标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Save_Config", 配置));
+                return 数据文本响应2({ success: true, message: "\u914D\u7F6E\u5DF2\u4FDD\u5B58" }, 200, false);
+            }
+            catch (错误) {
+                console.error("\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25:", 错误);
+                return 数据文本响应2({ error: `\u4FDD\u5B58\u914D\u7F6E\u5931\u8D25: ${错误.message}` }, 500, false);
+            }
+        }
+        return 数据文本响应2({ error: "\u4E0D\u652F\u6301\u7684POST\u8BF7\u6C42\u8DEF\u5F84" }, 404, false);
+    }
+    if (请求路径 === "admin/config.json") {
+        return 数据文本响应2(标识86(配置), 200, true, "application/json");
+    }
+    标识118.ctx.waitUntil(写入请求日志(环境, 请求, 标识118.clientIp, "Admin_Login", 配置));
+    return 标识1197(标识118, `/pages/admin.html${网址.search}`);
+}
+function 处置版本(标识118) {
+    const 请求用户码 = (标识118.url.searchParams.get("uuid") || "").toLowerCase();
+    if (!标识59.test(请求用户码))
+        return null;
+    const 目标用户码 = 标识118.userId.toLowerCase();
+    let 标识1200 = 0;
+    let 标识1201 = 0;
+    for (let 标识3 = 0; 标识3 < 8; 标识3++) {
+        const 请求编码 = 请求用户码.charCodeAt(标识3);
+        标识1200 += 请求编码 <= 57 ? 请求编码 - 48 : 请求编码 - 87;
+        const 目标编码 = 目标用户码.charCodeAt(标识3);
+        标识1201 += 目标编码 <= 57 ? 目标编码 - 48 : 目标编码 - 87;
+    }
+    if (标识1200 === 标识1201 && 请求用户码.slice(-12) === 目标用户码.slice(-12)) {
+        return 数据文本响应2({ Version: 标识47 }, 200, false);
+    }
+    return null;
+}
+async function 处置超文本路由(标识118) {
+    const { url: 网址, env: 环境 } = 标识118;
+    const 请求路径 = 网址.pathname.slice(1).toLowerCase();
+    if (请求路径 === "version") {
+        const 标识1202 = 处置版本(标识118);
+        if (标识1202)
+            return 标识1202;
+    }
+    const 传输 = 标识906(标识118.request, 标识118);
+    if (传输) {
+        const 标识1203 = await 传输.accept(标识118.request, 标识118);
+        if (!标识1203.ok)
+            return 标识1203.response;
+        const 标识339 = 标识333(标识118, 网址, 标识118.defaultProxyIP, 标识118.defaultProxyFallback);
+        const 标识1204 = 传输.name === "xhttp";
+        if (标识1204) {
+            const 标识115 = await 运行会话({
+                rctx: 标识118,
+                transportName: 传输.name,
+                session: 标识1203.session,
+                earlyData: 标识1203.session.earlyData,
+                proxyCtx: 标识339,
+                socks5Whitelist: 标识118.socks5Whitelist,
+                mode: "first-packet",
+                respondFirstPacket: (选项集) => 标识1203.respond(选项集)
+            });
+            if (标识115.kind === "response")
+                return 标识115.response;
+            return 标识1203.respond();
+        }
+        const 响应 = 标识1203.respond();
+        void 运行会话({
+            rctx: 标识118,
+            transportName: 传输.name,
+            session: 标识1203.session,
+            earlyData: 标识1203.session.earlyData,
+            proxyCtx: 标识339,
+            socks5Whitelist: 标识118.socks5Whitelist,
+            mode: "immediate"
+        }).catch((错误2) => {
+            标识118.error("session", `\u4F1A\u8BDD\u5931\u8D25: ${错误2.message}`);
+            try {
+                标识1203.session.close("session error");
+            }
+            catch {
+            }
+        });
+        return 响应;
+    }
+    if (网址.protocol === "http:") {
+        return Response.redirect(网址.href.replace(`http://${网址.hostname}`, `https://${网址.hostname}`), 301);
+    }
+    if (!标识118.adminPassword)
+        return 标识1196(标识118, "/pages/noADMIN.html");
+    if (环境.KV && typeof 环境.KV.get === "function") {
+        for (const 插件 of 取值路由插件组()) {
+            const 插件响应 = await 插件.onRoute?.(标识118);
+            if (插件响应)
+                return 插件响应;
+        }
+        if (请求路径 === "login")
+            return 处置登录(标识118);
+        if (请求路径 === "admin" || 请求路径.startsWith("admin/"))
+            return 处置管理(标识118);
+        if (请求路径 === "logout" || 标识59.test(请求路径))
+            return 处置登出();
+        if (请求路径 === "robots.txt") {
+            return new Response("User-agent: *\nDisallow: /", { status: 200, headers: { "Content-Type": "text/plain; charset=UTF-8" } });
+        }
+    }
+    else if (!(环境.UUID || 环境.uuid)) {
+        return 标识1196(标识118, "/pages/noKV.html");
+    }
+    for (const 插件 of 取值兜底插件组()) {
+        const 兜底响应 = await 插件.onRoute?.(标识118);
+        if (兜底响应)
+            return 兜底响应;
+    }
+    return null;
+}
+// src/index.ts
+var 序号缺省 = {
+    async fetch(请求, 环境, 标识65) {
+        const 标识118 = new 请求上下文(请求, 环境, 标识65);
+        try {
+            const 页面响应 = await 处置超文本路由(标识118);
+            if (页面响应)
+                return 页面响应;
+            const 静态资源响应 = await 环境.ASSETS?.fetch(请求);
+            if (静态资源响应?.ok)
+                return 静态资源响应;
+            return new Response("Not Found", { status: 404 });
+        }
+        catch (错误2) {
+            标识118.error("entry", 错误2 instanceof Error ? 错误2.message : String(错误2), 错误2);
+            return new Response("Internal Error", { status: 500 });
+        }
+    }
+};
+// assets/pages/login.html
+var 登录缺省 = `<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -1482,7 +10073,9 @@ Disallow: /`,{status:200,headers:{"Content-Type":"text/plain; charset=UTF-8"}})}
 	<\/script>
 </body>
 
-</html>`;var Kr=`<!DOCTYPE html>
+</html>`;
+// assets/pages/admin.html
+var 管理缺省 = `<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -32509,7 +41102,9 @@ Disallow: /`,{status:200,headers:{"Content-Type":"text/plain; charset=UTF-8"}})}
 	<\/script>
 </body>
 
-</html>`;var Wr=`<!DOCTYPE html>
+</html>`;
+// assets/pages/noADMIN.html
+var 标识1205 = `<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -33137,7 +41732,9 @@ Disallow: /`,{status:200,headers:{"Content-Type":"text/plain; charset=UTF-8"}})}
 	<\/script>
 </body>
 
-</html>`;var qr=`<!DOCTYPE html>
+</html>`;
+// assets/pages/noKV.html
+var 标识1206 = `<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -33767,4 +42364,3993 @@ Disallow: /`,{status:200,headers:{"Content-Type":"text/plain; charset=UTF-8"}})}
     <\/script>
 </body>
 
-</html>`;var zi={"/pages/login.html":Gr,"/pages/admin.html":Kr,"/pages/noADMIN.html":Wr,"/pages/noKV.html":qr};function Yr(o){return async(e,t)=>{let n=e instanceof Request?e:new Request(e,t),{pathname:a}=new URL(n.url),r=zi[a];return r!==void 0?new Response(r,{status:200,headers:{"Content-Type":"text/html; charset=utf-8"}}):o?o.fetch(n):new Response("Not Found",{status:404})}}var $p={async fetch(o,e,t){let n={...e,ASSETS:{fetch:Yr(e.ASSETS)}};return jr.fetch(o,n,t)}};export{$p as default};
+</html>`;
+// src/pages-embed.ts
+var 页面组2 = {
+    "/pages/login.html": 登录缺省,
+    "/pages/admin.html": 管理缺省,
+    "/pages/noADMIN.html": 标识1205,
+    "/pages/noKV.html": 标识1206
+};
+function 标识1207(标识1208) {
+    return async (标识939, 初始化) => {
+        const 请求 = 标识939 instanceof Request ? 标识939 : new Request(标识939, 初始化);
+        const { pathname: 标识334 } = new URL(请求.url);
+        const 网页文 = 页面组2[标识334];
+        if (网页文 !== void 0) {
+            return new Response(网页文, {
+                status: 200,
+                headers: { "Content-Type": "text/html; charset=utf-8" }
+            });
+        }
+        if (标识1208)
+            return 标识1208.fetch(请求);
+        return new Response("Not Found", { status: 404 });
+    };
+}
+// src/index.standalone.ts
+var 标识1209 = {
+    async fetch(请求, 环境, 标识65) {
+        const 标识1210 = {
+            ...环境,
+            ASSETS: { fetch: 标识1207(环境.ASSETS) }
+        };
+        return 序号缺省.fetch(请求, 标识1210, 标识65);
+    }
+};
+export { 标识1209 as default };
+
+/*
+# 中华人民共和国宪法
+
+> 1982年12月4日第五届全国人民代表大会第五次会议通过
+> 1982年12月4日全国人民代表大会公告公布施行
+
+> 根据1988年4月12日第七届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1993年3月29日第八届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1999年3月15日第九届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》、
+> 2004年3月14日第十届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》修正
+
+
+## 序言
+
+中国是世界上历史最悠久的国家之一。中国各族人民共同创造了光辉灿烂的文化，具有光荣的革命传统。
+
+一八四〇年以后，封建的中国逐渐变成半殖民地、半封建的国家。中国人民为国家独立、民族解放和民主自由进行了前仆后继的英勇奋斗。
+
+二十世纪，中国发生了翻天覆地的伟大历史变革。
+
+一九一一年孙中山先生领导的辛亥革命，废除了封建帝制，创立了中华民国。但是，中国人民反对帝国主义和封建主义的历史任务还没有完成。
+
+一九四九年，以毛泽东主席为领袖的中国共产党领导中国各族人民，在经历了长期的艰难曲折的武装斗争和其他形式的斗争以后，终于推翻了帝国主义、封建主义和官僚资本主义的统治，取得了新民主主义革命的伟大胜利，建立了中华人民共和国。从此，中国人民掌握了国家的权力，成为国家的主人。
+
+中华人民共和国成立以后，我国社会逐步实现了由新民主主义到社会主义的过渡。生产资料私有制的社会主义改造已经完成，人剥削人的制度已经消灭，社会主义制度已经确立。工人阶级领导的、以工农联盟为基础的人民民主专政，实质上即无产阶级专政，得到巩固和发展。中国人民和中国人民解放军战胜了帝国主义、霸权主义的侵略、破坏和武装挑衅，维护了国家的独立和安全，增强了国防。经济建设取得了重大的成就，独立的、比较完整的社会主义工业体系已经基本形成，农业生产显著提高。教育、科学、文化等事业有了很大的发展，社会主义思想教育取得了明显的成效。广大人民的生活有了较大的改善。
+
+中国新民主主义革命的胜利和社会主义事业的成就，是中国共产党领导中国各族人民，在马克思列宁主义、毛泽东思想的指引下，坚持真理，修正错误，战胜许多艰难险阻而取得的。我国将长期处于社会主义初级阶段。国家的根本任务是，沿着中国特色社会主义道路，集中力量进行社会主义现代化建设。中国各族人民将继续在中国共产党领导下，在马克思列宁主义、毛泽东思想、邓小平理论和“三个代表”重要思想指引下，坚持人民民主专政，坚持社会主义道路，坚持改革开放，不断完善社会主义的各项制度，发展社会主义市场经济，发展社会主义民主，健全社会主义法制，自力更生，艰苦奋斗，逐步实现工业、农业、国防和科学技术的现代化，推动物质文明、政治文明和精神文明协调发展，把我国建设成为富强、民主、文明的社会主义国家。
+
+在我国，剥削阶级作为阶级已经消灭，但是阶级斗争还将在一定范围内长期存在。中国人民对敌视和破坏我国社会主义制度的国内外的敌对势力和敌对分子，必须进行斗争。
+
+台湾是中华人民共和国的神圣领土的一部分。完成统一祖国的大业是包括台湾同胞在内的全中国人民的神圣职责。
+
+社会主义的建设事业必须依靠工人、农民和知识分子，团结一切可以团结的力量。在长期的革命和建设过程中，已经结成由中国共产党领导的，有各民主党派和各人民团体参加的，包括全体社会主义劳动者、社会主义事业的建设者、拥护社会主义的爱国者和拥护祖国统一的爱国者的广泛的爱国统一战线，这个统一战线将继续巩固和发展。中国人民政治协商会议是有广泛代表性的统一战线组织，过去发挥了重要的历史作用，今后在国家政治生活、社会生活和对外友好活动中，在进行社会主义现代化建设、维护国家的统一和团结的斗争中，将进一步发挥它的重要作用。中国共产党领导的多党合作和政治协商制度将长期存在和发展。
+
+中华人民共和国是全国各族人民共同缔造的统一的多民族国家。平等、团结、互助的社会主义民族关系已经确立，并将继续加强。在维护民族团结的斗争中，要反对大民族主义，主要是大汉族主义，也要反对地方民族主义。国家尽一切努力，促进全国各民族的共同繁荣。
+
+中国革命和建设的成就是同世界人民的支持分不开的。中国的前途是同世界的前途紧密地联系在一起的。中国坚持独立自主的对外政策，坚持互相尊重主权和领土完整、互不侵犯、互不干涉内政、平等互利、和平共处的五项原则，发展同各国的外交关系和经济、文化的交流；坚持反对帝国主义、霸权主义、殖民主义，加强同世界各国人民的团结，支持被压迫民族和发展中国家争取和维护民族独立、发展民族经济的正义斗争，为维护世界和平和促进人类进步事业而努力。
+
+本宪法以法律的形式确认了中国各族人民奋斗的成果，规定了国家的根本制度和根本任务，是国家的根本法，具有最高的法律效力。全国各族人民、一切国家机关和武装力量、各政党和各社会团体、各企业事业组织，都必须以宪法为根本的活动准则，并且负有维护宪法尊严、保证宪法实施的职责。
+
+## 第一章 总纲
+
+* 第一条 中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。
+
+  社会主义制度是中华人民共和国的根本制度。禁止任何组织或者个人破坏社会主义制度。
+
+* 第二条 中华人民共和国的一切权力属于人民。
+
+  人民行使国家权力的机关是全国人民代表大会和地方各级人民代表大会。
+
+  人民依照法律规定，通过各种途径和形式，管理国家事务，管理经济和文化事业，管理社会事务。
+
+* 第三条 中华人民共和国的国家机构实行民主集中制的原则。
+
+  全国人民代表大会和地方各级人民代表大会都由民主选举产生，对人民负责，受人民监督。
+
+  国家行政机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。
+
+  中央和地方的国家机构职权的划分，遵循在中央的统一领导下，充分发挥地方的主动性、积极性的原则。
+
+* 第四条 中华人民共和国各民族一律平等。
+
+  国家保障各少数民族的合法的权利和利益，维护和发展各民族的平等、团结、互助关系。禁止对任何民族的歧视和压迫，禁止破坏民族团结和制造民族分裂的行为。
+
+  国家根据各少数民族的特点和需要，帮助各少数民族地区加速经济和文化的发展。
+
+  各少数民族聚居的地方实行区域自治，设立自治机关，行使自治权。
+
+  各民族自治地方都是中华人民共和国不可分离的部分。
+
+  各民族都有使用和发展自己的语言文字的自由，都有保持或者改革自己的风俗习惯的自由。
+
+* 第五条 中华人民共和国实行依法治国，建设社会主义法治国家。
+
+  国家维护社会主义法制的统一和尊严。
+
+  一切法律、行政法规和地方性法规都不得同宪法相抵触。
+
+  一切国家机关和武装力量、各政党和各社会团体、各企业事业组织都必须遵守宪法和法律。一切违反宪法和法律的行为，必须予以追究。
+
+  任何组织或者个人都不得有超越宪法和法律的特权。
+
+* 第六条 中华人民共和国的社会主义经济制度的基础是生产资料的社会主义公有制，即全民所有制和劳动群众集体所有制。社会主义公有制消灭人剥削人的制度，实行各尽所能、按劳分配的原则。
+
+  国家在社会主义初级阶段，坚持公有制为主体、多种所有制经济共同发展的基本经济制度，坚持按劳分配为主体、多种分配方式并存的分配制度。
+
+* 第七条 国有经济，即社会主义全民所有制经济，是国民经济中的主导力量。国家保障国有经济的巩固和发展。
+
+* 第八条 农村集体经济组织实行家庭承包经营为基础、统分结合的双层经营体制。农村中的生产、供销、信用、消费等各种形式的合作经济，是社会主义劳动群众集体所有制经济。参加农村集体经济组织的劳动者，有权在法律规定的范围内经营自留地、自留山、家庭副业和饲养自留畜。
+
+  城镇中的手工业、工业、建筑业、运输业、商业、服务业等行业的各种形式的合作经济，都是社会主义劳动群众集体所有制经济。
+
+  国家保护城乡集体经济组织的合法的权利和利益，鼓励、指导和帮助集体经济的发展。
+
+* 第九条 矿藏、水流、森林、山岭、草原、荒地、滩涂等自然资源，都属于国家所有，即全民所有；由法律规定属于集体所有的森林和山岭、草原、荒地、滩涂除外。
+
+  国家保障自然资源的合理利用，保护珍贵的动物和植物。禁止任何组织或者个人用任何手段侵占或者破坏自然资源。
+
+* 第十条 城市的土地属于国家所有。
+
+  农村和城市郊区的土地，除由法律规定属于国家所有的以外，属于集体所有；宅基地和自留地、自留山，也属于集体所有。
+
+  国家为了公共利益的需要，可以依照法律规定对土地实行征收或者征用并给予补偿。
+
+  任何组织或者个人不得侵占、买卖或者以其他形式非法转让土地。土地的使用权可以依照法律的规定转让。
+
+  一切使用土地的组织和个人必须合理地利用土地。
+
+* 第十一条 在法律规定范围内的个体经济、私营经济等非公有制经济，是社会主义市场经济的重要组成部分。
+
+  国家保护个体经济、私营经济等非公有制经济的合法的权利和利益。国家鼓励、支持和引导非公有制经济的发展，并对非公有制经济依法实行监督和管理。
+
+* 第十二条 社会主义的公共财产神圣不可侵犯。
+
+  国家保护社会主义的公共财产。禁止任何组织或者个人用任何手段侵占或者破坏国家的和集体的财产。
+
+* 第十三条 公民的合法的私有财产不受侵犯。
+
+  国家依照法律规定保护公民的私有财产权和继承权。
+
+  国家为了公共利益的需要，可以依照法律规定对公民的私有财产实行征收或者征用并给予补偿。
+
+* 第十四条 国家通过提高劳动者的积极性和技术水平，推广先进的科学技术，完善经济管理体制和企业经营管理制度，实行各种形式的社会主义责任制，改进劳动组织，以不断提高劳动生产率和经济效益，发展社会生产力。
+
+  国家厉行节约，反对浪费。
+
+  国家合理安排积累和消费，兼顾国家、集体和个人的利益，在发展生产的基础上，逐步改善人民的物质生活和文化生活。
+
+  国家建立健全同经济发展水平相适应的社会保障制度。
+
+* 第十五条 国家实行社会主义市场经济。
+
+  国家加强经济立法，完善宏观调控。
+
+  国家依法禁止任何组织或者个人扰乱社会经济秩序。
+
+* 第十六条 国有企业在法律规定的范围内有权自主经营。
+
+  国有企业依照法律规定，通过职工代表大会和其他形式，实行民主管理。
+
+* 第十七条 集体经济组织在遵守有关法律的前提下，有独立进行经济活动的自主权。
+
+  集体经济组织实行民主管理，依照法律规定选举和罢免管理人员，决定经营管理的重大问题。
+
+* 第十八条 中华人民共和国允许外国的企业和其他经济组织或者个人依照中华人民共和国法律的规定在中国投资，同中国的企业或者其他经济组织进行各种形式的经济合作。
+
+  在中国境内的外国企业和其他外国经济组织以及中外合资经营的企业，都必须遵守中华人民共和国的法律。它们的合法的权利和利益受中华人民共和国法律的保护。
+
+* 第十九条 国家发展社会主义的教育事业，提高全国人民的科学文化水平。
+
+  国家举办各种学校，普及初等义务教育，发展中等教育、职业教育和高等教育，并且发展学前教育。
+
+  国家发展各种教育设施，扫除文盲，对工人、农民、国家工作人员和其他劳动者进行政治、文化、科学、技术、业务的教育，鼓励自学成才。
+
+  国家鼓励集体经济组织、国家企业事业组织和其他社会力量依照法律规定举办各种教育事业。
+
+  国家推广全国通用的普通话。
+
+* 第二十条 国家发展自然科学和社会科学事业，普及科学和技术知识，奖励科学研究成果和技术发明创造。
+
+* 第二十一条 国家发展医疗卫生事业，发展现代医药和我国传统医药，鼓励和支持农村集体经济组织、国家企业事业组织和街道组织举办各种医疗卫生设施，开展群众性的卫生活动，保护人民健康。
+
+  国家发展体育事业，开展群众性的体育活动，增强人民体质。
+
+* 第二十二条 国家发展为人民服务、为社会主义服务的文学艺术事业、新闻广播电视事业、出版发行事业、图书馆博物馆文化馆和其他文化事业，开展群众性的文化活动。
+
+  国家保护名胜古迹、珍贵文物和其他重要历史文化遗产。
+
+* 第二十三条 国家培养为社会主义服务的各种专业人才，扩大知识分子的队伍，创造条件，充分发挥他们在社会主义现代化建设中的作用。
+
+* 第二十四条 国家通过普及理想教育、道德教育、文化教育、纪律和法制教育，通过在城乡不同范围的群众中制定和执行各种守则、公约，加强社会主义精神文明的建设。
+
+  国家提倡爱祖国、爱人民、爱劳动、爱科学、爱社会主义的公德，在人民中进行爱国主义、集体主义和国际主义、共产主义的教育，进行辩证唯物主义和历史唯物主义的教育，反对资本主义的、封建主义的和其他的腐朽思想。
+
+* 第二十五条 国家推行计划生育，使人口的增长同经济和社会发展计划相适应。
+
+* 第二十六条 国家保护和改善生活环境和生态环境，防治污染和其他公害。
+
+  国家组织和鼓励植树造林，保护林木。
+
+* 第二十七条 一切国家机关实行精简的原则，实行工作责任制，实行工作人员的培训和考核制度，不断提高工作质量和工作效率，反对官僚主义。
+
+  一切国家机关和国家工作人员必须依靠人民的支持，经常保持同人民的密切联系，倾听人民的意见和建议，接受人民的监督，努力为人民服务。
+
+* 第二十八条 国家维护社会秩序，镇压叛国和其他危害国家安全的犯罪活动，制裁危害社会治安、破坏社会主义经济和其他犯罪的活动，惩办和改造犯罪分子。
+
+* 第二十九条 中华人民共和国的武装力量属于人民。它的任务是巩固国防，抵抗侵略，保卫祖国，保卫人民的和平劳动，参加国家建设事业，努力为人民服务。
+
+  国家加强武装力量的革命化、现代化、正规化的建设，增强国防力量。
+
+* 第三十条 中华人民共和国的行政区域划分如下：
+
+  * （一）全国分为省、自治区、直辖市；
+  * （二）省、自治区分为自治州、县、自治县、市；
+  * （三）县、自治县分为乡、民族乡、镇。
+
+  直辖市和较大的市分为区、县。自治州分为县、自治县、市。
+
+  自治区、自治州、自治县都是民族自治地方。
+
+* 第三十一条 国家在必要时得设立特别行政区。在特别行政区内实行的制度按照具体情况由全国人民代表大会以法律规定。
+
+* 第三十二条 中华人民共和国保护在中国境内的外国人的合法权利和利益，在中国境内的外国人必须遵守中华人民共和国的法律。
+
+  中华人民共和国对于因为政治原因要求避难的外国人，可以给予受庇护的权利。
+
+## 第二章 公民的基本权利和义务
+
+* 第三十三条 凡具有中华人民共和国国籍的人都是中华人民共和国公民。
+
+  中华人民共和国公民在法律面前一律平等。
+
+  国家尊重和保障人权。
+
+  任何公民享有宪法和法律规定的权利，同时必须履行宪法和法律规定的义务。
+
+* 第三十四条 中华人民共和国年满十八周岁的公民，不分民族、种族、性别、职业、家庭出身、宗教信仰、教育程度、财产状况、居住期限，都有选举权和被选举权；但是依照法律被剥夺政治权利的人除外。
+
+* 第三十五条 中华人民共和国公民有言论、出版、集会、结社、游行、示威的自由。
+
+* 第三十六条 中华人民共和国公民有宗教信仰自由。
+
+  任何国家机关、社会团体和个人不得强制公民信仰宗教或者不信仰宗教，不得歧视信仰宗教的公民和不信仰宗教的公民。
+
+  国家保护正常的宗教活动。任何人不得利用宗教进行破坏社会秩序、损害公民身体健康、妨碍国家教育制度的活动。
+
+  宗教团体和宗教事务不受外国势力的支配。
+
+* 第三十七条 中华人民共和国公民的人身自由不受侵犯。
+
+  任何公民，非经人民检察院批准或者决定或者人民法院决定，并由公安机关执行，不受逮捕。
+
+  禁止非法拘禁和以其他方法非法剥夺或者限制公民的人身自由，禁止非法搜查公民的身体。
+
+* 第三十八条 中华人民共和国公民的人格尊严不受侵犯。禁止用任何方法对公民进行侮辱、诽谤和诬告陷害。
+
+* 第三十九条 中华人民共和国公民的住宅不受侵犯。禁止非法搜查或者非法侵入公民的住宅。
+
+* 第四十条 中华人民共和国公民的通信自由和通信秘密受法律的保护。除因国家安全或者追查刑事犯罪的需要，由公安机关或者检察机关依照法律规定的程序对通信进行检查外，任何组织或者个人不得以任何理由侵犯公民的通信自由和通信秘密。
+
+* 第四十一条 中华人民共和国公民对于任何国家机关和国家工作人员，有提出批评和建议的权利；对于任何国家机关和国家工作人员的违法失职行为，有向有关国家机关提出申诉、控告或者检举的权利，但是不得捏造或者歪曲事实进行诬告陷害。
+
+  对于公民的申诉、控告或者检举，有关国家机关必须查清事实，负责处理。任何人不得压制和打击报复。
+
+  由于国家机关和国家工作人员侵犯公民权利而受到损失的人，有依照法律规定取得赔偿的权利。
+
+* 第四十二条 中华人民共和国公民有劳动的权利和义务。
+
+  国家通过各种途径，创造劳动就业条件，加强劳动保护，改善劳动条件，并在发展生产的基础上，提高劳动报酬和福利待遇。
+
+  劳动是一切有劳动能力的公民的光荣职责。国有企业和城乡集体经济组织的劳动者都应当以国家主人翁的态度对待自己的劳动。国家提倡社会主义劳动竞赛，奖励劳动模范和先进工作者。国家提倡公民从事义务劳动。
+
+  国家对就业前的公民进行必要的劳动就业训练。
+
+* 第四十三条 中华人民共和国劳动者有休息的权利。
+
+  国家发展劳动者休息和休养的设施，规定职工的工作时间和休假制度。
+
+* 第四十四条 国家依照法律规定实行企业事业组织的职工和国家机关工作人员的退休制度。退休人员的生活受到国家和社会的保障。
+
+* 第四十五条 中华人民共和国公民在年老、疾病或者丧失劳动能力的情况下，有从国家和社会获得物质帮助的权利。国家发展为公民享受这些权利所需要的社会保险、社会救济和医疗卫生事业。
+
+  国家和社会保障残废军人的生活，抚恤烈士家属，优待军人家属。
+
+  国家和社会帮助安排盲、聋、哑和其他有残疾的公民的劳动、生活和教育。
+
+* 第四十六条 中华人民共和国公民有受教育的权利和义务。
+
+  国家培养青年、少年、儿童在品德、智力、体质等方面全面发展。
+
+* 第四十七条 中华人民共和国公民有进行科学研究、文学艺术创作和其他文化活动的自由。国家对于从事教育、科学、技术、文学、艺术和其他文化事业的公民的有益于人民的创造性工作，给以鼓励和帮助。
+
+* 第四十八条 中华人民共和国妇女在政治的、经济的、文化的、社会的和家庭的生活等各方面享有同男子平等的权利。
+
+  国家保护妇女的权利和利益，实行男女同工同酬，培养和选拔妇女干部。
+
+* 第四十九条 婚姻、家庭、母亲和儿童受国家的保护。
+
+  夫妻双方有实行计划生育的义务。
+
+  父母有抚养教育未成年子女的义务，成年子女有赡养扶助父母的义务。
+
+  禁止破坏婚姻自由，禁止虐待老人、妇女和儿童。
+
+* 第五十条 中华人民共和国保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益。
+
+* 第五十一条 中华人民共和国公民在行使自由和权利的时候，不得损害国家的、社会的、集体的利益和其他公民的合法的自由和权利。
+
+* 第五十二条 中华人民共和国公民有维护国家统一和全国各民族团结的义务。
+
+* 第五十三条 中华人民共和国公民必须遵守宪法和法律，保守国家秘密，爱护公共财产，遵守劳动纪律，遵守公共秩序，尊重社会公德。
+
+* 第五十四条 中华人民共和国公民有维护祖国的安全、荣誉和利益的义务，不得有危害祖国的安全、荣誉和利益的行为。
+
+* 第五十五条 保卫祖国、抵抗侵略是中华人民共和国每一个公民的神圣职责。
+
+  依照法律服兵役和参加民兵组织是中华人民共和国公民的光荣义务。
+
+* 第五十六条 中华人民共和国公民有依照法律纳税的义务。
+
+## 第三章 国家机构
+
+### 第一节 全国人民代表大会
+
+* 第五十七条 中华人民共和国全国人民代表大会是最高国家权力机关。它的常设机关是全国人民代表大会常务委员会。
+
+* 第五十八条 全国人民代表大会和全国人民代表大会常务委员会行使国家立法权。
+
+* 第五十九条 全国人民代表大会由省、自治区、直辖市、特别行政区和军队选出的代表组成。各少数民族都应当有适当名额的代表。
+
+  全国人民代表大会代表的选举由全国人民代表大会常务委员会主持。
+
+  全国人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第六十条 全国人民代表大会每届任期五年。
+
+  全国人民代表大会任期届满的两个月以前，全国人民代表大会常务委员会必须完成下届全国人民代表大会代表的选举。如果遇到不能进行选举的非常情况，由全国人民代表大会常务委员会以全体组成人员的三分之二以上的多数通过，可以推迟选举，延长本届全国人民代表大会的任期。在非常情况结束后一年内，必须完成下届全国人民代表大会代表的选举。
+
+* 第六十一条 全国人民代表大会会议每年举行一次，由全国人民代表大会常务委员会召集。如果全国人民代表大会常务委员会认为必要，或者有五分之一以上的全国人民代表大会代表提议，可以临时召集全国人民代表大会会议。
+
+  全国人民代表大会举行会议的时候，选举主席团主持会议。
+
+* 第六十二条 全国人民代表大会行使下列职权：
+
+  * （一）修改宪法；
+  * （二）监督宪法的实施；
+  * （三）制定和修改刑事、民事、国家机构的和其他的基本法律；
+  * （四）选举中华人民共和国主席、副主席；
+  * （五）根据中华人民共和国主席的提名，决定国务院总理的人选；根据国务院总理的提名，决定国务院副总理、国务委员、各部部长、各委员会主任、审计长、秘书长的人选；
+  * （六）选举中央军事委员会主席；根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （七）选举最高人民法院院长；
+  * （八）选举最高人民检察院检察长；
+  * （九）审查和批准国民经济和社会发展计划和计划执行情况的报告；
+  * （十）审查和批准国家的预算和预算执行情况的报告；
+  * （十一）改变或者撤销全国人民代表大会常务委员会不适当的决定；
+  * （十二）批准省、自治区和直辖市的建置；
+  * （十三）决定特别行政区的设立及其制度；
+  * （十四）决定战争和和平的问题；
+  * （十五）应当由最高国家权力机关行使的其他职权。
+
+* 第六十三条 全国人民代表大会有权罢免下列人员：
+
+  * （一）中华人民共和国主席、副主席；
+  * （二）国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长；
+  * （三）中央军事委员会主席和中央军事委员会其他组成人员；
+  * （四）最高人民法院院长；
+  * （五）最高人民检察院检察长。
+
+* 第六十四条 宪法的修改，由全国人民代表大会常务委员会或者五分之一以上的全国人民代表大会代表提议，并由全国人民代表大会以全体代表的三分之二以上的多数通过。
+
+  法律和其他议案由全国人民代表大会以全体代表的过半数通过。
+
+* 第六十五条 全国人民代表大会常务委员会由下列人员组成：
+
+  委员长，副委员长若干人，秘书长，委员若干人。
+
+  全国人民代表大会常务委员会组成人员中，应当有适当名额的少数民族代表。
+
+  全国人民代表大会选举并有权罢免全国人民代表大会常务委员会的组成人员。
+
+  全国人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第六十六条 全国人民代表大会常务委员会每届任期同全国人民代表大会每届任期相同，它行使职权到下届全国人民代表大会选出新的常务委员会为止。
+
+  委员长、副委员长连续任职不得超过两届。
+
+* 第六十七条 全国人民代表大会常务委员会行使下列职权：
+
+  * （一）解释宪法，监督宪法的实施；
+  * （二）制定和修改除应当由全国人民代表大会制定的法律以外的其他法律；
+  * （三）在全国人民代表大会闭会期间，对全国人民代表大会制定的法律进行部分补充和修改，但是不得同该法律的基本原则相抵触；
+  * （四）解释法律；
+  * （五）在全国人民代表大会闭会期间，审查和批准国民经济和社会发展计划、国家预算在执行过程中所必须作的部分调整方案；
+  * （六）监督国务院、中央军事委员会、最高人民法院和最高人民检察院的工作；
+  * （七）撤销国务院制定的同宪法、法律相抵触的行政法规、决定和命令；
+  * （八）撤销省、自治区、直辖市国家权力机关制定的同宪法、法律和行政法规相抵触的地方性法规和决议；
+  * （九）在全国人民代表大会闭会期间，根据国务院总理的提名，决定部长、委员会主任、审计长、秘书长的人选；
+  * （十）在全国人民代表大会闭会期间，根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （十一）根据最高人民法院院长的提请，任免最高人民法院副院长、审判员、审判委员会委员和军事法院院长；
+  * （十二）根据最高人民检察院检察长的提请，任免最高人民检察院副检察长、检察员、检察委员会委员和军事检察院检察长，并且批准省、自治区、直辖市的人民检察院检察长的任免；
+  * （十三）决定驻外全权代表的任免；
+  * （十四）决定同外国缔结的条约和重要协定的批准和废除；
+  * （十五）规定军人和外交人员的衔级制度和其他专门衔级制度；
+  * （十六）规定和决定授予国家的勋章和荣誉称号；
+  * （十七）决定特赦；
+  * （十八）在全国人民代表大会闭会期间，如果遇到国家遭受武装侵犯或者必须履行国际间共同防止侵略的条约的情况，决定战争状态的宣布；
+  * （十九）决定全国总动员或者局部动员；
+  * （二十）决定全国或者个别省、自治区、直辖市进入紧急状态；
+  * （二十一）全国人民代表大会授予的其他职权。
+
+* 第六十八条 全国人民代表大会常务委员会委员长主持全国人民代表大会常务委员会的工作，召集全国人民代表大会常务委员会会议。副委员长、秘书长协助委员长工作。
+
+  委员长、副委员长、秘书长组成委员长会议，处理全国人民代表大会常务委员会的重要日常工作。
+
+* 第六十九条 全国人民代表大会常务委员会对全国人民代表大会负责并报告工作。
+
+* 第七十条 全国人民代表大会设立民族委员会、法律委员会、财政经济委员会、教育科学文化卫生委员会、外事委员会、华侨委员会和其他需要设立的专门委员会。在全国人民代表大会闭会期间，各专门委员会受全国人民代表大会常务委员会的领导。
+
+  各专门委员会在全国人民代表大会和全国人民代表大会常务委员会领导下，研究、审议和拟订有关议案。
+
+* 第七十一条 全国人民代表大会和全国人民代表大会常务委员会认为必要的时候，可以组织关于特定问题的调查委员会，并且根据调查委员会的报告，作出相应的决议。
+
+  调查委员会进行调查的时候，一切有关的国家机关、社会团体和公民都有义务向它提供必要的材料。
+
+* 第七十二条 全国人民代表大会代表和全国人民代表大会常务委员会组成人员，有权依照法律规定的程序分别提出属于全国人民代表大会和全国人民代表大会常务委员会职权范围内的议案。
+
+* 第七十三条 全国人民代表大会代表在全国人民代表大会开会期间，全国人民代表大会常务委员会组成人员在常务委员会开会期间，有权依照法律规定的程序提出对国务院或者国务院各部、各委员会的质询案。受质询的机关必须负责答复。
+
+* 第七十四条 全国人民代表大会代表，非经全国人民代表大会会议主席团许可，在全国人民代表大会闭会期间非经全国人民代表大会常务委员会许可，不受逮捕或者刑事审判。
+
+* 第七十五条 全国人民代表大会代表在全国人民代表大会各种会议上的发言和表决，不受法律追究。
+
+* 第七十六条 全国人民代表大会代表必须模范地遵守宪法和法律，保守国家秘密，并且在自己参加的生产、工作和社会活动中，协助宪法和法律的实施。
+
+  全国人民代表大会代表应当同原选举单位和人民保持密切的联系，听取和反映人民的意见和要求，努力为人民服务。
+
+* 第七十七条 全国人民代表大会代表受原选举单位的监督。原选举单位有权依照法律规定的程序罢免本单位选出的代表。
+
+* 第七十八条 全国人民代表大会和全国人民代表大会常务委员会的组织和工作程序由法律规定。
+
+### 第二节 中华人民共和国主席
+
+* 第七十九条 中华人民共和国主席、副主席由全国人民代表大会选举。
+
+  有选举权和被选举权的年满四十五周岁的中华人民共和国公民可以被选为中华人民共和国主席、副主席。
+
+  中华人民共和国主席、副主席每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+* 第八十条 中华人民共和国主席根据全国人民代表大会的决定和全国人民代表大会常务委员会的决定，公布法律，任免国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长，授予国家的勋章和荣誉称号，发布特赦令，宣布进入紧急状态，宣布战争状态，发布动员令。
+
+* 第八十一条 中华人民共和国主席代表中华人民共和国，进行国事活动，接受外国使节；根据全国人民代表大会常务委员会的决定，派遣和召回驻外全权代表，批准和废除同外国缔结的条约和重要协定。
+
+* 第八十二条 中华人民共和国副主席协助主席工作。
+
+  中华人民共和国副主席受主席的委托，可以代行主席的部分职权。
+
+* 第八十三条 中华人民共和国主席、副主席行使职权到下届全国人民代表大会选出的主席、副主席就职为止。
+
+* 第八十四条 中华人民共和国主席缺位的时候，由副主席继任主席的职位。
+
+  中华人民共和国副主席缺位的时候，由全国人民代表大会补选。
+
+  中华人民共和国主席、副主席都缺位的时候，由全国人民代表大会补选；在补选以前，由全国人民代表大会常务委员会委员长暂时代理主席职位。
+
+### 第三节 国务院
+
+* 第八十五条 中华人民共和国国务院，即中央人民政府，是最高国家权力机关的执行机关，是最高国家行政机关。
+
+* 第八十六条 国务院由下列人员组成：
+
+  总理，副总理若干人，国务委员若干人，各部部长，各委员会主任，审计长，秘书长。
+
+  国务院实行总理负责制。各部、各委员会实行部长、主任负责制。
+
+  国务院的组织由法律规定。
+
+* 第八十七条 国务院每届任期同全国人民代表大会每届任期相同。
+
+  总理、副总理、国务委员连续任职不得超过两届。
+
+* 第八十八条 总理领导国务院的工作。副总理、国务委员协助总理工作。
+
+  总理、副总理、国务委员、秘书长组成国务院常务会议。
+
+  总理召集和主持国务院常务会议和国务院全体会议。
+
+* 第八十九条 国务院行使下列职权：
+
+  * （一）根据宪法和法律，规定行政措施，制定行政法规，发布决定和命令；
+  * （二）向全国人民代表大会或者全国人民代表大会常务委员会提出议案；
+  * （三）规定各部和各委员会的任务和职责，统一领导各部和各委员会的工作，并且领导不属于各部和各委员会的全国性的行政工作；
+  * （四）统一领导全国地方各级国家行政机关的工作，规定中央和省、自治区、直辖市的国家行政机关的职权的具体划分；
+  * （五）编制和执行国民经济和社会发展计划和国家预算；
+  * （六）领导和管理经济工作和城乡建设；
+  * （七）领导和管理教育、科学、文化、卫生、体育和计划生育工作；
+  * （八）领导和管理民政、公安、司法行政和监察等工作；
+  * （九）管理对外事务，同外国缔结条约和协定；
+  * （十）领导和管理国防建设事业；
+  * （十一）领导和管理民族事务，保障少数民族的平等权利和民族自治地方的自治权利；
+  * （十二）保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益；
+  * （十三）改变或者撤销各部、各委员会发布的不适当的命令、指示和规章；
+  * （十四）改变或者撤销地方各级国家行政机关的不适当的决定和命令；
+  * （十五）批准省、自治区、直辖市的区域划分，批准自治州、县、自治县、市的建置和区域划分；
+  * （十六）依照法律规定决定省、自治区、直辖市的范围内部分地区进入紧急状态；
+  * （十七）审定行政机构的编制，依照法律规定任免、培训、考核和奖惩行政人员；
+  * （十八）全国人民代表大会和全国人民代表大会常务委员会授予的其他职权。
+
+* 第九十条 国务院各部部长、各委员会主任负责本部门的工作；召集和主持部务会议或者委员会会议、委务会议，讨论决定本部门工作的重大问题。
+
+  各部、各委员会根据法律和国务院的行政法规、决定、命令，在本部门的权限内，发布命令、指示和规章。
+
+* 第九十一条 国务院设立审计机关，对国务院各部门和地方各级政府的财政收支，对国家的财政金融机构和企业事业组织的财务收支，进行审计监督。
+
+  审计机关在国务院总理领导下，依照法律规定独立行使审计监督权，不受其他行政机关、社会团体和个人的干涉。
+
+* 第九十二条 国务院对全国人民代表大会负责并报告工作；在全国人民代表大会闭会期间，对全国人民代表大会常务委员会负责并报告工作。
+
+### 第四节 中央军事委员会
+
+* 第九十三条 中华人民共和国中央军事委员会领导全国武装力量。
+
+  中央军事委员会由下列人员组成：
+
+  主席，副主席若干人，委员若干人。
+
+  中央军事委员会实行主席负责制。
+
+  中央军事委员会每届任期同全国人民代表大会每届任期相同。
+
+* 第九十四条 中央军事委员会主席对全国人民代表大会和全国人民代表大会常务委员会负责。
+
+### 第五节 地方各级人民代表大会和地方各级人民政府
+
+* 第九十五条 省、直辖市、县、市、市辖区、乡、民族乡、镇设立人民代表大会和人民政府。
+
+  地方各级人民代表大会和地方各级人民政府的组织由法律规定。
+
+  自治区、自治州、自治县设立自治机关。自治机关的组织和工作根据宪法第三章第五节、第六节规定的基本原则由法律规定。
+
+* 第九十六条 地方各级人民代表大会是地方国家权力机关。
+
+  县级以上的地方各级人民代表大会设立常务委员会。
+
+* 第九十七条 省、直辖市、设区的市的人民代表大会代表由下一级的人民代表大会选举；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表由选民直接选举。
+
+  地方各级人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第九十八条 地方各级人民代表大会每届任期五年。
+
+* 第九十九条 地方各级人民代表大会在本行政区域内，保证宪法、法律、行政法规的遵守和执行；依照法律规定的权限，通过和发布决议，审查和决定地方的经济建设、文化建设和公共事业建设的计划。
+
+  县级以上的地方各级人民代表大会审查和批准本行政区域内的国民经济和社会发展计划、预算以及它们的执行情况的报告；有权改变或者撤销本级人民代表大会常务委员会不适当的决定。
+
+  民族乡的人民代表大会可以依照法律规定的权限采取适合民族特点的具体措施。
+
+* 第一百条 省、直辖市的人民代表大会和它们的常务委员会，在不同宪法、法律、行政法规相抵触的前提下，可以制定地方性法规，报全国人民代表大会常务委员会备案。
+
+* 第一百零一条 地方各级人民代表大会分别选举并且有权罢免本级人民政府的省长和副省长、市长和副市长、县长和副县长、区长和副区长、乡长和副乡长、镇长和副镇长。
+
+  县级以上的地方各级人民代表大会选举并且有权罢免本级人民法院院长和本级人民检察院检察长。选出或者罢免人民检察院检察长，须报上级人民检察院检察长提请该级人民代表大会常务委员会批准。
+
+* 第一百零二条 省、直辖市、设区的市的人民代表大会代表受原选举单位的监督；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表受选民的监督。
+
+  地方各级人民代表大会代表的选举单位和选民有权依照法律规定的程序罢免由他们选出的代表。
+
+* 第一百零三条 县级以上的地方各级人民代表大会常务委员会由主任、副主任若干人和委员若干人组成，对本级人民代表大会负责并报告工作。
+
+  县级以上的地方各级人民代表大会选举并有权罢免本级人民代表大会常务委员会的组成人员。
+
+  县级以上的地方各级人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第一百零四条 县级以上的地方各级人民代表大会常务委员会讨论、决定本行政区域内各方面工作的重大事项；监督本级人民政府、人民法院和人民检察院的工作；撤销本级人民政府的不适当的决定和命令；撤销下一级人民代表大会的不适当的决议；依照法律规定的权限决定国家机关工作人员的任免；在本级人民代表大会闭会期间，罢免和补选上一级人民代表大会的个别代表。
+
+* 第一百零五条 地方各级人民政府是地方各级国家权力机关的执行机关，是地方各级国家行政机关。
+
+  地方各级人民政府实行省长、市长、县长、区长、乡长、镇长负责制。
+
+* 第一百零六条 地方各级人民政府每届任期同本级人民代表大会每届任期相同。
+
+* 第一百零七条 县级以上地方各级人民政府依照法律规定的权限，管理本行政区域内的经济、教育、科学、文化、卫生、体育事业、城乡建设事业和财政、民政、公安、民族事务、司法行政、监察、计划生育等行政工作，发布决定和命令，任免、培训、考核和奖惩行政工作人员。
+
+  乡、民族乡、镇的人民政府执行本级人民代表大会的决议和上级国家行政机关的决定和命令，管理本行政区域内的行政工作。
+
+  省、直辖市的人民政府决定乡、民族乡、镇的建置和区域划分。
+
+* 第一百零八条 县级以上的地方各级人民政府领导所属各工作部门和下级人民政府的工作，有权改变或者撤销所属各工作部门和下级人民政府的不适当的决定。
+
+* 第一百零九条 县级以上的地方各级人民政府设立审计机关。地方各级审计机关依照法律规定独立行使审计监督权，对本级人民政府和上一级审计机关负责。
+
+* 第一百一十条 地方各级人民政府对本级人民代表大会负责并报告工作。县级以上的地方各级人民政府在本级人民代表大会闭会期间，对本级人民代表大会常务委员会负责并报告工作。
+
+  地方各级人民政府对上一级国家行政机关负责并报告工作。全国地方各级人民政府都是国务院统一领导下的国家行政机关，都服从国务院。
+
+* 第一百一十一条 城市和农村按居民居住地区设立的居民委员会或者村民委员会是基层群众性自治组织。居民委员会、村民委员会的主任、副主任和委员由居民选举。居民委员会、村民委员会同基层政权的相互关系由法律规定。
+
+  居民委员会、村民委员会设人民调解、治安保卫、公共卫生等委员会，办理本居住地区的公共事务和公益事业，调解民间纠纷，协助维护社会治安，并且向人民政府反映群众的意见、要求和提出建议。
+
+### 第六节 民族自治地方的自治机关
+
+* 第一百一十二条 民族自治地方的自治机关是自治区、自治州、自治县的人民代表大会和人民政府。
+
+* 第一百一十三条 自治区、自治州、自治县的人民代表大会中，除实行区域自治的民族的代表外，其他居住在本行政区域内的民族也应当有适当名额的代表。
+
+  自治区、自治州、自治县的人民代表大会常务委员会中应当有实行区域自治的民族的公民担任主任或者副主任。
+
+* 第一百一十四条 自治区主席、自治州州长、自治县县长由实行区域自治的民族的公民担任。
+
+* 第一百一十五条 自治区、自治州、自治县的自治机关行使宪法第三章第五节规定的地方国家机关的职权，同时依照宪法、民族区域自治法和其他法律规定的权限行使自治权，根据本地方实际情况贯彻执行国家的法律、政策。
+
+* 第一百一十六条 民族自治地方的人民代表大会有权依照当地民族的政治、经济和文化的特点，制定自治条例和单行条例。自治区的自治条例和单行条例，报全国人民代表大会常务委员会批准后生效。自治州、自治县的自治条例和单行条例，报省或者自治区的人民代表大会常务委员会批准后生效，并报全国人民代表大会常务委员会备案。
+
+* 第一百一十七条 民族自治地方的自治机关有管理地方财政的自治权。凡是依照国家财政体制属于民族自治地方的财政收入，都应当由民族自治地方的自治机关自主地安排使用。
+
+* 第一百一十八条 民族自治地方的自治机关在国家计划的指导下，自主地安排和管理地方性的经济建设事业。
+
+  国家在民族自治地方开发资源、建设企业的时候，应当照顾民族自治地方的利益。
+
+* 第一百一十九条 民族自治地方的自治机关自主地管理本地方的教育、科学、文化、卫生、体育事业，保护和整理民族的文化遗产，发展和繁荣民族文化。
+
+* 第一百二十条 民族自治地方的自治机关依照国家的军事制度和当地的实际需要，经国务院批准，可以组织本地方维护社会治安的公安部队。
+
+* 第一百二十一条 民族自治地方的自治机关在执行职务的时候，依照本民族自治地方自治条例的规定，使用当地通用的一种或者几种语言文字。
+
+* 第一百二十二条 国家从财政、物资、技术等方面帮助各少数民族加速发展经济建设和文化建设事业。
+
+  国家帮助民族自治地方从当地民族中大量培养各级干部、各种专业人才和技术工人。
+
+### 第七节 人民法院和人民检察院
+
+* 第一百二十三条 中华人民共和国人民法院是国家的审判机关。
+
+* 第一百二十四条 中华人民共和国设立最高人民法院、地方各级人民法院和军事法院等专门人民法院。
+
+  最高人民法院院长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民法院的组织由法律规定。
+
+* 第一百二十五条 人民法院审理案件，除法律规定的特别情况外，一律公开进行。被告人有权获得辩护。
+
+* 第一百二十六条 人民法院依照法律规定独立行使审判权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百二十七条 最高人民法院是最高审判机关。
+
+  最高人民法院监督地方各级人民法院和专门人民法院的审判工作，上级人民法院监督下级人民法院的审判工作。
+
+* 第一百二十八条 最高人民法院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民法院对产生它的国家权力机关负责。
+
+* 第一百二十九条 中华人民共和国人民检察院是国家的法律监督机关。
+
+* 第一百三十条 中华人民共和国设立最高人民检察院、地方各级人民检察院和军事检察院等专门人民检察院。
+
+  最高人民检察院检察长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民检察院的组织由法律规定。
+
+* 第一百三十一条 人民检察院依照法律规定独立行使检察权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百三十二条 最高人民检察院是最高检察机关。
+
+  最高人民检察院领导地方各级人民检察院和专门人民检察院的工作，上级人民检察院领导下级人民检察院的工作。
+
+* 第一百三十三条 最高人民检察院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民检察院对产生它的国家权力机关和上级人民检察院负责。
+
+* 第一百三十四条 各民族公民都有用本民族语言文字进行诉讼的权利。人民法院和人民检察院对于不通晓当地通用的语言文字的诉讼参与人，应当为他们翻译。
+
+  在少数民族聚居或者多民族共同居住的地区，应当用当地通用的语言进行审理；起诉书、判决书、布告和其他文书应当根据实际需要使用当地通用的一种或者几种文字。
+
+* 第一百三十五条 人民法院、人民检察院和公安机关办理刑事案件，应当分工负责，互相配合，互相制约，以保证准确有效地执行法律。
+
+## 第四章 国旗、国歌、国徽、首都
+
+* 第一百三十六条 中华人民共和国国旗是五星红旗。
+
+  中华人民共和国国歌是《义勇军进行曲》。
+
+* 第一百三十七条 中华人民共和国国徽，中间是五星照耀下的天安门，周围是谷穗和齿轮。
+
+* 第一百三十八条 中华人民共和国首都是北京。
+*/
+/*
+# 中华人民共和国宪法
+
+> 1982年12月4日第五届全国人民代表大会第五次会议通过
+> 1982年12月4日全国人民代表大会公告公布施行
+
+> 根据1988年4月12日第七届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1993年3月29日第八届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1999年3月15日第九届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》、
+> 2004年3月14日第十届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》修正
+
+
+## 序言
+
+中国是世界上历史最悠久的国家之一。中国各族人民共同创造了光辉灿烂的文化，具有光荣的革命传统。
+
+一八四〇年以后，封建的中国逐渐变成半殖民地、半封建的国家。中国人民为国家独立、民族解放和民主自由进行了前仆后继的英勇奋斗。
+
+二十世纪，中国发生了翻天覆地的伟大历史变革。
+
+一九一一年孙中山先生领导的辛亥革命，废除了封建帝制，创立了中华民国。但是，中国人民反对帝国主义和封建主义的历史任务还没有完成。
+
+一九四九年，以毛泽东主席为领袖的中国共产党领导中国各族人民，在经历了长期的艰难曲折的武装斗争和其他形式的斗争以后，终于推翻了帝国主义、封建主义和官僚资本主义的统治，取得了新民主主义革命的伟大胜利，建立了中华人民共和国。从此，中国人民掌握了国家的权力，成为国家的主人。
+
+中华人民共和国成立以后，我国社会逐步实现了由新民主主义到社会主义的过渡。生产资料私有制的社会主义改造已经完成，人剥削人的制度已经消灭，社会主义制度已经确立。工人阶级领导的、以工农联盟为基础的人民民主专政，实质上即无产阶级专政，得到巩固和发展。中国人民和中国人民解放军战胜了帝国主义、霸权主义的侵略、破坏和武装挑衅，维护了国家的独立和安全，增强了国防。经济建设取得了重大的成就，独立的、比较完整的社会主义工业体系已经基本形成，农业生产显著提高。教育、科学、文化等事业有了很大的发展，社会主义思想教育取得了明显的成效。广大人民的生活有了较大的改善。
+
+中国新民主主义革命的胜利和社会主义事业的成就，是中国共产党领导中国各族人民，在马克思列宁主义、毛泽东思想的指引下，坚持真理，修正错误，战胜许多艰难险阻而取得的。我国将长期处于社会主义初级阶段。国家的根本任务是，沿着中国特色社会主义道路，集中力量进行社会主义现代化建设。中国各族人民将继续在中国共产党领导下，在马克思列宁主义、毛泽东思想、邓小平理论和“三个代表”重要思想指引下，坚持人民民主专政，坚持社会主义道路，坚持改革开放，不断完善社会主义的各项制度，发展社会主义市场经济，发展社会主义民主，健全社会主义法制，自力更生，艰苦奋斗，逐步实现工业、农业、国防和科学技术的现代化，推动物质文明、政治文明和精神文明协调发展，把我国建设成为富强、民主、文明的社会主义国家。
+
+在我国，剥削阶级作为阶级已经消灭，但是阶级斗争还将在一定范围内长期存在。中国人民对敌视和破坏我国社会主义制度的国内外的敌对势力和敌对分子，必须进行斗争。
+
+台湾是中华人民共和国的神圣领土的一部分。完成统一祖国的大业是包括台湾同胞在内的全中国人民的神圣职责。
+
+社会主义的建设事业必须依靠工人、农民和知识分子，团结一切可以团结的力量。在长期的革命和建设过程中，已经结成由中国共产党领导的，有各民主党派和各人民团体参加的，包括全体社会主义劳动者、社会主义事业的建设者、拥护社会主义的爱国者和拥护祖国统一的爱国者的广泛的爱国统一战线，这个统一战线将继续巩固和发展。中国人民政治协商会议是有广泛代表性的统一战线组织，过去发挥了重要的历史作用，今后在国家政治生活、社会生活和对外友好活动中，在进行社会主义现代化建设、维护国家的统一和团结的斗争中，将进一步发挥它的重要作用。中国共产党领导的多党合作和政治协商制度将长期存在和发展。
+
+中华人民共和国是全国各族人民共同缔造的统一的多民族国家。平等、团结、互助的社会主义民族关系已经确立，并将继续加强。在维护民族团结的斗争中，要反对大民族主义，主要是大汉族主义，也要反对地方民族主义。国家尽一切努力，促进全国各民族的共同繁荣。
+
+中国革命和建设的成就是同世界人民的支持分不开的。中国的前途是同世界的前途紧密地联系在一起的。中国坚持独立自主的对外政策，坚持互相尊重主权和领土完整、互不侵犯、互不干涉内政、平等互利、和平共处的五项原则，发展同各国的外交关系和经济、文化的交流；坚持反对帝国主义、霸权主义、殖民主义，加强同世界各国人民的团结，支持被压迫民族和发展中国家争取和维护民族独立、发展民族经济的正义斗争，为维护世界和平和促进人类进步事业而努力。
+
+本宪法以法律的形式确认了中国各族人民奋斗的成果，规定了国家的根本制度和根本任务，是国家的根本法，具有最高的法律效力。全国各族人民、一切国家机关和武装力量、各政党和各社会团体、各企业事业组织，都必须以宪法为根本的活动准则，并且负有维护宪法尊严、保证宪法实施的职责。
+
+## 第一章 总纲
+
+* 第一条 中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。
+
+  社会主义制度是中华人民共和国的根本制度。禁止任何组织或者个人破坏社会主义制度。
+
+* 第二条 中华人民共和国的一切权力属于人民。
+
+  人民行使国家权力的机关是全国人民代表大会和地方各级人民代表大会。
+
+  人民依照法律规定，通过各种途径和形式，管理国家事务，管理经济和文化事业，管理社会事务。
+
+* 第三条 中华人民共和国的国家机构实行民主集中制的原则。
+
+  全国人民代表大会和地方各级人民代表大会都由民主选举产生，对人民负责，受人民监督。
+
+  国家行政机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。
+
+  中央和地方的国家机构职权的划分，遵循在中央的统一领导下，充分发挥地方的主动性、积极性的原则。
+
+* 第四条 中华人民共和国各民族一律平等。
+
+  国家保障各少数民族的合法的权利和利益，维护和发展各民族的平等、团结、互助关系。禁止对任何民族的歧视和压迫，禁止破坏民族团结和制造民族分裂的行为。
+
+  国家根据各少数民族的特点和需要，帮助各少数民族地区加速经济和文化的发展。
+
+  各少数民族聚居的地方实行区域自治，设立自治机关，行使自治权。
+
+  各民族自治地方都是中华人民共和国不可分离的部分。
+
+  各民族都有使用和发展自己的语言文字的自由，都有保持或者改革自己的风俗习惯的自由。
+
+* 第五条 中华人民共和国实行依法治国，建设社会主义法治国家。
+
+  国家维护社会主义法制的统一和尊严。
+
+  一切法律、行政法规和地方性法规都不得同宪法相抵触。
+
+  一切国家机关和武装力量、各政党和各社会团体、各企业事业组织都必须遵守宪法和法律。一切违反宪法和法律的行为，必须予以追究。
+
+  任何组织或者个人都不得有超越宪法和法律的特权。
+
+* 第六条 中华人民共和国的社会主义经济制度的基础是生产资料的社会主义公有制，即全民所有制和劳动群众集体所有制。社会主义公有制消灭人剥削人的制度，实行各尽所能、按劳分配的原则。
+
+  国家在社会主义初级阶段，坚持公有制为主体、多种所有制经济共同发展的基本经济制度，坚持按劳分配为主体、多种分配方式并存的分配制度。
+
+* 第七条 国有经济，即社会主义全民所有制经济，是国民经济中的主导力量。国家保障国有经济的巩固和发展。
+
+* 第八条 农村集体经济组织实行家庭承包经营为基础、统分结合的双层经营体制。农村中的生产、供销、信用、消费等各种形式的合作经济，是社会主义劳动群众集体所有制经济。参加农村集体经济组织的劳动者，有权在法律规定的范围内经营自留地、自留山、家庭副业和饲养自留畜。
+
+  城镇中的手工业、工业、建筑业、运输业、商业、服务业等行业的各种形式的合作经济，都是社会主义劳动群众集体所有制经济。
+
+  国家保护城乡集体经济组织的合法的权利和利益，鼓励、指导和帮助集体经济的发展。
+
+* 第九条 矿藏、水流、森林、山岭、草原、荒地、滩涂等自然资源，都属于国家所有，即全民所有；由法律规定属于集体所有的森林和山岭、草原、荒地、滩涂除外。
+
+  国家保障自然资源的合理利用，保护珍贵的动物和植物。禁止任何组织或者个人用任何手段侵占或者破坏自然资源。
+
+* 第十条 城市的土地属于国家所有。
+
+  农村和城市郊区的土地，除由法律规定属于国家所有的以外，属于集体所有；宅基地和自留地、自留山，也属于集体所有。
+
+  国家为了公共利益的需要，可以依照法律规定对土地实行征收或者征用并给予补偿。
+
+  任何组织或者个人不得侵占、买卖或者以其他形式非法转让土地。土地的使用权可以依照法律的规定转让。
+
+  一切使用土地的组织和个人必须合理地利用土地。
+
+* 第十一条 在法律规定范围内的个体经济、私营经济等非公有制经济，是社会主义市场经济的重要组成部分。
+
+  国家保护个体经济、私营经济等非公有制经济的合法的权利和利益。国家鼓励、支持和引导非公有制经济的发展，并对非公有制经济依法实行监督和管理。
+
+* 第十二条 社会主义的公共财产神圣不可侵犯。
+
+  国家保护社会主义的公共财产。禁止任何组织或者个人用任何手段侵占或者破坏国家的和集体的财产。
+
+* 第十三条 公民的合法的私有财产不受侵犯。
+
+  国家依照法律规定保护公民的私有财产权和继承权。
+
+  国家为了公共利益的需要，可以依照法律规定对公民的私有财产实行征收或者征用并给予补偿。
+
+* 第十四条 国家通过提高劳动者的积极性和技术水平，推广先进的科学技术，完善经济管理体制和企业经营管理制度，实行各种形式的社会主义责任制，改进劳动组织，以不断提高劳动生产率和经济效益，发展社会生产力。
+
+  国家厉行节约，反对浪费。
+
+  国家合理安排积累和消费，兼顾国家、集体和个人的利益，在发展生产的基础上，逐步改善人民的物质生活和文化生活。
+
+  国家建立健全同经济发展水平相适应的社会保障制度。
+
+* 第十五条 国家实行社会主义市场经济。
+
+  国家加强经济立法，完善宏观调控。
+
+  国家依法禁止任何组织或者个人扰乱社会经济秩序。
+
+* 第十六条 国有企业在法律规定的范围内有权自主经营。
+
+  国有企业依照法律规定，通过职工代表大会和其他形式，实行民主管理。
+
+* 第十七条 集体经济组织在遵守有关法律的前提下，有独立进行经济活动的自主权。
+
+  集体经济组织实行民主管理，依照法律规定选举和罢免管理人员，决定经营管理的重大问题。
+
+* 第十八条 中华人民共和国允许外国的企业和其他经济组织或者个人依照中华人民共和国法律的规定在中国投资，同中国的企业或者其他经济组织进行各种形式的经济合作。
+
+  在中国境内的外国企业和其他外国经济组织以及中外合资经营的企业，都必须遵守中华人民共和国的法律。它们的合法的权利和利益受中华人民共和国法律的保护。
+
+* 第十九条 国家发展社会主义的教育事业，提高全国人民的科学文化水平。
+
+  国家举办各种学校，普及初等义务教育，发展中等教育、职业教育和高等教育，并且发展学前教育。
+
+  国家发展各种教育设施，扫除文盲，对工人、农民、国家工作人员和其他劳动者进行政治、文化、科学、技术、业务的教育，鼓励自学成才。
+
+  国家鼓励集体经济组织、国家企业事业组织和其他社会力量依照法律规定举办各种教育事业。
+
+  国家推广全国通用的普通话。
+
+* 第二十条 国家发展自然科学和社会科学事业，普及科学和技术知识，奖励科学研究成果和技术发明创造。
+
+* 第二十一条 国家发展医疗卫生事业，发展现代医药和我国传统医药，鼓励和支持农村集体经济组织、国家企业事业组织和街道组织举办各种医疗卫生设施，开展群众性的卫生活动，保护人民健康。
+
+  国家发展体育事业，开展群众性的体育活动，增强人民体质。
+
+* 第二十二条 国家发展为人民服务、为社会主义服务的文学艺术事业、新闻广播电视事业、出版发行事业、图书馆博物馆文化馆和其他文化事业，开展群众性的文化活动。
+
+  国家保护名胜古迹、珍贵文物和其他重要历史文化遗产。
+
+* 第二十三条 国家培养为社会主义服务的各种专业人才，扩大知识分子的队伍，创造条件，充分发挥他们在社会主义现代化建设中的作用。
+
+* 第二十四条 国家通过普及理想教育、道德教育、文化教育、纪律和法制教育，通过在城乡不同范围的群众中制定和执行各种守则、公约，加强社会主义精神文明的建设。
+
+  国家提倡爱祖国、爱人民、爱劳动、爱科学、爱社会主义的公德，在人民中进行爱国主义、集体主义和国际主义、共产主义的教育，进行辩证唯物主义和历史唯物主义的教育，反对资本主义的、封建主义的和其他的腐朽思想。
+
+* 第二十五条 国家推行计划生育，使人口的增长同经济和社会发展计划相适应。
+
+* 第二十六条 国家保护和改善生活环境和生态环境，防治污染和其他公害。
+
+  国家组织和鼓励植树造林，保护林木。
+
+* 第二十七条 一切国家机关实行精简的原则，实行工作责任制，实行工作人员的培训和考核制度，不断提高工作质量和工作效率，反对官僚主义。
+
+  一切国家机关和国家工作人员必须依靠人民的支持，经常保持同人民的密切联系，倾听人民的意见和建议，接受人民的监督，努力为人民服务。
+
+* 第二十八条 国家维护社会秩序，镇压叛国和其他危害国家安全的犯罪活动，制裁危害社会治安、破坏社会主义经济和其他犯罪的活动，惩办和改造犯罪分子。
+
+* 第二十九条 中华人民共和国的武装力量属于人民。它的任务是巩固国防，抵抗侵略，保卫祖国，保卫人民的和平劳动，参加国家建设事业，努力为人民服务。
+
+  国家加强武装力量的革命化、现代化、正规化的建设，增强国防力量。
+
+* 第三十条 中华人民共和国的行政区域划分如下：
+
+  * （一）全国分为省、自治区、直辖市；
+  * （二）省、自治区分为自治州、县、自治县、市；
+  * （三）县、自治县分为乡、民族乡、镇。
+
+  直辖市和较大的市分为区、县。自治州分为县、自治县、市。
+
+  自治区、自治州、自治县都是民族自治地方。
+
+* 第三十一条 国家在必要时得设立特别行政区。在特别行政区内实行的制度按照具体情况由全国人民代表大会以法律规定。
+
+* 第三十二条 中华人民共和国保护在中国境内的外国人的合法权利和利益，在中国境内的外国人必须遵守中华人民共和国的法律。
+
+  中华人民共和国对于因为政治原因要求避难的外国人，可以给予受庇护的权利。
+
+## 第二章 公民的基本权利和义务
+
+* 第三十三条 凡具有中华人民共和国国籍的人都是中华人民共和国公民。
+
+  中华人民共和国公民在法律面前一律平等。
+
+  国家尊重和保障人权。
+
+  任何公民享有宪法和法律规定的权利，同时必须履行宪法和法律规定的义务。
+
+* 第三十四条 中华人民共和国年满十八周岁的公民，不分民族、种族、性别、职业、家庭出身、宗教信仰、教育程度、财产状况、居住期限，都有选举权和被选举权；但是依照法律被剥夺政治权利的人除外。
+
+* 第三十五条 中华人民共和国公民有言论、出版、集会、结社、游行、示威的自由。
+
+* 第三十六条 中华人民共和国公民有宗教信仰自由。
+
+  任何国家机关、社会团体和个人不得强制公民信仰宗教或者不信仰宗教，不得歧视信仰宗教的公民和不信仰宗教的公民。
+
+  国家保护正常的宗教活动。任何人不得利用宗教进行破坏社会秩序、损害公民身体健康、妨碍国家教育制度的活动。
+
+  宗教团体和宗教事务不受外国势力的支配。
+
+* 第三十七条 中华人民共和国公民的人身自由不受侵犯。
+
+  任何公民，非经人民检察院批准或者决定或者人民法院决定，并由公安机关执行，不受逮捕。
+
+  禁止非法拘禁和以其他方法非法剥夺或者限制公民的人身自由，禁止非法搜查公民的身体。
+
+* 第三十八条 中华人民共和国公民的人格尊严不受侵犯。禁止用任何方法对公民进行侮辱、诽谤和诬告陷害。
+
+* 第三十九条 中华人民共和国公民的住宅不受侵犯。禁止非法搜查或者非法侵入公民的住宅。
+
+* 第四十条 中华人民共和国公民的通信自由和通信秘密受法律的保护。除因国家安全或者追查刑事犯罪的需要，由公安机关或者检察机关依照法律规定的程序对通信进行检查外，任何组织或者个人不得以任何理由侵犯公民的通信自由和通信秘密。
+
+* 第四十一条 中华人民共和国公民对于任何国家机关和国家工作人员，有提出批评和建议的权利；对于任何国家机关和国家工作人员的违法失职行为，有向有关国家机关提出申诉、控告或者检举的权利，但是不得捏造或者歪曲事实进行诬告陷害。
+
+  对于公民的申诉、控告或者检举，有关国家机关必须查清事实，负责处理。任何人不得压制和打击报复。
+
+  由于国家机关和国家工作人员侵犯公民权利而受到损失的人，有依照法律规定取得赔偿的权利。
+
+* 第四十二条 中华人民共和国公民有劳动的权利和义务。
+
+  国家通过各种途径，创造劳动就业条件，加强劳动保护，改善劳动条件，并在发展生产的基础上，提高劳动报酬和福利待遇。
+
+  劳动是一切有劳动能力的公民的光荣职责。国有企业和城乡集体经济组织的劳动者都应当以国家主人翁的态度对待自己的劳动。国家提倡社会主义劳动竞赛，奖励劳动模范和先进工作者。国家提倡公民从事义务劳动。
+
+  国家对就业前的公民进行必要的劳动就业训练。
+
+* 第四十三条 中华人民共和国劳动者有休息的权利。
+
+  国家发展劳动者休息和休养的设施，规定职工的工作时间和休假制度。
+
+* 第四十四条 国家依照法律规定实行企业事业组织的职工和国家机关工作人员的退休制度。退休人员的生活受到国家和社会的保障。
+
+* 第四十五条 中华人民共和国公民在年老、疾病或者丧失劳动能力的情况下，有从国家和社会获得物质帮助的权利。国家发展为公民享受这些权利所需要的社会保险、社会救济和医疗卫生事业。
+
+  国家和社会保障残废军人的生活，抚恤烈士家属，优待军人家属。
+
+  国家和社会帮助安排盲、聋、哑和其他有残疾的公民的劳动、生活和教育。
+
+* 第四十六条 中华人民共和国公民有受教育的权利和义务。
+
+  国家培养青年、少年、儿童在品德、智力、体质等方面全面发展。
+
+* 第四十七条 中华人民共和国公民有进行科学研究、文学艺术创作和其他文化活动的自由。国家对于从事教育、科学、技术、文学、艺术和其他文化事业的公民的有益于人民的创造性工作，给以鼓励和帮助。
+
+* 第四十八条 中华人民共和国妇女在政治的、经济的、文化的、社会的和家庭的生活等各方面享有同男子平等的权利。
+
+  国家保护妇女的权利和利益，实行男女同工同酬，培养和选拔妇女干部。
+
+* 第四十九条 婚姻、家庭、母亲和儿童受国家的保护。
+
+  夫妻双方有实行计划生育的义务。
+
+  父母有抚养教育未成年子女的义务，成年子女有赡养扶助父母的义务。
+
+  禁止破坏婚姻自由，禁止虐待老人、妇女和儿童。
+
+* 第五十条 中华人民共和国保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益。
+
+* 第五十一条 中华人民共和国公民在行使自由和权利的时候，不得损害国家的、社会的、集体的利益和其他公民的合法的自由和权利。
+
+* 第五十二条 中华人民共和国公民有维护国家统一和全国各民族团结的义务。
+
+* 第五十三条 中华人民共和国公民必须遵守宪法和法律，保守国家秘密，爱护公共财产，遵守劳动纪律，遵守公共秩序，尊重社会公德。
+
+* 第五十四条 中华人民共和国公民有维护祖国的安全、荣誉和利益的义务，不得有危害祖国的安全、荣誉和利益的行为。
+
+* 第五十五条 保卫祖国、抵抗侵略是中华人民共和国每一个公民的神圣职责。
+
+  依照法律服兵役和参加民兵组织是中华人民共和国公民的光荣义务。
+
+* 第五十六条 中华人民共和国公民有依照法律纳税的义务。
+
+## 第三章 国家机构
+
+### 第一节 全国人民代表大会
+
+* 第五十七条 中华人民共和国全国人民代表大会是最高国家权力机关。它的常设机关是全国人民代表大会常务委员会。
+
+* 第五十八条 全国人民代表大会和全国人民代表大会常务委员会行使国家立法权。
+
+* 第五十九条 全国人民代表大会由省、自治区、直辖市、特别行政区和军队选出的代表组成。各少数民族都应当有适当名额的代表。
+
+  全国人民代表大会代表的选举由全国人民代表大会常务委员会主持。
+
+  全国人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第六十条 全国人民代表大会每届任期五年。
+
+  全国人民代表大会任期届满的两个月以前，全国人民代表大会常务委员会必须完成下届全国人民代表大会代表的选举。如果遇到不能进行选举的非常情况，由全国人民代表大会常务委员会以全体组成人员的三分之二以上的多数通过，可以推迟选举，延长本届全国人民代表大会的任期。在非常情况结束后一年内，必须完成下届全国人民代表大会代表的选举。
+
+* 第六十一条 全国人民代表大会会议每年举行一次，由全国人民代表大会常务委员会召集。如果全国人民代表大会常务委员会认为必要，或者有五分之一以上的全国人民代表大会代表提议，可以临时召集全国人民代表大会会议。
+
+  全国人民代表大会举行会议的时候，选举主席团主持会议。
+
+* 第六十二条 全国人民代表大会行使下列职权：
+
+  * （一）修改宪法；
+  * （二）监督宪法的实施；
+  * （三）制定和修改刑事、民事、国家机构的和其他的基本法律；
+  * （四）选举中华人民共和国主席、副主席；
+  * （五）根据中华人民共和国主席的提名，决定国务院总理的人选；根据国务院总理的提名，决定国务院副总理、国务委员、各部部长、各委员会主任、审计长、秘书长的人选；
+  * （六）选举中央军事委员会主席；根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （七）选举最高人民法院院长；
+  * （八）选举最高人民检察院检察长；
+  * （九）审查和批准国民经济和社会发展计划和计划执行情况的报告；
+  * （十）审查和批准国家的预算和预算执行情况的报告；
+  * （十一）改变或者撤销全国人民代表大会常务委员会不适当的决定；
+  * （十二）批准省、自治区和直辖市的建置；
+  * （十三）决定特别行政区的设立及其制度；
+  * （十四）决定战争和和平的问题；
+  * （十五）应当由最高国家权力机关行使的其他职权。
+
+* 第六十三条 全国人民代表大会有权罢免下列人员：
+
+  * （一）中华人民共和国主席、副主席；
+  * （二）国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长；
+  * （三）中央军事委员会主席和中央军事委员会其他组成人员；
+  * （四）最高人民法院院长；
+  * （五）最高人民检察院检察长。
+
+* 第六十四条 宪法的修改，由全国人民代表大会常务委员会或者五分之一以上的全国人民代表大会代表提议，并由全国人民代表大会以全体代表的三分之二以上的多数通过。
+
+  法律和其他议案由全国人民代表大会以全体代表的过半数通过。
+
+* 第六十五条 全国人民代表大会常务委员会由下列人员组成：
+
+  委员长，副委员长若干人，秘书长，委员若干人。
+
+  全国人民代表大会常务委员会组成人员中，应当有适当名额的少数民族代表。
+
+  全国人民代表大会选举并有权罢免全国人民代表大会常务委员会的组成人员。
+
+  全国人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第六十六条 全国人民代表大会常务委员会每届任期同全国人民代表大会每届任期相同，它行使职权到下届全国人民代表大会选出新的常务委员会为止。
+
+  委员长、副委员长连续任职不得超过两届。
+
+* 第六十七条 全国人民代表大会常务委员会行使下列职权：
+
+  * （一）解释宪法，监督宪法的实施；
+  * （二）制定和修改除应当由全国人民代表大会制定的法律以外的其他法律；
+  * （三）在全国人民代表大会闭会期间，对全国人民代表大会制定的法律进行部分补充和修改，但是不得同该法律的基本原则相抵触；
+  * （四）解释法律；
+  * （五）在全国人民代表大会闭会期间，审查和批准国民经济和社会发展计划、国家预算在执行过程中所必须作的部分调整方案；
+  * （六）监督国务院、中央军事委员会、最高人民法院和最高人民检察院的工作；
+  * （七）撤销国务院制定的同宪法、法律相抵触的行政法规、决定和命令；
+  * （八）撤销省、自治区、直辖市国家权力机关制定的同宪法、法律和行政法规相抵触的地方性法规和决议；
+  * （九）在全国人民代表大会闭会期间，根据国务院总理的提名，决定部长、委员会主任、审计长、秘书长的人选；
+  * （十）在全国人民代表大会闭会期间，根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （十一）根据最高人民法院院长的提请，任免最高人民法院副院长、审判员、审判委员会委员和军事法院院长；
+  * （十二）根据最高人民检察院检察长的提请，任免最高人民检察院副检察长、检察员、检察委员会委员和军事检察院检察长，并且批准省、自治区、直辖市的人民检察院检察长的任免；
+  * （十三）决定驻外全权代表的任免；
+  * （十四）决定同外国缔结的条约和重要协定的批准和废除；
+  * （十五）规定军人和外交人员的衔级制度和其他专门衔级制度；
+  * （十六）规定和决定授予国家的勋章和荣誉称号；
+  * （十七）决定特赦；
+  * （十八）在全国人民代表大会闭会期间，如果遇到国家遭受武装侵犯或者必须履行国际间共同防止侵略的条约的情况，决定战争状态的宣布；
+  * （十九）决定全国总动员或者局部动员；
+  * （二十）决定全国或者个别省、自治区、直辖市进入紧急状态；
+  * （二十一）全国人民代表大会授予的其他职权。
+
+* 第六十八条 全国人民代表大会常务委员会委员长主持全国人民代表大会常务委员会的工作，召集全国人民代表大会常务委员会会议。副委员长、秘书长协助委员长工作。
+
+  委员长、副委员长、秘书长组成委员长会议，处理全国人民代表大会常务委员会的重要日常工作。
+
+* 第六十九条 全国人民代表大会常务委员会对全国人民代表大会负责并报告工作。
+
+* 第七十条 全国人民代表大会设立民族委员会、法律委员会、财政经济委员会、教育科学文化卫生委员会、外事委员会、华侨委员会和其他需要设立的专门委员会。在全国人民代表大会闭会期间，各专门委员会受全国人民代表大会常务委员会的领导。
+
+  各专门委员会在全国人民代表大会和全国人民代表大会常务委员会领导下，研究、审议和拟订有关议案。
+
+* 第七十一条 全国人民代表大会和全国人民代表大会常务委员会认为必要的时候，可以组织关于特定问题的调查委员会，并且根据调查委员会的报告，作出相应的决议。
+
+  调查委员会进行调查的时候，一切有关的国家机关、社会团体和公民都有义务向它提供必要的材料。
+
+* 第七十二条 全国人民代表大会代表和全国人民代表大会常务委员会组成人员，有权依照法律规定的程序分别提出属于全国人民代表大会和全国人民代表大会常务委员会职权范围内的议案。
+
+* 第七十三条 全国人民代表大会代表在全国人民代表大会开会期间，全国人民代表大会常务委员会组成人员在常务委员会开会期间，有权依照法律规定的程序提出对国务院或者国务院各部、各委员会的质询案。受质询的机关必须负责答复。
+
+* 第七十四条 全国人民代表大会代表，非经全国人民代表大会会议主席团许可，在全国人民代表大会闭会期间非经全国人民代表大会常务委员会许可，不受逮捕或者刑事审判。
+
+* 第七十五条 全国人民代表大会代表在全国人民代表大会各种会议上的发言和表决，不受法律追究。
+
+* 第七十六条 全国人民代表大会代表必须模范地遵守宪法和法律，保守国家秘密，并且在自己参加的生产、工作和社会活动中，协助宪法和法律的实施。
+
+  全国人民代表大会代表应当同原选举单位和人民保持密切的联系，听取和反映人民的意见和要求，努力为人民服务。
+
+* 第七十七条 全国人民代表大会代表受原选举单位的监督。原选举单位有权依照法律规定的程序罢免本单位选出的代表。
+
+* 第七十八条 全国人民代表大会和全国人民代表大会常务委员会的组织和工作程序由法律规定。
+
+### 第二节 中华人民共和国主席
+
+* 第七十九条 中华人民共和国主席、副主席由全国人民代表大会选举。
+
+  有选举权和被选举权的年满四十五周岁的中华人民共和国公民可以被选为中华人民共和国主席、副主席。
+
+  中华人民共和国主席、副主席每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+* 第八十条 中华人民共和国主席根据全国人民代表大会的决定和全国人民代表大会常务委员会的决定，公布法律，任免国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长，授予国家的勋章和荣誉称号，发布特赦令，宣布进入紧急状态，宣布战争状态，发布动员令。
+
+* 第八十一条 中华人民共和国主席代表中华人民共和国，进行国事活动，接受外国使节；根据全国人民代表大会常务委员会的决定，派遣和召回驻外全权代表，批准和废除同外国缔结的条约和重要协定。
+
+* 第八十二条 中华人民共和国副主席协助主席工作。
+
+  中华人民共和国副主席受主席的委托，可以代行主席的部分职权。
+
+* 第八十三条 中华人民共和国主席、副主席行使职权到下届全国人民代表大会选出的主席、副主席就职为止。
+
+* 第八十四条 中华人民共和国主席缺位的时候，由副主席继任主席的职位。
+
+  中华人民共和国副主席缺位的时候，由全国人民代表大会补选。
+
+  中华人民共和国主席、副主席都缺位的时候，由全国人民代表大会补选；在补选以前，由全国人民代表大会常务委员会委员长暂时代理主席职位。
+
+### 第三节 国务院
+
+* 第八十五条 中华人民共和国国务院，即中央人民政府，是最高国家权力机关的执行机关，是最高国家行政机关。
+
+* 第八十六条 国务院由下列人员组成：
+
+  总理，副总理若干人，国务委员若干人，各部部长，各委员会主任，审计长，秘书长。
+
+  国务院实行总理负责制。各部、各委员会实行部长、主任负责制。
+
+  国务院的组织由法律规定。
+
+* 第八十七条 国务院每届任期同全国人民代表大会每届任期相同。
+
+  总理、副总理、国务委员连续任职不得超过两届。
+
+* 第八十八条 总理领导国务院的工作。副总理、国务委员协助总理工作。
+
+  总理、副总理、国务委员、秘书长组成国务院常务会议。
+
+  总理召集和主持国务院常务会议和国务院全体会议。
+
+* 第八十九条 国务院行使下列职权：
+
+  * （一）根据宪法和法律，规定行政措施，制定行政法规，发布决定和命令；
+  * （二）向全国人民代表大会或者全国人民代表大会常务委员会提出议案；
+  * （三）规定各部和各委员会的任务和职责，统一领导各部和各委员会的工作，并且领导不属于各部和各委员会的全国性的行政工作；
+  * （四）统一领导全国地方各级国家行政机关的工作，规定中央和省、自治区、直辖市的国家行政机关的职权的具体划分；
+  * （五）编制和执行国民经济和社会发展计划和国家预算；
+  * （六）领导和管理经济工作和城乡建设；
+  * （七）领导和管理教育、科学、文化、卫生、体育和计划生育工作；
+  * （八）领导和管理民政、公安、司法行政和监察等工作；
+  * （九）管理对外事务，同外国缔结条约和协定；
+  * （十）领导和管理国防建设事业；
+  * （十一）领导和管理民族事务，保障少数民族的平等权利和民族自治地方的自治权利；
+  * （十二）保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益；
+  * （十三）改变或者撤销各部、各委员会发布的不适当的命令、指示和规章；
+  * （十四）改变或者撤销地方各级国家行政机关的不适当的决定和命令；
+  * （十五）批准省、自治区、直辖市的区域划分，批准自治州、县、自治县、市的建置和区域划分；
+  * （十六）依照法律规定决定省、自治区、直辖市的范围内部分地区进入紧急状态；
+  * （十七）审定行政机构的编制，依照法律规定任免、培训、考核和奖惩行政人员；
+  * （十八）全国人民代表大会和全国人民代表大会常务委员会授予的其他职权。
+
+* 第九十条 国务院各部部长、各委员会主任负责本部门的工作；召集和主持部务会议或者委员会会议、委务会议，讨论决定本部门工作的重大问题。
+
+  各部、各委员会根据法律和国务院的行政法规、决定、命令，在本部门的权限内，发布命令、指示和规章。
+
+* 第九十一条 国务院设立审计机关，对国务院各部门和地方各级政府的财政收支，对国家的财政金融机构和企业事业组织的财务收支，进行审计监督。
+
+  审计机关在国务院总理领导下，依照法律规定独立行使审计监督权，不受其他行政机关、社会团体和个人的干涉。
+
+* 第九十二条 国务院对全国人民代表大会负责并报告工作；在全国人民代表大会闭会期间，对全国人民代表大会常务委员会负责并报告工作。
+
+### 第四节 中央军事委员会
+
+* 第九十三条 中华人民共和国中央军事委员会领导全国武装力量。
+
+  中央军事委员会由下列人员组成：
+
+  主席，副主席若干人，委员若干人。
+
+  中央军事委员会实行主席负责制。
+
+  中央军事委员会每届任期同全国人民代表大会每届任期相同。
+
+* 第九十四条 中央军事委员会主席对全国人民代表大会和全国人民代表大会常务委员会负责。
+
+### 第五节 地方各级人民代表大会和地方各级人民政府
+
+* 第九十五条 省、直辖市、县、市、市辖区、乡、民族乡、镇设立人民代表大会和人民政府。
+
+  地方各级人民代表大会和地方各级人民政府的组织由法律规定。
+
+  自治区、自治州、自治县设立自治机关。自治机关的组织和工作根据宪法第三章第五节、第六节规定的基本原则由法律规定。
+
+* 第九十六条 地方各级人民代表大会是地方国家权力机关。
+
+  县级以上的地方各级人民代表大会设立常务委员会。
+
+* 第九十七条 省、直辖市、设区的市的人民代表大会代表由下一级的人民代表大会选举；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表由选民直接选举。
+
+  地方各级人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第九十八条 地方各级人民代表大会每届任期五年。
+
+* 第九十九条 地方各级人民代表大会在本行政区域内，保证宪法、法律、行政法规的遵守和执行；依照法律规定的权限，通过和发布决议，审查和决定地方的经济建设、文化建设和公共事业建设的计划。
+
+  县级以上的地方各级人民代表大会审查和批准本行政区域内的国民经济和社会发展计划、预算以及它们的执行情况的报告；有权改变或者撤销本级人民代表大会常务委员会不适当的决定。
+
+  民族乡的人民代表大会可以依照法律规定的权限采取适合民族特点的具体措施。
+
+* 第一百条 省、直辖市的人民代表大会和它们的常务委员会，在不同宪法、法律、行政法规相抵触的前提下，可以制定地方性法规，报全国人民代表大会常务委员会备案。
+
+* 第一百零一条 地方各级人民代表大会分别选举并且有权罢免本级人民政府的省长和副省长、市长和副市长、县长和副县长、区长和副区长、乡长和副乡长、镇长和副镇长。
+
+  县级以上的地方各级人民代表大会选举并且有权罢免本级人民法院院长和本级人民检察院检察长。选出或者罢免人民检察院检察长，须报上级人民检察院检察长提请该级人民代表大会常务委员会批准。
+
+* 第一百零二条 省、直辖市、设区的市的人民代表大会代表受原选举单位的监督；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表受选民的监督。
+
+  地方各级人民代表大会代表的选举单位和选民有权依照法律规定的程序罢免由他们选出的代表。
+
+* 第一百零三条 县级以上的地方各级人民代表大会常务委员会由主任、副主任若干人和委员若干人组成，对本级人民代表大会负责并报告工作。
+
+  县级以上的地方各级人民代表大会选举并有权罢免本级人民代表大会常务委员会的组成人员。
+
+  县级以上的地方各级人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第一百零四条 县级以上的地方各级人民代表大会常务委员会讨论、决定本行政区域内各方面工作的重大事项；监督本级人民政府、人民法院和人民检察院的工作；撤销本级人民政府的不适当的决定和命令；撤销下一级人民代表大会的不适当的决议；依照法律规定的权限决定国家机关工作人员的任免；在本级人民代表大会闭会期间，罢免和补选上一级人民代表大会的个别代表。
+
+* 第一百零五条 地方各级人民政府是地方各级国家权力机关的执行机关，是地方各级国家行政机关。
+
+  地方各级人民政府实行省长、市长、县长、区长、乡长、镇长负责制。
+
+* 第一百零六条 地方各级人民政府每届任期同本级人民代表大会每届任期相同。
+
+* 第一百零七条 县级以上地方各级人民政府依照法律规定的权限，管理本行政区域内的经济、教育、科学、文化、卫生、体育事业、城乡建设事业和财政、民政、公安、民族事务、司法行政、监察、计划生育等行政工作，发布决定和命令，任免、培训、考核和奖惩行政工作人员。
+
+  乡、民族乡、镇的人民政府执行本级人民代表大会的决议和上级国家行政机关的决定和命令，管理本行政区域内的行政工作。
+
+  省、直辖市的人民政府决定乡、民族乡、镇的建置和区域划分。
+
+* 第一百零八条 县级以上的地方各级人民政府领导所属各工作部门和下级人民政府的工作，有权改变或者撤销所属各工作部门和下级人民政府的不适当的决定。
+
+* 第一百零九条 县级以上的地方各级人民政府设立审计机关。地方各级审计机关依照法律规定独立行使审计监督权，对本级人民政府和上一级审计机关负责。
+
+* 第一百一十条 地方各级人民政府对本级人民代表大会负责并报告工作。县级以上的地方各级人民政府在本级人民代表大会闭会期间，对本级人民代表大会常务委员会负责并报告工作。
+
+  地方各级人民政府对上一级国家行政机关负责并报告工作。全国地方各级人民政府都是国务院统一领导下的国家行政机关，都服从国务院。
+
+* 第一百一十一条 城市和农村按居民居住地区设立的居民委员会或者村民委员会是基层群众性自治组织。居民委员会、村民委员会的主任、副主任和委员由居民选举。居民委员会、村民委员会同基层政权的相互关系由法律规定。
+
+  居民委员会、村民委员会设人民调解、治安保卫、公共卫生等委员会，办理本居住地区的公共事务和公益事业，调解民间纠纷，协助维护社会治安，并且向人民政府反映群众的意见、要求和提出建议。
+
+### 第六节 民族自治地方的自治机关
+
+* 第一百一十二条 民族自治地方的自治机关是自治区、自治州、自治县的人民代表大会和人民政府。
+
+* 第一百一十三条 自治区、自治州、自治县的人民代表大会中，除实行区域自治的民族的代表外，其他居住在本行政区域内的民族也应当有适当名额的代表。
+
+  自治区、自治州、自治县的人民代表大会常务委员会中应当有实行区域自治的民族的公民担任主任或者副主任。
+
+* 第一百一十四条 自治区主席、自治州州长、自治县县长由实行区域自治的民族的公民担任。
+
+* 第一百一十五条 自治区、自治州、自治县的自治机关行使宪法第三章第五节规定的地方国家机关的职权，同时依照宪法、民族区域自治法和其他法律规定的权限行使自治权，根据本地方实际情况贯彻执行国家的法律、政策。
+
+* 第一百一十六条 民族自治地方的人民代表大会有权依照当地民族的政治、经济和文化的特点，制定自治条例和单行条例。自治区的自治条例和单行条例，报全国人民代表大会常务委员会批准后生效。自治州、自治县的自治条例和单行条例，报省或者自治区的人民代表大会常务委员会批准后生效，并报全国人民代表大会常务委员会备案。
+
+* 第一百一十七条 民族自治地方的自治机关有管理地方财政的自治权。凡是依照国家财政体制属于民族自治地方的财政收入，都应当由民族自治地方的自治机关自主地安排使用。
+
+* 第一百一十八条 民族自治地方的自治机关在国家计划的指导下，自主地安排和管理地方性的经济建设事业。
+
+  国家在民族自治地方开发资源、建设企业的时候，应当照顾民族自治地方的利益。
+
+* 第一百一十九条 民族自治地方的自治机关自主地管理本地方的教育、科学、文化、卫生、体育事业，保护和整理民族的文化遗产，发展和繁荣民族文化。
+
+* 第一百二十条 民族自治地方的自治机关依照国家的军事制度和当地的实际需要，经国务院批准，可以组织本地方维护社会治安的公安部队。
+
+* 第一百二十一条 民族自治地方的自治机关在执行职务的时候，依照本民族自治地方自治条例的规定，使用当地通用的一种或者几种语言文字。
+
+* 第一百二十二条 国家从财政、物资、技术等方面帮助各少数民族加速发展经济建设和文化建设事业。
+
+  国家帮助民族自治地方从当地民族中大量培养各级干部、各种专业人才和技术工人。
+
+### 第七节 人民法院和人民检察院
+
+* 第一百二十三条 中华人民共和国人民法院是国家的审判机关。
+
+* 第一百二十四条 中华人民共和国设立最高人民法院、地方各级人民法院和军事法院等专门人民法院。
+
+  最高人民法院院长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民法院的组织由法律规定。
+
+* 第一百二十五条 人民法院审理案件，除法律规定的特别情况外，一律公开进行。被告人有权获得辩护。
+
+* 第一百二十六条 人民法院依照法律规定独立行使审判权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百二十七条 最高人民法院是最高审判机关。
+
+  最高人民法院监督地方各级人民法院和专门人民法院的审判工作，上级人民法院监督下级人民法院的审判工作。
+
+* 第一百二十八条 最高人民法院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民法院对产生它的国家权力机关负责。
+
+* 第一百二十九条 中华人民共和国人民检察院是国家的法律监督机关。
+
+* 第一百三十条 中华人民共和国设立最高人民检察院、地方各级人民检察院和军事检察院等专门人民检察院。
+
+  最高人民检察院检察长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民检察院的组织由法律规定。
+
+* 第一百三十一条 人民检察院依照法律规定独立行使检察权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百三十二条 最高人民检察院是最高检察机关。
+
+  最高人民检察院领导地方各级人民检察院和专门人民检察院的工作，上级人民检察院领导下级人民检察院的工作。
+
+* 第一百三十三条 最高人民检察院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民检察院对产生它的国家权力机关和上级人民检察院负责。
+
+* 第一百三十四条 各民族公民都有用本民族语言文字进行诉讼的权利。人民法院和人民检察院对于不通晓当地通用的语言文字的诉讼参与人，应当为他们翻译。
+
+  在少数民族聚居或者多民族共同居住的地区，应当用当地通用的语言进行审理；起诉书、判决书、布告和其他文书应当根据实际需要使用当地通用的一种或者几种文字。
+
+* 第一百三十五条 人民法院、人民检察院和公安机关办理刑事案件，应当分工负责，互相配合，互相制约，以保证准确有效地执行法律。
+
+## 第四章 国旗、国歌、国徽、首都
+
+* 第一百三十六条 中华人民共和国国旗是五星红旗。
+
+  中华人民共和国国歌是《义勇军进行曲》。
+
+* 第一百三十七条 中华人民共和国国徽，中间是五星照耀下的天安门，周围是谷穗和齿轮。
+
+* 第一百三十八条 中华人民共和国首都是北京。
+*/
+/*
+# 中华人民共和国宪法
+
+> 1982年12月4日第五届全国人民代表大会第五次会议通过
+> 1982年12月4日全国人民代表大会公告公布施行
+
+> 根据1988年4月12日第七届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1993年3月29日第八届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1999年3月15日第九届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》、
+> 2004年3月14日第十届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》修正
+
+
+## 序言
+
+中国是世界上历史最悠久的国家之一。中国各族人民共同创造了光辉灿烂的文化，具有光荣的革命传统。
+
+一八四〇年以后，封建的中国逐渐变成半殖民地、半封建的国家。中国人民为国家独立、民族解放和民主自由进行了前仆后继的英勇奋斗。
+
+二十世纪，中国发生了翻天覆地的伟大历史变革。
+
+一九一一年孙中山先生领导的辛亥革命，废除了封建帝制，创立了中华民国。但是，中国人民反对帝国主义和封建主义的历史任务还没有完成。
+
+一九四九年，以毛泽东主席为领袖的中国共产党领导中国各族人民，在经历了长期的艰难曲折的武装斗争和其他形式的斗争以后，终于推翻了帝国主义、封建主义和官僚资本主义的统治，取得了新民主主义革命的伟大胜利，建立了中华人民共和国。从此，中国人民掌握了国家的权力，成为国家的主人。
+
+中华人民共和国成立以后，我国社会逐步实现了由新民主主义到社会主义的过渡。生产资料私有制的社会主义改造已经完成，人剥削人的制度已经消灭，社会主义制度已经确立。工人阶级领导的、以工农联盟为基础的人民民主专政，实质上即无产阶级专政，得到巩固和发展。中国人民和中国人民解放军战胜了帝国主义、霸权主义的侵略、破坏和武装挑衅，维护了国家的独立和安全，增强了国防。经济建设取得了重大的成就，独立的、比较完整的社会主义工业体系已经基本形成，农业生产显著提高。教育、科学、文化等事业有了很大的发展，社会主义思想教育取得了明显的成效。广大人民的生活有了较大的改善。
+
+中国新民主主义革命的胜利和社会主义事业的成就，是中国共产党领导中国各族人民，在马克思列宁主义、毛泽东思想的指引下，坚持真理，修正错误，战胜许多艰难险阻而取得的。我国将长期处于社会主义初级阶段。国家的根本任务是，沿着中国特色社会主义道路，集中力量进行社会主义现代化建设。中国各族人民将继续在中国共产党领导下，在马克思列宁主义、毛泽东思想、邓小平理论和“三个代表”重要思想指引下，坚持人民民主专政，坚持社会主义道路，坚持改革开放，不断完善社会主义的各项制度，发展社会主义市场经济，发展社会主义民主，健全社会主义法制，自力更生，艰苦奋斗，逐步实现工业、农业、国防和科学技术的现代化，推动物质文明、政治文明和精神文明协调发展，把我国建设成为富强、民主、文明的社会主义国家。
+
+在我国，剥削阶级作为阶级已经消灭，但是阶级斗争还将在一定范围内长期存在。中国人民对敌视和破坏我国社会主义制度的国内外的敌对势力和敌对分子，必须进行斗争。
+
+台湾是中华人民共和国的神圣领土的一部分。完成统一祖国的大业是包括台湾同胞在内的全中国人民的神圣职责。
+
+社会主义的建设事业必须依靠工人、农民和知识分子，团结一切可以团结的力量。在长期的革命和建设过程中，已经结成由中国共产党领导的，有各民主党派和各人民团体参加的，包括全体社会主义劳动者、社会主义事业的建设者、拥护社会主义的爱国者和拥护祖国统一的爱国者的广泛的爱国统一战线，这个统一战线将继续巩固和发展。中国人民政治协商会议是有广泛代表性的统一战线组织，过去发挥了重要的历史作用，今后在国家政治生活、社会生活和对外友好活动中，在进行社会主义现代化建设、维护国家的统一和团结的斗争中，将进一步发挥它的重要作用。中国共产党领导的多党合作和政治协商制度将长期存在和发展。
+
+中华人民共和国是全国各族人民共同缔造的统一的多民族国家。平等、团结、互助的社会主义民族关系已经确立，并将继续加强。在维护民族团结的斗争中，要反对大民族主义，主要是大汉族主义，也要反对地方民族主义。国家尽一切努力，促进全国各民族的共同繁荣。
+
+中国革命和建设的成就是同世界人民的支持分不开的。中国的前途是同世界的前途紧密地联系在一起的。中国坚持独立自主的对外政策，坚持互相尊重主权和领土完整、互不侵犯、互不干涉内政、平等互利、和平共处的五项原则，发展同各国的外交关系和经济、文化的交流；坚持反对帝国主义、霸权主义、殖民主义，加强同世界各国人民的团结，支持被压迫民族和发展中国家争取和维护民族独立、发展民族经济的正义斗争，为维护世界和平和促进人类进步事业而努力。
+
+本宪法以法律的形式确认了中国各族人民奋斗的成果，规定了国家的根本制度和根本任务，是国家的根本法，具有最高的法律效力。全国各族人民、一切国家机关和武装力量、各政党和各社会团体、各企业事业组织，都必须以宪法为根本的活动准则，并且负有维护宪法尊严、保证宪法实施的职责。
+
+## 第一章 总纲
+
+* 第一条 中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。
+
+  社会主义制度是中华人民共和国的根本制度。禁止任何组织或者个人破坏社会主义制度。
+
+* 第二条 中华人民共和国的一切权力属于人民。
+
+  人民行使国家权力的机关是全国人民代表大会和地方各级人民代表大会。
+
+  人民依照法律规定，通过各种途径和形式，管理国家事务，管理经济和文化事业，管理社会事务。
+
+* 第三条 中华人民共和国的国家机构实行民主集中制的原则。
+
+  全国人民代表大会和地方各级人民代表大会都由民主选举产生，对人民负责，受人民监督。
+
+  国家行政机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。
+
+  中央和地方的国家机构职权的划分，遵循在中央的统一领导下，充分发挥地方的主动性、积极性的原则。
+
+* 第四条 中华人民共和国各民族一律平等。
+
+  国家保障各少数民族的合法的权利和利益，维护和发展各民族的平等、团结、互助关系。禁止对任何民族的歧视和压迫，禁止破坏民族团结和制造民族分裂的行为。
+
+  国家根据各少数民族的特点和需要，帮助各少数民族地区加速经济和文化的发展。
+
+  各少数民族聚居的地方实行区域自治，设立自治机关，行使自治权。
+
+  各民族自治地方都是中华人民共和国不可分离的部分。
+
+  各民族都有使用和发展自己的语言文字的自由，都有保持或者改革自己的风俗习惯的自由。
+
+* 第五条 中华人民共和国实行依法治国，建设社会主义法治国家。
+
+  国家维护社会主义法制的统一和尊严。
+
+  一切法律、行政法规和地方性法规都不得同宪法相抵触。
+
+  一切国家机关和武装力量、各政党和各社会团体、各企业事业组织都必须遵守宪法和法律。一切违反宪法和法律的行为，必须予以追究。
+
+  任何组织或者个人都不得有超越宪法和法律的特权。
+
+* 第六条 中华人民共和国的社会主义经济制度的基础是生产资料的社会主义公有制，即全民所有制和劳动群众集体所有制。社会主义公有制消灭人剥削人的制度，实行各尽所能、按劳分配的原则。
+
+  国家在社会主义初级阶段，坚持公有制为主体、多种所有制经济共同发展的基本经济制度，坚持按劳分配为主体、多种分配方式并存的分配制度。
+
+* 第七条 国有经济，即社会主义全民所有制经济，是国民经济中的主导力量。国家保障国有经济的巩固和发展。
+
+* 第八条 农村集体经济组织实行家庭承包经营为基础、统分结合的双层经营体制。农村中的生产、供销、信用、消费等各种形式的合作经济，是社会主义劳动群众集体所有制经济。参加农村集体经济组织的劳动者，有权在法律规定的范围内经营自留地、自留山、家庭副业和饲养自留畜。
+
+  城镇中的手工业、工业、建筑业、运输业、商业、服务业等行业的各种形式的合作经济，都是社会主义劳动群众集体所有制经济。
+
+  国家保护城乡集体经济组织的合法的权利和利益，鼓励、指导和帮助集体经济的发展。
+
+* 第九条 矿藏、水流、森林、山岭、草原、荒地、滩涂等自然资源，都属于国家所有，即全民所有；由法律规定属于集体所有的森林和山岭、草原、荒地、滩涂除外。
+
+  国家保障自然资源的合理利用，保护珍贵的动物和植物。禁止任何组织或者个人用任何手段侵占或者破坏自然资源。
+
+* 第十条 城市的土地属于国家所有。
+
+  农村和城市郊区的土地，除由法律规定属于国家所有的以外，属于集体所有；宅基地和自留地、自留山，也属于集体所有。
+
+  国家为了公共利益的需要，可以依照法律规定对土地实行征收或者征用并给予补偿。
+
+  任何组织或者个人不得侵占、买卖或者以其他形式非法转让土地。土地的使用权可以依照法律的规定转让。
+
+  一切使用土地的组织和个人必须合理地利用土地。
+
+* 第十一条 在法律规定范围内的个体经济、私营经济等非公有制经济，是社会主义市场经济的重要组成部分。
+
+  国家保护个体经济、私营经济等非公有制经济的合法的权利和利益。国家鼓励、支持和引导非公有制经济的发展，并对非公有制经济依法实行监督和管理。
+
+* 第十二条 社会主义的公共财产神圣不可侵犯。
+
+  国家保护社会主义的公共财产。禁止任何组织或者个人用任何手段侵占或者破坏国家的和集体的财产。
+
+* 第十三条 公民的合法的私有财产不受侵犯。
+
+  国家依照法律规定保护公民的私有财产权和继承权。
+
+  国家为了公共利益的需要，可以依照法律规定对公民的私有财产实行征收或者征用并给予补偿。
+
+* 第十四条 国家通过提高劳动者的积极性和技术水平，推广先进的科学技术，完善经济管理体制和企业经营管理制度，实行各种形式的社会主义责任制，改进劳动组织，以不断提高劳动生产率和经济效益，发展社会生产力。
+
+  国家厉行节约，反对浪费。
+
+  国家合理安排积累和消费，兼顾国家、集体和个人的利益，在发展生产的基础上，逐步改善人民的物质生活和文化生活。
+
+  国家建立健全同经济发展水平相适应的社会保障制度。
+
+* 第十五条 国家实行社会主义市场经济。
+
+  国家加强经济立法，完善宏观调控。
+
+  国家依法禁止任何组织或者个人扰乱社会经济秩序。
+
+* 第十六条 国有企业在法律规定的范围内有权自主经营。
+
+  国有企业依照法律规定，通过职工代表大会和其他形式，实行民主管理。
+
+* 第十七条 集体经济组织在遵守有关法律的前提下，有独立进行经济活动的自主权。
+
+  集体经济组织实行民主管理，依照法律规定选举和罢免管理人员，决定经营管理的重大问题。
+
+* 第十八条 中华人民共和国允许外国的企业和其他经济组织或者个人依照中华人民共和国法律的规定在中国投资，同中国的企业或者其他经济组织进行各种形式的经济合作。
+
+  在中国境内的外国企业和其他外国经济组织以及中外合资经营的企业，都必须遵守中华人民共和国的法律。它们的合法的权利和利益受中华人民共和国法律的保护。
+
+* 第十九条 国家发展社会主义的教育事业，提高全国人民的科学文化水平。
+
+  国家举办各种学校，普及初等义务教育，发展中等教育、职业教育和高等教育，并且发展学前教育。
+
+  国家发展各种教育设施，扫除文盲，对工人、农民、国家工作人员和其他劳动者进行政治、文化、科学、技术、业务的教育，鼓励自学成才。
+
+  国家鼓励集体经济组织、国家企业事业组织和其他社会力量依照法律规定举办各种教育事业。
+
+  国家推广全国通用的普通话。
+
+* 第二十条 国家发展自然科学和社会科学事业，普及科学和技术知识，奖励科学研究成果和技术发明创造。
+
+* 第二十一条 国家发展医疗卫生事业，发展现代医药和我国传统医药，鼓励和支持农村集体经济组织、国家企业事业组织和街道组织举办各种医疗卫生设施，开展群众性的卫生活动，保护人民健康。
+
+  国家发展体育事业，开展群众性的体育活动，增强人民体质。
+
+* 第二十二条 国家发展为人民服务、为社会主义服务的文学艺术事业、新闻广播电视事业、出版发行事业、图书馆博物馆文化馆和其他文化事业，开展群众性的文化活动。
+
+  国家保护名胜古迹、珍贵文物和其他重要历史文化遗产。
+
+* 第二十三条 国家培养为社会主义服务的各种专业人才，扩大知识分子的队伍，创造条件，充分发挥他们在社会主义现代化建设中的作用。
+
+* 第二十四条 国家通过普及理想教育、道德教育、文化教育、纪律和法制教育，通过在城乡不同范围的群众中制定和执行各种守则、公约，加强社会主义精神文明的建设。
+
+  国家提倡爱祖国、爱人民、爱劳动、爱科学、爱社会主义的公德，在人民中进行爱国主义、集体主义和国际主义、共产主义的教育，进行辩证唯物主义和历史唯物主义的教育，反对资本主义的、封建主义的和其他的腐朽思想。
+
+* 第二十五条 国家推行计划生育，使人口的增长同经济和社会发展计划相适应。
+
+* 第二十六条 国家保护和改善生活环境和生态环境，防治污染和其他公害。
+
+  国家组织和鼓励植树造林，保护林木。
+
+* 第二十七条 一切国家机关实行精简的原则，实行工作责任制，实行工作人员的培训和考核制度，不断提高工作质量和工作效率，反对官僚主义。
+
+  一切国家机关和国家工作人员必须依靠人民的支持，经常保持同人民的密切联系，倾听人民的意见和建议，接受人民的监督，努力为人民服务。
+
+* 第二十八条 国家维护社会秩序，镇压叛国和其他危害国家安全的犯罪活动，制裁危害社会治安、破坏社会主义经济和其他犯罪的活动，惩办和改造犯罪分子。
+
+* 第二十九条 中华人民共和国的武装力量属于人民。它的任务是巩固国防，抵抗侵略，保卫祖国，保卫人民的和平劳动，参加国家建设事业，努力为人民服务。
+
+  国家加强武装力量的革命化、现代化、正规化的建设，增强国防力量。
+
+* 第三十条 中华人民共和国的行政区域划分如下：
+
+  * （一）全国分为省、自治区、直辖市；
+  * （二）省、自治区分为自治州、县、自治县、市；
+  * （三）县、自治县分为乡、民族乡、镇。
+
+  直辖市和较大的市分为区、县。自治州分为县、自治县、市。
+
+  自治区、自治州、自治县都是民族自治地方。
+
+* 第三十一条 国家在必要时得设立特别行政区。在特别行政区内实行的制度按照具体情况由全国人民代表大会以法律规定。
+
+* 第三十二条 中华人民共和国保护在中国境内的外国人的合法权利和利益，在中国境内的外国人必须遵守中华人民共和国的法律。
+
+  中华人民共和国对于因为政治原因要求避难的外国人，可以给予受庇护的权利。
+
+## 第二章 公民的基本权利和义务
+
+* 第三十三条 凡具有中华人民共和国国籍的人都是中华人民共和国公民。
+
+  中华人民共和国公民在法律面前一律平等。
+
+  国家尊重和保障人权。
+
+  任何公民享有宪法和法律规定的权利，同时必须履行宪法和法律规定的义务。
+
+* 第三十四条 中华人民共和国年满十八周岁的公民，不分民族、种族、性别、职业、家庭出身、宗教信仰、教育程度、财产状况、居住期限，都有选举权和被选举权；但是依照法律被剥夺政治权利的人除外。
+
+* 第三十五条 中华人民共和国公民有言论、出版、集会、结社、游行、示威的自由。
+
+* 第三十六条 中华人民共和国公民有宗教信仰自由。
+
+  任何国家机关、社会团体和个人不得强制公民信仰宗教或者不信仰宗教，不得歧视信仰宗教的公民和不信仰宗教的公民。
+
+  国家保护正常的宗教活动。任何人不得利用宗教进行破坏社会秩序、损害公民身体健康、妨碍国家教育制度的活动。
+
+  宗教团体和宗教事务不受外国势力的支配。
+
+* 第三十七条 中华人民共和国公民的人身自由不受侵犯。
+
+  任何公民，非经人民检察院批准或者决定或者人民法院决定，并由公安机关执行，不受逮捕。
+
+  禁止非法拘禁和以其他方法非法剥夺或者限制公民的人身自由，禁止非法搜查公民的身体。
+
+* 第三十八条 中华人民共和国公民的人格尊严不受侵犯。禁止用任何方法对公民进行侮辱、诽谤和诬告陷害。
+
+* 第三十九条 中华人民共和国公民的住宅不受侵犯。禁止非法搜查或者非法侵入公民的住宅。
+
+* 第四十条 中华人民共和国公民的通信自由和通信秘密受法律的保护。除因国家安全或者追查刑事犯罪的需要，由公安机关或者检察机关依照法律规定的程序对通信进行检查外，任何组织或者个人不得以任何理由侵犯公民的通信自由和通信秘密。
+
+* 第四十一条 中华人民共和国公民对于任何国家机关和国家工作人员，有提出批评和建议的权利；对于任何国家机关和国家工作人员的违法失职行为，有向有关国家机关提出申诉、控告或者检举的权利，但是不得捏造或者歪曲事实进行诬告陷害。
+
+  对于公民的申诉、控告或者检举，有关国家机关必须查清事实，负责处理。任何人不得压制和打击报复。
+
+  由于国家机关和国家工作人员侵犯公民权利而受到损失的人，有依照法律规定取得赔偿的权利。
+
+* 第四十二条 中华人民共和国公民有劳动的权利和义务。
+
+  国家通过各种途径，创造劳动就业条件，加强劳动保护，改善劳动条件，并在发展生产的基础上，提高劳动报酬和福利待遇。
+
+  劳动是一切有劳动能力的公民的光荣职责。国有企业和城乡集体经济组织的劳动者都应当以国家主人翁的态度对待自己的劳动。国家提倡社会主义劳动竞赛，奖励劳动模范和先进工作者。国家提倡公民从事义务劳动。
+
+  国家对就业前的公民进行必要的劳动就业训练。
+
+* 第四十三条 中华人民共和国劳动者有休息的权利。
+
+  国家发展劳动者休息和休养的设施，规定职工的工作时间和休假制度。
+
+* 第四十四条 国家依照法律规定实行企业事业组织的职工和国家机关工作人员的退休制度。退休人员的生活受到国家和社会的保障。
+
+* 第四十五条 中华人民共和国公民在年老、疾病或者丧失劳动能力的情况下，有从国家和社会获得物质帮助的权利。国家发展为公民享受这些权利所需要的社会保险、社会救济和医疗卫生事业。
+
+  国家和社会保障残废军人的生活，抚恤烈士家属，优待军人家属。
+
+  国家和社会帮助安排盲、聋、哑和其他有残疾的公民的劳动、生活和教育。
+
+* 第四十六条 中华人民共和国公民有受教育的权利和义务。
+
+  国家培养青年、少年、儿童在品德、智力、体质等方面全面发展。
+
+* 第四十七条 中华人民共和国公民有进行科学研究、文学艺术创作和其他文化活动的自由。国家对于从事教育、科学、技术、文学、艺术和其他文化事业的公民的有益于人民的创造性工作，给以鼓励和帮助。
+
+* 第四十八条 中华人民共和国妇女在政治的、经济的、文化的、社会的和家庭的生活等各方面享有同男子平等的权利。
+
+  国家保护妇女的权利和利益，实行男女同工同酬，培养和选拔妇女干部。
+
+* 第四十九条 婚姻、家庭、母亲和儿童受国家的保护。
+
+  夫妻双方有实行计划生育的义务。
+
+  父母有抚养教育未成年子女的义务，成年子女有赡养扶助父母的义务。
+
+  禁止破坏婚姻自由，禁止虐待老人、妇女和儿童。
+
+* 第五十条 中华人民共和国保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益。
+
+* 第五十一条 中华人民共和国公民在行使自由和权利的时候，不得损害国家的、社会的、集体的利益和其他公民的合法的自由和权利。
+
+* 第五十二条 中华人民共和国公民有维护国家统一和全国各民族团结的义务。
+
+* 第五十三条 中华人民共和国公民必须遵守宪法和法律，保守国家秘密，爱护公共财产，遵守劳动纪律，遵守公共秩序，尊重社会公德。
+
+* 第五十四条 中华人民共和国公民有维护祖国的安全、荣誉和利益的义务，不得有危害祖国的安全、荣誉和利益的行为。
+
+* 第五十五条 保卫祖国、抵抗侵略是中华人民共和国每一个公民的神圣职责。
+
+  依照法律服兵役和参加民兵组织是中华人民共和国公民的光荣义务。
+
+* 第五十六条 中华人民共和国公民有依照法律纳税的义务。
+
+## 第三章 国家机构
+
+### 第一节 全国人民代表大会
+
+* 第五十七条 中华人民共和国全国人民代表大会是最高国家权力机关。它的常设机关是全国人民代表大会常务委员会。
+
+* 第五十八条 全国人民代表大会和全国人民代表大会常务委员会行使国家立法权。
+
+* 第五十九条 全国人民代表大会由省、自治区、直辖市、特别行政区和军队选出的代表组成。各少数民族都应当有适当名额的代表。
+
+  全国人民代表大会代表的选举由全国人民代表大会常务委员会主持。
+
+  全国人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第六十条 全国人民代表大会每届任期五年。
+
+  全国人民代表大会任期届满的两个月以前，全国人民代表大会常务委员会必须完成下届全国人民代表大会代表的选举。如果遇到不能进行选举的非常情况，由全国人民代表大会常务委员会以全体组成人员的三分之二以上的多数通过，可以推迟选举，延长本届全国人民代表大会的任期。在非常情况结束后一年内，必须完成下届全国人民代表大会代表的选举。
+
+* 第六十一条 全国人民代表大会会议每年举行一次，由全国人民代表大会常务委员会召集。如果全国人民代表大会常务委员会认为必要，或者有五分之一以上的全国人民代表大会代表提议，可以临时召集全国人民代表大会会议。
+
+  全国人民代表大会举行会议的时候，选举主席团主持会议。
+
+* 第六十二条 全国人民代表大会行使下列职权：
+
+  * （一）修改宪法；
+  * （二）监督宪法的实施；
+  * （三）制定和修改刑事、民事、国家机构的和其他的基本法律；
+  * （四）选举中华人民共和国主席、副主席；
+  * （五）根据中华人民共和国主席的提名，决定国务院总理的人选；根据国务院总理的提名，决定国务院副总理、国务委员、各部部长、各委员会主任、审计长、秘书长的人选；
+  * （六）选举中央军事委员会主席；根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （七）选举最高人民法院院长；
+  * （八）选举最高人民检察院检察长；
+  * （九）审查和批准国民经济和社会发展计划和计划执行情况的报告；
+  * （十）审查和批准国家的预算和预算执行情况的报告；
+  * （十一）改变或者撤销全国人民代表大会常务委员会不适当的决定；
+  * （十二）批准省、自治区和直辖市的建置；
+  * （十三）决定特别行政区的设立及其制度；
+  * （十四）决定战争和和平的问题；
+  * （十五）应当由最高国家权力机关行使的其他职权。
+
+* 第六十三条 全国人民代表大会有权罢免下列人员：
+
+  * （一）中华人民共和国主席、副主席；
+  * （二）国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长；
+  * （三）中央军事委员会主席和中央军事委员会其他组成人员；
+  * （四）最高人民法院院长；
+  * （五）最高人民检察院检察长。
+
+* 第六十四条 宪法的修改，由全国人民代表大会常务委员会或者五分之一以上的全国人民代表大会代表提议，并由全国人民代表大会以全体代表的三分之二以上的多数通过。
+
+  法律和其他议案由全国人民代表大会以全体代表的过半数通过。
+
+* 第六十五条 全国人民代表大会常务委员会由下列人员组成：
+
+  委员长，副委员长若干人，秘书长，委员若干人。
+
+  全国人民代表大会常务委员会组成人员中，应当有适当名额的少数民族代表。
+
+  全国人民代表大会选举并有权罢免全国人民代表大会常务委员会的组成人员。
+
+  全国人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第六十六条 全国人民代表大会常务委员会每届任期同全国人民代表大会每届任期相同，它行使职权到下届全国人民代表大会选出新的常务委员会为止。
+
+  委员长、副委员长连续任职不得超过两届。
+
+* 第六十七条 全国人民代表大会常务委员会行使下列职权：
+
+  * （一）解释宪法，监督宪法的实施；
+  * （二）制定和修改除应当由全国人民代表大会制定的法律以外的其他法律；
+  * （三）在全国人民代表大会闭会期间，对全国人民代表大会制定的法律进行部分补充和修改，但是不得同该法律的基本原则相抵触；
+  * （四）解释法律；
+  * （五）在全国人民代表大会闭会期间，审查和批准国民经济和社会发展计划、国家预算在执行过程中所必须作的部分调整方案；
+  * （六）监督国务院、中央军事委员会、最高人民法院和最高人民检察院的工作；
+  * （七）撤销国务院制定的同宪法、法律相抵触的行政法规、决定和命令；
+  * （八）撤销省、自治区、直辖市国家权力机关制定的同宪法、法律和行政法规相抵触的地方性法规和决议；
+  * （九）在全国人民代表大会闭会期间，根据国务院总理的提名，决定部长、委员会主任、审计长、秘书长的人选；
+  * （十）在全国人民代表大会闭会期间，根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （十一）根据最高人民法院院长的提请，任免最高人民法院副院长、审判员、审判委员会委员和军事法院院长；
+  * （十二）根据最高人民检察院检察长的提请，任免最高人民检察院副检察长、检察员、检察委员会委员和军事检察院检察长，并且批准省、自治区、直辖市的人民检察院检察长的任免；
+  * （十三）决定驻外全权代表的任免；
+  * （十四）决定同外国缔结的条约和重要协定的批准和废除；
+  * （十五）规定军人和外交人员的衔级制度和其他专门衔级制度；
+  * （十六）规定和决定授予国家的勋章和荣誉称号；
+  * （十七）决定特赦；
+  * （十八）在全国人民代表大会闭会期间，如果遇到国家遭受武装侵犯或者必须履行国际间共同防止侵略的条约的情况，决定战争状态的宣布；
+  * （十九）决定全国总动员或者局部动员；
+  * （二十）决定全国或者个别省、自治区、直辖市进入紧急状态；
+  * （二十一）全国人民代表大会授予的其他职权。
+
+* 第六十八条 全国人民代表大会常务委员会委员长主持全国人民代表大会常务委员会的工作，召集全国人民代表大会常务委员会会议。副委员长、秘书长协助委员长工作。
+
+  委员长、副委员长、秘书长组成委员长会议，处理全国人民代表大会常务委员会的重要日常工作。
+
+* 第六十九条 全国人民代表大会常务委员会对全国人民代表大会负责并报告工作。
+
+* 第七十条 全国人民代表大会设立民族委员会、法律委员会、财政经济委员会、教育科学文化卫生委员会、外事委员会、华侨委员会和其他需要设立的专门委员会。在全国人民代表大会闭会期间，各专门委员会受全国人民代表大会常务委员会的领导。
+
+  各专门委员会在全国人民代表大会和全国人民代表大会常务委员会领导下，研究、审议和拟订有关议案。
+
+* 第七十一条 全国人民代表大会和全国人民代表大会常务委员会认为必要的时候，可以组织关于特定问题的调查委员会，并且根据调查委员会的报告，作出相应的决议。
+
+  调查委员会进行调查的时候，一切有关的国家机关、社会团体和公民都有义务向它提供必要的材料。
+
+* 第七十二条 全国人民代表大会代表和全国人民代表大会常务委员会组成人员，有权依照法律规定的程序分别提出属于全国人民代表大会和全国人民代表大会常务委员会职权范围内的议案。
+
+* 第七十三条 全国人民代表大会代表在全国人民代表大会开会期间，全国人民代表大会常务委员会组成人员在常务委员会开会期间，有权依照法律规定的程序提出对国务院或者国务院各部、各委员会的质询案。受质询的机关必须负责答复。
+
+* 第七十四条 全国人民代表大会代表，非经全国人民代表大会会议主席团许可，在全国人民代表大会闭会期间非经全国人民代表大会常务委员会许可，不受逮捕或者刑事审判。
+
+* 第七十五条 全国人民代表大会代表在全国人民代表大会各种会议上的发言和表决，不受法律追究。
+
+* 第七十六条 全国人民代表大会代表必须模范地遵守宪法和法律，保守国家秘密，并且在自己参加的生产、工作和社会活动中，协助宪法和法律的实施。
+
+  全国人民代表大会代表应当同原选举单位和人民保持密切的联系，听取和反映人民的意见和要求，努力为人民服务。
+
+* 第七十七条 全国人民代表大会代表受原选举单位的监督。原选举单位有权依照法律规定的程序罢免本单位选出的代表。
+
+* 第七十八条 全国人民代表大会和全国人民代表大会常务委员会的组织和工作程序由法律规定。
+
+### 第二节 中华人民共和国主席
+
+* 第七十九条 中华人民共和国主席、副主席由全国人民代表大会选举。
+
+  有选举权和被选举权的年满四十五周岁的中华人民共和国公民可以被选为中华人民共和国主席、副主席。
+
+  中华人民共和国主席、副主席每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+* 第八十条 中华人民共和国主席根据全国人民代表大会的决定和全国人民代表大会常务委员会的决定，公布法律，任免国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长，授予国家的勋章和荣誉称号，发布特赦令，宣布进入紧急状态，宣布战争状态，发布动员令。
+
+* 第八十一条 中华人民共和国主席代表中华人民共和国，进行国事活动，接受外国使节；根据全国人民代表大会常务委员会的决定，派遣和召回驻外全权代表，批准和废除同外国缔结的条约和重要协定。
+
+* 第八十二条 中华人民共和国副主席协助主席工作。
+
+  中华人民共和国副主席受主席的委托，可以代行主席的部分职权。
+
+* 第八十三条 中华人民共和国主席、副主席行使职权到下届全国人民代表大会选出的主席、副主席就职为止。
+
+* 第八十四条 中华人民共和国主席缺位的时候，由副主席继任主席的职位。
+
+  中华人民共和国副主席缺位的时候，由全国人民代表大会补选。
+
+  中华人民共和国主席、副主席都缺位的时候，由全国人民代表大会补选；在补选以前，由全国人民代表大会常务委员会委员长暂时代理主席职位。
+
+### 第三节 国务院
+
+* 第八十五条 中华人民共和国国务院，即中央人民政府，是最高国家权力机关的执行机关，是最高国家行政机关。
+
+* 第八十六条 国务院由下列人员组成：
+
+  总理，副总理若干人，国务委员若干人，各部部长，各委员会主任，审计长，秘书长。
+
+  国务院实行总理负责制。各部、各委员会实行部长、主任负责制。
+
+  国务院的组织由法律规定。
+
+* 第八十七条 国务院每届任期同全国人民代表大会每届任期相同。
+
+  总理、副总理、国务委员连续任职不得超过两届。
+
+* 第八十八条 总理领导国务院的工作。副总理、国务委员协助总理工作。
+
+  总理、副总理、国务委员、秘书长组成国务院常务会议。
+
+  总理召集和主持国务院常务会议和国务院全体会议。
+
+* 第八十九条 国务院行使下列职权：
+
+  * （一）根据宪法和法律，规定行政措施，制定行政法规，发布决定和命令；
+  * （二）向全国人民代表大会或者全国人民代表大会常务委员会提出议案；
+  * （三）规定各部和各委员会的任务和职责，统一领导各部和各委员会的工作，并且领导不属于各部和各委员会的全国性的行政工作；
+  * （四）统一领导全国地方各级国家行政机关的工作，规定中央和省、自治区、直辖市的国家行政机关的职权的具体划分；
+  * （五）编制和执行国民经济和社会发展计划和国家预算；
+  * （六）领导和管理经济工作和城乡建设；
+  * （七）领导和管理教育、科学、文化、卫生、体育和计划生育工作；
+  * （八）领导和管理民政、公安、司法行政和监察等工作；
+  * （九）管理对外事务，同外国缔结条约和协定；
+  * （十）领导和管理国防建设事业；
+  * （十一）领导和管理民族事务，保障少数民族的平等权利和民族自治地方的自治权利；
+  * （十二）保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益；
+  * （十三）改变或者撤销各部、各委员会发布的不适当的命令、指示和规章；
+  * （十四）改变或者撤销地方各级国家行政机关的不适当的决定和命令；
+  * （十五）批准省、自治区、直辖市的区域划分，批准自治州、县、自治县、市的建置和区域划分；
+  * （十六）依照法律规定决定省、自治区、直辖市的范围内部分地区进入紧急状态；
+  * （十七）审定行政机构的编制，依照法律规定任免、培训、考核和奖惩行政人员；
+  * （十八）全国人民代表大会和全国人民代表大会常务委员会授予的其他职权。
+
+* 第九十条 国务院各部部长、各委员会主任负责本部门的工作；召集和主持部务会议或者委员会会议、委务会议，讨论决定本部门工作的重大问题。
+
+  各部、各委员会根据法律和国务院的行政法规、决定、命令，在本部门的权限内，发布命令、指示和规章。
+
+* 第九十一条 国务院设立审计机关，对国务院各部门和地方各级政府的财政收支，对国家的财政金融机构和企业事业组织的财务收支，进行审计监督。
+
+  审计机关在国务院总理领导下，依照法律规定独立行使审计监督权，不受其他行政机关、社会团体和个人的干涉。
+
+* 第九十二条 国务院对全国人民代表大会负责并报告工作；在全国人民代表大会闭会期间，对全国人民代表大会常务委员会负责并报告工作。
+
+### 第四节 中央军事委员会
+
+* 第九十三条 中华人民共和国中央军事委员会领导全国武装力量。
+
+  中央军事委员会由下列人员组成：
+
+  主席，副主席若干人，委员若干人。
+
+  中央军事委员会实行主席负责制。
+
+  中央军事委员会每届任期同全国人民代表大会每届任期相同。
+
+* 第九十四条 中央军事委员会主席对全国人民代表大会和全国人民代表大会常务委员会负责。
+
+### 第五节 地方各级人民代表大会和地方各级人民政府
+
+* 第九十五条 省、直辖市、县、市、市辖区、乡、民族乡、镇设立人民代表大会和人民政府。
+
+  地方各级人民代表大会和地方各级人民政府的组织由法律规定。
+
+  自治区、自治州、自治县设立自治机关。自治机关的组织和工作根据宪法第三章第五节、第六节规定的基本原则由法律规定。
+
+* 第九十六条 地方各级人民代表大会是地方国家权力机关。
+
+  县级以上的地方各级人民代表大会设立常务委员会。
+
+* 第九十七条 省、直辖市、设区的市的人民代表大会代表由下一级的人民代表大会选举；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表由选民直接选举。
+
+  地方各级人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第九十八条 地方各级人民代表大会每届任期五年。
+
+* 第九十九条 地方各级人民代表大会在本行政区域内，保证宪法、法律、行政法规的遵守和执行；依照法律规定的权限，通过和发布决议，审查和决定地方的经济建设、文化建设和公共事业建设的计划。
+
+  县级以上的地方各级人民代表大会审查和批准本行政区域内的国民经济和社会发展计划、预算以及它们的执行情况的报告；有权改变或者撤销本级人民代表大会常务委员会不适当的决定。
+
+  民族乡的人民代表大会可以依照法律规定的权限采取适合民族特点的具体措施。
+
+* 第一百条 省、直辖市的人民代表大会和它们的常务委员会，在不同宪法、法律、行政法规相抵触的前提下，可以制定地方性法规，报全国人民代表大会常务委员会备案。
+
+* 第一百零一条 地方各级人民代表大会分别选举并且有权罢免本级人民政府的省长和副省长、市长和副市长、县长和副县长、区长和副区长、乡长和副乡长、镇长和副镇长。
+
+  县级以上的地方各级人民代表大会选举并且有权罢免本级人民法院院长和本级人民检察院检察长。选出或者罢免人民检察院检察长，须报上级人民检察院检察长提请该级人民代表大会常务委员会批准。
+
+* 第一百零二条 省、直辖市、设区的市的人民代表大会代表受原选举单位的监督；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表受选民的监督。
+
+  地方各级人民代表大会代表的选举单位和选民有权依照法律规定的程序罢免由他们选出的代表。
+
+* 第一百零三条 县级以上的地方各级人民代表大会常务委员会由主任、副主任若干人和委员若干人组成，对本级人民代表大会负责并报告工作。
+
+  县级以上的地方各级人民代表大会选举并有权罢免本级人民代表大会常务委员会的组成人员。
+
+  县级以上的地方各级人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第一百零四条 县级以上的地方各级人民代表大会常务委员会讨论、决定本行政区域内各方面工作的重大事项；监督本级人民政府、人民法院和人民检察院的工作；撤销本级人民政府的不适当的决定和命令；撤销下一级人民代表大会的不适当的决议；依照法律规定的权限决定国家机关工作人员的任免；在本级人民代表大会闭会期间，罢免和补选上一级人民代表大会的个别代表。
+
+* 第一百零五条 地方各级人民政府是地方各级国家权力机关的执行机关，是地方各级国家行政机关。
+
+  地方各级人民政府实行省长、市长、县长、区长、乡长、镇长负责制。
+
+* 第一百零六条 地方各级人民政府每届任期同本级人民代表大会每届任期相同。
+
+* 第一百零七条 县级以上地方各级人民政府依照法律规定的权限，管理本行政区域内的经济、教育、科学、文化、卫生、体育事业、城乡建设事业和财政、民政、公安、民族事务、司法行政、监察、计划生育等行政工作，发布决定和命令，任免、培训、考核和奖惩行政工作人员。
+
+  乡、民族乡、镇的人民政府执行本级人民代表大会的决议和上级国家行政机关的决定和命令，管理本行政区域内的行政工作。
+
+  省、直辖市的人民政府决定乡、民族乡、镇的建置和区域划分。
+
+* 第一百零八条 县级以上的地方各级人民政府领导所属各工作部门和下级人民政府的工作，有权改变或者撤销所属各工作部门和下级人民政府的不适当的决定。
+
+* 第一百零九条 县级以上的地方各级人民政府设立审计机关。地方各级审计机关依照法律规定独立行使审计监督权，对本级人民政府和上一级审计机关负责。
+
+* 第一百一十条 地方各级人民政府对本级人民代表大会负责并报告工作。县级以上的地方各级人民政府在本级人民代表大会闭会期间，对本级人民代表大会常务委员会负责并报告工作。
+
+  地方各级人民政府对上一级国家行政机关负责并报告工作。全国地方各级人民政府都是国务院统一领导下的国家行政机关，都服从国务院。
+
+* 第一百一十一条 城市和农村按居民居住地区设立的居民委员会或者村民委员会是基层群众性自治组织。居民委员会、村民委员会的主任、副主任和委员由居民选举。居民委员会、村民委员会同基层政权的相互关系由法律规定。
+
+  居民委员会、村民委员会设人民调解、治安保卫、公共卫生等委员会，办理本居住地区的公共事务和公益事业，调解民间纠纷，协助维护社会治安，并且向人民政府反映群众的意见、要求和提出建议。
+
+### 第六节 民族自治地方的自治机关
+
+* 第一百一十二条 民族自治地方的自治机关是自治区、自治州、自治县的人民代表大会和人民政府。
+
+* 第一百一十三条 自治区、自治州、自治县的人民代表大会中，除实行区域自治的民族的代表外，其他居住在本行政区域内的民族也应当有适当名额的代表。
+
+  自治区、自治州、自治县的人民代表大会常务委员会中应当有实行区域自治的民族的公民担任主任或者副主任。
+
+* 第一百一十四条 自治区主席、自治州州长、自治县县长由实行区域自治的民族的公民担任。
+
+* 第一百一十五条 自治区、自治州、自治县的自治机关行使宪法第三章第五节规定的地方国家机关的职权，同时依照宪法、民族区域自治法和其他法律规定的权限行使自治权，根据本地方实际情况贯彻执行国家的法律、政策。
+
+* 第一百一十六条 民族自治地方的人民代表大会有权依照当地民族的政治、经济和文化的特点，制定自治条例和单行条例。自治区的自治条例和单行条例，报全国人民代表大会常务委员会批准后生效。自治州、自治县的自治条例和单行条例，报省或者自治区的人民代表大会常务委员会批准后生效，并报全国人民代表大会常务委员会备案。
+
+* 第一百一十七条 民族自治地方的自治机关有管理地方财政的自治权。凡是依照国家财政体制属于民族自治地方的财政收入，都应当由民族自治地方的自治机关自主地安排使用。
+
+* 第一百一十八条 民族自治地方的自治机关在国家计划的指导下，自主地安排和管理地方性的经济建设事业。
+
+  国家在民族自治地方开发资源、建设企业的时候，应当照顾民族自治地方的利益。
+
+* 第一百一十九条 民族自治地方的自治机关自主地管理本地方的教育、科学、文化、卫生、体育事业，保护和整理民族的文化遗产，发展和繁荣民族文化。
+
+* 第一百二十条 民族自治地方的自治机关依照国家的军事制度和当地的实际需要，经国务院批准，可以组织本地方维护社会治安的公安部队。
+
+* 第一百二十一条 民族自治地方的自治机关在执行职务的时候，依照本民族自治地方自治条例的规定，使用当地通用的一种或者几种语言文字。
+
+* 第一百二十二条 国家从财政、物资、技术等方面帮助各少数民族加速发展经济建设和文化建设事业。
+
+  国家帮助民族自治地方从当地民族中大量培养各级干部、各种专业人才和技术工人。
+
+### 第七节 人民法院和人民检察院
+
+* 第一百二十三条 中华人民共和国人民法院是国家的审判机关。
+
+* 第一百二十四条 中华人民共和国设立最高人民法院、地方各级人民法院和军事法院等专门人民法院。
+
+  最高人民法院院长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民法院的组织由法律规定。
+
+* 第一百二十五条 人民法院审理案件，除法律规定的特别情况外，一律公开进行。被告人有权获得辩护。
+
+* 第一百二十六条 人民法院依照法律规定独立行使审判权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百二十七条 最高人民法院是最高审判机关。
+
+  最高人民法院监督地方各级人民法院和专门人民法院的审判工作，上级人民法院监督下级人民法院的审判工作。
+
+* 第一百二十八条 最高人民法院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民法院对产生它的国家权力机关负责。
+
+* 第一百二十九条 中华人民共和国人民检察院是国家的法律监督机关。
+
+* 第一百三十条 中华人民共和国设立最高人民检察院、地方各级人民检察院和军事检察院等专门人民检察院。
+
+  最高人民检察院检察长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民检察院的组织由法律规定。
+
+* 第一百三十一条 人民检察院依照法律规定独立行使检察权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百三十二条 最高人民检察院是最高检察机关。
+
+  最高人民检察院领导地方各级人民检察院和专门人民检察院的工作，上级人民检察院领导下级人民检察院的工作。
+
+* 第一百三十三条 最高人民检察院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民检察院对产生它的国家权力机关和上级人民检察院负责。
+
+* 第一百三十四条 各民族公民都有用本民族语言文字进行诉讼的权利。人民法院和人民检察院对于不通晓当地通用的语言文字的诉讼参与人，应当为他们翻译。
+
+  在少数民族聚居或者多民族共同居住的地区，应当用当地通用的语言进行审理；起诉书、判决书、布告和其他文书应当根据实际需要使用当地通用的一种或者几种文字。
+
+* 第一百三十五条 人民法院、人民检察院和公安机关办理刑事案件，应当分工负责，互相配合，互相制约，以保证准确有效地执行法律。
+
+## 第四章 国旗、国歌、国徽、首都
+
+* 第一百三十六条 中华人民共和国国旗是五星红旗。
+
+  中华人民共和国国歌是《义勇军进行曲》。
+
+* 第一百三十七条 中华人民共和国国徽，中间是五星照耀下的天安门，周围是谷穗和齿轮。
+
+* 第一百三十八条 中华人民共和国首都是北京。
+*/
+/*
+# 中华人民共和国宪法
+
+> 1982年12月4日第五届全国人民代表大会第五次会议通过
+> 1982年12月4日全国人民代表大会公告公布施行
+
+> 根据1988年4月12日第七届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1993年3月29日第八届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1999年3月15日第九届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》、
+> 2004年3月14日第十届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》修正
+
+
+## 序言
+
+中国是世界上历史最悠久的国家之一。中国各族人民共同创造了光辉灿烂的文化，具有光荣的革命传统。
+
+一八四〇年以后，封建的中国逐渐变成半殖民地、半封建的国家。中国人民为国家独立、民族解放和民主自由进行了前仆后继的英勇奋斗。
+
+二十世纪，中国发生了翻天覆地的伟大历史变革。
+
+一九一一年孙中山先生领导的辛亥革命，废除了封建帝制，创立了中华民国。但是，中国人民反对帝国主义和封建主义的历史任务还没有完成。
+
+一九四九年，以毛泽东主席为领袖的中国共产党领导中国各族人民，在经历了长期的艰难曲折的武装斗争和其他形式的斗争以后，终于推翻了帝国主义、封建主义和官僚资本主义的统治，取得了新民主主义革命的伟大胜利，建立了中华人民共和国。从此，中国人民掌握了国家的权力，成为国家的主人。
+
+中华人民共和国成立以后，我国社会逐步实现了由新民主主义到社会主义的过渡。生产资料私有制的社会主义改造已经完成，人剥削人的制度已经消灭，社会主义制度已经确立。工人阶级领导的、以工农联盟为基础的人民民主专政，实质上即无产阶级专政，得到巩固和发展。中国人民和中国人民解放军战胜了帝国主义、霸权主义的侵略、破坏和武装挑衅，维护了国家的独立和安全，增强了国防。经济建设取得了重大的成就，独立的、比较完整的社会主义工业体系已经基本形成，农业生产显著提高。教育、科学、文化等事业有了很大的发展，社会主义思想教育取得了明显的成效。广大人民的生活有了较大的改善。
+
+中国新民主主义革命的胜利和社会主义事业的成就，是中国共产党领导中国各族人民，在马克思列宁主义、毛泽东思想的指引下，坚持真理，修正错误，战胜许多艰难险阻而取得的。我国将长期处于社会主义初级阶段。国家的根本任务是，沿着中国特色社会主义道路，集中力量进行社会主义现代化建设。中国各族人民将继续在中国共产党领导下，在马克思列宁主义、毛泽东思想、邓小平理论和“三个代表”重要思想指引下，坚持人民民主专政，坚持社会主义道路，坚持改革开放，不断完善社会主义的各项制度，发展社会主义市场经济，发展社会主义民主，健全社会主义法制，自力更生，艰苦奋斗，逐步实现工业、农业、国防和科学技术的现代化，推动物质文明、政治文明和精神文明协调发展，把我国建设成为富强、民主、文明的社会主义国家。
+
+在我国，剥削阶级作为阶级已经消灭，但是阶级斗争还将在一定范围内长期存在。中国人民对敌视和破坏我国社会主义制度的国内外的敌对势力和敌对分子，必须进行斗争。
+
+台湾是中华人民共和国的神圣领土的一部分。完成统一祖国的大业是包括台湾同胞在内的全中国人民的神圣职责。
+
+社会主义的建设事业必须依靠工人、农民和知识分子，团结一切可以团结的力量。在长期的革命和建设过程中，已经结成由中国共产党领导的，有各民主党派和各人民团体参加的，包括全体社会主义劳动者、社会主义事业的建设者、拥护社会主义的爱国者和拥护祖国统一的爱国者的广泛的爱国统一战线，这个统一战线将继续巩固和发展。中国人民政治协商会议是有广泛代表性的统一战线组织，过去发挥了重要的历史作用，今后在国家政治生活、社会生活和对外友好活动中，在进行社会主义现代化建设、维护国家的统一和团结的斗争中，将进一步发挥它的重要作用。中国共产党领导的多党合作和政治协商制度将长期存在和发展。
+
+中华人民共和国是全国各族人民共同缔造的统一的多民族国家。平等、团结、互助的社会主义民族关系已经确立，并将继续加强。在维护民族团结的斗争中，要反对大民族主义，主要是大汉族主义，也要反对地方民族主义。国家尽一切努力，促进全国各民族的共同繁荣。
+
+中国革命和建设的成就是同世界人民的支持分不开的。中国的前途是同世界的前途紧密地联系在一起的。中国坚持独立自主的对外政策，坚持互相尊重主权和领土完整、互不侵犯、互不干涉内政、平等互利、和平共处的五项原则，发展同各国的外交关系和经济、文化的交流；坚持反对帝国主义、霸权主义、殖民主义，加强同世界各国人民的团结，支持被压迫民族和发展中国家争取和维护民族独立、发展民族经济的正义斗争，为维护世界和平和促进人类进步事业而努力。
+
+本宪法以法律的形式确认了中国各族人民奋斗的成果，规定了国家的根本制度和根本任务，是国家的根本法，具有最高的法律效力。全国各族人民、一切国家机关和武装力量、各政党和各社会团体、各企业事业组织，都必须以宪法为根本的活动准则，并且负有维护宪法尊严、保证宪法实施的职责。
+
+## 第一章 总纲
+
+* 第一条 中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。
+
+  社会主义制度是中华人民共和国的根本制度。禁止任何组织或者个人破坏社会主义制度。
+
+* 第二条 中华人民共和国的一切权力属于人民。
+
+  人民行使国家权力的机关是全国人民代表大会和地方各级人民代表大会。
+
+  人民依照法律规定，通过各种途径和形式，管理国家事务，管理经济和文化事业，管理社会事务。
+
+* 第三条 中华人民共和国的国家机构实行民主集中制的原则。
+
+  全国人民代表大会和地方各级人民代表大会都由民主选举产生，对人民负责，受人民监督。
+
+  国家行政机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。
+
+  中央和地方的国家机构职权的划分，遵循在中央的统一领导下，充分发挥地方的主动性、积极性的原则。
+
+* 第四条 中华人民共和国各民族一律平等。
+
+  国家保障各少数民族的合法的权利和利益，维护和发展各民族的平等、团结、互助关系。禁止对任何民族的歧视和压迫，禁止破坏民族团结和制造民族分裂的行为。
+
+  国家根据各少数民族的特点和需要，帮助各少数民族地区加速经济和文化的发展。
+
+  各少数民族聚居的地方实行区域自治，设立自治机关，行使自治权。
+
+  各民族自治地方都是中华人民共和国不可分离的部分。
+
+  各民族都有使用和发展自己的语言文字的自由，都有保持或者改革自己的风俗习惯的自由。
+
+* 第五条 中华人民共和国实行依法治国，建设社会主义法治国家。
+
+  国家维护社会主义法制的统一和尊严。
+
+  一切法律、行政法规和地方性法规都不得同宪法相抵触。
+
+  一切国家机关和武装力量、各政党和各社会团体、各企业事业组织都必须遵守宪法和法律。一切违反宪法和法律的行为，必须予以追究。
+
+  任何组织或者个人都不得有超越宪法和法律的特权。
+
+* 第六条 中华人民共和国的社会主义经济制度的基础是生产资料的社会主义公有制，即全民所有制和劳动群众集体所有制。社会主义公有制消灭人剥削人的制度，实行各尽所能、按劳分配的原则。
+
+  国家在社会主义初级阶段，坚持公有制为主体、多种所有制经济共同发展的基本经济制度，坚持按劳分配为主体、多种分配方式并存的分配制度。
+
+* 第七条 国有经济，即社会主义全民所有制经济，是国民经济中的主导力量。国家保障国有经济的巩固和发展。
+
+* 第八条 农村集体经济组织实行家庭承包经营为基础、统分结合的双层经营体制。农村中的生产、供销、信用、消费等各种形式的合作经济，是社会主义劳动群众集体所有制经济。参加农村集体经济组织的劳动者，有权在法律规定的范围内经营自留地、自留山、家庭副业和饲养自留畜。
+
+  城镇中的手工业、工业、建筑业、运输业、商业、服务业等行业的各种形式的合作经济，都是社会主义劳动群众集体所有制经济。
+
+  国家保护城乡集体经济组织的合法的权利和利益，鼓励、指导和帮助集体经济的发展。
+
+* 第九条 矿藏、水流、森林、山岭、草原、荒地、滩涂等自然资源，都属于国家所有，即全民所有；由法律规定属于集体所有的森林和山岭、草原、荒地、滩涂除外。
+
+  国家保障自然资源的合理利用，保护珍贵的动物和植物。禁止任何组织或者个人用任何手段侵占或者破坏自然资源。
+
+* 第十条 城市的土地属于国家所有。
+
+  农村和城市郊区的土地，除由法律规定属于国家所有的以外，属于集体所有；宅基地和自留地、自留山，也属于集体所有。
+
+  国家为了公共利益的需要，可以依照法律规定对土地实行征收或者征用并给予补偿。
+
+  任何组织或者个人不得侵占、买卖或者以其他形式非法转让土地。土地的使用权可以依照法律的规定转让。
+
+  一切使用土地的组织和个人必须合理地利用土地。
+
+* 第十一条 在法律规定范围内的个体经济、私营经济等非公有制经济，是社会主义市场经济的重要组成部分。
+
+  国家保护个体经济、私营经济等非公有制经济的合法的权利和利益。国家鼓励、支持和引导非公有制经济的发展，并对非公有制经济依法实行监督和管理。
+
+* 第十二条 社会主义的公共财产神圣不可侵犯。
+
+  国家保护社会主义的公共财产。禁止任何组织或者个人用任何手段侵占或者破坏国家的和集体的财产。
+
+* 第十三条 公民的合法的私有财产不受侵犯。
+
+  国家依照法律规定保护公民的私有财产权和继承权。
+
+  国家为了公共利益的需要，可以依照法律规定对公民的私有财产实行征收或者征用并给予补偿。
+
+* 第十四条 国家通过提高劳动者的积极性和技术水平，推广先进的科学技术，完善经济管理体制和企业经营管理制度，实行各种形式的社会主义责任制，改进劳动组织，以不断提高劳动生产率和经济效益，发展社会生产力。
+
+  国家厉行节约，反对浪费。
+
+  国家合理安排积累和消费，兼顾国家、集体和个人的利益，在发展生产的基础上，逐步改善人民的物质生活和文化生活。
+
+  国家建立健全同经济发展水平相适应的社会保障制度。
+
+* 第十五条 国家实行社会主义市场经济。
+
+  国家加强经济立法，完善宏观调控。
+
+  国家依法禁止任何组织或者个人扰乱社会经济秩序。
+
+* 第十六条 国有企业在法律规定的范围内有权自主经营。
+
+  国有企业依照法律规定，通过职工代表大会和其他形式，实行民主管理。
+
+* 第十七条 集体经济组织在遵守有关法律的前提下，有独立进行经济活动的自主权。
+
+  集体经济组织实行民主管理，依照法律规定选举和罢免管理人员，决定经营管理的重大问题。
+
+* 第十八条 中华人民共和国允许外国的企业和其他经济组织或者个人依照中华人民共和国法律的规定在中国投资，同中国的企业或者其他经济组织进行各种形式的经济合作。
+
+  在中国境内的外国企业和其他外国经济组织以及中外合资经营的企业，都必须遵守中华人民共和国的法律。它们的合法的权利和利益受中华人民共和国法律的保护。
+
+* 第十九条 国家发展社会主义的教育事业，提高全国人民的科学文化水平。
+
+  国家举办各种学校，普及初等义务教育，发展中等教育、职业教育和高等教育，并且发展学前教育。
+
+  国家发展各种教育设施，扫除文盲，对工人、农民、国家工作人员和其他劳动者进行政治、文化、科学、技术、业务的教育，鼓励自学成才。
+
+  国家鼓励集体经济组织、国家企业事业组织和其他社会力量依照法律规定举办各种教育事业。
+
+  国家推广全国通用的普通话。
+
+* 第二十条 国家发展自然科学和社会科学事业，普及科学和技术知识，奖励科学研究成果和技术发明创造。
+
+* 第二十一条 国家发展医疗卫生事业，发展现代医药和我国传统医药，鼓励和支持农村集体经济组织、国家企业事业组织和街道组织举办各种医疗卫生设施，开展群众性的卫生活动，保护人民健康。
+
+  国家发展体育事业，开展群众性的体育活动，增强人民体质。
+
+* 第二十二条 国家发展为人民服务、为社会主义服务的文学艺术事业、新闻广播电视事业、出版发行事业、图书馆博物馆文化馆和其他文化事业，开展群众性的文化活动。
+
+  国家保护名胜古迹、珍贵文物和其他重要历史文化遗产。
+
+* 第二十三条 国家培养为社会主义服务的各种专业人才，扩大知识分子的队伍，创造条件，充分发挥他们在社会主义现代化建设中的作用。
+
+* 第二十四条 国家通过普及理想教育、道德教育、文化教育、纪律和法制教育，通过在城乡不同范围的群众中制定和执行各种守则、公约，加强社会主义精神文明的建设。
+
+  国家提倡爱祖国、爱人民、爱劳动、爱科学、爱社会主义的公德，在人民中进行爱国主义、集体主义和国际主义、共产主义的教育，进行辩证唯物主义和历史唯物主义的教育，反对资本主义的、封建主义的和其他的腐朽思想。
+
+* 第二十五条 国家推行计划生育，使人口的增长同经济和社会发展计划相适应。
+
+* 第二十六条 国家保护和改善生活环境和生态环境，防治污染和其他公害。
+
+  国家组织和鼓励植树造林，保护林木。
+
+* 第二十七条 一切国家机关实行精简的原则，实行工作责任制，实行工作人员的培训和考核制度，不断提高工作质量和工作效率，反对官僚主义。
+
+  一切国家机关和国家工作人员必须依靠人民的支持，经常保持同人民的密切联系，倾听人民的意见和建议，接受人民的监督，努力为人民服务。
+
+* 第二十八条 国家维护社会秩序，镇压叛国和其他危害国家安全的犯罪活动，制裁危害社会治安、破坏社会主义经济和其他犯罪的活动，惩办和改造犯罪分子。
+
+* 第二十九条 中华人民共和国的武装力量属于人民。它的任务是巩固国防，抵抗侵略，保卫祖国，保卫人民的和平劳动，参加国家建设事业，努力为人民服务。
+
+  国家加强武装力量的革命化、现代化、正规化的建设，增强国防力量。
+
+* 第三十条 中华人民共和国的行政区域划分如下：
+
+  * （一）全国分为省、自治区、直辖市；
+  * （二）省、自治区分为自治州、县、自治县、市；
+  * （三）县、自治县分为乡、民族乡、镇。
+
+  直辖市和较大的市分为区、县。自治州分为县、自治县、市。
+
+  自治区、自治州、自治县都是民族自治地方。
+
+* 第三十一条 国家在必要时得设立特别行政区。在特别行政区内实行的制度按照具体情况由全国人民代表大会以法律规定。
+
+* 第三十二条 中华人民共和国保护在中国境内的外国人的合法权利和利益，在中国境内的外国人必须遵守中华人民共和国的法律。
+
+  中华人民共和国对于因为政治原因要求避难的外国人，可以给予受庇护的权利。
+
+## 第二章 公民的基本权利和义务
+
+* 第三十三条 凡具有中华人民共和国国籍的人都是中华人民共和国公民。
+
+  中华人民共和国公民在法律面前一律平等。
+
+  国家尊重和保障人权。
+
+  任何公民享有宪法和法律规定的权利，同时必须履行宪法和法律规定的义务。
+
+* 第三十四条 中华人民共和国年满十八周岁的公民，不分民族、种族、性别、职业、家庭出身、宗教信仰、教育程度、财产状况、居住期限，都有选举权和被选举权；但是依照法律被剥夺政治权利的人除外。
+
+* 第三十五条 中华人民共和国公民有言论、出版、集会、结社、游行、示威的自由。
+
+* 第三十六条 中华人民共和国公民有宗教信仰自由。
+
+  任何国家机关、社会团体和个人不得强制公民信仰宗教或者不信仰宗教，不得歧视信仰宗教的公民和不信仰宗教的公民。
+
+  国家保护正常的宗教活动。任何人不得利用宗教进行破坏社会秩序、损害公民身体健康、妨碍国家教育制度的活动。
+
+  宗教团体和宗教事务不受外国势力的支配。
+
+* 第三十七条 中华人民共和国公民的人身自由不受侵犯。
+
+  任何公民，非经人民检察院批准或者决定或者人民法院决定，并由公安机关执行，不受逮捕。
+
+  禁止非法拘禁和以其他方法非法剥夺或者限制公民的人身自由，禁止非法搜查公民的身体。
+
+* 第三十八条 中华人民共和国公民的人格尊严不受侵犯。禁止用任何方法对公民进行侮辱、诽谤和诬告陷害。
+
+* 第三十九条 中华人民共和国公民的住宅不受侵犯。禁止非法搜查或者非法侵入公民的住宅。
+
+* 第四十条 中华人民共和国公民的通信自由和通信秘密受法律的保护。除因国家安全或者追查刑事犯罪的需要，由公安机关或者检察机关依照法律规定的程序对通信进行检查外，任何组织或者个人不得以任何理由侵犯公民的通信自由和通信秘密。
+
+* 第四十一条 中华人民共和国公民对于任何国家机关和国家工作人员，有提出批评和建议的权利；对于任何国家机关和国家工作人员的违法失职行为，有向有关国家机关提出申诉、控告或者检举的权利，但是不得捏造或者歪曲事实进行诬告陷害。
+
+  对于公民的申诉、控告或者检举，有关国家机关必须查清事实，负责处理。任何人不得压制和打击报复。
+
+  由于国家机关和国家工作人员侵犯公民权利而受到损失的人，有依照法律规定取得赔偿的权利。
+
+* 第四十二条 中华人民共和国公民有劳动的权利和义务。
+
+  国家通过各种途径，创造劳动就业条件，加强劳动保护，改善劳动条件，并在发展生产的基础上，提高劳动报酬和福利待遇。
+
+  劳动是一切有劳动能力的公民的光荣职责。国有企业和城乡集体经济组织的劳动者都应当以国家主人翁的态度对待自己的劳动。国家提倡社会主义劳动竞赛，奖励劳动模范和先进工作者。国家提倡公民从事义务劳动。
+
+  国家对就业前的公民进行必要的劳动就业训练。
+
+* 第四十三条 中华人民共和国劳动者有休息的权利。
+
+  国家发展劳动者休息和休养的设施，规定职工的工作时间和休假制度。
+
+* 第四十四条 国家依照法律规定实行企业事业组织的职工和国家机关工作人员的退休制度。退休人员的生活受到国家和社会的保障。
+
+* 第四十五条 中华人民共和国公民在年老、疾病或者丧失劳动能力的情况下，有从国家和社会获得物质帮助的权利。国家发展为公民享受这些权利所需要的社会保险、社会救济和医疗卫生事业。
+
+  国家和社会保障残废军人的生活，抚恤烈士家属，优待军人家属。
+
+  国家和社会帮助安排盲、聋、哑和其他有残疾的公民的劳动、生活和教育。
+
+* 第四十六条 中华人民共和国公民有受教育的权利和义务。
+
+  国家培养青年、少年、儿童在品德、智力、体质等方面全面发展。
+
+* 第四十七条 中华人民共和国公民有进行科学研究、文学艺术创作和其他文化活动的自由。国家对于从事教育、科学、技术、文学、艺术和其他文化事业的公民的有益于人民的创造性工作，给以鼓励和帮助。
+
+* 第四十八条 中华人民共和国妇女在政治的、经济的、文化的、社会的和家庭的生活等各方面享有同男子平等的权利。
+
+  国家保护妇女的权利和利益，实行男女同工同酬，培养和选拔妇女干部。
+
+* 第四十九条 婚姻、家庭、母亲和儿童受国家的保护。
+
+  夫妻双方有实行计划生育的义务。
+
+  父母有抚养教育未成年子女的义务，成年子女有赡养扶助父母的义务。
+
+  禁止破坏婚姻自由，禁止虐待老人、妇女和儿童。
+
+* 第五十条 中华人民共和国保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益。
+
+* 第五十一条 中华人民共和国公民在行使自由和权利的时候，不得损害国家的、社会的、集体的利益和其他公民的合法的自由和权利。
+
+* 第五十二条 中华人民共和国公民有维护国家统一和全国各民族团结的义务。
+
+* 第五十三条 中华人民共和国公民必须遵守宪法和法律，保守国家秘密，爱护公共财产，遵守劳动纪律，遵守公共秩序，尊重社会公德。
+
+* 第五十四条 中华人民共和国公民有维护祖国的安全、荣誉和利益的义务，不得有危害祖国的安全、荣誉和利益的行为。
+
+* 第五十五条 保卫祖国、抵抗侵略是中华人民共和国每一个公民的神圣职责。
+
+  依照法律服兵役和参加民兵组织是中华人民共和国公民的光荣义务。
+
+* 第五十六条 中华人民共和国公民有依照法律纳税的义务。
+
+## 第三章 国家机构
+
+### 第一节 全国人民代表大会
+
+* 第五十七条 中华人民共和国全国人民代表大会是最高国家权力机关。它的常设机关是全国人民代表大会常务委员会。
+
+* 第五十八条 全国人民代表大会和全国人民代表大会常务委员会行使国家立法权。
+
+* 第五十九条 全国人民代表大会由省、自治区、直辖市、特别行政区和军队选出的代表组成。各少数民族都应当有适当名额的代表。
+
+  全国人民代表大会代表的选举由全国人民代表大会常务委员会主持。
+
+  全国人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第六十条 全国人民代表大会每届任期五年。
+
+  全国人民代表大会任期届满的两个月以前，全国人民代表大会常务委员会必须完成下届全国人民代表大会代表的选举。如果遇到不能进行选举的非常情况，由全国人民代表大会常务委员会以全体组成人员的三分之二以上的多数通过，可以推迟选举，延长本届全国人民代表大会的任期。在非常情况结束后一年内，必须完成下届全国人民代表大会代表的选举。
+
+* 第六十一条 全国人民代表大会会议每年举行一次，由全国人民代表大会常务委员会召集。如果全国人民代表大会常务委员会认为必要，或者有五分之一以上的全国人民代表大会代表提议，可以临时召集全国人民代表大会会议。
+
+  全国人民代表大会举行会议的时候，选举主席团主持会议。
+
+* 第六十二条 全国人民代表大会行使下列职权：
+
+  * （一）修改宪法；
+  * （二）监督宪法的实施；
+  * （三）制定和修改刑事、民事、国家机构的和其他的基本法律；
+  * （四）选举中华人民共和国主席、副主席；
+  * （五）根据中华人民共和国主席的提名，决定国务院总理的人选；根据国务院总理的提名，决定国务院副总理、国务委员、各部部长、各委员会主任、审计长、秘书长的人选；
+  * （六）选举中央军事委员会主席；根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （七）选举最高人民法院院长；
+  * （八）选举最高人民检察院检察长；
+  * （九）审查和批准国民经济和社会发展计划和计划执行情况的报告；
+  * （十）审查和批准国家的预算和预算执行情况的报告；
+  * （十一）改变或者撤销全国人民代表大会常务委员会不适当的决定；
+  * （十二）批准省、自治区和直辖市的建置；
+  * （十三）决定特别行政区的设立及其制度；
+  * （十四）决定战争和和平的问题；
+  * （十五）应当由最高国家权力机关行使的其他职权。
+
+* 第六十三条 全国人民代表大会有权罢免下列人员：
+
+  * （一）中华人民共和国主席、副主席；
+  * （二）国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长；
+  * （三）中央军事委员会主席和中央军事委员会其他组成人员；
+  * （四）最高人民法院院长；
+  * （五）最高人民检察院检察长。
+
+* 第六十四条 宪法的修改，由全国人民代表大会常务委员会或者五分之一以上的全国人民代表大会代表提议，并由全国人民代表大会以全体代表的三分之二以上的多数通过。
+
+  法律和其他议案由全国人民代表大会以全体代表的过半数通过。
+
+* 第六十五条 全国人民代表大会常务委员会由下列人员组成：
+
+  委员长，副委员长若干人，秘书长，委员若干人。
+
+  全国人民代表大会常务委员会组成人员中，应当有适当名额的少数民族代表。
+
+  全国人民代表大会选举并有权罢免全国人民代表大会常务委员会的组成人员。
+
+  全国人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第六十六条 全国人民代表大会常务委员会每届任期同全国人民代表大会每届任期相同，它行使职权到下届全国人民代表大会选出新的常务委员会为止。
+
+  委员长、副委员长连续任职不得超过两届。
+
+* 第六十七条 全国人民代表大会常务委员会行使下列职权：
+
+  * （一）解释宪法，监督宪法的实施；
+  * （二）制定和修改除应当由全国人民代表大会制定的法律以外的其他法律；
+  * （三）在全国人民代表大会闭会期间，对全国人民代表大会制定的法律进行部分补充和修改，但是不得同该法律的基本原则相抵触；
+  * （四）解释法律；
+  * （五）在全国人民代表大会闭会期间，审查和批准国民经济和社会发展计划、国家预算在执行过程中所必须作的部分调整方案；
+  * （六）监督国务院、中央军事委员会、最高人民法院和最高人民检察院的工作；
+  * （七）撤销国务院制定的同宪法、法律相抵触的行政法规、决定和命令；
+  * （八）撤销省、自治区、直辖市国家权力机关制定的同宪法、法律和行政法规相抵触的地方性法规和决议；
+  * （九）在全国人民代表大会闭会期间，根据国务院总理的提名，决定部长、委员会主任、审计长、秘书长的人选；
+  * （十）在全国人民代表大会闭会期间，根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （十一）根据最高人民法院院长的提请，任免最高人民法院副院长、审判员、审判委员会委员和军事法院院长；
+  * （十二）根据最高人民检察院检察长的提请，任免最高人民检察院副检察长、检察员、检察委员会委员和军事检察院检察长，并且批准省、自治区、直辖市的人民检察院检察长的任免；
+  * （十三）决定驻外全权代表的任免；
+  * （十四）决定同外国缔结的条约和重要协定的批准和废除；
+  * （十五）规定军人和外交人员的衔级制度和其他专门衔级制度；
+  * （十六）规定和决定授予国家的勋章和荣誉称号；
+  * （十七）决定特赦；
+  * （十八）在全国人民代表大会闭会期间，如果遇到国家遭受武装侵犯或者必须履行国际间共同防止侵略的条约的情况，决定战争状态的宣布；
+  * （十九）决定全国总动员或者局部动员；
+  * （二十）决定全国或者个别省、自治区、直辖市进入紧急状态；
+  * （二十一）全国人民代表大会授予的其他职权。
+
+* 第六十八条 全国人民代表大会常务委员会委员长主持全国人民代表大会常务委员会的工作，召集全国人民代表大会常务委员会会议。副委员长、秘书长协助委员长工作。
+
+  委员长、副委员长、秘书长组成委员长会议，处理全国人民代表大会常务委员会的重要日常工作。
+
+* 第六十九条 全国人民代表大会常务委员会对全国人民代表大会负责并报告工作。
+
+* 第七十条 全国人民代表大会设立民族委员会、法律委员会、财政经济委员会、教育科学文化卫生委员会、外事委员会、华侨委员会和其他需要设立的专门委员会。在全国人民代表大会闭会期间，各专门委员会受全国人民代表大会常务委员会的领导。
+
+  各专门委员会在全国人民代表大会和全国人民代表大会常务委员会领导下，研究、审议和拟订有关议案。
+
+* 第七十一条 全国人民代表大会和全国人民代表大会常务委员会认为必要的时候，可以组织关于特定问题的调查委员会，并且根据调查委员会的报告，作出相应的决议。
+
+  调查委员会进行调查的时候，一切有关的国家机关、社会团体和公民都有义务向它提供必要的材料。
+
+* 第七十二条 全国人民代表大会代表和全国人民代表大会常务委员会组成人员，有权依照法律规定的程序分别提出属于全国人民代表大会和全国人民代表大会常务委员会职权范围内的议案。
+
+* 第七十三条 全国人民代表大会代表在全国人民代表大会开会期间，全国人民代表大会常务委员会组成人员在常务委员会开会期间，有权依照法律规定的程序提出对国务院或者国务院各部、各委员会的质询案。受质询的机关必须负责答复。
+
+* 第七十四条 全国人民代表大会代表，非经全国人民代表大会会议主席团许可，在全国人民代表大会闭会期间非经全国人民代表大会常务委员会许可，不受逮捕或者刑事审判。
+
+* 第七十五条 全国人民代表大会代表在全国人民代表大会各种会议上的发言和表决，不受法律追究。
+
+* 第七十六条 全国人民代表大会代表必须模范地遵守宪法和法律，保守国家秘密，并且在自己参加的生产、工作和社会活动中，协助宪法和法律的实施。
+
+  全国人民代表大会代表应当同原选举单位和人民保持密切的联系，听取和反映人民的意见和要求，努力为人民服务。
+
+* 第七十七条 全国人民代表大会代表受原选举单位的监督。原选举单位有权依照法律规定的程序罢免本单位选出的代表。
+
+* 第七十八条 全国人民代表大会和全国人民代表大会常务委员会的组织和工作程序由法律规定。
+
+### 第二节 中华人民共和国主席
+
+* 第七十九条 中华人民共和国主席、副主席由全国人民代表大会选举。
+
+  有选举权和被选举权的年满四十五周岁的中华人民共和国公民可以被选为中华人民共和国主席、副主席。
+
+  中华人民共和国主席、副主席每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+* 第八十条 中华人民共和国主席根据全国人民代表大会的决定和全国人民代表大会常务委员会的决定，公布法律，任免国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长，授予国家的勋章和荣誉称号，发布特赦令，宣布进入紧急状态，宣布战争状态，发布动员令。
+
+* 第八十一条 中华人民共和国主席代表中华人民共和国，进行国事活动，接受外国使节；根据全国人民代表大会常务委员会的决定，派遣和召回驻外全权代表，批准和废除同外国缔结的条约和重要协定。
+
+* 第八十二条 中华人民共和国副主席协助主席工作。
+
+  中华人民共和国副主席受主席的委托，可以代行主席的部分职权。
+
+* 第八十三条 中华人民共和国主席、副主席行使职权到下届全国人民代表大会选出的主席、副主席就职为止。
+
+* 第八十四条 中华人民共和国主席缺位的时候，由副主席继任主席的职位。
+
+  中华人民共和国副主席缺位的时候，由全国人民代表大会补选。
+
+  中华人民共和国主席、副主席都缺位的时候，由全国人民代表大会补选；在补选以前，由全国人民代表大会常务委员会委员长暂时代理主席职位。
+
+### 第三节 国务院
+
+* 第八十五条 中华人民共和国国务院，即中央人民政府，是最高国家权力机关的执行机关，是最高国家行政机关。
+
+* 第八十六条 国务院由下列人员组成：
+
+  总理，副总理若干人，国务委员若干人，各部部长，各委员会主任，审计长，秘书长。
+
+  国务院实行总理负责制。各部、各委员会实行部长、主任负责制。
+
+  国务院的组织由法律规定。
+
+* 第八十七条 国务院每届任期同全国人民代表大会每届任期相同。
+
+  总理、副总理、国务委员连续任职不得超过两届。
+
+* 第八十八条 总理领导国务院的工作。副总理、国务委员协助总理工作。
+
+  总理、副总理、国务委员、秘书长组成国务院常务会议。
+
+  总理召集和主持国务院常务会议和国务院全体会议。
+
+* 第八十九条 国务院行使下列职权：
+
+  * （一）根据宪法和法律，规定行政措施，制定行政法规，发布决定和命令；
+  * （二）向全国人民代表大会或者全国人民代表大会常务委员会提出议案；
+  * （三）规定各部和各委员会的任务和职责，统一领导各部和各委员会的工作，并且领导不属于各部和各委员会的全国性的行政工作；
+  * （四）统一领导全国地方各级国家行政机关的工作，规定中央和省、自治区、直辖市的国家行政机关的职权的具体划分；
+  * （五）编制和执行国民经济和社会发展计划和国家预算；
+  * （六）领导和管理经济工作和城乡建设；
+  * （七）领导和管理教育、科学、文化、卫生、体育和计划生育工作；
+  * （八）领导和管理民政、公安、司法行政和监察等工作；
+  * （九）管理对外事务，同外国缔结条约和协定；
+  * （十）领导和管理国防建设事业；
+  * （十一）领导和管理民族事务，保障少数民族的平等权利和民族自治地方的自治权利；
+  * （十二）保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益；
+  * （十三）改变或者撤销各部、各委员会发布的不适当的命令、指示和规章；
+  * （十四）改变或者撤销地方各级国家行政机关的不适当的决定和命令；
+  * （十五）批准省、自治区、直辖市的区域划分，批准自治州、县、自治县、市的建置和区域划分；
+  * （十六）依照法律规定决定省、自治区、直辖市的范围内部分地区进入紧急状态；
+  * （十七）审定行政机构的编制，依照法律规定任免、培训、考核和奖惩行政人员；
+  * （十八）全国人民代表大会和全国人民代表大会常务委员会授予的其他职权。
+
+* 第九十条 国务院各部部长、各委员会主任负责本部门的工作；召集和主持部务会议或者委员会会议、委务会议，讨论决定本部门工作的重大问题。
+
+  各部、各委员会根据法律和国务院的行政法规、决定、命令，在本部门的权限内，发布命令、指示和规章。
+
+* 第九十一条 国务院设立审计机关，对国务院各部门和地方各级政府的财政收支，对国家的财政金融机构和企业事业组织的财务收支，进行审计监督。
+
+  审计机关在国务院总理领导下，依照法律规定独立行使审计监督权，不受其他行政机关、社会团体和个人的干涉。
+
+* 第九十二条 国务院对全国人民代表大会负责并报告工作；在全国人民代表大会闭会期间，对全国人民代表大会常务委员会负责并报告工作。
+
+### 第四节 中央军事委员会
+
+* 第九十三条 中华人民共和国中央军事委员会领导全国武装力量。
+
+  中央军事委员会由下列人员组成：
+
+  主席，副主席若干人，委员若干人。
+
+  中央军事委员会实行主席负责制。
+
+  中央军事委员会每届任期同全国人民代表大会每届任期相同。
+
+* 第九十四条 中央军事委员会主席对全国人民代表大会和全国人民代表大会常务委员会负责。
+
+### 第五节 地方各级人民代表大会和地方各级人民政府
+
+* 第九十五条 省、直辖市、县、市、市辖区、乡、民族乡、镇设立人民代表大会和人民政府。
+
+  地方各级人民代表大会和地方各级人民政府的组织由法律规定。
+
+  自治区、自治州、自治县设立自治机关。自治机关的组织和工作根据宪法第三章第五节、第六节规定的基本原则由法律规定。
+
+* 第九十六条 地方各级人民代表大会是地方国家权力机关。
+
+  县级以上的地方各级人民代表大会设立常务委员会。
+
+* 第九十七条 省、直辖市、设区的市的人民代表大会代表由下一级的人民代表大会选举；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表由选民直接选举。
+
+  地方各级人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第九十八条 地方各级人民代表大会每届任期五年。
+
+* 第九十九条 地方各级人民代表大会在本行政区域内，保证宪法、法律、行政法规的遵守和执行；依照法律规定的权限，通过和发布决议，审查和决定地方的经济建设、文化建设和公共事业建设的计划。
+
+  县级以上的地方各级人民代表大会审查和批准本行政区域内的国民经济和社会发展计划、预算以及它们的执行情况的报告；有权改变或者撤销本级人民代表大会常务委员会不适当的决定。
+
+  民族乡的人民代表大会可以依照法律规定的权限采取适合民族特点的具体措施。
+
+* 第一百条 省、直辖市的人民代表大会和它们的常务委员会，在不同宪法、法律、行政法规相抵触的前提下，可以制定地方性法规，报全国人民代表大会常务委员会备案。
+
+* 第一百零一条 地方各级人民代表大会分别选举并且有权罢免本级人民政府的省长和副省长、市长和副市长、县长和副县长、区长和副区长、乡长和副乡长、镇长和副镇长。
+
+  县级以上的地方各级人民代表大会选举并且有权罢免本级人民法院院长和本级人民检察院检察长。选出或者罢免人民检察院检察长，须报上级人民检察院检察长提请该级人民代表大会常务委员会批准。
+
+* 第一百零二条 省、直辖市、设区的市的人民代表大会代表受原选举单位的监督；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表受选民的监督。
+
+  地方各级人民代表大会代表的选举单位和选民有权依照法律规定的程序罢免由他们选出的代表。
+
+* 第一百零三条 县级以上的地方各级人民代表大会常务委员会由主任、副主任若干人和委员若干人组成，对本级人民代表大会负责并报告工作。
+
+  县级以上的地方各级人民代表大会选举并有权罢免本级人民代表大会常务委员会的组成人员。
+
+  县级以上的地方各级人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第一百零四条 县级以上的地方各级人民代表大会常务委员会讨论、决定本行政区域内各方面工作的重大事项；监督本级人民政府、人民法院和人民检察院的工作；撤销本级人民政府的不适当的决定和命令；撤销下一级人民代表大会的不适当的决议；依照法律规定的权限决定国家机关工作人员的任免；在本级人民代表大会闭会期间，罢免和补选上一级人民代表大会的个别代表。
+
+* 第一百零五条 地方各级人民政府是地方各级国家权力机关的执行机关，是地方各级国家行政机关。
+
+  地方各级人民政府实行省长、市长、县长、区长、乡长、镇长负责制。
+
+* 第一百零六条 地方各级人民政府每届任期同本级人民代表大会每届任期相同。
+
+* 第一百零七条 县级以上地方各级人民政府依照法律规定的权限，管理本行政区域内的经济、教育、科学、文化、卫生、体育事业、城乡建设事业和财政、民政、公安、民族事务、司法行政、监察、计划生育等行政工作，发布决定和命令，任免、培训、考核和奖惩行政工作人员。
+
+  乡、民族乡、镇的人民政府执行本级人民代表大会的决议和上级国家行政机关的决定和命令，管理本行政区域内的行政工作。
+
+  省、直辖市的人民政府决定乡、民族乡、镇的建置和区域划分。
+
+* 第一百零八条 县级以上的地方各级人民政府领导所属各工作部门和下级人民政府的工作，有权改变或者撤销所属各工作部门和下级人民政府的不适当的决定。
+
+* 第一百零九条 县级以上的地方各级人民政府设立审计机关。地方各级审计机关依照法律规定独立行使审计监督权，对本级人民政府和上一级审计机关负责。
+
+* 第一百一十条 地方各级人民政府对本级人民代表大会负责并报告工作。县级以上的地方各级人民政府在本级人民代表大会闭会期间，对本级人民代表大会常务委员会负责并报告工作。
+
+  地方各级人民政府对上一级国家行政机关负责并报告工作。全国地方各级人民政府都是国务院统一领导下的国家行政机关，都服从国务院。
+
+* 第一百一十一条 城市和农村按居民居住地区设立的居民委员会或者村民委员会是基层群众性自治组织。居民委员会、村民委员会的主任、副主任和委员由居民选举。居民委员会、村民委员会同基层政权的相互关系由法律规定。
+
+  居民委员会、村民委员会设人民调解、治安保卫、公共卫生等委员会，办理本居住地区的公共事务和公益事业，调解民间纠纷，协助维护社会治安，并且向人民政府反映群众的意见、要求和提出建议。
+
+### 第六节 民族自治地方的自治机关
+
+* 第一百一十二条 民族自治地方的自治机关是自治区、自治州、自治县的人民代表大会和人民政府。
+
+* 第一百一十三条 自治区、自治州、自治县的人民代表大会中，除实行区域自治的民族的代表外，其他居住在本行政区域内的民族也应当有适当名额的代表。
+
+  自治区、自治州、自治县的人民代表大会常务委员会中应当有实行区域自治的民族的公民担任主任或者副主任。
+
+* 第一百一十四条 自治区主席、自治州州长、自治县县长由实行区域自治的民族的公民担任。
+
+* 第一百一十五条 自治区、自治州、自治县的自治机关行使宪法第三章第五节规定的地方国家机关的职权，同时依照宪法、民族区域自治法和其他法律规定的权限行使自治权，根据本地方实际情况贯彻执行国家的法律、政策。
+
+* 第一百一十六条 民族自治地方的人民代表大会有权依照当地民族的政治、经济和文化的特点，制定自治条例和单行条例。自治区的自治条例和单行条例，报全国人民代表大会常务委员会批准后生效。自治州、自治县的自治条例和单行条例，报省或者自治区的人民代表大会常务委员会批准后生效，并报全国人民代表大会常务委员会备案。
+
+* 第一百一十七条 民族自治地方的自治机关有管理地方财政的自治权。凡是依照国家财政体制属于民族自治地方的财政收入，都应当由民族自治地方的自治机关自主地安排使用。
+
+* 第一百一十八条 民族自治地方的自治机关在国家计划的指导下，自主地安排和管理地方性的经济建设事业。
+
+  国家在民族自治地方开发资源、建设企业的时候，应当照顾民族自治地方的利益。
+
+* 第一百一十九条 民族自治地方的自治机关自主地管理本地方的教育、科学、文化、卫生、体育事业，保护和整理民族的文化遗产，发展和繁荣民族文化。
+
+* 第一百二十条 民族自治地方的自治机关依照国家的军事制度和当地的实际需要，经国务院批准，可以组织本地方维护社会治安的公安部队。
+
+* 第一百二十一条 民族自治地方的自治机关在执行职务的时候，依照本民族自治地方自治条例的规定，使用当地通用的一种或者几种语言文字。
+
+* 第一百二十二条 国家从财政、物资、技术等方面帮助各少数民族加速发展经济建设和文化建设事业。
+
+  国家帮助民族自治地方从当地民族中大量培养各级干部、各种专业人才和技术工人。
+
+### 第七节 人民法院和人民检察院
+
+* 第一百二十三条 中华人民共和国人民法院是国家的审判机关。
+
+* 第一百二十四条 中华人民共和国设立最高人民法院、地方各级人民法院和军事法院等专门人民法院。
+
+  最高人民法院院长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民法院的组织由法律规定。
+
+* 第一百二十五条 人民法院审理案件，除法律规定的特别情况外，一律公开进行。被告人有权获得辩护。
+
+* 第一百二十六条 人民法院依照法律规定独立行使审判权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百二十七条 最高人民法院是最高审判机关。
+
+  最高人民法院监督地方各级人民法院和专门人民法院的审判工作，上级人民法院监督下级人民法院的审判工作。
+
+* 第一百二十八条 最高人民法院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民法院对产生它的国家权力机关负责。
+
+* 第一百二十九条 中华人民共和国人民检察院是国家的法律监督机关。
+
+* 第一百三十条 中华人民共和国设立最高人民检察院、地方各级人民检察院和军事检察院等专门人民检察院。
+
+  最高人民检察院检察长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民检察院的组织由法律规定。
+
+* 第一百三十一条 人民检察院依照法律规定独立行使检察权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百三十二条 最高人民检察院是最高检察机关。
+
+  最高人民检察院领导地方各级人民检察院和专门人民检察院的工作，上级人民检察院领导下级人民检察院的工作。
+
+* 第一百三十三条 最高人民检察院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民检察院对产生它的国家权力机关和上级人民检察院负责。
+
+* 第一百三十四条 各民族公民都有用本民族语言文字进行诉讼的权利。人民法院和人民检察院对于不通晓当地通用的语言文字的诉讼参与人，应当为他们翻译。
+
+  在少数民族聚居或者多民族共同居住的地区，应当用当地通用的语言进行审理；起诉书、判决书、布告和其他文书应当根据实际需要使用当地通用的一种或者几种文字。
+
+* 第一百三十五条 人民法院、人民检察院和公安机关办理刑事案件，应当分工负责，互相配合，互相制约，以保证准确有效地执行法律。
+
+## 第四章 国旗、国歌、国徽、首都
+
+* 第一百三十六条 中华人民共和国国旗是五星红旗。
+
+  中华人民共和国国歌是《义勇军进行曲》。
+
+* 第一百三十七条 中华人民共和国国徽，中间是五星照耀下的天安门，周围是谷穗和齿轮。
+
+* 第一百三十八条 中华人民共和国首都是北京。
+*/
+/*
+# 中华人民共和国宪法
+
+> 1982年12月4日第五届全国人民代表大会第五次会议通过
+> 1982年12月4日全国人民代表大会公告公布施行
+
+> 根据1988年4月12日第七届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1993年3月29日第八届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1999年3月15日第九届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》、
+> 2004年3月14日第十届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》修正
+
+
+## 序言
+
+中国是世界上历史最悠久的国家之一。中国各族人民共同创造了光辉灿烂的文化，具有光荣的革命传统。
+
+一八四〇年以后，封建的中国逐渐变成半殖民地、半封建的国家。中国人民为国家独立、民族解放和民主自由进行了前仆后继的英勇奋斗。
+
+二十世纪，中国发生了翻天覆地的伟大历史变革。
+
+一九一一年孙中山先生领导的辛亥革命，废除了封建帝制，创立了中华民国。但是，中国人民反对帝国主义和封建主义的历史任务还没有完成。
+
+一九四九年，以毛泽东主席为领袖的中国共产党领导中国各族人民，在经历了长期的艰难曲折的武装斗争和其他形式的斗争以后，终于推翻了帝国主义、封建主义和官僚资本主义的统治，取得了新民主主义革命的伟大胜利，建立了中华人民共和国。从此，中国人民掌握了国家的权力，成为国家的主人。
+
+中华人民共和国成立以后，我国社会逐步实现了由新民主主义到社会主义的过渡。生产资料私有制的社会主义改造已经完成，人剥削人的制度已经消灭，社会主义制度已经确立。工人阶级领导的、以工农联盟为基础的人民民主专政，实质上即无产阶级专政，得到巩固和发展。中国人民和中国人民解放军战胜了帝国主义、霸权主义的侵略、破坏和武装挑衅，维护了国家的独立和安全，增强了国防。经济建设取得了重大的成就，独立的、比较完整的社会主义工业体系已经基本形成，农业生产显著提高。教育、科学、文化等事业有了很大的发展，社会主义思想教育取得了明显的成效。广大人民的生活有了较大的改善。
+
+中国新民主主义革命的胜利和社会主义事业的成就，是中国共产党领导中国各族人民，在马克思列宁主义、毛泽东思想的指引下，坚持真理，修正错误，战胜许多艰难险阻而取得的。我国将长期处于社会主义初级阶段。国家的根本任务是，沿着中国特色社会主义道路，集中力量进行社会主义现代化建设。中国各族人民将继续在中国共产党领导下，在马克思列宁主义、毛泽东思想、邓小平理论和“三个代表”重要思想指引下，坚持人民民主专政，坚持社会主义道路，坚持改革开放，不断完善社会主义的各项制度，发展社会主义市场经济，发展社会主义民主，健全社会主义法制，自力更生，艰苦奋斗，逐步实现工业、农业、国防和科学技术的现代化，推动物质文明、政治文明和精神文明协调发展，把我国建设成为富强、民主、文明的社会主义国家。
+
+在我国，剥削阶级作为阶级已经消灭，但是阶级斗争还将在一定范围内长期存在。中国人民对敌视和破坏我国社会主义制度的国内外的敌对势力和敌对分子，必须进行斗争。
+
+台湾是中华人民共和国的神圣领土的一部分。完成统一祖国的大业是包括台湾同胞在内的全中国人民的神圣职责。
+
+社会主义的建设事业必须依靠工人、农民和知识分子，团结一切可以团结的力量。在长期的革命和建设过程中，已经结成由中国共产党领导的，有各民主党派和各人民团体参加的，包括全体社会主义劳动者、社会主义事业的建设者、拥护社会主义的爱国者和拥护祖国统一的爱国者的广泛的爱国统一战线，这个统一战线将继续巩固和发展。中国人民政治协商会议是有广泛代表性的统一战线组织，过去发挥了重要的历史作用，今后在国家政治生活、社会生活和对外友好活动中，在进行社会主义现代化建设、维护国家的统一和团结的斗争中，将进一步发挥它的重要作用。中国共产党领导的多党合作和政治协商制度将长期存在和发展。
+
+中华人民共和国是全国各族人民共同缔造的统一的多民族国家。平等、团结、互助的社会主义民族关系已经确立，并将继续加强。在维护民族团结的斗争中，要反对大民族主义，主要是大汉族主义，也要反对地方民族主义。国家尽一切努力，促进全国各民族的共同繁荣。
+
+中国革命和建设的成就是同世界人民的支持分不开的。中国的前途是同世界的前途紧密地联系在一起的。中国坚持独立自主的对外政策，坚持互相尊重主权和领土完整、互不侵犯、互不干涉内政、平等互利、和平共处的五项原则，发展同各国的外交关系和经济、文化的交流；坚持反对帝国主义、霸权主义、殖民主义，加强同世界各国人民的团结，支持被压迫民族和发展中国家争取和维护民族独立、发展民族经济的正义斗争，为维护世界和平和促进人类进步事业而努力。
+
+本宪法以法律的形式确认了中国各族人民奋斗的成果，规定了国家的根本制度和根本任务，是国家的根本法，具有最高的法律效力。全国各族人民、一切国家机关和武装力量、各政党和各社会团体、各企业事业组织，都必须以宪法为根本的活动准则，并且负有维护宪法尊严、保证宪法实施的职责。
+
+## 第一章 总纲
+
+* 第一条 中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。
+
+  社会主义制度是中华人民共和国的根本制度。禁止任何组织或者个人破坏社会主义制度。
+
+* 第二条 中华人民共和国的一切权力属于人民。
+
+  人民行使国家权力的机关是全国人民代表大会和地方各级人民代表大会。
+
+  人民依照法律规定，通过各种途径和形式，管理国家事务，管理经济和文化事业，管理社会事务。
+
+* 第三条 中华人民共和国的国家机构实行民主集中制的原则。
+
+  全国人民代表大会和地方各级人民代表大会都由民主选举产生，对人民负责，受人民监督。
+
+  国家行政机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。
+
+  中央和地方的国家机构职权的划分，遵循在中央的统一领导下，充分发挥地方的主动性、积极性的原则。
+
+* 第四条 中华人民共和国各民族一律平等。
+
+  国家保障各少数民族的合法的权利和利益，维护和发展各民族的平等、团结、互助关系。禁止对任何民族的歧视和压迫，禁止破坏民族团结和制造民族分裂的行为。
+
+  国家根据各少数民族的特点和需要，帮助各少数民族地区加速经济和文化的发展。
+
+  各少数民族聚居的地方实行区域自治，设立自治机关，行使自治权。
+
+  各民族自治地方都是中华人民共和国不可分离的部分。
+
+  各民族都有使用和发展自己的语言文字的自由，都有保持或者改革自己的风俗习惯的自由。
+
+* 第五条 中华人民共和国实行依法治国，建设社会主义法治国家。
+
+  国家维护社会主义法制的统一和尊严。
+
+  一切法律、行政法规和地方性法规都不得同宪法相抵触。
+
+  一切国家机关和武装力量、各政党和各社会团体、各企业事业组织都必须遵守宪法和法律。一切违反宪法和法律的行为，必须予以追究。
+
+  任何组织或者个人都不得有超越宪法和法律的特权。
+
+* 第六条 中华人民共和国的社会主义经济制度的基础是生产资料的社会主义公有制，即全民所有制和劳动群众集体所有制。社会主义公有制消灭人剥削人的制度，实行各尽所能、按劳分配的原则。
+
+  国家在社会主义初级阶段，坚持公有制为主体、多种所有制经济共同发展的基本经济制度，坚持按劳分配为主体、多种分配方式并存的分配制度。
+
+* 第七条 国有经济，即社会主义全民所有制经济，是国民经济中的主导力量。国家保障国有经济的巩固和发展。
+
+* 第八条 农村集体经济组织实行家庭承包经营为基础、统分结合的双层经营体制。农村中的生产、供销、信用、消费等各种形式的合作经济，是社会主义劳动群众集体所有制经济。参加农村集体经济组织的劳动者，有权在法律规定的范围内经营自留地、自留山、家庭副业和饲养自留畜。
+
+  城镇中的手工业、工业、建筑业、运输业、商业、服务业等行业的各种形式的合作经济，都是社会主义劳动群众集体所有制经济。
+
+  国家保护城乡集体经济组织的合法的权利和利益，鼓励、指导和帮助集体经济的发展。
+
+* 第九条 矿藏、水流、森林、山岭、草原、荒地、滩涂等自然资源，都属于国家所有，即全民所有；由法律规定属于集体所有的森林和山岭、草原、荒地、滩涂除外。
+
+  国家保障自然资源的合理利用，保护珍贵的动物和植物。禁止任何组织或者个人用任何手段侵占或者破坏自然资源。
+
+* 第十条 城市的土地属于国家所有。
+
+  农村和城市郊区的土地，除由法律规定属于国家所有的以外，属于集体所有；宅基地和自留地、自留山，也属于集体所有。
+
+  国家为了公共利益的需要，可以依照法律规定对土地实行征收或者征用并给予补偿。
+
+  任何组织或者个人不得侵占、买卖或者以其他形式非法转让土地。土地的使用权可以依照法律的规定转让。
+
+  一切使用土地的组织和个人必须合理地利用土地。
+
+* 第十一条 在法律规定范围内的个体经济、私营经济等非公有制经济，是社会主义市场经济的重要组成部分。
+
+  国家保护个体经济、私营经济等非公有制经济的合法的权利和利益。国家鼓励、支持和引导非公有制经济的发展，并对非公有制经济依法实行监督和管理。
+
+* 第十二条 社会主义的公共财产神圣不可侵犯。
+
+  国家保护社会主义的公共财产。禁止任何组织或者个人用任何手段侵占或者破坏国家的和集体的财产。
+
+* 第十三条 公民的合法的私有财产不受侵犯。
+
+  国家依照法律规定保护公民的私有财产权和继承权。
+
+  国家为了公共利益的需要，可以依照法律规定对公民的私有财产实行征收或者征用并给予补偿。
+
+* 第十四条 国家通过提高劳动者的积极性和技术水平，推广先进的科学技术，完善经济管理体制和企业经营管理制度，实行各种形式的社会主义责任制，改进劳动组织，以不断提高劳动生产率和经济效益，发展社会生产力。
+
+  国家厉行节约，反对浪费。
+
+  国家合理安排积累和消费，兼顾国家、集体和个人的利益，在发展生产的基础上，逐步改善人民的物质生活和文化生活。
+
+  国家建立健全同经济发展水平相适应的社会保障制度。
+
+* 第十五条 国家实行社会主义市场经济。
+
+  国家加强经济立法，完善宏观调控。
+
+  国家依法禁止任何组织或者个人扰乱社会经济秩序。
+
+* 第十六条 国有企业在法律规定的范围内有权自主经营。
+
+  国有企业依照法律规定，通过职工代表大会和其他形式，实行民主管理。
+
+* 第十七条 集体经济组织在遵守有关法律的前提下，有独立进行经济活动的自主权。
+
+  集体经济组织实行民主管理，依照法律规定选举和罢免管理人员，决定经营管理的重大问题。
+
+* 第十八条 中华人民共和国允许外国的企业和其他经济组织或者个人依照中华人民共和国法律的规定在中国投资，同中国的企业或者其他经济组织进行各种形式的经济合作。
+
+  在中国境内的外国企业和其他外国经济组织以及中外合资经营的企业，都必须遵守中华人民共和国的法律。它们的合法的权利和利益受中华人民共和国法律的保护。
+
+* 第十九条 国家发展社会主义的教育事业，提高全国人民的科学文化水平。
+
+  国家举办各种学校，普及初等义务教育，发展中等教育、职业教育和高等教育，并且发展学前教育。
+
+  国家发展各种教育设施，扫除文盲，对工人、农民、国家工作人员和其他劳动者进行政治、文化、科学、技术、业务的教育，鼓励自学成才。
+
+  国家鼓励集体经济组织、国家企业事业组织和其他社会力量依照法律规定举办各种教育事业。
+
+  国家推广全国通用的普通话。
+
+* 第二十条 国家发展自然科学和社会科学事业，普及科学和技术知识，奖励科学研究成果和技术发明创造。
+
+* 第二十一条 国家发展医疗卫生事业，发展现代医药和我国传统医药，鼓励和支持农村集体经济组织、国家企业事业组织和街道组织举办各种医疗卫生设施，开展群众性的卫生活动，保护人民健康。
+
+  国家发展体育事业，开展群众性的体育活动，增强人民体质。
+
+* 第二十二条 国家发展为人民服务、为社会主义服务的文学艺术事业、新闻广播电视事业、出版发行事业、图书馆博物馆文化馆和其他文化事业，开展群众性的文化活动。
+
+  国家保护名胜古迹、珍贵文物和其他重要历史文化遗产。
+
+* 第二十三条 国家培养为社会主义服务的各种专业人才，扩大知识分子的队伍，创造条件，充分发挥他们在社会主义现代化建设中的作用。
+
+* 第二十四条 国家通过普及理想教育、道德教育、文化教育、纪律和法制教育，通过在城乡不同范围的群众中制定和执行各种守则、公约，加强社会主义精神文明的建设。
+
+  国家提倡爱祖国、爱人民、爱劳动、爱科学、爱社会主义的公德，在人民中进行爱国主义、集体主义和国际主义、共产主义的教育，进行辩证唯物主义和历史唯物主义的教育，反对资本主义的、封建主义的和其他的腐朽思想。
+
+* 第二十五条 国家推行计划生育，使人口的增长同经济和社会发展计划相适应。
+
+* 第二十六条 国家保护和改善生活环境和生态环境，防治污染和其他公害。
+
+  国家组织和鼓励植树造林，保护林木。
+
+* 第二十七条 一切国家机关实行精简的原则，实行工作责任制，实行工作人员的培训和考核制度，不断提高工作质量和工作效率，反对官僚主义。
+
+  一切国家机关和国家工作人员必须依靠人民的支持，经常保持同人民的密切联系，倾听人民的意见和建议，接受人民的监督，努力为人民服务。
+
+* 第二十八条 国家维护社会秩序，镇压叛国和其他危害国家安全的犯罪活动，制裁危害社会治安、破坏社会主义经济和其他犯罪的活动，惩办和改造犯罪分子。
+
+* 第二十九条 中华人民共和国的武装力量属于人民。它的任务是巩固国防，抵抗侵略，保卫祖国，保卫人民的和平劳动，参加国家建设事业，努力为人民服务。
+
+  国家加强武装力量的革命化、现代化、正规化的建设，增强国防力量。
+
+* 第三十条 中华人民共和国的行政区域划分如下：
+
+  * （一）全国分为省、自治区、直辖市；
+  * （二）省、自治区分为自治州、县、自治县、市；
+  * （三）县、自治县分为乡、民族乡、镇。
+
+  直辖市和较大的市分为区、县。自治州分为县、自治县、市。
+
+  自治区、自治州、自治县都是民族自治地方。
+
+* 第三十一条 国家在必要时得设立特别行政区。在特别行政区内实行的制度按照具体情况由全国人民代表大会以法律规定。
+
+* 第三十二条 中华人民共和国保护在中国境内的外国人的合法权利和利益，在中国境内的外国人必须遵守中华人民共和国的法律。
+
+  中华人民共和国对于因为政治原因要求避难的外国人，可以给予受庇护的权利。
+
+## 第二章 公民的基本权利和义务
+
+* 第三十三条 凡具有中华人民共和国国籍的人都是中华人民共和国公民。
+
+  中华人民共和国公民在法律面前一律平等。
+
+  国家尊重和保障人权。
+
+  任何公民享有宪法和法律规定的权利，同时必须履行宪法和法律规定的义务。
+
+* 第三十四条 中华人民共和国年满十八周岁的公民，不分民族、种族、性别、职业、家庭出身、宗教信仰、教育程度、财产状况、居住期限，都有选举权和被选举权；但是依照法律被剥夺政治权利的人除外。
+
+* 第三十五条 中华人民共和国公民有言论、出版、集会、结社、游行、示威的自由。
+
+* 第三十六条 中华人民共和国公民有宗教信仰自由。
+
+  任何国家机关、社会团体和个人不得强制公民信仰宗教或者不信仰宗教，不得歧视信仰宗教的公民和不信仰宗教的公民。
+
+  国家保护正常的宗教活动。任何人不得利用宗教进行破坏社会秩序、损害公民身体健康、妨碍国家教育制度的活动。
+
+  宗教团体和宗教事务不受外国势力的支配。
+
+* 第三十七条 中华人民共和国公民的人身自由不受侵犯。
+
+  任何公民，非经人民检察院批准或者决定或者人民法院决定，并由公安机关执行，不受逮捕。
+
+  禁止非法拘禁和以其他方法非法剥夺或者限制公民的人身自由，禁止非法搜查公民的身体。
+
+* 第三十八条 中华人民共和国公民的人格尊严不受侵犯。禁止用任何方法对公民进行侮辱、诽谤和诬告陷害。
+
+* 第三十九条 中华人民共和国公民的住宅不受侵犯。禁止非法搜查或者非法侵入公民的住宅。
+
+* 第四十条 中华人民共和国公民的通信自由和通信秘密受法律的保护。除因国家安全或者追查刑事犯罪的需要，由公安机关或者检察机关依照法律规定的程序对通信进行检查外，任何组织或者个人不得以任何理由侵犯公民的通信自由和通信秘密。
+
+* 第四十一条 中华人民共和国公民对于任何国家机关和国家工作人员，有提出批评和建议的权利；对于任何国家机关和国家工作人员的违法失职行为，有向有关国家机关提出申诉、控告或者检举的权利，但是不得捏造或者歪曲事实进行诬告陷害。
+
+  对于公民的申诉、控告或者检举，有关国家机关必须查清事实，负责处理。任何人不得压制和打击报复。
+
+  由于国家机关和国家工作人员侵犯公民权利而受到损失的人，有依照法律规定取得赔偿的权利。
+
+* 第四十二条 中华人民共和国公民有劳动的权利和义务。
+
+  国家通过各种途径，创造劳动就业条件，加强劳动保护，改善劳动条件，并在发展生产的基础上，提高劳动报酬和福利待遇。
+
+  劳动是一切有劳动能力的公民的光荣职责。国有企业和城乡集体经济组织的劳动者都应当以国家主人翁的态度对待自己的劳动。国家提倡社会主义劳动竞赛，奖励劳动模范和先进工作者。国家提倡公民从事义务劳动。
+
+  国家对就业前的公民进行必要的劳动就业训练。
+
+* 第四十三条 中华人民共和国劳动者有休息的权利。
+
+  国家发展劳动者休息和休养的设施，规定职工的工作时间和休假制度。
+
+* 第四十四条 国家依照法律规定实行企业事业组织的职工和国家机关工作人员的退休制度。退休人员的生活受到国家和社会的保障。
+
+* 第四十五条 中华人民共和国公民在年老、疾病或者丧失劳动能力的情况下，有从国家和社会获得物质帮助的权利。国家发展为公民享受这些权利所需要的社会保险、社会救济和医疗卫生事业。
+
+  国家和社会保障残废军人的生活，抚恤烈士家属，优待军人家属。
+
+  国家和社会帮助安排盲、聋、哑和其他有残疾的公民的劳动、生活和教育。
+
+* 第四十六条 中华人民共和国公民有受教育的权利和义务。
+
+  国家培养青年、少年、儿童在品德、智力、体质等方面全面发展。
+
+* 第四十七条 中华人民共和国公民有进行科学研究、文学艺术创作和其他文化活动的自由。国家对于从事教育、科学、技术、文学、艺术和其他文化事业的公民的有益于人民的创造性工作，给以鼓励和帮助。
+
+* 第四十八条 中华人民共和国妇女在政治的、经济的、文化的、社会的和家庭的生活等各方面享有同男子平等的权利。
+
+  国家保护妇女的权利和利益，实行男女同工同酬，培养和选拔妇女干部。
+
+* 第四十九条 婚姻、家庭、母亲和儿童受国家的保护。
+
+  夫妻双方有实行计划生育的义务。
+
+  父母有抚养教育未成年子女的义务，成年子女有赡养扶助父母的义务。
+
+  禁止破坏婚姻自由，禁止虐待老人、妇女和儿童。
+
+* 第五十条 中华人民共和国保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益。
+
+* 第五十一条 中华人民共和国公民在行使自由和权利的时候，不得损害国家的、社会的、集体的利益和其他公民的合法的自由和权利。
+
+* 第五十二条 中华人民共和国公民有维护国家统一和全国各民族团结的义务。
+
+* 第五十三条 中华人民共和国公民必须遵守宪法和法律，保守国家秘密，爱护公共财产，遵守劳动纪律，遵守公共秩序，尊重社会公德。
+
+* 第五十四条 中华人民共和国公民有维护祖国的安全、荣誉和利益的义务，不得有危害祖国的安全、荣誉和利益的行为。
+
+* 第五十五条 保卫祖国、抵抗侵略是中华人民共和国每一个公民的神圣职责。
+
+  依照法律服兵役和参加民兵组织是中华人民共和国公民的光荣义务。
+
+* 第五十六条 中华人民共和国公民有依照法律纳税的义务。
+
+## 第三章 国家机构
+
+### 第一节 全国人民代表大会
+
+* 第五十七条 中华人民共和国全国人民代表大会是最高国家权力机关。它的常设机关是全国人民代表大会常务委员会。
+
+* 第五十八条 全国人民代表大会和全国人民代表大会常务委员会行使国家立法权。
+
+* 第五十九条 全国人民代表大会由省、自治区、直辖市、特别行政区和军队选出的代表组成。各少数民族都应当有适当名额的代表。
+
+  全国人民代表大会代表的选举由全国人民代表大会常务委员会主持。
+
+  全国人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第六十条 全国人民代表大会每届任期五年。
+
+  全国人民代表大会任期届满的两个月以前，全国人民代表大会常务委员会必须完成下届全国人民代表大会代表的选举。如果遇到不能进行选举的非常情况，由全国人民代表大会常务委员会以全体组成人员的三分之二以上的多数通过，可以推迟选举，延长本届全国人民代表大会的任期。在非常情况结束后一年内，必须完成下届全国人民代表大会代表的选举。
+
+* 第六十一条 全国人民代表大会会议每年举行一次，由全国人民代表大会常务委员会召集。如果全国人民代表大会常务委员会认为必要，或者有五分之一以上的全国人民代表大会代表提议，可以临时召集全国人民代表大会会议。
+
+  全国人民代表大会举行会议的时候，选举主席团主持会议。
+
+* 第六十二条 全国人民代表大会行使下列职权：
+
+  * （一）修改宪法；
+  * （二）监督宪法的实施；
+  * （三）制定和修改刑事、民事、国家机构的和其他的基本法律；
+  * （四）选举中华人民共和国主席、副主席；
+  * （五）根据中华人民共和国主席的提名，决定国务院总理的人选；根据国务院总理的提名，决定国务院副总理、国务委员、各部部长、各委员会主任、审计长、秘书长的人选；
+  * （六）选举中央军事委员会主席；根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （七）选举最高人民法院院长；
+  * （八）选举最高人民检察院检察长；
+  * （九）审查和批准国民经济和社会发展计划和计划执行情况的报告；
+  * （十）审查和批准国家的预算和预算执行情况的报告；
+  * （十一）改变或者撤销全国人民代表大会常务委员会不适当的决定；
+  * （十二）批准省、自治区和直辖市的建置；
+  * （十三）决定特别行政区的设立及其制度；
+  * （十四）决定战争和和平的问题；
+  * （十五）应当由最高国家权力机关行使的其他职权。
+
+* 第六十三条 全国人民代表大会有权罢免下列人员：
+
+  * （一）中华人民共和国主席、副主席；
+  * （二）国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长；
+  * （三）中央军事委员会主席和中央军事委员会其他组成人员；
+  * （四）最高人民法院院长；
+  * （五）最高人民检察院检察长。
+
+* 第六十四条 宪法的修改，由全国人民代表大会常务委员会或者五分之一以上的全国人民代表大会代表提议，并由全国人民代表大会以全体代表的三分之二以上的多数通过。
+
+  法律和其他议案由全国人民代表大会以全体代表的过半数通过。
+
+* 第六十五条 全国人民代表大会常务委员会由下列人员组成：
+
+  委员长，副委员长若干人，秘书长，委员若干人。
+
+  全国人民代表大会常务委员会组成人员中，应当有适当名额的少数民族代表。
+
+  全国人民代表大会选举并有权罢免全国人民代表大会常务委员会的组成人员。
+
+  全国人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第六十六条 全国人民代表大会常务委员会每届任期同全国人民代表大会每届任期相同，它行使职权到下届全国人民代表大会选出新的常务委员会为止。
+
+  委员长、副委员长连续任职不得超过两届。
+
+* 第六十七条 全国人民代表大会常务委员会行使下列职权：
+
+  * （一）解释宪法，监督宪法的实施；
+  * （二）制定和修改除应当由全国人民代表大会制定的法律以外的其他法律；
+  * （三）在全国人民代表大会闭会期间，对全国人民代表大会制定的法律进行部分补充和修改，但是不得同该法律的基本原则相抵触；
+  * （四）解释法律；
+  * （五）在全国人民代表大会闭会期间，审查和批准国民经济和社会发展计划、国家预算在执行过程中所必须作的部分调整方案；
+  * （六）监督国务院、中央军事委员会、最高人民法院和最高人民检察院的工作；
+  * （七）撤销国务院制定的同宪法、法律相抵触的行政法规、决定和命令；
+  * （八）撤销省、自治区、直辖市国家权力机关制定的同宪法、法律和行政法规相抵触的地方性法规和决议；
+  * （九）在全国人民代表大会闭会期间，根据国务院总理的提名，决定部长、委员会主任、审计长、秘书长的人选；
+  * （十）在全国人民代表大会闭会期间，根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （十一）根据最高人民法院院长的提请，任免最高人民法院副院长、审判员、审判委员会委员和军事法院院长；
+  * （十二）根据最高人民检察院检察长的提请，任免最高人民检察院副检察长、检察员、检察委员会委员和军事检察院检察长，并且批准省、自治区、直辖市的人民检察院检察长的任免；
+  * （十三）决定驻外全权代表的任免；
+  * （十四）决定同外国缔结的条约和重要协定的批准和废除；
+  * （十五）规定军人和外交人员的衔级制度和其他专门衔级制度；
+  * （十六）规定和决定授予国家的勋章和荣誉称号；
+  * （十七）决定特赦；
+  * （十八）在全国人民代表大会闭会期间，如果遇到国家遭受武装侵犯或者必须履行国际间共同防止侵略的条约的情况，决定战争状态的宣布；
+  * （十九）决定全国总动员或者局部动员；
+  * （二十）决定全国或者个别省、自治区、直辖市进入紧急状态；
+  * （二十一）全国人民代表大会授予的其他职权。
+
+* 第六十八条 全国人民代表大会常务委员会委员长主持全国人民代表大会常务委员会的工作，召集全国人民代表大会常务委员会会议。副委员长、秘书长协助委员长工作。
+
+  委员长、副委员长、秘书长组成委员长会议，处理全国人民代表大会常务委员会的重要日常工作。
+
+* 第六十九条 全国人民代表大会常务委员会对全国人民代表大会负责并报告工作。
+
+* 第七十条 全国人民代表大会设立民族委员会、法律委员会、财政经济委员会、教育科学文化卫生委员会、外事委员会、华侨委员会和其他需要设立的专门委员会。在全国人民代表大会闭会期间，各专门委员会受全国人民代表大会常务委员会的领导。
+
+  各专门委员会在全国人民代表大会和全国人民代表大会常务委员会领导下，研究、审议和拟订有关议案。
+
+* 第七十一条 全国人民代表大会和全国人民代表大会常务委员会认为必要的时候，可以组织关于特定问题的调查委员会，并且根据调查委员会的报告，作出相应的决议。
+
+  调查委员会进行调查的时候，一切有关的国家机关、社会团体和公民都有义务向它提供必要的材料。
+
+* 第七十二条 全国人民代表大会代表和全国人民代表大会常务委员会组成人员，有权依照法律规定的程序分别提出属于全国人民代表大会和全国人民代表大会常务委员会职权范围内的议案。
+
+* 第七十三条 全国人民代表大会代表在全国人民代表大会开会期间，全国人民代表大会常务委员会组成人员在常务委员会开会期间，有权依照法律规定的程序提出对国务院或者国务院各部、各委员会的质询案。受质询的机关必须负责答复。
+
+* 第七十四条 全国人民代表大会代表，非经全国人民代表大会会议主席团许可，在全国人民代表大会闭会期间非经全国人民代表大会常务委员会许可，不受逮捕或者刑事审判。
+
+* 第七十五条 全国人民代表大会代表在全国人民代表大会各种会议上的发言和表决，不受法律追究。
+
+* 第七十六条 全国人民代表大会代表必须模范地遵守宪法和法律，保守国家秘密，并且在自己参加的生产、工作和社会活动中，协助宪法和法律的实施。
+
+  全国人民代表大会代表应当同原选举单位和人民保持密切的联系，听取和反映人民的意见和要求，努力为人民服务。
+
+* 第七十七条 全国人民代表大会代表受原选举单位的监督。原选举单位有权依照法律规定的程序罢免本单位选出的代表。
+
+* 第七十八条 全国人民代表大会和全国人民代表大会常务委员会的组织和工作程序由法律规定。
+
+### 第二节 中华人民共和国主席
+
+* 第七十九条 中华人民共和国主席、副主席由全国人民代表大会选举。
+
+  有选举权和被选举权的年满四十五周岁的中华人民共和国公民可以被选为中华人民共和国主席、副主席。
+
+  中华人民共和国主席、副主席每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+* 第八十条 中华人民共和国主席根据全国人民代表大会的决定和全国人民代表大会常务委员会的决定，公布法律，任免国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长，授予国家的勋章和荣誉称号，发布特赦令，宣布进入紧急状态，宣布战争状态，发布动员令。
+
+* 第八十一条 中华人民共和国主席代表中华人民共和国，进行国事活动，接受外国使节；根据全国人民代表大会常务委员会的决定，派遣和召回驻外全权代表，批准和废除同外国缔结的条约和重要协定。
+
+* 第八十二条 中华人民共和国副主席协助主席工作。
+
+  中华人民共和国副主席受主席的委托，可以代行主席的部分职权。
+
+* 第八十三条 中华人民共和国主席、副主席行使职权到下届全国人民代表大会选出的主席、副主席就职为止。
+
+* 第八十四条 中华人民共和国主席缺位的时候，由副主席继任主席的职位。
+
+  中华人民共和国副主席缺位的时候，由全国人民代表大会补选。
+
+  中华人民共和国主席、副主席都缺位的时候，由全国人民代表大会补选；在补选以前，由全国人民代表大会常务委员会委员长暂时代理主席职位。
+
+### 第三节 国务院
+
+* 第八十五条 中华人民共和国国务院，即中央人民政府，是最高国家权力机关的执行机关，是最高国家行政机关。
+
+* 第八十六条 国务院由下列人员组成：
+
+  总理，副总理若干人，国务委员若干人，各部部长，各委员会主任，审计长，秘书长。
+
+  国务院实行总理负责制。各部、各委员会实行部长、主任负责制。
+
+  国务院的组织由法律规定。
+
+* 第八十七条 国务院每届任期同全国人民代表大会每届任期相同。
+
+  总理、副总理、国务委员连续任职不得超过两届。
+
+* 第八十八条 总理领导国务院的工作。副总理、国务委员协助总理工作。
+
+  总理、副总理、国务委员、秘书长组成国务院常务会议。
+
+  总理召集和主持国务院常务会议和国务院全体会议。
+
+* 第八十九条 国务院行使下列职权：
+
+  * （一）根据宪法和法律，规定行政措施，制定行政法规，发布决定和命令；
+  * （二）向全国人民代表大会或者全国人民代表大会常务委员会提出议案；
+  * （三）规定各部和各委员会的任务和职责，统一领导各部和各委员会的工作，并且领导不属于各部和各委员会的全国性的行政工作；
+  * （四）统一领导全国地方各级国家行政机关的工作，规定中央和省、自治区、直辖市的国家行政机关的职权的具体划分；
+  * （五）编制和执行国民经济和社会发展计划和国家预算；
+  * （六）领导和管理经济工作和城乡建设；
+  * （七）领导和管理教育、科学、文化、卫生、体育和计划生育工作；
+  * （八）领导和管理民政、公安、司法行政和监察等工作；
+  * （九）管理对外事务，同外国缔结条约和协定；
+  * （十）领导和管理国防建设事业；
+  * （十一）领导和管理民族事务，保障少数民族的平等权利和民族自治地方的自治权利；
+  * （十二）保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益；
+  * （十三）改变或者撤销各部、各委员会发布的不适当的命令、指示和规章；
+  * （十四）改变或者撤销地方各级国家行政机关的不适当的决定和命令；
+  * （十五）批准省、自治区、直辖市的区域划分，批准自治州、县、自治县、市的建置和区域划分；
+  * （十六）依照法律规定决定省、自治区、直辖市的范围内部分地区进入紧急状态；
+  * （十七）审定行政机构的编制，依照法律规定任免、培训、考核和奖惩行政人员；
+  * （十八）全国人民代表大会和全国人民代表大会常务委员会授予的其他职权。
+
+* 第九十条 国务院各部部长、各委员会主任负责本部门的工作；召集和主持部务会议或者委员会会议、委务会议，讨论决定本部门工作的重大问题。
+
+  各部、各委员会根据法律和国务院的行政法规、决定、命令，在本部门的权限内，发布命令、指示和规章。
+
+* 第九十一条 国务院设立审计机关，对国务院各部门和地方各级政府的财政收支，对国家的财政金融机构和企业事业组织的财务收支，进行审计监督。
+
+  审计机关在国务院总理领导下，依照法律规定独立行使审计监督权，不受其他行政机关、社会团体和个人的干涉。
+
+* 第九十二条 国务院对全国人民代表大会负责并报告工作；在全国人民代表大会闭会期间，对全国人民代表大会常务委员会负责并报告工作。
+
+### 第四节 中央军事委员会
+
+* 第九十三条 中华人民共和国中央军事委员会领导全国武装力量。
+
+  中央军事委员会由下列人员组成：
+
+  主席，副主席若干人，委员若干人。
+
+  中央军事委员会实行主席负责制。
+
+  中央军事委员会每届任期同全国人民代表大会每届任期相同。
+
+* 第九十四条 中央军事委员会主席对全国人民代表大会和全国人民代表大会常务委员会负责。
+
+### 第五节 地方各级人民代表大会和地方各级人民政府
+
+* 第九十五条 省、直辖市、县、市、市辖区、乡、民族乡、镇设立人民代表大会和人民政府。
+
+  地方各级人民代表大会和地方各级人民政府的组织由法律规定。
+
+  自治区、自治州、自治县设立自治机关。自治机关的组织和工作根据宪法第三章第五节、第六节规定的基本原则由法律规定。
+
+* 第九十六条 地方各级人民代表大会是地方国家权力机关。
+
+  县级以上的地方各级人民代表大会设立常务委员会。
+
+* 第九十七条 省、直辖市、设区的市的人民代表大会代表由下一级的人民代表大会选举；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表由选民直接选举。
+
+  地方各级人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第九十八条 地方各级人民代表大会每届任期五年。
+
+* 第九十九条 地方各级人民代表大会在本行政区域内，保证宪法、法律、行政法规的遵守和执行；依照法律规定的权限，通过和发布决议，审查和决定地方的经济建设、文化建设和公共事业建设的计划。
+
+  县级以上的地方各级人民代表大会审查和批准本行政区域内的国民经济和社会发展计划、预算以及它们的执行情况的报告；有权改变或者撤销本级人民代表大会常务委员会不适当的决定。
+
+  民族乡的人民代表大会可以依照法律规定的权限采取适合民族特点的具体措施。
+
+* 第一百条 省、直辖市的人民代表大会和它们的常务委员会，在不同宪法、法律、行政法规相抵触的前提下，可以制定地方性法规，报全国人民代表大会常务委员会备案。
+
+* 第一百零一条 地方各级人民代表大会分别选举并且有权罢免本级人民政府的省长和副省长、市长和副市长、县长和副县长、区长和副区长、乡长和副乡长、镇长和副镇长。
+
+  县级以上的地方各级人民代表大会选举并且有权罢免本级人民法院院长和本级人民检察院检察长。选出或者罢免人民检察院检察长，须报上级人民检察院检察长提请该级人民代表大会常务委员会批准。
+
+* 第一百零二条 省、直辖市、设区的市的人民代表大会代表受原选举单位的监督；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表受选民的监督。
+
+  地方各级人民代表大会代表的选举单位和选民有权依照法律规定的程序罢免由他们选出的代表。
+
+* 第一百零三条 县级以上的地方各级人民代表大会常务委员会由主任、副主任若干人和委员若干人组成，对本级人民代表大会负责并报告工作。
+
+  县级以上的地方各级人民代表大会选举并有权罢免本级人民代表大会常务委员会的组成人员。
+
+  县级以上的地方各级人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第一百零四条 县级以上的地方各级人民代表大会常务委员会讨论、决定本行政区域内各方面工作的重大事项；监督本级人民政府、人民法院和人民检察院的工作；撤销本级人民政府的不适当的决定和命令；撤销下一级人民代表大会的不适当的决议；依照法律规定的权限决定国家机关工作人员的任免；在本级人民代表大会闭会期间，罢免和补选上一级人民代表大会的个别代表。
+
+* 第一百零五条 地方各级人民政府是地方各级国家权力机关的执行机关，是地方各级国家行政机关。
+
+  地方各级人民政府实行省长、市长、县长、区长、乡长、镇长负责制。
+
+* 第一百零六条 地方各级人民政府每届任期同本级人民代表大会每届任期相同。
+
+* 第一百零七条 县级以上地方各级人民政府依照法律规定的权限，管理本行政区域内的经济、教育、科学、文化、卫生、体育事业、城乡建设事业和财政、民政、公安、民族事务、司法行政、监察、计划生育等行政工作，发布决定和命令，任免、培训、考核和奖惩行政工作人员。
+
+  乡、民族乡、镇的人民政府执行本级人民代表大会的决议和上级国家行政机关的决定和命令，管理本行政区域内的行政工作。
+
+  省、直辖市的人民政府决定乡、民族乡、镇的建置和区域划分。
+
+* 第一百零八条 县级以上的地方各级人民政府领导所属各工作部门和下级人民政府的工作，有权改变或者撤销所属各工作部门和下级人民政府的不适当的决定。
+
+* 第一百零九条 县级以上的地方各级人民政府设立审计机关。地方各级审计机关依照法律规定独立行使审计监督权，对本级人民政府和上一级审计机关负责。
+
+* 第一百一十条 地方各级人民政府对本级人民代表大会负责并报告工作。县级以上的地方各级人民政府在本级人民代表大会闭会期间，对本级人民代表大会常务委员会负责并报告工作。
+
+  地方各级人民政府对上一级国家行政机关负责并报告工作。全国地方各级人民政府都是国务院统一领导下的国家行政机关，都服从国务院。
+
+* 第一百一十一条 城市和农村按居民居住地区设立的居民委员会或者村民委员会是基层群众性自治组织。居民委员会、村民委员会的主任、副主任和委员由居民选举。居民委员会、村民委员会同基层政权的相互关系由法律规定。
+
+  居民委员会、村民委员会设人民调解、治安保卫、公共卫生等委员会，办理本居住地区的公共事务和公益事业，调解民间纠纷，协助维护社会治安，并且向人民政府反映群众的意见、要求和提出建议。
+
+### 第六节 民族自治地方的自治机关
+
+* 第一百一十二条 民族自治地方的自治机关是自治区、自治州、自治县的人民代表大会和人民政府。
+
+* 第一百一十三条 自治区、自治州、自治县的人民代表大会中，除实行区域自治的民族的代表外，其他居住在本行政区域内的民族也应当有适当名额的代表。
+
+  自治区、自治州、自治县的人民代表大会常务委员会中应当有实行区域自治的民族的公民担任主任或者副主任。
+
+* 第一百一十四条 自治区主席、自治州州长、自治县县长由实行区域自治的民族的公民担任。
+
+* 第一百一十五条 自治区、自治州、自治县的自治机关行使宪法第三章第五节规定的地方国家机关的职权，同时依照宪法、民族区域自治法和其他法律规定的权限行使自治权，根据本地方实际情况贯彻执行国家的法律、政策。
+
+* 第一百一十六条 民族自治地方的人民代表大会有权依照当地民族的政治、经济和文化的特点，制定自治条例和单行条例。自治区的自治条例和单行条例，报全国人民代表大会常务委员会批准后生效。自治州、自治县的自治条例和单行条例，报省或者自治区的人民代表大会常务委员会批准后生效，并报全国人民代表大会常务委员会备案。
+
+* 第一百一十七条 民族自治地方的自治机关有管理地方财政的自治权。凡是依照国家财政体制属于民族自治地方的财政收入，都应当由民族自治地方的自治机关自主地安排使用。
+
+* 第一百一十八条 民族自治地方的自治机关在国家计划的指导下，自主地安排和管理地方性的经济建设事业。
+
+  国家在民族自治地方开发资源、建设企业的时候，应当照顾民族自治地方的利益。
+
+* 第一百一十九条 民族自治地方的自治机关自主地管理本地方的教育、科学、文化、卫生、体育事业，保护和整理民族的文化遗产，发展和繁荣民族文化。
+
+* 第一百二十条 民族自治地方的自治机关依照国家的军事制度和当地的实际需要，经国务院批准，可以组织本地方维护社会治安的公安部队。
+
+* 第一百二十一条 民族自治地方的自治机关在执行职务的时候，依照本民族自治地方自治条例的规定，使用当地通用的一种或者几种语言文字。
+
+* 第一百二十二条 国家从财政、物资、技术等方面帮助各少数民族加速发展经济建设和文化建设事业。
+
+  国家帮助民族自治地方从当地民族中大量培养各级干部、各种专业人才和技术工人。
+
+### 第七节 人民法院和人民检察院
+
+* 第一百二十三条 中华人民共和国人民法院是国家的审判机关。
+
+* 第一百二十四条 中华人民共和国设立最高人民法院、地方各级人民法院和军事法院等专门人民法院。
+
+  最高人民法院院长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民法院的组织由法律规定。
+
+* 第一百二十五条 人民法院审理案件，除法律规定的特别情况外，一律公开进行。被告人有权获得辩护。
+
+* 第一百二十六条 人民法院依照法律规定独立行使审判权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百二十七条 最高人民法院是最高审判机关。
+
+  最高人民法院监督地方各级人民法院和专门人民法院的审判工作，上级人民法院监督下级人民法院的审判工作。
+
+* 第一百二十八条 最高人民法院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民法院对产生它的国家权力机关负责。
+
+* 第一百二十九条 中华人民共和国人民检察院是国家的法律监督机关。
+
+* 第一百三十条 中华人民共和国设立最高人民检察院、地方各级人民检察院和军事检察院等专门人民检察院。
+
+  最高人民检察院检察长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民检察院的组织由法律规定。
+
+* 第一百三十一条 人民检察院依照法律规定独立行使检察权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百三十二条 最高人民检察院是最高检察机关。
+
+  最高人民检察院领导地方各级人民检察院和专门人民检察院的工作，上级人民检察院领导下级人民检察院的工作。
+
+* 第一百三十三条 最高人民检察院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民检察院对产生它的国家权力机关和上级人民检察院负责。
+
+* 第一百三十四条 各民族公民都有用本民族语言文字进行诉讼的权利。人民法院和人民检察院对于不通晓当地通用的语言文字的诉讼参与人，应当为他们翻译。
+
+  在少数民族聚居或者多民族共同居住的地区，应当用当地通用的语言进行审理；起诉书、判决书、布告和其他文书应当根据实际需要使用当地通用的一种或者几种文字。
+
+* 第一百三十五条 人民法院、人民检察院和公安机关办理刑事案件，应当分工负责，互相配合，互相制约，以保证准确有效地执行法律。
+
+## 第四章 国旗、国歌、国徽、首都
+
+* 第一百三十六条 中华人民共和国国旗是五星红旗。
+
+  中华人民共和国国歌是《义勇军进行曲》。
+
+* 第一百三十七条 中华人民共和国国徽，中间是五星照耀下的天安门，周围是谷穗和齿轮。
+
+* 第一百三十八条 中华人民共和国首都是北京。
+*/
+/*
+# 中华人民共和国宪法
+
+> 1982年12月4日第五届全国人民代表大会第五次会议通过
+> 1982年12月4日全国人民代表大会公告公布施行
+
+> 根据1988年4月12日第七届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1993年3月29日第八届全国人民代表大会第一次会议通过的《中华人民共和国宪法修正案》、
+> 1999年3月15日第九届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》、
+> 2004年3月14日第十届全国人民代表大会第二次会议通过的《中华人民共和国宪法修正案》修正
+
+
+## 序言
+
+中国是世界上历史最悠久的国家之一。中国各族人民共同创造了光辉灿烂的文化，具有光荣的革命传统。
+
+一八四〇年以后，封建的中国逐渐变成半殖民地、半封建的国家。中国人民为国家独立、民族解放和民主自由进行了前仆后继的英勇奋斗。
+
+二十世纪，中国发生了翻天覆地的伟大历史变革。
+
+一九一一年孙中山先生领导的辛亥革命，废除了封建帝制，创立了中华民国。但是，中国人民反对帝国主义和封建主义的历史任务还没有完成。
+
+一九四九年，以毛泽东主席为领袖的中国共产党领导中国各族人民，在经历了长期的艰难曲折的武装斗争和其他形式的斗争以后，终于推翻了帝国主义、封建主义和官僚资本主义的统治，取得了新民主主义革命的伟大胜利，建立了中华人民共和国。从此，中国人民掌握了国家的权力，成为国家的主人。
+
+中华人民共和国成立以后，我国社会逐步实现了由新民主主义到社会主义的过渡。生产资料私有制的社会主义改造已经完成，人剥削人的制度已经消灭，社会主义制度已经确立。工人阶级领导的、以工农联盟为基础的人民民主专政，实质上即无产阶级专政，得到巩固和发展。中国人民和中国人民解放军战胜了帝国主义、霸权主义的侵略、破坏和武装挑衅，维护了国家的独立和安全，增强了国防。经济建设取得了重大的成就，独立的、比较完整的社会主义工业体系已经基本形成，农业生产显著提高。教育、科学、文化等事业有了很大的发展，社会主义思想教育取得了明显的成效。广大人民的生活有了较大的改善。
+
+中国新民主主义革命的胜利和社会主义事业的成就，是中国共产党领导中国各族人民，在马克思列宁主义、毛泽东思想的指引下，坚持真理，修正错误，战胜许多艰难险阻而取得的。我国将长期处于社会主义初级阶段。国家的根本任务是，沿着中国特色社会主义道路，集中力量进行社会主义现代化建设。中国各族人民将继续在中国共产党领导下，在马克思列宁主义、毛泽东思想、邓小平理论和“三个代表”重要思想指引下，坚持人民民主专政，坚持社会主义道路，坚持改革开放，不断完善社会主义的各项制度，发展社会主义市场经济，发展社会主义民主，健全社会主义法制，自力更生，艰苦奋斗，逐步实现工业、农业、国防和科学技术的现代化，推动物质文明、政治文明和精神文明协调发展，把我国建设成为富强、民主、文明的社会主义国家。
+
+在我国，剥削阶级作为阶级已经消灭，但是阶级斗争还将在一定范围内长期存在。中国人民对敌视和破坏我国社会主义制度的国内外的敌对势力和敌对分子，必须进行斗争。
+
+台湾是中华人民共和国的神圣领土的一部分。完成统一祖国的大业是包括台湾同胞在内的全中国人民的神圣职责。
+
+社会主义的建设事业必须依靠工人、农民和知识分子，团结一切可以团结的力量。在长期的革命和建设过程中，已经结成由中国共产党领导的，有各民主党派和各人民团体参加的，包括全体社会主义劳动者、社会主义事业的建设者、拥护社会主义的爱国者和拥护祖国统一的爱国者的广泛的爱国统一战线，这个统一战线将继续巩固和发展。中国人民政治协商会议是有广泛代表性的统一战线组织，过去发挥了重要的历史作用，今后在国家政治生活、社会生活和对外友好活动中，在进行社会主义现代化建设、维护国家的统一和团结的斗争中，将进一步发挥它的重要作用。中国共产党领导的多党合作和政治协商制度将长期存在和发展。
+
+中华人民共和国是全国各族人民共同缔造的统一的多民族国家。平等、团结、互助的社会主义民族关系已经确立，并将继续加强。在维护民族团结的斗争中，要反对大民族主义，主要是大汉族主义，也要反对地方民族主义。国家尽一切努力，促进全国各民族的共同繁荣。
+
+中国革命和建设的成就是同世界人民的支持分不开的。中国的前途是同世界的前途紧密地联系在一起的。中国坚持独立自主的对外政策，坚持互相尊重主权和领土完整、互不侵犯、互不干涉内政、平等互利、和平共处的五项原则，发展同各国的外交关系和经济、文化的交流；坚持反对帝国主义、霸权主义、殖民主义，加强同世界各国人民的团结，支持被压迫民族和发展中国家争取和维护民族独立、发展民族经济的正义斗争，为维护世界和平和促进人类进步事业而努力。
+
+本宪法以法律的形式确认了中国各族人民奋斗的成果，规定了国家的根本制度和根本任务，是国家的根本法，具有最高的法律效力。全国各族人民、一切国家机关和武装力量、各政党和各社会团体、各企业事业组织，都必须以宪法为根本的活动准则，并且负有维护宪法尊严、保证宪法实施的职责。
+
+## 第一章 总纲
+
+* 第一条 中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。
+
+  社会主义制度是中华人民共和国的根本制度。禁止任何组织或者个人破坏社会主义制度。
+
+* 第二条 中华人民共和国的一切权力属于人民。
+
+  人民行使国家权力的机关是全国人民代表大会和地方各级人民代表大会。
+
+  人民依照法律规定，通过各种途径和形式，管理国家事务，管理经济和文化事业，管理社会事务。
+
+* 第三条 中华人民共和国的国家机构实行民主集中制的原则。
+
+  全国人民代表大会和地方各级人民代表大会都由民主选举产生，对人民负责，受人民监督。
+
+  国家行政机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。
+
+  中央和地方的国家机构职权的划分，遵循在中央的统一领导下，充分发挥地方的主动性、积极性的原则。
+
+* 第四条 中华人民共和国各民族一律平等。
+
+  国家保障各少数民族的合法的权利和利益，维护和发展各民族的平等、团结、互助关系。禁止对任何民族的歧视和压迫，禁止破坏民族团结和制造民族分裂的行为。
+
+  国家根据各少数民族的特点和需要，帮助各少数民族地区加速经济和文化的发展。
+
+  各少数民族聚居的地方实行区域自治，设立自治机关，行使自治权。
+
+  各民族自治地方都是中华人民共和国不可分离的部分。
+
+  各民族都有使用和发展自己的语言文字的自由，都有保持或者改革自己的风俗习惯的自由。
+
+* 第五条 中华人民共和国实行依法治国，建设社会主义法治国家。
+
+  国家维护社会主义法制的统一和尊严。
+
+  一切法律、行政法规和地方性法规都不得同宪法相抵触。
+
+  一切国家机关和武装力量、各政党和各社会团体、各企业事业组织都必须遵守宪法和法律。一切违反宪法和法律的行为，必须予以追究。
+
+  任何组织或者个人都不得有超越宪法和法律的特权。
+
+* 第六条 中华人民共和国的社会主义经济制度的基础是生产资料的社会主义公有制，即全民所有制和劳动群众集体所有制。社会主义公有制消灭人剥削人的制度，实行各尽所能、按劳分配的原则。
+
+  国家在社会主义初级阶段，坚持公有制为主体、多种所有制经济共同发展的基本经济制度，坚持按劳分配为主体、多种分配方式并存的分配制度。
+
+* 第七条 国有经济，即社会主义全民所有制经济，是国民经济中的主导力量。国家保障国有经济的巩固和发展。
+
+* 第八条 农村集体经济组织实行家庭承包经营为基础、统分结合的双层经营体制。农村中的生产、供销、信用、消费等各种形式的合作经济，是社会主义劳动群众集体所有制经济。参加农村集体经济组织的劳动者，有权在法律规定的范围内经营自留地、自留山、家庭副业和饲养自留畜。
+
+  城镇中的手工业、工业、建筑业、运输业、商业、服务业等行业的各种形式的合作经济，都是社会主义劳动群众集体所有制经济。
+
+  国家保护城乡集体经济组织的合法的权利和利益，鼓励、指导和帮助集体经济的发展。
+
+* 第九条 矿藏、水流、森林、山岭、草原、荒地、滩涂等自然资源，都属于国家所有，即全民所有；由法律规定属于集体所有的森林和山岭、草原、荒地、滩涂除外。
+
+  国家保障自然资源的合理利用，保护珍贵的动物和植物。禁止任何组织或者个人用任何手段侵占或者破坏自然资源。
+
+* 第十条 城市的土地属于国家所有。
+
+  农村和城市郊区的土地，除由法律规定属于国家所有的以外，属于集体所有；宅基地和自留地、自留山，也属于集体所有。
+
+  国家为了公共利益的需要，可以依照法律规定对土地实行征收或者征用并给予补偿。
+
+  任何组织或者个人不得侵占、买卖或者以其他形式非法转让土地。土地的使用权可以依照法律的规定转让。
+
+  一切使用土地的组织和个人必须合理地利用土地。
+
+* 第十一条 在法律规定范围内的个体经济、私营经济等非公有制经济，是社会主义市场经济的重要组成部分。
+
+  国家保护个体经济、私营经济等非公有制经济的合法的权利和利益。国家鼓励、支持和引导非公有制经济的发展，并对非公有制经济依法实行监督和管理。
+
+* 第十二条 社会主义的公共财产神圣不可侵犯。
+
+  国家保护社会主义的公共财产。禁止任何组织或者个人用任何手段侵占或者破坏国家的和集体的财产。
+
+* 第十三条 公民的合法的私有财产不受侵犯。
+
+  国家依照法律规定保护公民的私有财产权和继承权。
+
+  国家为了公共利益的需要，可以依照法律规定对公民的私有财产实行征收或者征用并给予补偿。
+
+* 第十四条 国家通过提高劳动者的积极性和技术水平，推广先进的科学技术，完善经济管理体制和企业经营管理制度，实行各种形式的社会主义责任制，改进劳动组织，以不断提高劳动生产率和经济效益，发展社会生产力。
+
+  国家厉行节约，反对浪费。
+
+  国家合理安排积累和消费，兼顾国家、集体和个人的利益，在发展生产的基础上，逐步改善人民的物质生活和文化生活。
+
+  国家建立健全同经济发展水平相适应的社会保障制度。
+
+* 第十五条 国家实行社会主义市场经济。
+
+  国家加强经济立法，完善宏观调控。
+
+  国家依法禁止任何组织或者个人扰乱社会经济秩序。
+
+* 第十六条 国有企业在法律规定的范围内有权自主经营。
+
+  国有企业依照法律规定，通过职工代表大会和其他形式，实行民主管理。
+
+* 第十七条 集体经济组织在遵守有关法律的前提下，有独立进行经济活动的自主权。
+
+  集体经济组织实行民主管理，依照法律规定选举和罢免管理人员，决定经营管理的重大问题。
+
+* 第十八条 中华人民共和国允许外国的企业和其他经济组织或者个人依照中华人民共和国法律的规定在中国投资，同中国的企业或者其他经济组织进行各种形式的经济合作。
+
+  在中国境内的外国企业和其他外国经济组织以及中外合资经营的企业，都必须遵守中华人民共和国的法律。它们的合法的权利和利益受中华人民共和国法律的保护。
+
+* 第十九条 国家发展社会主义的教育事业，提高全国人民的科学文化水平。
+
+  国家举办各种学校，普及初等义务教育，发展中等教育、职业教育和高等教育，并且发展学前教育。
+
+  国家发展各种教育设施，扫除文盲，对工人、农民、国家工作人员和其他劳动者进行政治、文化、科学、技术、业务的教育，鼓励自学成才。
+
+  国家鼓励集体经济组织、国家企业事业组织和其他社会力量依照法律规定举办各种教育事业。
+
+  国家推广全国通用的普通话。
+
+* 第二十条 国家发展自然科学和社会科学事业，普及科学和技术知识，奖励科学研究成果和技术发明创造。
+
+* 第二十一条 国家发展医疗卫生事业，发展现代医药和我国传统医药，鼓励和支持农村集体经济组织、国家企业事业组织和街道组织举办各种医疗卫生设施，开展群众性的卫生活动，保护人民健康。
+
+  国家发展体育事业，开展群众性的体育活动，增强人民体质。
+
+* 第二十二条 国家发展为人民服务、为社会主义服务的文学艺术事业、新闻广播电视事业、出版发行事业、图书馆博物馆文化馆和其他文化事业，开展群众性的文化活动。
+
+  国家保护名胜古迹、珍贵文物和其他重要历史文化遗产。
+
+* 第二十三条 国家培养为社会主义服务的各种专业人才，扩大知识分子的队伍，创造条件，充分发挥他们在社会主义现代化建设中的作用。
+
+* 第二十四条 国家通过普及理想教育、道德教育、文化教育、纪律和法制教育，通过在城乡不同范围的群众中制定和执行各种守则、公约，加强社会主义精神文明的建设。
+
+  国家提倡爱祖国、爱人民、爱劳动、爱科学、爱社会主义的公德，在人民中进行爱国主义、集体主义和国际主义、共产主义的教育，进行辩证唯物主义和历史唯物主义的教育，反对资本主义的、封建主义的和其他的腐朽思想。
+
+* 第二十五条 国家推行计划生育，使人口的增长同经济和社会发展计划相适应。
+
+* 第二十六条 国家保护和改善生活环境和生态环境，防治污染和其他公害。
+
+  国家组织和鼓励植树造林，保护林木。
+
+* 第二十七条 一切国家机关实行精简的原则，实行工作责任制，实行工作人员的培训和考核制度，不断提高工作质量和工作效率，反对官僚主义。
+
+  一切国家机关和国家工作人员必须依靠人民的支持，经常保持同人民的密切联系，倾听人民的意见和建议，接受人民的监督，努力为人民服务。
+
+* 第二十八条 国家维护社会秩序，镇压叛国和其他危害国家安全的犯罪活动，制裁危害社会治安、破坏社会主义经济和其他犯罪的活动，惩办和改造犯罪分子。
+
+* 第二十九条 中华人民共和国的武装力量属于人民。它的任务是巩固国防，抵抗侵略，保卫祖国，保卫人民的和平劳动，参加国家建设事业，努力为人民服务。
+
+  国家加强武装力量的革命化、现代化、正规化的建设，增强国防力量。
+
+* 第三十条 中华人民共和国的行政区域划分如下：
+
+  * （一）全国分为省、自治区、直辖市；
+  * （二）省、自治区分为自治州、县、自治县、市；
+  * （三）县、自治县分为乡、民族乡、镇。
+
+  直辖市和较大的市分为区、县。自治州分为县、自治县、市。
+
+  自治区、自治州、自治县都是民族自治地方。
+
+* 第三十一条 国家在必要时得设立特别行政区。在特别行政区内实行的制度按照具体情况由全国人民代表大会以法律规定。
+
+* 第三十二条 中华人民共和国保护在中国境内的外国人的合法权利和利益，在中国境内的外国人必须遵守中华人民共和国的法律。
+
+  中华人民共和国对于因为政治原因要求避难的外国人，可以给予受庇护的权利。
+
+## 第二章 公民的基本权利和义务
+
+* 第三十三条 凡具有中华人民共和国国籍的人都是中华人民共和国公民。
+
+  中华人民共和国公民在法律面前一律平等。
+
+  国家尊重和保障人权。
+
+  任何公民享有宪法和法律规定的权利，同时必须履行宪法和法律规定的义务。
+
+* 第三十四条 中华人民共和国年满十八周岁的公民，不分民族、种族、性别、职业、家庭出身、宗教信仰、教育程度、财产状况、居住期限，都有选举权和被选举权；但是依照法律被剥夺政治权利的人除外。
+
+* 第三十五条 中华人民共和国公民有言论、出版、集会、结社、游行、示威的自由。
+
+* 第三十六条 中华人民共和国公民有宗教信仰自由。
+
+  任何国家机关、社会团体和个人不得强制公民信仰宗教或者不信仰宗教，不得歧视信仰宗教的公民和不信仰宗教的公民。
+
+  国家保护正常的宗教活动。任何人不得利用宗教进行破坏社会秩序、损害公民身体健康、妨碍国家教育制度的活动。
+
+  宗教团体和宗教事务不受外国势力的支配。
+
+* 第三十七条 中华人民共和国公民的人身自由不受侵犯。
+
+  任何公民，非经人民检察院批准或者决定或者人民法院决定，并由公安机关执行，不受逮捕。
+
+  禁止非法拘禁和以其他方法非法剥夺或者限制公民的人身自由，禁止非法搜查公民的身体。
+
+* 第三十八条 中华人民共和国公民的人格尊严不受侵犯。禁止用任何方法对公民进行侮辱、诽谤和诬告陷害。
+
+* 第三十九条 中华人民共和国公民的住宅不受侵犯。禁止非法搜查或者非法侵入公民的住宅。
+
+* 第四十条 中华人民共和国公民的通信自由和通信秘密受法律的保护。除因国家安全或者追查刑事犯罪的需要，由公安机关或者检察机关依照法律规定的程序对通信进行检查外，任何组织或者个人不得以任何理由侵犯公民的通信自由和通信秘密。
+
+* 第四十一条 中华人民共和国公民对于任何国家机关和国家工作人员，有提出批评和建议的权利；对于任何国家机关和国家工作人员的违法失职行为，有向有关国家机关提出申诉、控告或者检举的权利，但是不得捏造或者歪曲事实进行诬告陷害。
+
+  对于公民的申诉、控告或者检举，有关国家机关必须查清事实，负责处理。任何人不得压制和打击报复。
+
+  由于国家机关和国家工作人员侵犯公民权利而受到损失的人，有依照法律规定取得赔偿的权利。
+
+* 第四十二条 中华人民共和国公民有劳动的权利和义务。
+
+  国家通过各种途径，创造劳动就业条件，加强劳动保护，改善劳动条件，并在发展生产的基础上，提高劳动报酬和福利待遇。
+
+  劳动是一切有劳动能力的公民的光荣职责。国有企业和城乡集体经济组织的劳动者都应当以国家主人翁的态度对待自己的劳动。国家提倡社会主义劳动竞赛，奖励劳动模范和先进工作者。国家提倡公民从事义务劳动。
+
+  国家对就业前的公民进行必要的劳动就业训练。
+
+* 第四十三条 中华人民共和国劳动者有休息的权利。
+
+  国家发展劳动者休息和休养的设施，规定职工的工作时间和休假制度。
+
+* 第四十四条 国家依照法律规定实行企业事业组织的职工和国家机关工作人员的退休制度。退休人员的生活受到国家和社会的保障。
+
+* 第四十五条 中华人民共和国公民在年老、疾病或者丧失劳动能力的情况下，有从国家和社会获得物质帮助的权利。国家发展为公民享受这些权利所需要的社会保险、社会救济和医疗卫生事业。
+
+  国家和社会保障残废军人的生活，抚恤烈士家属，优待军人家属。
+
+  国家和社会帮助安排盲、聋、哑和其他有残疾的公民的劳动、生活和教育。
+
+* 第四十六条 中华人民共和国公民有受教育的权利和义务。
+
+  国家培养青年、少年、儿童在品德、智力、体质等方面全面发展。
+
+* 第四十七条 中华人民共和国公民有进行科学研究、文学艺术创作和其他文化活动的自由。国家对于从事教育、科学、技术、文学、艺术和其他文化事业的公民的有益于人民的创造性工作，给以鼓励和帮助。
+
+* 第四十八条 中华人民共和国妇女在政治的、经济的、文化的、社会的和家庭的生活等各方面享有同男子平等的权利。
+
+  国家保护妇女的权利和利益，实行男女同工同酬，培养和选拔妇女干部。
+
+* 第四十九条 婚姻、家庭、母亲和儿童受国家的保护。
+
+  夫妻双方有实行计划生育的义务。
+
+  父母有抚养教育未成年子女的义务，成年子女有赡养扶助父母的义务。
+
+  禁止破坏婚姻自由，禁止虐待老人、妇女和儿童。
+
+* 第五十条 中华人民共和国保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益。
+
+* 第五十一条 中华人民共和国公民在行使自由和权利的时候，不得损害国家的、社会的、集体的利益和其他公民的合法的自由和权利。
+
+* 第五十二条 中华人民共和国公民有维护国家统一和全国各民族团结的义务。
+
+* 第五十三条 中华人民共和国公民必须遵守宪法和法律，保守国家秘密，爱护公共财产，遵守劳动纪律，遵守公共秩序，尊重社会公德。
+
+* 第五十四条 中华人民共和国公民有维护祖国的安全、荣誉和利益的义务，不得有危害祖国的安全、荣誉和利益的行为。
+
+* 第五十五条 保卫祖国、抵抗侵略是中华人民共和国每一个公民的神圣职责。
+
+  依照法律服兵役和参加民兵组织是中华人民共和国公民的光荣义务。
+
+* 第五十六条 中华人民共和国公民有依照法律纳税的义务。
+
+## 第三章 国家机构
+
+### 第一节 全国人民代表大会
+
+* 第五十七条 中华人民共和国全国人民代表大会是最高国家权力机关。它的常设机关是全国人民代表大会常务委员会。
+
+* 第五十八条 全国人民代表大会和全国人民代表大会常务委员会行使国家立法权。
+
+* 第五十九条 全国人民代表大会由省、自治区、直辖市、特别行政区和军队选出的代表组成。各少数民族都应当有适当名额的代表。
+
+  全国人民代表大会代表的选举由全国人民代表大会常务委员会主持。
+
+  全国人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第六十条 全国人民代表大会每届任期五年。
+
+  全国人民代表大会任期届满的两个月以前，全国人民代表大会常务委员会必须完成下届全国人民代表大会代表的选举。如果遇到不能进行选举的非常情况，由全国人民代表大会常务委员会以全体组成人员的三分之二以上的多数通过，可以推迟选举，延长本届全国人民代表大会的任期。在非常情况结束后一年内，必须完成下届全国人民代表大会代表的选举。
+
+* 第六十一条 全国人民代表大会会议每年举行一次，由全国人民代表大会常务委员会召集。如果全国人民代表大会常务委员会认为必要，或者有五分之一以上的全国人民代表大会代表提议，可以临时召集全国人民代表大会会议。
+
+  全国人民代表大会举行会议的时候，选举主席团主持会议。
+
+* 第六十二条 全国人民代表大会行使下列职权：
+
+  * （一）修改宪法；
+  * （二）监督宪法的实施；
+  * （三）制定和修改刑事、民事、国家机构的和其他的基本法律；
+  * （四）选举中华人民共和国主席、副主席；
+  * （五）根据中华人民共和国主席的提名，决定国务院总理的人选；根据国务院总理的提名，决定国务院副总理、国务委员、各部部长、各委员会主任、审计长、秘书长的人选；
+  * （六）选举中央军事委员会主席；根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （七）选举最高人民法院院长；
+  * （八）选举最高人民检察院检察长；
+  * （九）审查和批准国民经济和社会发展计划和计划执行情况的报告；
+  * （十）审查和批准国家的预算和预算执行情况的报告；
+  * （十一）改变或者撤销全国人民代表大会常务委员会不适当的决定；
+  * （十二）批准省、自治区和直辖市的建置；
+  * （十三）决定特别行政区的设立及其制度；
+  * （十四）决定战争和和平的问题；
+  * （十五）应当由最高国家权力机关行使的其他职权。
+
+* 第六十三条 全国人民代表大会有权罢免下列人员：
+
+  * （一）中华人民共和国主席、副主席；
+  * （二）国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长；
+  * （三）中央军事委员会主席和中央军事委员会其他组成人员；
+  * （四）最高人民法院院长；
+  * （五）最高人民检察院检察长。
+
+* 第六十四条 宪法的修改，由全国人民代表大会常务委员会或者五分之一以上的全国人民代表大会代表提议，并由全国人民代表大会以全体代表的三分之二以上的多数通过。
+
+  法律和其他议案由全国人民代表大会以全体代表的过半数通过。
+
+* 第六十五条 全国人民代表大会常务委员会由下列人员组成：
+
+  委员长，副委员长若干人，秘书长，委员若干人。
+
+  全国人民代表大会常务委员会组成人员中，应当有适当名额的少数民族代表。
+
+  全国人民代表大会选举并有权罢免全国人民代表大会常务委员会的组成人员。
+
+  全国人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第六十六条 全国人民代表大会常务委员会每届任期同全国人民代表大会每届任期相同，它行使职权到下届全国人民代表大会选出新的常务委员会为止。
+
+  委员长、副委员长连续任职不得超过两届。
+
+* 第六十七条 全国人民代表大会常务委员会行使下列职权：
+
+  * （一）解释宪法，监督宪法的实施；
+  * （二）制定和修改除应当由全国人民代表大会制定的法律以外的其他法律；
+  * （三）在全国人民代表大会闭会期间，对全国人民代表大会制定的法律进行部分补充和修改，但是不得同该法律的基本原则相抵触；
+  * （四）解释法律；
+  * （五）在全国人民代表大会闭会期间，审查和批准国民经济和社会发展计划、国家预算在执行过程中所必须作的部分调整方案；
+  * （六）监督国务院、中央军事委员会、最高人民法院和最高人民检察院的工作；
+  * （七）撤销国务院制定的同宪法、法律相抵触的行政法规、决定和命令；
+  * （八）撤销省、自治区、直辖市国家权力机关制定的同宪法、法律和行政法规相抵触的地方性法规和决议；
+  * （九）在全国人民代表大会闭会期间，根据国务院总理的提名，决定部长、委员会主任、审计长、秘书长的人选；
+  * （十）在全国人民代表大会闭会期间，根据中央军事委员会主席的提名，决定中央军事委员会其他组成人员的人选；
+  * （十一）根据最高人民法院院长的提请，任免最高人民法院副院长、审判员、审判委员会委员和军事法院院长；
+  * （十二）根据最高人民检察院检察长的提请，任免最高人民检察院副检察长、检察员、检察委员会委员和军事检察院检察长，并且批准省、自治区、直辖市的人民检察院检察长的任免；
+  * （十三）决定驻外全权代表的任免；
+  * （十四）决定同外国缔结的条约和重要协定的批准和废除；
+  * （十五）规定军人和外交人员的衔级制度和其他专门衔级制度；
+  * （十六）规定和决定授予国家的勋章和荣誉称号；
+  * （十七）决定特赦；
+  * （十八）在全国人民代表大会闭会期间，如果遇到国家遭受武装侵犯或者必须履行国际间共同防止侵略的条约的情况，决定战争状态的宣布；
+  * （十九）决定全国总动员或者局部动员；
+  * （二十）决定全国或者个别省、自治区、直辖市进入紧急状态；
+  * （二十一）全国人民代表大会授予的其他职权。
+
+* 第六十八条 全国人民代表大会常务委员会委员长主持全国人民代表大会常务委员会的工作，召集全国人民代表大会常务委员会会议。副委员长、秘书长协助委员长工作。
+
+  委员长、副委员长、秘书长组成委员长会议，处理全国人民代表大会常务委员会的重要日常工作。
+
+* 第六十九条 全国人民代表大会常务委员会对全国人民代表大会负责并报告工作。
+
+* 第七十条 全国人民代表大会设立民族委员会、法律委员会、财政经济委员会、教育科学文化卫生委员会、外事委员会、华侨委员会和其他需要设立的专门委员会。在全国人民代表大会闭会期间，各专门委员会受全国人民代表大会常务委员会的领导。
+
+  各专门委员会在全国人民代表大会和全国人民代表大会常务委员会领导下，研究、审议和拟订有关议案。
+
+* 第七十一条 全国人民代表大会和全国人民代表大会常务委员会认为必要的时候，可以组织关于特定问题的调查委员会，并且根据调查委员会的报告，作出相应的决议。
+
+  调查委员会进行调查的时候，一切有关的国家机关、社会团体和公民都有义务向它提供必要的材料。
+
+* 第七十二条 全国人民代表大会代表和全国人民代表大会常务委员会组成人员，有权依照法律规定的程序分别提出属于全国人民代表大会和全国人民代表大会常务委员会职权范围内的议案。
+
+* 第七十三条 全国人民代表大会代表在全国人民代表大会开会期间，全国人民代表大会常务委员会组成人员在常务委员会开会期间，有权依照法律规定的程序提出对国务院或者国务院各部、各委员会的质询案。受质询的机关必须负责答复。
+
+* 第七十四条 全国人民代表大会代表，非经全国人民代表大会会议主席团许可，在全国人民代表大会闭会期间非经全国人民代表大会常务委员会许可，不受逮捕或者刑事审判。
+
+* 第七十五条 全国人民代表大会代表在全国人民代表大会各种会议上的发言和表决，不受法律追究。
+
+* 第七十六条 全国人民代表大会代表必须模范地遵守宪法和法律，保守国家秘密，并且在自己参加的生产、工作和社会活动中，协助宪法和法律的实施。
+
+  全国人民代表大会代表应当同原选举单位和人民保持密切的联系，听取和反映人民的意见和要求，努力为人民服务。
+
+* 第七十七条 全国人民代表大会代表受原选举单位的监督。原选举单位有权依照法律规定的程序罢免本单位选出的代表。
+
+* 第七十八条 全国人民代表大会和全国人民代表大会常务委员会的组织和工作程序由法律规定。
+
+### 第二节 中华人民共和国主席
+
+* 第七十九条 中华人民共和国主席、副主席由全国人民代表大会选举。
+
+  有选举权和被选举权的年满四十五周岁的中华人民共和国公民可以被选为中华人民共和国主席、副主席。
+
+  中华人民共和国主席、副主席每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+* 第八十条 中华人民共和国主席根据全国人民代表大会的决定和全国人民代表大会常务委员会的决定，公布法律，任免国务院总理、副总理、国务委员、各部部长、各委员会主任、审计长、秘书长，授予国家的勋章和荣誉称号，发布特赦令，宣布进入紧急状态，宣布战争状态，发布动员令。
+
+* 第八十一条 中华人民共和国主席代表中华人民共和国，进行国事活动，接受外国使节；根据全国人民代表大会常务委员会的决定，派遣和召回驻外全权代表，批准和废除同外国缔结的条约和重要协定。
+
+* 第八十二条 中华人民共和国副主席协助主席工作。
+
+  中华人民共和国副主席受主席的委托，可以代行主席的部分职权。
+
+* 第八十三条 中华人民共和国主席、副主席行使职权到下届全国人民代表大会选出的主席、副主席就职为止。
+
+* 第八十四条 中华人民共和国主席缺位的时候，由副主席继任主席的职位。
+
+  中华人民共和国副主席缺位的时候，由全国人民代表大会补选。
+
+  中华人民共和国主席、副主席都缺位的时候，由全国人民代表大会补选；在补选以前，由全国人民代表大会常务委员会委员长暂时代理主席职位。
+
+### 第三节 国务院
+
+* 第八十五条 中华人民共和国国务院，即中央人民政府，是最高国家权力机关的执行机关，是最高国家行政机关。
+
+* 第八十六条 国务院由下列人员组成：
+
+  总理，副总理若干人，国务委员若干人，各部部长，各委员会主任，审计长，秘书长。
+
+  国务院实行总理负责制。各部、各委员会实行部长、主任负责制。
+
+  国务院的组织由法律规定。
+
+* 第八十七条 国务院每届任期同全国人民代表大会每届任期相同。
+
+  总理、副总理、国务委员连续任职不得超过两届。
+
+* 第八十八条 总理领导国务院的工作。副总理、国务委员协助总理工作。
+
+  总理、副总理、国务委员、秘书长组成国务院常务会议。
+
+  总理召集和主持国务院常务会议和国务院全体会议。
+
+* 第八十九条 国务院行使下列职权：
+
+  * （一）根据宪法和法律，规定行政措施，制定行政法规，发布决定和命令；
+  * （二）向全国人民代表大会或者全国人民代表大会常务委员会提出议案；
+  * （三）规定各部和各委员会的任务和职责，统一领导各部和各委员会的工作，并且领导不属于各部和各委员会的全国性的行政工作；
+  * （四）统一领导全国地方各级国家行政机关的工作，规定中央和省、自治区、直辖市的国家行政机关的职权的具体划分；
+  * （五）编制和执行国民经济和社会发展计划和国家预算；
+  * （六）领导和管理经济工作和城乡建设；
+  * （七）领导和管理教育、科学、文化、卫生、体育和计划生育工作；
+  * （八）领导和管理民政、公安、司法行政和监察等工作；
+  * （九）管理对外事务，同外国缔结条约和协定；
+  * （十）领导和管理国防建设事业；
+  * （十一）领导和管理民族事务，保障少数民族的平等权利和民族自治地方的自治权利；
+  * （十二）保护华侨的正当的权利和利益，保护归侨和侨眷的合法的权利和利益；
+  * （十三）改变或者撤销各部、各委员会发布的不适当的命令、指示和规章；
+  * （十四）改变或者撤销地方各级国家行政机关的不适当的决定和命令；
+  * （十五）批准省、自治区、直辖市的区域划分，批准自治州、县、自治县、市的建置和区域划分；
+  * （十六）依照法律规定决定省、自治区、直辖市的范围内部分地区进入紧急状态；
+  * （十七）审定行政机构的编制，依照法律规定任免、培训、考核和奖惩行政人员；
+  * （十八）全国人民代表大会和全国人民代表大会常务委员会授予的其他职权。
+
+* 第九十条 国务院各部部长、各委员会主任负责本部门的工作；召集和主持部务会议或者委员会会议、委务会议，讨论决定本部门工作的重大问题。
+
+  各部、各委员会根据法律和国务院的行政法规、决定、命令，在本部门的权限内，发布命令、指示和规章。
+
+* 第九十一条 国务院设立审计机关，对国务院各部门和地方各级政府的财政收支，对国家的财政金融机构和企业事业组织的财务收支，进行审计监督。
+
+  审计机关在国务院总理领导下，依照法律规定独立行使审计监督权，不受其他行政机关、社会团体和个人的干涉。
+
+* 第九十二条 国务院对全国人民代表大会负责并报告工作；在全国人民代表大会闭会期间，对全国人民代表大会常务委员会负责并报告工作。
+
+### 第四节 中央军事委员会
+
+* 第九十三条 中华人民共和国中央军事委员会领导全国武装力量。
+
+  中央军事委员会由下列人员组成：
+
+  主席，副主席若干人，委员若干人。
+
+  中央军事委员会实行主席负责制。
+
+  中央军事委员会每届任期同全国人民代表大会每届任期相同。
+
+* 第九十四条 中央军事委员会主席对全国人民代表大会和全国人民代表大会常务委员会负责。
+
+### 第五节 地方各级人民代表大会和地方各级人民政府
+
+* 第九十五条 省、直辖市、县、市、市辖区、乡、民族乡、镇设立人民代表大会和人民政府。
+
+  地方各级人民代表大会和地方各级人民政府的组织由法律规定。
+
+  自治区、自治州、自治县设立自治机关。自治机关的组织和工作根据宪法第三章第五节、第六节规定的基本原则由法律规定。
+
+* 第九十六条 地方各级人民代表大会是地方国家权力机关。
+
+  县级以上的地方各级人民代表大会设立常务委员会。
+
+* 第九十七条 省、直辖市、设区的市的人民代表大会代表由下一级的人民代表大会选举；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表由选民直接选举。
+
+  地方各级人民代表大会代表名额和代表产生办法由法律规定。
+
+* 第九十八条 地方各级人民代表大会每届任期五年。
+
+* 第九十九条 地方各级人民代表大会在本行政区域内，保证宪法、法律、行政法规的遵守和执行；依照法律规定的权限，通过和发布决议，审查和决定地方的经济建设、文化建设和公共事业建设的计划。
+
+  县级以上的地方各级人民代表大会审查和批准本行政区域内的国民经济和社会发展计划、预算以及它们的执行情况的报告；有权改变或者撤销本级人民代表大会常务委员会不适当的决定。
+
+  民族乡的人民代表大会可以依照法律规定的权限采取适合民族特点的具体措施。
+
+* 第一百条 省、直辖市的人民代表大会和它们的常务委员会，在不同宪法、法律、行政法规相抵触的前提下，可以制定地方性法规，报全国人民代表大会常务委员会备案。
+
+* 第一百零一条 地方各级人民代表大会分别选举并且有权罢免本级人民政府的省长和副省长、市长和副市长、县长和副县长、区长和副区长、乡长和副乡长、镇长和副镇长。
+
+  县级以上的地方各级人民代表大会选举并且有权罢免本级人民法院院长和本级人民检察院检察长。选出或者罢免人民检察院检察长，须报上级人民检察院检察长提请该级人民代表大会常务委员会批准。
+
+* 第一百零二条 省、直辖市、设区的市的人民代表大会代表受原选举单位的监督；县、不设区的市、市辖区、乡、民族乡、镇的人民代表大会代表受选民的监督。
+
+  地方各级人民代表大会代表的选举单位和选民有权依照法律规定的程序罢免由他们选出的代表。
+
+* 第一百零三条 县级以上的地方各级人民代表大会常务委员会由主任、副主任若干人和委员若干人组成，对本级人民代表大会负责并报告工作。
+
+  县级以上的地方各级人民代表大会选举并有权罢免本级人民代表大会常务委员会的组成人员。
+
+  县级以上的地方各级人民代表大会常务委员会的组成人员不得担任国家行政机关、审判机关和检察机关的职务。
+
+* 第一百零四条 县级以上的地方各级人民代表大会常务委员会讨论、决定本行政区域内各方面工作的重大事项；监督本级人民政府、人民法院和人民检察院的工作；撤销本级人民政府的不适当的决定和命令；撤销下一级人民代表大会的不适当的决议；依照法律规定的权限决定国家机关工作人员的任免；在本级人民代表大会闭会期间，罢免和补选上一级人民代表大会的个别代表。
+
+* 第一百零五条 地方各级人民政府是地方各级国家权力机关的执行机关，是地方各级国家行政机关。
+
+  地方各级人民政府实行省长、市长、县长、区长、乡长、镇长负责制。
+
+* 第一百零六条 地方各级人民政府每届任期同本级人民代表大会每届任期相同。
+
+* 第一百零七条 县级以上地方各级人民政府依照法律规定的权限，管理本行政区域内的经济、教育、科学、文化、卫生、体育事业、城乡建设事业和财政、民政、公安、民族事务、司法行政、监察、计划生育等行政工作，发布决定和命令，任免、培训、考核和奖惩行政工作人员。
+
+  乡、民族乡、镇的人民政府执行本级人民代表大会的决议和上级国家行政机关的决定和命令，管理本行政区域内的行政工作。
+
+  省、直辖市的人民政府决定乡、民族乡、镇的建置和区域划分。
+
+* 第一百零八条 县级以上的地方各级人民政府领导所属各工作部门和下级人民政府的工作，有权改变或者撤销所属各工作部门和下级人民政府的不适当的决定。
+
+* 第一百零九条 县级以上的地方各级人民政府设立审计机关。地方各级审计机关依照法律规定独立行使审计监督权，对本级人民政府和上一级审计机关负责。
+
+* 第一百一十条 地方各级人民政府对本级人民代表大会负责并报告工作。县级以上的地方各级人民政府在本级人民代表大会闭会期间，对本级人民代表大会常务委员会负责并报告工作。
+
+  地方各级人民政府对上一级国家行政机关负责并报告工作。全国地方各级人民政府都是国务院统一领导下的国家行政机关，都服从国务院。
+
+* 第一百一十一条 城市和农村按居民居住地区设立的居民委员会或者村民委员会是基层群众性自治组织。居民委员会、村民委员会的主任、副主任和委员由居民选举。居民委员会、村民委员会同基层政权的相互关系由法律规定。
+
+  居民委员会、村民委员会设人民调解、治安保卫、公共卫生等委员会，办理本居住地区的公共事务和公益事业，调解民间纠纷，协助维护社会治安，并且向人民政府反映群众的意见、要求和提出建议。
+
+### 第六节 民族自治地方的自治机关
+
+* 第一百一十二条 民族自治地方的自治机关是自治区、自治州、自治县的人民代表大会和人民政府。
+
+* 第一百一十三条 自治区、自治州、自治县的人民代表大会中，除实行区域自治的民族的代表外，其他居住在本行政区域内的民族也应当有适当名额的代表。
+
+  自治区、自治州、自治县的人民代表大会常务委员会中应当有实行区域自治的民族的公民担任主任或者副主任。
+
+* 第一百一十四条 自治区主席、自治州州长、自治县县长由实行区域自治的民族的公民担任。
+
+* 第一百一十五条 自治区、自治州、自治县的自治机关行使宪法第三章第五节规定的地方国家机关的职权，同时依照宪法、民族区域自治法和其他法律规定的权限行使自治权，根据本地方实际情况贯彻执行国家的法律、政策。
+
+* 第一百一十六条 民族自治地方的人民代表大会有权依照当地民族的政治、经济和文化的特点，制定自治条例和单行条例。自治区的自治条例和单行条例，报全国人民代表大会常务委员会批准后生效。自治州、自治县的自治条例和单行条例，报省或者自治区的人民代表大会常务委员会批准后生效，并报全国人民代表大会常务委员会备案。
+
+* 第一百一十七条 民族自治地方的自治机关有管理地方财政的自治权。凡是依照国家财政体制属于民族自治地方的财政收入，都应当由民族自治地方的自治机关自主地安排使用。
+
+* 第一百一十八条 民族自治地方的自治机关在国家计划的指导下，自主地安排和管理地方性的经济建设事业。
+
+  国家在民族自治地方开发资源、建设企业的时候，应当照顾民族自治地方的利益。
+
+* 第一百一十九条 民族自治地方的自治机关自主地管理本地方的教育、科学、文化、卫生、体育事业，保护和整理民族的文化遗产，发展和繁荣民族文化。
+
+* 第一百二十条 民族自治地方的自治机关依照国家的军事制度和当地的实际需要，经国务院批准，可以组织本地方维护社会治安的公安部队。
+
+* 第一百二十一条 民族自治地方的自治机关在执行职务的时候，依照本民族自治地方自治条例的规定，使用当地通用的一种或者几种语言文字。
+
+* 第一百二十二条 国家从财政、物资、技术等方面帮助各少数民族加速发展经济建设和文化建设事业。
+
+  国家帮助民族自治地方从当地民族中大量培养各级干部、各种专业人才和技术工人。
+
+### 第七节 人民法院和人民检察院
+
+* 第一百二十三条 中华人民共和国人民法院是国家的审判机关。
+
+* 第一百二十四条 中华人民共和国设立最高人民法院、地方各级人民法院和军事法院等专门人民法院。
+
+  最高人民法院院长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民法院的组织由法律规定。
+
+* 第一百二十五条 人民法院审理案件，除法律规定的特别情况外，一律公开进行。被告人有权获得辩护。
+
+* 第一百二十六条 人民法院依照法律规定独立行使审判权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百二十七条 最高人民法院是最高审判机关。
+
+  最高人民法院监督地方各级人民法院和专门人民法院的审判工作，上级人民法院监督下级人民法院的审判工作。
+
+* 第一百二十八条 最高人民法院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民法院对产生它的国家权力机关负责。
+
+* 第一百二十九条 中华人民共和国人民检察院是国家的法律监督机关。
+
+* 第一百三十条 中华人民共和国设立最高人民检察院、地方各级人民检察院和军事检察院等专门人民检察院。
+
+  最高人民检察院检察长每届任期同全国人民代表大会每届任期相同，连续任职不得超过两届。
+
+  人民检察院的组织由法律规定。
+
+* 第一百三十一条 人民检察院依照法律规定独立行使检察权，不受行政机关、社会团体和个人的干涉。
+
+* 第一百三十二条 最高人民检察院是最高检察机关。
+
+  最高人民检察院领导地方各级人民检察院和专门人民检察院的工作，上级人民检察院领导下级人民检察院的工作。
+
+* 第一百三十三条 最高人民检察院对全国人民代表大会和全国人民代表大会常务委员会负责。地方各级人民检察院对产生它的国家权力机关和上级人民检察院负责。
+
+* 第一百三十四条 各民族公民都有用本民族语言文字进行诉讼的权利。人民法院和人民检察院对于不通晓当地通用的语言文字的诉讼参与人，应当为他们翻译。
+
+  在少数民族聚居或者多民族共同居住的地区，应当用当地通用的语言进行审理；起诉书、判决书、布告和其他文书应当根据实际需要使用当地通用的一种或者几种文字。
+
+* 第一百三十五条 人民法院、人民检察院和公安机关办理刑事案件，应当分工负责，互相配合，互相制约，以保证准确有效地执行法律。
+
+## 第四章 国旗、国歌、国徽、首都
+
+* 第一百三十六条 中华人民共和国国旗是五星红旗。
+
+  中华人民共和国国歌是《义勇军进行曲》。
+
+* 第一百三十七条 中华人民共和国国徽，中间是五星照耀下的天安门，周围是谷穗和齿轮。
+
+* 第一百三十八条 中华人民共和国首都是北京。
+*/
